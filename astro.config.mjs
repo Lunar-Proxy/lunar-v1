@@ -2,6 +2,6 @@ import { defineConfig } from 'astro/config';
 
 // https://astro.build/config
 export default defineConfig({
-    site: 'https://lunar.github.io',
+    site: 'https://bearcattt.github.io/Lunar/',
  
 });
