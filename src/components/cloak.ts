@@ -85,4 +85,13 @@ async function cloak(): Promise<void> {
   }
 }
 
-cloak();
+if (
+  localStorage.getItem("@lunar/clk/ab") === null ||
+  localStorage.getItem("@lunar/clk/ab") === "on"
+) {
+  cloak();
+} else {
+  console.info(
+    "AB Cloaking is disabled, you can turn it on by going into settings & enabling it.",
+  );
+}
