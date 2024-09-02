@@ -1,29 +1,29 @@
 {
-    "items": [
-      {
-        "favicon": "./img/drive.svg",
-        "title": "Home - Google Drive",
-        "redir": "https://drive.google.com/drive/u/0/home"
-      },
-      {
-        "favicon": "./img/classroom.svg",
-        "title": "Home",
-        "redir": "https://classroom.google.com/"
-      },
-      {
-        "favicon": "./img/powerschool.svg",
-        "title": "Grades & Attendance",
-        "redir": "https://www.powerschool.com/sign-in/"
-      },
-      {
-        "favicon": "./img/gmail.svg",
-        "title": "Gmail",
-        "redir": "https://mail.google.com/mail/u/1/#inbox"
-      },
-      {
-        "favicon": "./img/canva.svg",
-        "title": "Home - Canva",
-        "redir": "https://canva.com"
-      }
-    ]
+  "items": [
+    {
+      "favicon": "./favicon/drive.svg",
+      "title": "Home - Google Drive",
+      "redir": "https://drive.google.com/drive/u/0/home"
+    },
+    {
+      "favicon": "./favicon/classroom.svg",
+      "title": "Home",
+      "redir": "https://classroom.google.com/"
+    },
+    {
+      "favicon": "./favicon/powerschool.svg",
+      "title": "Grades & Attendance",
+      "redir": "https://www.powerschool.com/sign-in/"
+    },
+    {
+      "favicon": "./favicon/gmail.svg",
+      "title": "Gmail",
+      "redir": "https://mail.google.com/mail/u/1/#inbox"
+    },
+    {
+      "favicon": "./favicon/canva.svg",
+      "title": "Home - Canva",
+      "redir": "https://canva.com"
+    }
+  ]
 }
