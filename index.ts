@@ -33,7 +33,7 @@ if (fs.existsSync("./dist/server/entry.mjs")) {
     app.use(ssrHandler);
     console.log(chalk.green.bold("Successfully registered SSR handler."));
   } catch (e) {
-    console.error(chalk.red.bold("Failed to import SSR handler:", e));
+    console.error(chalk.yellow.bold("Failed to import SSR handler:", e));
   }
 } else {
   console.log(chalk.red.bold("SSR handler not found."));
