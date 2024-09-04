@@ -24,6 +24,11 @@
       "favicon": "./favicon/canva.svg",
       "title": "Home - Canva",
       "redir": "https://canva.com"
+    },
+        {
+      "favicon": "./favicon/docs.svg",
+      "title": "Google Docs",
+      "redir": "https://docs.google.com/document/u/0/"
     }
   ]
 }
