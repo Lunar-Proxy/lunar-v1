@@ -26,7 +26,7 @@
       "redir": "https://canva.com"
     },
         {
-      "favicon": "./favicon/docs.svg",
+      "favicon": "./favicon/Docs.svg",
       "title": "Google Docs",
       "redir": "https://docs.google.com/document/u/0/"
     }
