@@ -1,3 +1,5 @@
 const sval =  document.getElementById("sear") as HTMLFormElement;
 
-sval.form.submit()
+sval.addEventListener("submit", (e) => {
+
+}
