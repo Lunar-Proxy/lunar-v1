@@ -41,8 +41,8 @@ async function cloak(): Promise<void> {
         link.href = randomItem.favicon;
         document.head.appendChild(link);
         document.title = randomItem.title;
-        localStorage.setItem("@lunar/clk/title", randomItem.title);
-        localStorage.setItem("@lunar/clk/favicon", randomItem.favicon);
+        localStorage.setItem("@lunar/cloak/title", randomItem.title);
+        localStorage.setItem("@lunar/cloak/favicon", randomItem.favicon);
       }
 
       if (win) {
@@ -86,8 +86,8 @@ async function cloak(): Promise<void> {
 }
 
 if (
-  localStorage.getItem("@lunar/clk/ab") === null ||
-  localStorage.getItem("@lunar/clk/ab") === "on"
+  localStorage.getItem("@lunar/cloak/ab") === null ||
+  localStorage.getItem("@lunar/cloak/ab") === "on"
 ) {
   cloak();
 } else {

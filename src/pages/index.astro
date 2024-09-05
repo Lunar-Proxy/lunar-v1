@@ -1,14 +1,22 @@
 ---
-import Look from "../layouts/main.astro";
----
+import Searcheng from "../components/sengine";
 
+const Placeholder = `Enter an URL or search by query using ${Searcheng}`;
+
+---
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width" />
+<meta name="generator" content={Astro.generator} />
 <html>
   <head>
-    
     <script src="../components/cloak.ts" />
+    <script src="../components/main" />
+    <script src="../components/sengine" />
   </head>
+<h1>Lunar</h1>
+<form id="sear" method="post">
+  <input id="input" class=" w-96" type="text" placeholder={Placeholder} />
+</form>
   <body class="min-h-screen bg-gradient-to-b from-gray-100 to-gray-300">
-    <Look>
-    </Look>
   </body>
 </html>
