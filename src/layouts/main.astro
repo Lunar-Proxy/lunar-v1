@@ -1,3 +1,11 @@
 ---
+import Searcheng from "../components/sengine";
 
+const searchPlaceholder = `Enter an URL or search by query using ${Searcheng}`;
 ---
+
+<h1>Lunar</h1>
+<script type="module" src="../components/sengine" />
+<form method="post">
+  <input id="sear" class=" w-96" type="text" placeholder={searchPlaceholder} />
+</form>
