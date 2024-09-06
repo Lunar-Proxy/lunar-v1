@@ -1,4 +1,5 @@
 ---
+import Layout from "../layouts/main.astro"
 import Searcheng from "../utils/sengine";
 const Placeholder = `Enter an URL or search by query using ${Searcheng}`;
 ---
@@ -15,5 +16,8 @@ const Placeholder = `Enter an URL or search by query using ${Searcheng}`;
   <input id="input" class="" type="text" placeholder={Placeholder} />
 </form>
   <body class="min-h-screen bg-gradient-to-b from-gray-100 to-gray-300">
+    <Layout>
+      
+    </Layout>
   </body>
 </html>
