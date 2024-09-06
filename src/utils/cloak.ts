@@ -38,10 +38,12 @@ async function cloak(): Promise<void> {
           (document.querySelector("link[rel='icon']") as HTMLLinkElement) ||
           document.createElement("link");
         link.rel = "icon";
-        link.href = localStorage.getItem("@lunar/custom/favicon") || randomItem.favicon;
+        link.href =
+          localStorage.getItem("@lunar/custom/favicon") || randomItem.favicon;
         document.head.appendChild(link);
-        document.title = localStorage.getItem("@lunar/custom/title") || randomItem.title;
-      
+        document.title =
+          localStorage.getItem("@lunar/custom/title") || randomItem.title;
+
         localStorage.setItem("@lunar/cloak/title", randomItem.title);
         localStorage.setItem("@lunar/cloak/favicon", randomItem.favicon);
       }

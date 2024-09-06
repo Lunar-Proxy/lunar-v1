@@ -49,7 +49,7 @@ app.listen(port, (err, address) => {
     console.log(chalk.blue.bold("The following error happend", err));
   } else {
     console.log(chalk.blue.bold("Lunar is running on:"));
-    console.log(chalk.blue.bold('http://localhost:${port}'));
-    console.log(chalk.blue.bold('${address}'));
+    console.log(chalk.blue.bold("http://localhost:${port}"));
+    console.log(chalk.blue.bold("${address}"));
   }
 });

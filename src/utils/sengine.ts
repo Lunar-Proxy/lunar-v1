@@ -1,2 +1,2 @@
-const Searcheng = "google"
-export default Searcheng 
+const Searcheng = "google";
+export default Searcheng;
