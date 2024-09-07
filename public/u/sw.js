@@ -21,7 +21,7 @@
     ],
     E = ["GET", "HEAD"],
     g = class extends h.EventEmitter {
-      constructor(e = _config) {
+      constructor(e = config) {
         super(),
           e.prefix || (e.prefix = "/p/"),
           (this.config = e),
