@@ -21,7 +21,7 @@
     ],
     E = ["GET", "HEAD"],
     g = class extends h.EventEmitter {
-      constructor(e = __uv$config) {
+      constructor(e = _config) {
         super(),
           e.prefix || (e.prefix = "/service/"),
           (this.config = e),
