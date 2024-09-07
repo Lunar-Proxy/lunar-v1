@@ -2,7 +2,7 @@
 (() => {
   var h = self.Ultraviolet,
     A = self.UVClient,
-    R = self.__uv$config,
+    R = config,
     U = self.__uv$cookies;
   if (typeof U != "string")
     throw new TypeError("Unable to load global UV data");

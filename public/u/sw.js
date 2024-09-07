@@ -23,7 +23,7 @@
     g = class extends h.EventEmitter {
       constructor(e = _config) {
         super(),
-          e.prefix || (e.prefix = "/service/"),
+          e.prefix || (e.prefix = "/p/"),
           (this.config = e),
           (this.bareClient = new h.BareClient());
       }
