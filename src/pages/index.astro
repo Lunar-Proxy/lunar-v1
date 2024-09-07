@@ -5,14 +5,18 @@ const Placeholder: string = `Enter a URL or search by query using ${Searcheng}`;
 ---
 
 <script src="../utils/cloak.ts"></script>
-<script src="../utils/main"></script>
 <Main>
-  <h1 class="">Lunar</h1>
+  <h1 class="text-center w-full mt-0 text-5xl">Lunar</h1>
   <form
     id="sear"
     method="post"
     class="h-screen flex items-center justify-center"
   >
-    <input id="input" class="" type="text" placeholder={Placeholder} />
+    <input
+      id="input"
+      class="w-96 h-24 bg-slate-500 rounded-md"
+      type="text"
+      placeholder={Placeholder}
+    />
   </form>
 </Main>
