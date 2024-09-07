@@ -1,13 +1,13 @@
 ---
 import Main from "../layouts/main.astro";
 import Searcheng from "../utils/sengine";
-const Placeholder = `Enter an URL or search by query using ${Searcheng}`;
+const Placeholder: string = `Enter a URL or search by query using ${Searcheng}`;
 ---
 
 <script src="../utils/cloak.ts"></script>
 <script src="../utils/main"></script>
 <Main>
-  <h1>Lunar</h1>
+  <h1 class="">Lunar</h1>
   <form
     id="sear"
     method="post"

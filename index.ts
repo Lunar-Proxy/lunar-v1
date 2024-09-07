@@ -31,12 +31,12 @@ if (fs.existsSync("./dist/server/entry.mjs")) {
     const module = await import("./dist/server/entry.mjs");
     ssrHandler = module.handler;
     app.use(ssrHandler);
-    console.log(chalk.green.bold("Successfully registered SSR handler."));
+    console.log(chalk.green.bold("Successfully registered"));
   } catch (e) {
-    console.error(chalk.yellow.bold("Failed to import SSR handler:", e));
+    console.error(chalk.yellow.bold("Failed to import", e));
   }
 } else {
-  console.log(chalk.red.bold("SSR handler not found."));
+  console.log(chalk.red.bold("not found."));
   process.exit(1);
 }
 
@@ -49,7 +49,7 @@ app.listen(port, (err, address) => {
     console.log(chalk.blue.bold("The following error happend", err));
   } else {
     console.log(chalk.blue.bold("Lunar is running on:"));
-    console.log(chalk.blue.bold("http://localhost:${port}"));
-    console.log(chalk.blue.bold("${address}"));
+    console.log(chalk.blue.bold(`http://localhost:${port}`));
+    console.log(chalk.blue.bold(`${address}`));
   }
 });
