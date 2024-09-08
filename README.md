@@ -1,4 +1,5 @@
 # Solar
+This proxy in beta, except changes 
 ## Deploying 
 
 ### Ternimal
