@@ -1,6 +1,6 @@
 async function getData(): Promise<any | null> {
   try {
-    const response = await fetch("./json/tbs.json");
+    const response = await fetch("./assets/json/tbs.json");
     if (!response.ok) {
       alert("File not found");
       return null;

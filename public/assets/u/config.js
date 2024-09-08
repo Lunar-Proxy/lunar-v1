@@ -19,10 +19,10 @@ const config = {
     }
     return result + (search.length ? "?" + search.join("?") : "");
   },
-  handler: "/u/handler.js",
-  client: "/u/client.js",
-  bundle: "/u/bundle.js",
-  config: "/u/config.js",
-  sw: "/u/sw.js",
+  handler: "./assets/u/handler.js",
+  client: "./assets/u/client.js",
+  bundle: "./assets/u/bundle.js",
+  config: "./assets/u/config.js",
+  sw: "./assets/u/sw.js",
 };
 self.__uv$config = config;
