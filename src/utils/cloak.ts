@@ -43,9 +43,8 @@ async function cloak(): Promise<void> {
         document.head.appendChild(link);
         document.title =
           localStorage.getItem("@lunar/custom/title") || randomItem.title;
-
-        localStorage.setItem("@lunar/cloak/title", randomItem.title);
-        localStorage.setItem("@lunar/cloak/favicon", randomItem.favicon);
+        localStorage.setItem("@lunar/cloak/title", document.title);
+        localStorage.setItem("@lunar/cloak/favicon", link.href)
       }
 
       if (win) {
