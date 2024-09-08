@@ -1,8 +1,8 @@
 # Solar
-This proxy in beta, except changes 
+This proxy is in beta, except for changes before the final release.
 ## Deploying 
 
-### Ternimal
+### Terminal
 
 ``` 
 npm install
