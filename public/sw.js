@@ -1,6 +1,6 @@
-importScripts("./u/bundle.js");
-importScripts("./u/config.js");
-importScripts(config.sw || "./u/sw.js");
+importScripts("./assets/u/bundle.js");
+importScripts("./assets/u/config.js");
+importScripts(config.sw || "./assets/u/sw.js");
 const uv = new UVServiceWorker();
 self.addEventListener("fetch", function (event) {
   if (event.request.url.startsWith(location.origin + config)) {
