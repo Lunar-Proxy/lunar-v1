@@ -25,3 +25,4 @@ const config = {
   config: "/u/config.js",
   sw: "/u/sw.js",
 };
+self.__uv$config = config;
