@@ -14,7 +14,7 @@ npm run build
 npm start
 ```
 
-for pmpn
+for pnpm
 
 ```
 pnpm install
