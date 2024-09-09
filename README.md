@@ -22,7 +22,7 @@ pnpm build
 pnpm start
 ```
 
-#### Development
+### Development
 
 ```
 npm install
