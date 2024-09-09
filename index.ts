@@ -31,17 +31,9 @@ await app.register(fastifyMiddie);
 
 let ssrHandler;
 if (fs.existsSync("./dist/server/entry.mjs")) {
-  try {
     const module = await import("./dist/server/entry.mjs");
     ssrHandler = module.handler;
     app.use(ssrHandler);
-    console.log(chalk.green.bold("Successfully registered"));
-  } catch (e) {
-    console.error(chalk.yellow.bold("Failed to import", e));
-  }
-} else {
-  console.log(chalk.red.bold("not found."));
-  process.exit(1);
 }
 
 await app.register(fastifyStatic, {
