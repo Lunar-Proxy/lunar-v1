@@ -5,7 +5,7 @@ const wispUrl: string =
   (location.protocol === "https:" ? "wss" : "ws") +
   "://" +
   location.host +
-  "/w/";
+  "/wisp/";
 
 if ((await connection.getTransport()) !== "/e/index.mjs") {
   await connection.setTransport("/e/index.mjs", [{ wisp: wispUrl }]);
