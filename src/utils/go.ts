@@ -1,21 +1,27 @@
-document.title =
-  localStorage.getItem("@lunar/cloak/title") || "Home - Google Drive";
-let link: HTMLLinkElement =
-  (document.querySelector("link[rel='icon']") as HTMLLinkElement) ||
-  document.createElement("link");
-link.rel = "icon";
-link.href =
-  localStorage.getItem("@lunar/cloak/favicon") || "./assets/favicon/drive.svg";
-document.head.appendChild(link);
-const iframe = document.createElement("iframe") as HTMLIFrameElement;
-const gourl = localStorage.getItem("@lunar/gourl") as string;
-iframe.style.height = "100vh";
-iframe.style.width = "100vw";
-iframe.src = gourl;
+import BareMuxConnection from "@mercuryworkshop/bare-mux";
 
-iframe.addEventListener("load", LFinish);
+const connection = new BareMuxConnection("/b/worker.js");
+const wispUrl: string =
+  (location.protocol === "https:" ? "wss" : "ws") +
+  "://" +
+  location.host +
+  "/w/";
 
-function LFinish() {
-  const loading = document.getElementById("loading")!;
-  loading.style.display = "none";
+if ((await connection.getTransport()) !== "/e/index.mjs") {
+  await connection.setTransport("/e/index.mjs", [{ wisp: wispUrl }]);
 }
+
+window.addEventListener('DOMContentLoaded', () => {
+  const iframe = document.createElement('iframe');
+  iframe.src = localStorage.getItem('@lunar/gourl') || 'https://google.com';
+  iframe.style.height = '100vh';
+  iframe.style.width = '100vw';
+  document.body.appendChild(iframe);
+
+  iframe.addEventListener('load', () => {
+    const loadingDiv = document.getElementById('loading');
+    if (loadingDiv) {
+      loadingDiv.style.display = 'none';
+    }
+  });
+});
