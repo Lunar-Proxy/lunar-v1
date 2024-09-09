@@ -7,15 +7,19 @@ import { fileURLToPath } from "node:url";
 import { exec } from "child_process";
 import { promisify } from "node:util";
 import chalk from "chalk";
+import { createServer } from "node:http";
 
 const execPromise = promisify(exec);
 const port = "8080" as string;
-const app = Fastify({ logger: false });
+// fastify config options
+const app = Fastify({
+  logger: false,
+});
 
 if (!fs.existsSync("dist")) {
   try {
     console.log(chalk.blue.bold("Dist not found, building..."));
-    await execPromise("npm run build");
+    await execPromise("pnpm build");
     console.log(chalk.green.bold("Dist successfully built!"));
   } catch (e) {
     console.log(chalk.red.bold("Unable to build dist folder", e));

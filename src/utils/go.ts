@@ -7,4 +7,15 @@ link.rel = "icon";
 link.href =
   localStorage.getItem("@lunar/cloak/favicon") || "./assets/favicon/drive.svg";
 document.head.appendChild(link);
-const iframe: HTMLElement = document.createElement("iframe");
+const iframe = document.createElement("iframe") as HTMLIFrameElement;
+const gourl = localStorage.getItem("@lunar/gourl") as string;
+iframe.style.height = "100vh";
+iframe.style.width = "100vw";
+iframe.src = gourl;
+
+iframe.addEventListener("load", LFinish);
+
+function LFinish() {
+  const loading = document.getElementById("loading")!;
+  loading.style.display = "none";
+}
