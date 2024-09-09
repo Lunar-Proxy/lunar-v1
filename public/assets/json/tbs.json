@@ -29,6 +29,12 @@
       "favicon": "./assets/favicon/docs.svg",
       "title": "Google Docs",
       "redir": "https://docs.google.com/document/u/0/"
+    },
+    {
+    "favicon": "./assets/favicon/wiki.svg",
+    "title": "Wikipedia, the free encyclopedia",
+     "redir": "https://en.wikipedia.org/wiki/Main_Page"
     }
+
   ]
 }
