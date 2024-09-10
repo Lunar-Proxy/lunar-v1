@@ -31,9 +31,9 @@ await app.register(fastifyMiddie);
 
 let ssrHandler;
 if (fs.existsSync("./dist/server/entry.mjs")) {
-    const module = await import("./dist/server/entry.mjs");
-    ssrHandler = module.handler;
-    app.use(ssrHandler);
+  const module = await import("./dist/server/entry.mjs");
+  ssrHandler = module.handler;
+  app.use(ssrHandler);
 }
 
 await app.register(fastifyStatic, {
