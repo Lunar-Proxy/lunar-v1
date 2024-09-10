@@ -4,8 +4,9 @@ import { LoaderCircle } from "lucide-astro";
 <script is:inline src="/b/index.js" defer></script>
 <script is:inline src="./assets/u/bundle.js" defer></script>
 <script is:inline src="./assets/u/config.js" defer></script>
+<script src="../utils/main.ts"
   <body class="bg-gray-600"></body>
   <div id="loading" class="h-screen flex flex-col items-center justify-center">
     <LoaderCircle class="w-8 h-8 animate-spin" />
-    <p class="mt-4 text-center">Please wait while Lunar loads your content.</p>
+    <p class="mt-4 text-center">Please wait while Lunar loads your content. Having issues? <a class="main__btn" href="https://github.com/Lunar-Services/Lunar/issues/new/choose">Make a github issue!</a></p>
   </div>
