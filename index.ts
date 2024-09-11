@@ -19,7 +19,7 @@ const app = Fastify({
 if (!fs.existsSync("dist")) {
   try {
     console.log(chalk.blue.bold("Dist not found, building..."));
-    await execPromise("pnpm build");
+    await execPromise("npm run build");
     console.log(chalk.green.bold("Dist successfully built!"));
   } catch (e) {
     console.log(chalk.red.bold("Unable to build dist folder", e));
