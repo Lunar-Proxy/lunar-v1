@@ -21,12 +21,14 @@ fm.addEventListener("submit", (event) => {
   const urlPattern =
     /^(https?:\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(:\d+)?(\/.*)?$/;
   if (urlPattern.test(value)) {
+    // @ts-ignore
     localStorage.setItem("@lunar/gourl", "/p/" + config.encodeUrl(value));
     window.location.href = "./go";
   } else {
     localStorage.setItem(
       "@lunar/gourl",
       "/p/" +
+        // @ts-ignore
         config.encodeUrl(
           `https://www.google.com/search?q=${encodeURIComponent(value)}`,
         ),
