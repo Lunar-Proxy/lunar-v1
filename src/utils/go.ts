@@ -11,12 +11,13 @@ window.addEventListener("DOMContentLoaded", () => {
   document.head.appendChild(link);
   const iframe = document.createElement("iframe") as HTMLIFrameElement;
   try {
-    iframe.src = localStorage.getItem("@lunar/gourl") || "https://google.com";
+    iframe.src =
+      localStorage.getItem("@lunar/gourl") || "/p/hvtrs8%2F-Gmoelg.aoo";
   } catch (e) {
     console.error("unable to load your content, please try again later", e);
     alert("An error occured trying to load your content" + e);
   }
-  iframe.style.height = "100vh" as string;
+  iframe.style.height = "100vh";
   iframe.style.width = "100vw";
   document.body.appendChild(iframe);
 

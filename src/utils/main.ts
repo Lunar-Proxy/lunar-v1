@@ -13,14 +13,24 @@ if ("serviceWorker" in navigator) {
       );
   });
 }
-
 const fm = document.getElementById("sear") as HTMLFormElement;
 const input = document.getElementById("input") as HTMLInputElement;
 fm.addEventListener("submit", (event) => {
   event.preventDefault();
-  localStorage.setItem(
-    "@lunar/gourl",
-    "/p/" + config.encodeUrl(input.value.trim()),
-  );
-  window.location.href = "./go";
+  const value = input.value.trim() as string;
+  const urlPattern =
+    /^(https?:\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(:\d+)?(\/.*)?$/;
+  if (urlPattern.test(value)) {
+    localStorage.setItem("@lunar/gourl", "/p/" + config.encodeUrl(value));
+    window.location.href = "./go";
+  } else {
+    localStorage.setItem(
+      "@lunar/gourl",
+      "/p/" +
+        config.encodeUrl(
+          `https://www.google.com/search?q=${encodeURIComponent(value)}`,
+        ),
+    );
+    window.location.href = "./go";
+  }
 });
