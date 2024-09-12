@@ -1,19 +1,16 @@
-importScripts("./assets/u/bundle.js");
-importScripts("./assets/u/config.js");
-importScripts(config.sw || "./assets/u/sw.js");
+
+importScripts('./assets/u/bundle.js');
+importScripts('./assets/u/config.js');
+importScripts(config.sw || './assets/u/sw.js');
 const uv = new UVServiceWorker();
-self.addEventListener("fetch", function (event) {
-  if (event.request.url.startsWith(location.origin + config)) {
-    event.respondWith(
-      (async function () {
+async function handleRequest(event) {
+    if (uv.route(event)) {
         return await uv.fetch(event);
-      })(),
-    );
-  } else {
-    event.respondWith(
-      (async function () {
-        return await fetch(event.request);
-      })(),
-    );
-  }
+    }
+    
+    return await fetch(event.request)
+}
+
+self.addEventListener('fetch', (event) => {
+    event.respondWith(handleRequest(event));
 });
