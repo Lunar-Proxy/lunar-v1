@@ -24,5 +24,13 @@ const config = {
   bundle: "./assets/u/bundle.js",
   config: "./assets/u/config.js",
   sw: "./assets/u/sw.js",
+  inject: [{
+    host: "discord.com",
+    html: `
+    <script src="https://raw.githubusercontent.com/Vencord/builds/main/browser.js"></script>
+      <link rel="stylesheet" href="https://raw.githubusercontent.com/Vencord/builds/main/browser.css">
+      `,
+    injectAt: "head",
+}]
 };
 self.__uv$config = config;
