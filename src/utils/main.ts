@@ -14,8 +14,8 @@ if ("serviceWorker" in navigator) {
   });
 }
 
-const fm = document.getElementById("sear");
-const input = document.getElementById("input");
+const fm = document.getElementById("sear") as HTMLFormElement;
+const input = document.getElementById("input") as HTMLInputElement;
 fm.addEventListener("submit", (event) => {
   event.preventDefault();
   localStorage.setItem(

@@ -10,7 +10,12 @@ window.addEventListener("DOMContentLoaded", () => {
     "./assets/favicon/drive.svg";
   document.head.appendChild(link);
   const iframe = document.createElement("iframe") as HTMLIFrameElement;
-  iframe.src = localStorage.getItem("@lunar/gourl") || "https://google.com";
+  try {
+    iframe.src = localStorage.getItem("@lunar/gourl") || "https://google.com";
+  } catch (e) {
+    console.error("unable to load your content, please try again later", e);
+    alert("An error occured trying to load your content" + e);
+  }
   iframe.style.height = "100vh" as string;
   iframe.style.width = "100vw";
   document.body.appendChild(iframe);
