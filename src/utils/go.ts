@@ -21,9 +21,19 @@ window.addEventListener("DOMContentLoaded", () => {
     iframe.src = gourl;
     iframe.style.height = "100vh";
     iframe.style.width = "100vw";
-    iframe.sandbox.add("allow-same-origin", "allow-downloads", "allow-scripts", "allow-forms", "allow-modals", "allow-popups", "allow-orientation-lock", "allow-pointer-lock", "allow-presentation")
+    iframe.sandbox.add(
+      "allow-same-origin",
+      "allow-downloads",
+      "allow-scripts",
+      "allow-forms",
+      "allow-modals",
+      "allow-popups",
+      "allow-orientation-lock",
+      "allow-pointer-lock",
+      "allow-presentation",
+    );
     document.body.appendChild(iframe);
-   
+
     iframe.addEventListener("load", () => {
       const loadingDiv = document.getElementById("loading");
       if (loadingDiv) {
