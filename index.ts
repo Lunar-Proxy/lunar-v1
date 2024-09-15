@@ -7,13 +7,15 @@ import { fileURLToPath } from "node:url";
 import { exec } from "child_process";
 import { promisify } from "node:util";
 import chalk from "chalk";
-import { createServer } from "node:http";
 
 const execPromise = promisify(exec);
-const port = "8080" as string;
-// fastify config options
+const port = 8080;
+
+// Fastify config options
 const app = Fastify({
-  logger: false,
+  ignoreDuplicateSlashes: true,
+  ignoreTrailingSlash: true,
+  logger: false, // set to true to enable logs
 });
 
 if (!fs.existsSync("dist")) {
@@ -22,7 +24,7 @@ if (!fs.existsSync("dist")) {
     await execPromise("npm run build");
     console.log(chalk.green.bold("Dist successfully built!"));
   } catch (e) {
-    console.log(chalk.red.bold("Unable to build dist folder", e));
+    console.error(chalk.red.bold("Unable to build dist folder", e));
     process.exit(1);
   }
 }
@@ -42,7 +44,7 @@ await app.register(fastifyStatic, {
 
 app.listen(port, (err, address) => {
   if (err) {
-    console.log(chalk.blue.bold("The following error happend", err));
+    console.error(chalk.red.bold("The following error happened", err));
   } else {
     console.log(chalk.blue.bold("Lunar is running on:"));
     console.log(chalk.blue.bold(`http://localhost:${port}`));
