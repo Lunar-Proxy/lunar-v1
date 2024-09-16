@@ -1,31 +1,34 @@
-// Register the service worker if supported
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", () => {
     navigator.serviceWorker
       .register("./sw.js", { scope: "/p/" })
       .then(({ scope }) =>
-        console.log("Service Worker registered with scope:", scope),
+        console.log(
+          "Successfully registered Service Workers with scope:",
+          scope,
+        ),
       )
       .catch((error) =>
-        console.error("Service Worker registration failed:", error),
+        console.error("Failed to register Service Worker:", error),
       );
   });
 }
 
-// Get form and input elements
-const form = document.getElementById("sear") as HTMLFormElement;
+const fm = document.getElementById("sear") as HTMLFormElement;
 const input = document.getElementById("input") as HTMLInputElement;
+const urlPattern =
+  /^(https?:\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(:\d+)?(\/.*)?$/;
 
-// Handle form submission
-form.addEventListener("submit", (event) => {
+fm.addEventListener("submit", (event) => {
   event.preventDefault();
+  const value = input.value.trim();
 
-  const inputValue = input.value.trim();
-  const url = /^(https?:\/\/)/.test(inputValue)
-    ? inputValue
-    : /^https?:\/\/.+$/.test(`https://${inputValue}`)
-      ? `https://${inputValue}`
-      : `https://www.google.com/search?q=${encodeURIComponent(inputValue)}`;
+  let url;
+  if (urlPattern.test(value)) {
+    url = value;
+  } else {
+    url = `https://www.google.com/search?q=${encodeURIComponent(value)}`;
+  }
   // @ts-ignore
   localStorage.setItem("@lunar/gourl", `/p/${config.encodeUrl(url)}`);
   window.location.href = "./go";
