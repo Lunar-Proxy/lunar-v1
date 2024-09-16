@@ -6,17 +6,16 @@ const Placeholder = "test";
 <script src="../utils/main.ts"></script>
 <script src="../utils/cloak.ts"></script>
 <Main>
-  <h1 class="text-center w-full mt-0 text-5xl">Lunar</h1>
-  <form
-    id="sear"
-    method="post"
-    class="h-screen flex items-center justify-center"
-  >
-    <input
-      id="input"
-      class="w-96 h-8 rounded-md border-gray-700 border-2 text-center"
-      type="text"
-      placeholder={Placeholder}
-    />
-  </form>
+  <div class="flex items-center justify-center h-screen">
+    <div class="text-center">
+      <h1 class="mt-0 text-5xl">Lunar</h1>
+      <form id="sear" method="post" class="flex justify-center mt-40"></form>
+      <input
+        id="input"
+        class="w-96 h-12 rounded-md border-gray-700 border-2 text-center"
+        type="text"
+        placeholder={Placeholder}
+      />
+    </div>
+  </div>
 </Main>
