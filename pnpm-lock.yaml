@@ -13,10 +13,10 @@ importers:
         version: 0.9.3(prettier-plugin-astro@0.14.1)(prettier@3.3.3)(typescript@5.6.2)
       '@astrojs/node':
         specifier: ^8.3.3
-        version: 8.3.3(astro@4.15.4(@types/node@22.5.5)(rollup@4.21.2)(typescript@5.6.2))
+        version: 8.3.3(astro@4.15.6(@types/node@22.5.5)(rollup@4.21.2)(typescript@5.6.2))
       '@astrojs/tailwind':
         specifier: ^5.1.0
-        version: 5.1.0(astro@4.15.4(@types/node@22.5.5)(rollup@4.21.2)(typescript@5.6.2))(tailwindcss@3.4.11)
+        version: 5.1.0(astro@4.15.6(@types/node@22.5.5)(rollup@4.21.2)(typescript@5.6.2))(tailwindcss@3.4.11)
       '@fastify/middie':
         specifier: ^8.3.2
         version: 8.3.3
@@ -24,11 +24,11 @@ importers:
         specifier: ^7.0.4
         version: 7.0.4
       '@types/node':
-        specifier: ^22.5.5
+        specifier: ^22.5.2
         version: 22.5.5
       astro:
-        specifier: ^4.15.1
-        version: 4.15.4(@types/node@22.5.5)(rollup@4.21.2)(typescript@5.6.2)
+        specifier: ^4.15.6
+        version: 4.15.6(@types/node@22.5.5)(rollup@4.21.2)(typescript@5.6.2)
       chalk:
         specifier: ^5.3.0
         version: 5.3.0
@@ -37,7 +37,7 @@ importers:
         version: 4.28.1
       lucide-astro:
         specifier: ^0.441.0
-        version: 0.441.0(astro@4.15.4(@types/node@22.5.5)(rollup@4.21.2)(typescript@5.6.2))
+        version: 0.441.0(astro@4.15.6(@types/node@22.5.5)(rollup@4.21.2)(typescript@5.6.2))
       tailwindcss:
         specifier: ^3.4.11
         version: 3.4.11
@@ -45,7 +45,7 @@ importers:
         specifier: ^4.19.1
         version: 4.19.1
       typescript:
-        specifier: ^5.6.2
+        specifier: ^5.5.4
         version: 5.6.2
     devDependencies:
       prettier:
@@ -925,8 +925,8 @@ packages:
   array-iterate@2.0.1:
     resolution: {integrity: sha512-I1jXZMjAgCMmxT4qxXfPXa6SthSoE8h6gkSI9BGGNv8mP8G/v0blc+qFnZu6K42vTOiuME596QaLO0TP3Lk0xg==}
 
-  astro@4.15.4:
-    resolution: {integrity: sha512-wqy+m3qygt9DmCSqMsckxyK4ccCUFtti2d/WlLkEpAlqHgyDIg20zRTLHO2v/H4YeSlJ8sAcN0RW2FhOeYbINg==}
+  astro@4.15.6:
+    resolution: {integrity: sha512-SWcUNwm8CiVRaIbh4w5byh62BNihpsovlCd4ElvC7cL/53D24HcI7AaGFsPrromCamQklwQmIan/QS7x/3lLuQ==}
     engines: {node: ^18.17.1 || ^20.3.0 || >=21.0.0, npm: '>=9.6.5', pnpm: '>=7.1.0'}
     hasBin: true
 
@@ -2673,9 +2673,9 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@astrojs/node@8.3.3(astro@4.15.4(@types/node@22.5.5)(rollup@4.21.2)(typescript@5.6.2))':
+  '@astrojs/node@8.3.3(astro@4.15.6(@types/node@22.5.5)(rollup@4.21.2)(typescript@5.6.2))':
     dependencies:
-      astro: 4.15.4(@types/node@22.5.5)(rollup@4.21.2)(typescript@5.6.2)
+      astro: 4.15.6(@types/node@22.5.5)(rollup@4.21.2)(typescript@5.6.2)
       send: 0.18.0
       server-destroy: 1.0.1
     transitivePeerDependencies:
@@ -2685,9 +2685,9 @@ snapshots:
     dependencies:
       prismjs: 1.29.0
 
-  '@astrojs/tailwind@5.1.0(astro@4.15.4(@types/node@22.5.5)(rollup@4.21.2)(typescript@5.6.2))(tailwindcss@3.4.11)':
+  '@astrojs/tailwind@5.1.0(astro@4.15.6(@types/node@22.5.5)(rollup@4.21.2)(typescript@5.6.2))(tailwindcss@3.4.11)':
     dependencies:
-      astro: 4.15.4(@types/node@22.5.5)(rollup@4.21.2)(typescript@5.6.2)
+      astro: 4.15.6(@types/node@22.5.5)(rollup@4.21.2)(typescript@5.6.2)
       autoprefixer: 10.4.20(postcss@8.4.45)
       postcss: 8.4.45
       postcss-load-config: 4.0.2(postcss@8.4.45)
@@ -3402,7 +3402,7 @@ snapshots:
 
   array-iterate@2.0.1: {}
 
-  astro@4.15.4(@types/node@22.5.5)(rollup@4.21.2)(typescript@5.6.2):
+  astro@4.15.6(@types/node@22.5.5)(rollup@4.21.2)(typescript@5.6.2):
     dependencies:
       '@astrojs/compiler': 2.10.3
       '@astrojs/internal-helpers': 0.4.1
@@ -4162,9 +4162,9 @@ snapshots:
     dependencies:
       yallist: 3.1.1
 
-  lucide-astro@0.441.0(astro@4.15.4(@types/node@22.5.5)(rollup@4.21.2)(typescript@5.6.2)):
+  lucide-astro@0.441.0(astro@4.15.6(@types/node@22.5.5)(rollup@4.21.2)(typescript@5.6.2)):
     dependencies:
-      astro: 4.15.4(@types/node@22.5.5)(rollup@4.21.2)(typescript@5.6.2)
+      astro: 4.15.6(@types/node@22.5.5)(rollup@4.21.2)(typescript@5.6.2)
 
   magic-string@0.30.11:
     dependencies:
