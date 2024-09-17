@@ -19,6 +19,9 @@ export default {
         ".color-head": {
           color: "#c6d0f5",
         },
+        ".color-ph::placeholder": {
+          color: "#c6d0f5",
+        },
       });
     },
   ],

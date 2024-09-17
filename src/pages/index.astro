@@ -1,4 +1,5 @@
 ---
+import {Gamepad, Cog} from "lucide-astro"
 import Main from "../layouts/main.astro";
 const Placeholder = "test";
 ---
@@ -6,13 +7,15 @@ const Placeholder = "test";
 <script src="../utils/main.ts"></script>
 <script src="../utils/cloak.ts"></script>
 <Main>
+<Gamepad class="absolute h-7 w-7 top-2 left-2 color-head"/>
+<Cog class="absolute h-7 w-7 top-2 right-2 color-head"/>
   <div class="flex items-center justify-center h-screen">
     <div class="text-center">
-      <h1 class="mt-0 text-5xl">Lunar</h1>
+      <h1 class="color-head mt-0 text-5xl">Lunar</h1>
       <form id="sear" method="post" class="flex justify-center mt-40">
         <input
           id="input"
-          class="w-96 h-12 rounded-md border-gray-700 border-2 text-center"
+          class="color-ph w-96 h-12 rounded-md border-gray-700 border-2 text-center"
           type="text"
           placeholder={Placeholder}
         />
