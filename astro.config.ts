@@ -4,7 +4,7 @@ import tailwind from "@astrojs/tailwind";
 
 export default defineConfig({
   output: "hybrid",
-
+   trailingSlash: "always",
   adapter: node({
     mode: "middleware",
   }),
