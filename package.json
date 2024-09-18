@@ -14,7 +14,7 @@
     "@astrojs/check": "^0.9.3",
     "@astrojs/node": "^8.3.3",
     "@astrojs/tailwind": "^5.1.0",
-    "@fastify/middie": "^8.3.2",
+    "@fastify/middie": "^9.0.1",
     "@fastify/static": "^7.0.4",
     "@types/node": "^22.5.2",
     "astro": "^4.15.7",
