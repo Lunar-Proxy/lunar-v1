@@ -17,7 +17,7 @@
     "@fastify/middie": "^8.3.2",
     "@fastify/static": "^7.0.4",
     "@types/node": "^22.5.2",
-    "astro": "^4.15.6",
+    "astro": "^4.15.7",
     "chalk": "^5.3.0",
     "fastify": "^4.28.1",
     "lucide-astro": "^0.441.0",
