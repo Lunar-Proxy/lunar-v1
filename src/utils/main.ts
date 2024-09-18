@@ -20,7 +20,7 @@ const regex = /^(https?:\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(:\d+)?(\/.*)?$/;
 fm.addEventListener("submit", (event) => {
   event.preventDefault();
   let value = input.value.trim();
- let url = "";
+  let url = "";
   if (regex.test(value)) {
     if (!/^https?:\/\//i.test(url)) {
       url = `https://${value}`;

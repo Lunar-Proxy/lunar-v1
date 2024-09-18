@@ -1,17 +1,32 @@
 ---
-import {Gamepad, Cog} from "lucide-astro"
+import { Gamepad, Cog } from "lucide-astro";
 import Main from "../layouts/main.astro";
-const Placeholder = "test";
+let Placeholder = "unidentified";
 ---
 
-<script src="../utils/main.ts"></script>
-<script src="../utils/cloak.ts"></script>
+<script type="module" src="../utils/main.ts"></script>
+<script type="module" src="../utils/cloak.ts"></script>
+
 <Main>
-<Gamepad class="absolute h-7 w-7 top-2 left-2 color-head"/>
-<Cog class="absolute h-7 w-7 top-2 right-2 color-head"/>
+  <!-- Games -->
+  <div class="relative group">
+    <Gamepad class="absolute h-7 w-7 top-2 left-2 color-head" />
+    <div class="tooltip left-2 top-10">Games</div>
+  </div>
+
+  <!-- Settings -->
+  <div class="relative group">
+    <Cog class="absolute h-7 w-7 top-2 right-2 color-head" />
+    <div class="tooltip right-2 top-10">Settings</div>
+  </div>
+
   <div class="flex items-center justify-center h-screen">
     <div class="text-center">
-      <h1 class="color-head mt-0 text-5xl">Lunar</h1>
+      <h1
+        class="mt-0 text-5xl color-head font-bold text-shadow-bubble text-shadow-bubble-blur"
+      >
+        Lunar
+      </h1>
       <form id="sear" method="post" class="flex justify-center mt-40">
         <input
           id="input"
@@ -23,3 +38,8 @@ const Placeholder = "test";
     </div>
   </div>
 </Main>
+
+<script>
+  const inputElement = document.getElementById("input") as HTMLInputElement;
+  inputElement.placeholder = `Search with a search query using ${localStorage.getItem("@lunar/settings/se") || "Google"} or enter a URL`;
+</script>
