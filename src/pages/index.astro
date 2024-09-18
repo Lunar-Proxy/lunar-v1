@@ -1,29 +1,16 @@
 ---
-import { Gamepad, Cog } from "lucide-astro";
 import Main from "../layouts/main.astro";
 let Placeholder = "unidentified";
 ---
 
-<script type="module" src="../utils/main.ts"></script>
-<script type="module" src="../utils/cloak.ts"></script>
+<script src="../utils/main.ts"></script>
+<script src="../utils/cloak.ts"></script>
 
 <Main>
-  <!-- Games -->
-  <div class="relative group">
-    <Gamepad class="absolute h-7 w-7 top-2 left-2 color-head" />
-    <div class="tooltip left-2 top-10">Games</div>
-  </div>
-
-  <!-- Settings -->
-  <div class="relative group">
-    <Cog class="absolute h-7 w-7 top-2 right-2 color-head" />
-    <div class="tooltip right-2 top-10">Settings</div>
-  </div>
-
   <div class="flex items-center justify-center h-screen">
     <div class="text-center">
       <h1
-        class="mt-0 text-5xl color-head font-bold text-shadow-bubble text-shadow-bubble-blur"
+        class="mt-0 text-6xl color-head font-bold text-shadow-bubble text-shadow-bubble-blur"
       >
         Lunar
       </h1>
