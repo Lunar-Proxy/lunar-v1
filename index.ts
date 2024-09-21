@@ -34,7 +34,7 @@ await app.register(import("@fastify/compress"), {
 });
 let Handler;
 if (fs.existsSync("./dist/server/entry.mjs")) {
-  // @ts-expect-error
+  // @ts-ignore
   const module = await import("./dist/server/entry.mjs");
   Handler = module.handler;
   app.use(Handler);

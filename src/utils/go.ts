@@ -13,26 +13,25 @@ if ("serviceWorker" in navigator) {
       );
   });
 }
+const titl =
+  localStorage.getItem("@lunar/cloak/title") || "Home - Google Drive";
+const favi =
+  localStorage.getItem("@lunar/cloak/favicon") || "./assets/favicon/drive.svg";
 
+document.title = titl;
+
+let link: HTMLLinkElement =
+  (document.querySelector("link[rel='icon']") as HTMLLinkElement) ||
+  document.createElement("link");
+link.rel = "icon";
+link.href = favi;
+document.head.appendChild(link);
+
+const loadingDiv = document.getElementById("loading");
 const iframe = document.createElement("iframe");
+
 window.addEventListener("DOMContentLoaded", () => {
-  const titl =
-    localStorage.getItem("@lunar/cloak/title") || "Home - Google Drive";
-  const favi =
-    localStorage.getItem("@lunar/cloak/favicon") ||
-    "./assets/favicon/drive.svg";
-  const gourl =
-    localStorage.getItem("@lunar/gourl") || "/p/hvtrs8%2F-Gmoelg.aoo";
-
-  document.title = titl;
-
-  let link: HTMLLinkElement =
-    (document.querySelector("link[rel='icon']") as HTMLLinkElement) ||
-    document.createElement("link");
-  link.rel = "icon";
-  link.href = favi;
-  document.head.appendChild(link);
-
+  let gourl = localStorage.getItem("@lunar/gourl") || "/p/hvtrs8%2F-Gmoelg.aoo";
   if (iframe) {
     iframe.src = gourl;
     iframe.style.height = "100vh";
@@ -51,7 +50,6 @@ window.addEventListener("DOMContentLoaded", () => {
     document.body.appendChild(iframe);
 
     iframe.addEventListener("load", () => {
-      const loadingDiv = document.getElementById("loading");
       if (loadingDiv) {
         loadingDiv.style.display = "none";
       }
@@ -60,10 +58,16 @@ window.addEventListener("DOMContentLoaded", () => {
 });
 
 iframe.contentWindow!.open = (url: string): Window | null => {
-  const encodedUrl = config.encodeUrl(url);
+  let encodedUrl = config.encodeUrl(url);
   sessionStorage.setItem("@lunar/gourl", `/p/${encodedUrl}`);
   Updateurl();
   return null;
 };
 
-function Updateurl() {}
+function Updateurl() {
+  if (loadingDiv) {
+    loadingDiv.style.display = "block";
+  }
+
+  iframe.src = localStorage.getItem("@lunar/gourl") || "";
+}

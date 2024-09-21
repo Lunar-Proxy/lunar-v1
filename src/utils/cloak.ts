@@ -2,7 +2,7 @@ async function getData(): Promise<any | null> {
   try {
     const response = await fetch("./assets/json/tbs.json");
     if (!response.ok) {
-      alert("File not found");
+      console.error("File not found");
       return null;
     }
     const jsonData = await response.json();
@@ -81,7 +81,7 @@ async function cloak(): Promise<void> {
           location.replace(randomItem.redir);
         }
       } else {
-        throw new Error("Failed to open the new window.");
+        console.error("Failed to open the new window.");
       }
     }
   }

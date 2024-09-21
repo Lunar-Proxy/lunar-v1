@@ -28,7 +28,23 @@ import { Gamepad, Cog } from "lucide-astro";
       </div>
     </nav>
 
-    <script></script>
+    <script>
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+          navigator.serviceWorker
+            .register("./sw.js", { scope: "/p/" })
+            .then(({ scope }) =>
+              console.info(
+                "Successfully registered Service Workers with scope:",
+                scope,
+              ),
+            )
+            .catch((error) =>
+              console.error("Failed to register Service Worker:", error),
+            );
+        });
+      }
+    </script>
     <slot />
   </body>
 </html>
