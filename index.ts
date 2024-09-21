@@ -29,8 +29,12 @@ if (!fs.existsSync("dist")) {
 
 await app.register(fastifyMiddie);
 
+await app.register(import("@fastify/compress"), {
+  encodings: ["deflate", "gzip", "br"],
+});
 let Handler;
 if (fs.existsSync("./dist/server/entry.mjs")) {
+  // @ts-expect-error
   const module = await import("./dist/server/entry.mjs");
   Handler = module.handler;
   app.use(Handler);

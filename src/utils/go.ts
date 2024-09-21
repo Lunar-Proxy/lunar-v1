@@ -1,3 +1,19 @@
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker
+      .register("./sw.js", { scope: "/p/" })
+      .then(({ scope }) =>
+        console.log(
+          "Successfully registered Service Workers with scope:",
+          scope,
+        ),
+      )
+      .catch((error) =>
+        console.error("Failed to register Service Worker:", error),
+      );
+  });
+}
+
 const iframe = document.createElement("iframe");
 window.addEventListener("DOMContentLoaded", () => {
   const titl =
@@ -42,3 +58,12 @@ window.addEventListener("DOMContentLoaded", () => {
     });
   }
 });
+
+iframe.contentWindow!.open = (url: string): Window | null => {
+  const encodedUrl = config.encodeUrl(url);
+  sessionStorage.setItem("@lunar/gourl", `/p/${encodedUrl}`);
+  Updateurl();
+  return null;
+};
+
+function Updateurl() {}

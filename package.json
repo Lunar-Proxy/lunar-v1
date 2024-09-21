@@ -14,6 +14,7 @@
     "@astrojs/check": "^0.9.3",
     "@astrojs/node": "^8.3.4",
     "@astrojs/tailwind": "^5.1.1",
+    "@fastify/compress": "^8.0.0",
     "@fastify/middie": "^9.0.1",
     "@fastify/static": "^8.0.0",
     "@types/node": "^22.5.2",

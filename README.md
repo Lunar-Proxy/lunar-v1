@@ -1,6 +1,6 @@
 # Lunar
 
-This is a web-proxy in beta, except for changes before the final release.
+This is a web-proxy in beta, except for changes & bugs before the final release.
 
 ```
 npm install

@@ -24,7 +24,7 @@ export default {
           color: "#c6d0f5",
         },
         ".color-ph::placeholder": {
-          color: "#c6d0f5",
+          color: "#color-head",
         },
       });
 

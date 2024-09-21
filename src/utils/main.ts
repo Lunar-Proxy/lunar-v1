@@ -29,8 +29,6 @@ fm.addEventListener("submit", (event) => {
   } else {
     url = `https://www.google.com/search?q=${encodeURIComponent(value)}`;
   }
-
-  // @ts-ignore
   localStorage.setItem("@lunar/gourl", `/p/${config.encodeUrl(url)}`);
   window.location.href = "./go";
 });
