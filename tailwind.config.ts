@@ -26,6 +26,10 @@ export default {
         ".color-ph::placeholder": {
           color: "#c6d0f5",
         },
+        ".custom-input": {
+          height: "58px",
+          width: "440px",
+        },
       });
 
       addUtilities(
