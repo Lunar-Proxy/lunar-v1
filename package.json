@@ -34,7 +34,7 @@
     "node": ">=16.0.0"
   },
   "devDependencies": {
-    "@sentry/astro": "^8.30.0",
+    "@sentry/astro": "^8.31.0",
     "@spotlightjs/astro": "^2.1.9",
     "prettier": "^3.3.3",
     "prettier-plugin-astro": "^0.14.1"
