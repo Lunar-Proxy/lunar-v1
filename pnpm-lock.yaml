@@ -60,8 +60,8 @@ importers:
         specifier: ^1.0.6
         version: 1.0.6(vite@5.4.7(@types/node@22.6.1))
       wisp-server-node:
-        specifier: ^1.1.5
-        version: 1.1.5
+        specifier: 1.1.4
+        version: 1.1.4
     devDependencies:
       '@sentry/astro':
         specifier: ^8.31.0
@@ -3155,8 +3155,8 @@ packages:
     resolution: {integrity: sha512-o0cyEG0e8GPzT4iGHphIOh0cJOV8fivsXxddQasHPHfoZf1ZexrfeA21w2NaEN1RHE+fXlfISmOE8R9N3u3Qig==}
     engines: {node: '>=12'}
 
-  wisp-server-node@1.1.5:
-    resolution: {integrity: sha512-J7TKfq5RuX/lkURQnC4oqMzp1vWo0TZ/hieDCYjRmv3Wm4EGqhMPBvtlzWXVQ5vXXOuY8TvFeCnPh2O2BeHmew==}
+  wisp-server-node@1.1.4:
+    resolution: {integrity: sha512-RIG24h1Ssc//Fqya4mzR3kQNm824QIVVodXp0ZJ0n4RxIAS5bhEnJNfPt/safNGyDbcnNd6L6Vh7XTDvfK/qHw==}
 
   wrap-ansi@7.0.0:
     resolution: {integrity: sha512-YVGIj2kamLSTxw6NsZjoBxfSwsn0ycdesmc4p+Q21c5zPuZ1pl+NfxVdxPtdHvmNVOQ6XSYG4AUtyt/Fi7D16Q==}
@@ -6778,7 +6778,7 @@ snapshots:
     dependencies:
       string-width: 5.1.2
 
-  wisp-server-node@1.1.5:
+  wisp-server-node@1.1.4:
     dependencies:
       bufferutil: 4.0.8
       utf-8-validate: 6.0.4
