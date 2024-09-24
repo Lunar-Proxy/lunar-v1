@@ -1,10 +1,10 @@
-importScripts("./assets/u/bundle.js");
-importScripts("./assets/u/config.js");
-importScripts(config.sw || "./assets/u/sw.js");
-const u = new UVServiceWorker();
+importScripts("/assets/u/bundle.js");
+importScripts("/assets/u/config.js");
+importScripts("/assets/u/sw.js");
+const uv = new UVServiceWorker();
 async function handleRequest(event) {
-  if (u.route(event)) {
-    return await u.fetch(event);
+  if (uv.route(event)) {
+    return await uv.fetch(event);
   }
 
   return await fetch(event.request);

@@ -2,18 +2,33 @@ import Fastify from "fastify";
 import fastifyMiddie from "@fastify/middie";
 import fastifyStatic from "@fastify/static";
 import fs from "node:fs";
-import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { exec } from "child_process";
 import { promisify } from "node:util";
 import chalk from "chalk";
+import { IncomingMessage, ServerResponse, createServer, Server } from "http";
+import { Socket } from "net";
+// @ts-expect-error
+import { epoxyPath } from "@mercuryworkshop/epoxy-transport";
+import { baremuxPath } from "@mercuryworkshop/bare-mux/node";
+import wisp from "wisp-server-node";
 
 const execPromise = promisify(exec);
 const port = 8080;
 
+const serverFactory = (
+  handler: (req: IncomingMessage, res: ServerResponse) => void,
+): Server =>
+  createServer(handler).on("upgrade", (req, socket: Socket, head) =>
+    req.url?.startsWith("/w")
+      ? wisp.routeRequest(req, socket, head)
+      : socket.destroy(),
+  );
+
 // Fastify config options
 const app = Fastify({
   logger: false, // set to true to enable logs
+  serverFactory,
 });
 
 if (!fs.existsSync("dist")) {
@@ -42,6 +57,18 @@ if (fs.existsSync("./dist/server/entry.mjs")) {
 
 await app.register(fastifyStatic, {
   root: fileURLToPath(new URL("./dist/client", import.meta.url)),
+});
+
+app.register(fastifyStatic, {
+  root: epoxyPath,
+  prefix: "/ep/",
+  decorateReply: false,
+});
+
+app.register(fastifyStatic, {
+  root: baremuxPath,
+  prefix: "/bm/",
+  decorateReply: false,
 });
 
 app.listen({ port }, (err, address) => {

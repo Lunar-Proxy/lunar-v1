@@ -19,11 +19,11 @@ const config = {
     }
     return result.join('') + (search.length ? "?" + search.join("?") : "");
   },  
-  handler: "./assets/u/handler.js",
-  client: "./assets/u/client.js",
-  bundle: "./assets/u/bundle.js",
-  config: "./assets/u/config.js",
-  sw: "./assets/u/sw.js",
+  handler: "/assets/u/handler.js",
+  client: "/assets/u/client.js",
+  bundle: "/assets/u/bundle.js",
+  config: "/assets/u/config.js",
+  sw: "/assets/u/sw.js",
   inject: [
     {
       host: "discord.com",

@@ -20,7 +20,7 @@ async function cloak(): Promise<void> {
       openWindow(data);
     }
   } catch (error) {
-    console.error("Error in cloak function:", error);
+    console.error("Error in cloaking", error);
   }
 
   function openWindow(data: any): void {

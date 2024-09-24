@@ -1,4 +1,6 @@
 /** @type {import('tailwindcss').Config} */
+import plugin from "tailwindcss/plugin";
+
 export default {
   content: ["./src/**/*.{astro,html,js,md,ts,vue}"],
   theme: {
@@ -15,7 +17,10 @@ export default {
     },
   },
   plugins: [
-    function ({ addComponents, addUtilities }) {
+    plugin(function ({
+      addComponents,
+      addUtilities,
+    }: import("tailwindcss/types/config").PluginAPI) {
       addComponents({
         ".color-link": {
           color: "#89b4fa",
@@ -31,45 +36,28 @@ export default {
           width: "440px",
         },
       });
-
-      addUtilities(
-        {
-          ".text-shadow-bubble": {
-            "text-shadow":
-              "3px 3px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000",
-          },
-          ".text-shadow-bubble-blur": {
-            position: "relative",
-            display: "inline-block",
-          },
-          ".text-shadow-bubble-blur::before": {
-            content: '""',
-            position: "absolute",
-            top: "2px",
-            left: "2px",
-            "z-index": "-1",
-            color: "#fff",
-            filter: "blur(2px)",
-          },
-          ".tooltip": {
-            position: "absolute",
-            padding: "0.5rem",
-            "border-radius": "0.25rem",
-            "background-color": "#000",
-            color: "#fff",
-            "text-align": "center",
-            "font-size": "0.875rem",
-            opacity: "0",
-            transition: "opacity 0.3s",
-            "white-space": "nowrap",
-            "z-index": "10",
-          },
-          ".group:hover .tooltip": {
-            opacity: "1",
-          },
+      addUtilities({
+        ".text-shadow-bubble": {
+          "text-shadow":
+            "3px 3px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000",
         },
-        ["responsive", "hover"],
-      );
-    },
+        ".text-shadow-bubble-blur": {
+          position: "relative",
+          display: "inline-block",
+        },
+        ".text-shadow-bubble-blur::before": {
+          content: '""',
+          position: "absolute",
+          top: "2px",
+          left: "2px",
+          "z-index": "-1",
+          color: "#fff",
+          filter: "blur(2px)",
+        },
+        ".group:hover .tooltip": {
+          opacity: "1",
+        },
+      });
+    }),
   ],
 };

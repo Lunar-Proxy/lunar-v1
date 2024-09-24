@@ -36,14 +36,14 @@ loadGameList().then((gamelist) => {
       const gameName = document.createElement("h3");
       gameName.textContent = element.title;
       gameName.className =
-        "text-white absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-0 transition-opacity duration-300 ease-in-out group-hover:opacity-100 font-rubik text-2xl tracking-wide shadow-md"; // Tailwind classes
+        "text-white absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-0 transition-opacity duration-300 ease-in-out group-hover:opacity-100 font-rubik text-2xl tracking-wide shadow-md";
 
       gameContainer.appendChild(game);
       gameContainer.appendChild(gameName);
       gamediv.appendChild(gameContainer);
       gameContainerDiv.appendChild(gamediv);
 
-      gameContainerDiv.addEventListener("click", function (event) {
+      gameContainer.addEventListener("click", function (event) {
         event.preventDefault();
         if (element.alert) {
           alert(element.alert);
@@ -53,14 +53,15 @@ loadGameList().then((gamelist) => {
           let regex =
             /^(https?:\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(:\d+)?(\/.*)?$/;
           if (regex.test(value)) {
-            if (!/^https?:\/\//i.test(url)) {
+            if (!/^https?:\/\//i.test(value)) {
               url = `https://${value}`;
+            } else {
+              url = value;
             }
           } else {
             url = `https://www.google.com/search?q=${encodeURIComponent(value)}`;
           }
-          localStorage.setItem("@lunar/gourl", `/p/${config.encodeUrl(url)}`);
-          window.location.href = "./go";
+          window.location.href = url;
         }
       });
     });
