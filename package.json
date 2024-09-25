@@ -1,7 +1,7 @@
 {
   "name": "lunar",
   "type": "module",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "scripts": {
     "dev": "astro dev",
     "start": "tsx index.ts",
@@ -28,14 +28,12 @@
     "tsx": "^4.19.1",
     "typescript": "^5.5.4",
     "vite-plugin-static-copy": "^1.0.6",
-    "wisp-server-node": "1.1.4"
+    "wisp-server-node": "^1.1.7"
   },
   "engines": {
     "node": ">=16.0.0"
   },
   "devDependencies": {
-    "@sentry/astro": "^8.31.0",
-    "@spotlightjs/astro": "^2.1.9",
     "prettier": "^3.3.3",
     "prettier-plugin-astro": "^0.14.1"
   }

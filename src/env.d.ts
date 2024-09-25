@@ -20,3 +20,4 @@ interface Game {
 }
 
 declare const config: Config;
+declare module "@mercuryworkshop/epoxy-transport";

@@ -48,20 +48,20 @@ loadGameList().then((gamelist) => {
         if (element.alert) {
           alert(element.alert);
         } else {
-          let value = element.website.trim();
-          let url = "";
+          let value = element.website?.trim() ?? "";
+          let url: string = "";
           let regex =
             /^(https?:\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(:\d+)?(\/.*)?$/;
+
           if (regex.test(value)) {
-            if (!/^https?:\/\//i.test(value)) {
-              url = `https://${value}`;
-            } else {
-              url = value;
-            }
+            url = /^https?:\/\//i.test(value) ? value : `https://${value}`;
           } else {
             url = `https://www.google.com/search?q=${encodeURIComponent(value)}`;
           }
-          window.location.href = url;
+
+          const encurl = config.encodeUrl(url);
+          localStorage.setItem("@lunar/gourl", "/p/" + encurl || "");
+          window.location.href = "./g";
         }
       });
     });

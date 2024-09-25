@@ -3,7 +3,6 @@ import node from "@astrojs/node";
 import { viteStaticCopy } from "vite-plugin-static-copy";
 import wisp from "wisp-server-node";
 import { baremuxPath } from "@mercuryworkshop/bare-mux/node";
-// @ts-expect-error
 import { epoxyPath } from "@mercuryworkshop/epoxy-transport";
 import tailwind from "@astrojs/tailwind";
 

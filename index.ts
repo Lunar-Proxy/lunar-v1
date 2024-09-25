@@ -8,7 +8,6 @@ import { promisify } from "node:util";
 import chalk from "chalk";
 import { IncomingMessage, ServerResponse, createServer, Server } from "http";
 import { Socket } from "net";
-// @ts-expect-error
 import { epoxyPath } from "@mercuryworkshop/epoxy-transport";
 import { baremuxPath } from "@mercuryworkshop/bare-mux/node";
 import wisp from "wisp-server-node";

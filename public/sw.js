@@ -1,15 +1,14 @@
-importScripts("/assets/u/bundle.js");
-importScripts("/assets/u/config.js");
-importScripts("/assets/u/sw.js");
-const uv = new UVServiceWorker();
-async function handleRequest(event) {
-  if (uv.route(event)) {
-    return await uv.fetch(event);
-  }
+importScripts("/assets/u/bundle.js", "/assets/u/config.js", "/assets/u/sw.js");
 
-  return await fetch(event.request);
-}
+const u = new UVServiceWorker();
 
 self.addEventListener("fetch", (event) => {
-  event.respondWith(handleRequest(event));
+  event.respondWith(
+    (async () => {
+      if (u.route(event)) {
+        return u.fetch(event);
+      }
+      return fetch(event.request);
+    })(),
+  );
 });

@@ -33,7 +33,7 @@ export default {
         },
         ".custom-input": {
           height: "58px",
-          width: "440px",
+          width: "488px",
         },
       });
       addUtilities({
