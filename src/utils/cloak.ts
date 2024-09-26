@@ -27,7 +27,7 @@ async function cloak(): Promise<void> {
     const windowName = "tbclk";
     if (window.name !== windowName) {
       const win = window.open("", windowName);
-
+      const isad = /iPhone|iPad|iPod|Macintosh/.test(navigator.userAgent);
       if (!win || win.closed) {
         alert("Consider allowing popups to use about:blank");
 
@@ -37,7 +37,11 @@ async function cloak(): Promise<void> {
         let link: HTMLLinkElement =
           (document.querySelector("link[rel='icon']") as HTMLLinkElement) ||
           document.createElement("link");
-        link.rel = "icon";
+          if (isad) { 
+        link.rel = "apple-touch-icon";
+          } else {
+            link.rel = "icon";
+          }
         link.href =
           localStorage.getItem("@lunar/custom/favicon") || randomItem.favicon;
         document.head.appendChild(link);
