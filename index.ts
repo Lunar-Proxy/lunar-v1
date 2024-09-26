@@ -18,64 +18,72 @@ const port = 8080;
 const serverFactory = (
   handler: (req: IncomingMessage, res: ServerResponse) => void,
 ): Server =>
-  createServer(handler).on("upgrade", (req, socket: Socket, head) =>
-    req.url?.startsWith("/w")
-      ? wisp.routeRequest(req, socket, head)
-      : socket.destroy(),
-  );
+  createServer(handler).on("upgrade", (req, socket: Socket, head) => {
+    if (req.url?.startsWith("/w")) {
+      wisp.routeRequest(req, socket, head);
+    } else {
+      socket.destroy();
+    }
+  });
 
-// Fastify config options
 const app = Fastify({
-  logger: false, // set to true to enable logs
+  logger: false, // set true to enable logs
   serverFactory,
 });
 
 if (!fs.existsSync("dist")) {
-  try {
-    console.log(chalk.blue.bold("Dist not found, building..."));
-    await execPromise("npm run build");
-    console.log(chalk.green.bold("Dist successfully built!"));
-  } catch (e) {
-    console.error(chalk.red.bold(e));
-    process.exit(1);
-  }
+  (async () => {
+    try {
+      console.log(chalk.blue.bold("Dist not found, building..."));
+      await execPromise("npm run build");
+      console.log(chalk.green.bold("Dist successfully built!"));
+    } catch (e) {
+      console.error(chalk.red.bold(e));
+      process.exit(1);
+    }
+
+    await app.register(fastifyMiddie);
+
+    await app.register(import("@fastify/compress"), {
+      encodings: ["deflate", "gzip", "br"],
+    });
+
+    let Handler;
+    if (fs.existsSync("./dist/server/entry.mjs")) {
+      // @ts-ignore
+      const module = await import("./dist/server/entry.mjs");
+      Handler = module.handler;
+      app.use(Handler);
+    }
+
+    await app.register(fastifyStatic, {
+      root: fileURLToPath(new URL("./dist/client", import.meta.url)),
+    });
+
+    app.register(fastifyStatic, {
+      root: epoxyPath,
+      prefix: "/ep/",
+      decorateReply: false,
+    });
+
+    app.register(fastifyStatic, {
+      root: baremuxPath,
+      prefix: "/bm/",
+      decorateReply: false,
+    });
+
+    app.listen({ port }, (err, address) => {
+      if (err) {
+        console.error(chalk.red.bold(err));
+      } else {
+        console.log(
+          chalk.blue.bold(
+            `Lunar v${process.env.npm_package_version} is running on:`,
+          ),
+        );
+        console.log(chalk.blue.bold(`http://localhost:${port}`));
+        console.log(chalk.blue.bold(`${address}`));
+      }
+    });
+  })();
 }
-
-await app.register(fastifyMiddie);
-
-await app.register(import("@fastify/compress"), {
-  encodings: ["deflate", "gzip", "br"],
-});
-let Handler;
-if (fs.existsSync("./dist/server/entry.mjs")) {
-  // @ts-ignore
-  const module = await import("./dist/server/entry.mjs");
-  Handler = module.handler;
-  app.use(Handler);
-}
-
-await app.register(fastifyStatic, {
-  root: fileURLToPath(new URL("./dist/client", import.meta.url)),
-});
-
-app.register(fastifyStatic, {
-  root: epoxyPath,
-  prefix: "/ep/",
-  decorateReply: false,
-});
-
-app.register(fastifyStatic, {
-  root: baremuxPath,
-  prefix: "/bm/",
-  decorateReply: false,
-});
-
-app.listen({ port }, (err, address) => {
-  if (err) {
-    console.error(chalk.red.bold(err));
-  } else {
-    console.log(chalk.blue.bold("Lunar is running on:"));
-    console.log(chalk.blue.bold(`http://localhost:${port}`));
-    console.log(chalk.blue.bold(`${address}`));
-  }
-});

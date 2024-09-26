@@ -17,12 +17,16 @@ import { Gamepad, Cog } from "lucide-astro";
         <a href="/" class="text-white text-2xl font-bold">Logo</a>
         <ul class="flex space-x-6 text-white">
           <li class="flex items-center">
-            <Gamepad class="icon w-8 h-8 mr-2" />
-            <a href="./gm" class="block py-2 px-4">Games</a>
+            <a href="./gm" class="flex items-center py-2 px-4">
+              <Gamepad class="icon w-8 h-8 mr-2" />
+              Games
+            </a>
           </li>
           <li class="flex items-center">
-            <Cog id="gear" class="icon w-8 h-8 mr-2" />
-            <a href="./st" class="block py-2 px-4">Settings</a>
+            <a href="./st" class="flex items-center py-2 px-4">
+              <Cog id="gear" class="icon w-8 h-8 mr-2" />
+              Settings
+            </a>
           </li>
         </ul>
       </div>

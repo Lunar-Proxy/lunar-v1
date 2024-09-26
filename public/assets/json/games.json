@@ -1,8 +1,8 @@
 [
   {
     "title": "Youtube",
-    "website": "youtube.com",
-    "logo": "./assets/games/something.png",
+    "website": "https://invidious.privacyredirect.com/feed/trending",
+    "logo": "./assets/games/yt.png",
     "alert": "",
     "category": "Streaming"
   }
