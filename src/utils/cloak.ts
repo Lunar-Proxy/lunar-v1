@@ -1,103 +1,87 @@
-async function getData(): Promise<any | null> {
-  try {
-    const response = await fetch("./assets/json/tbs.json");
-    if (!response.ok) {
-      console.error("File not found");
-      return null;
-    }
-    const jsonData = await response.json();
-    return jsonData;
-  } catch (error) {
-    console.error("Error fetching data:", error);
-    return null;
-  }
-}
-
+const isApple = /iPhone|iPad|iPod|Macintosh/.test(navigator.userAgent);
 async function cloak(): Promise<void> {
   try {
-    const data = await getData();
-    if (data) {
-      openWindow(data);
+    const response = await fetch("./assets/json/tbs.json");
+    if (!response.ok) return;
+
+    const data = await response.json();
+    if (window.name === "tbclk") return;
+
+    const win = window.open("", "tbclk");
+    const randomItem =
+      data.items[Math.floor(Math.random() * data.items.length)];
+
+    if (!win || win.closed) {
+      alert(
+        "Consider allowing popups to use about:blank so this site doesnt show up in your history.",
+      );
+
+      const link =
+        (document.querySelector("link[rel='icon']") as HTMLLinkElement) ||
+        (document.createElement("link") as HTMLLinkElement);
+      link.rel = isApple ? "apple-touch-icon" : "icon";
+      link.href =
+        localStorage.getItem("@lunar/custom/favicon") || randomItem.favicon;
+      document.head.appendChild(link);
+      document.title =
+        localStorage.getItem("@lunar/custom/title") || randomItem.title;
+      localStorage.setItem("@lunar/cloak/title", document.title);
+      localStorage.setItem("@lunar/cloak/favicon", link.href);
     }
-  } catch (error) {
-    console.error("Error in cloaking", error);
-  }
 
-  function openWindow(data: any): void {
-    const windowName = "tbclk";
-    if (window.name !== windowName) {
-      const win = window.open("", windowName);
-      const isad = /iPhone|iPad|iPod|Macintosh/.test(navigator.userAgent);
-      if (!win || win.closed) {
-        alert("Consider allowing popups to use about:blank");
+    if (win) {
+      const bodyStyles = {
+        margin: "0",
+        padding: "0",
+        height: "100vh",
+        width: "100vw",
+      };
+      Object.assign(win.document.body.style, bodyStyles);
+      win.document.documentElement.style.height = "100%";
 
-        const randomItem =
-          data.items[Math.floor(Math.random() * data.items.length)];
+      let iframe =
+        (win.document.querySelector("iframe") as HTMLIFrameElement) ||
+        (win.document.createElement("iframe") as HTMLIFrameElement);
+      if (!iframe.src) {
+        const iStyles = {
+          border: "none",
+          width: "100vw",
+          height: "100vh",
+        };
+        Object.assign(iframe.style, iStyles);
+        iframe.src = location.href;
+        win.document.body.appendChild(iframe);
 
-        let link: HTMLLinkElement =
-          (document.querySelector("link[rel='icon']") as HTMLLinkElement) ||
-          document.createElement("link");
-          if (isad) { 
-        link.rel = "apple-touch-icon";
-          } else {
-            link.rel = "icon";
-          }
-        link.href =
-          localStorage.getItem("@lunar/custom/favicon") || randomItem.favicon;
-        document.head.appendChild(link);
-        document.title =
-          localStorage.getItem("@lunar/custom/title") || randomItem.title;
-        localStorage.setItem("@lunar/cloak/title", document.title);
-        localStorage.setItem("@lunar/cloak/favicon", link.href);
-      }
-
-      if (win) {
-        win.document.body.style.margin = "0";
-        win.document.body.style.padding = "0";
-        win.document.body.style.height = "100vh";
-        win.document.body.style.width = "100vw";
-        win.document.documentElement.style.height = "100%";
-
-        let iframe: HTMLIFrameElement | null =
-          win.document.querySelector("iframe");
-        if (!iframe) {
-          iframe = win.document.createElement("iframe");
-          iframe.style.border = "none";
-          iframe.style.width = "100vw";
-          iframe.style.height = "100vh";
-          iframe.style.margin = "0";
-          iframe.style.padding = "0";
-          iframe.src = location.href;
-          win.document.body.appendChild(iframe);
-
-          const randomItem =
-            data.items[Math.floor(Math.random() * data.items.length)];
-
-          let link: HTMLLinkElement =
-            (win.document.querySelector(
-              "link[rel='icon']",
-            ) as HTMLLinkElement) || win.document.createElement("link");
-          link.rel = "icon";
-          link.href = randomItem.favicon;
-          win.document.head.appendChild(link);
-          win.document.title = randomItem.title;
-
-          location.replace(randomItem.redir);
-        }
-      } else {
-        console.error("Failed to open the new window.");
+        const link =
+          (win.document.querySelector("link[rel='icon']") as HTMLLinkElement) ||
+          (win.document.createElement("link") as HTMLLinkElement);
+        link.rel = isApple ? "apple-touch-icon" : "icon";
+        link.href = randomItem.favicon;
+        win.document.head.appendChild(link);
+        win.document.title = randomItem.title;
+        location.replace(randomItem.redir);
       }
     }
-  }
+  } catch {}
 }
 
 if (
-  localStorage.getItem("@lunar/cloak/ab") === null ||
+  !localStorage.getItem("@lunar/cloak/ab") ||
   localStorage.getItem("@lunar/cloak/ab") === "on"
 ) {
   cloak();
 } else {
-  console.info(
-    "AB Cloaking is disabled, you can turn it on by going into settings & enabling it.",
-  );
+  console.debug("Cloaking is disabled, you can turn it back on in settings.");
+  document.title = localStorage.getItem("@lunar/custom/title") || "Lunar";
+  const link =
+    (window.document.querySelector("link[rel='icon']") as HTMLLinkElement) ||
+    (window.document.createElement("link") as HTMLLinkElement);
+  link.rel =
+    localStorage.getItem("@lunar/custom/favicon") || isApple
+      ? "apple-touch-icon"
+      : "icon";
+  link.href = "./favicon.ico";
+  localStorage.setItem("@lunar/cloak/title", document.title);
+  localStorage.setItem("@lunar/cloak/favicon", link.href);
+  window.document.head.appendChild(link);
 }

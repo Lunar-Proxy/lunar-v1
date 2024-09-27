@@ -11,13 +11,5 @@ interface Config {
   sw: string;
 }
 
-interface Game {
-  title: string;
-  logo: string;
-  alert: string;
-  category: string;
-  website: string;
-}
-
 declare const config: Config;
 declare module "@mercuryworkshop/epoxy-transport";

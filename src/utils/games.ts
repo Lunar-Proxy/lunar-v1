@@ -1,3 +1,12 @@
+// Task - Make games look better
+interface Game {
+  title: string;
+  logo: string;
+  alert: string;
+  category: string;
+  website: string;
+}
+
 async function loadGameList() {
   try {
     const response = await fetch("./assets/json/games.json");

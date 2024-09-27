@@ -1,5 +1,4 @@
 import { BareMuxConnection } from "@mercuryworkshop/bare-mux";
-
 if ("serviceWorker" in navigator) {
   navigator.serviceWorker
     .register("./sw.js", { scope: "/p/" })
@@ -12,53 +11,35 @@ if ("serviceWorker" in navigator) {
 }
 
 const loadingDiv = document.getElementById("loading")!;
-const iframe = document.createElement("iframe");
+const iframe = document.getElementById("iframe") as HTMLIFrameElement;
 const gourl = localStorage.getItem("@lunar/gourl") || "/p/hvtrs8%2F-Gmoelg.aoo";
 const wispurl = `${location.protocol === "https:" ? "wss" : "ws"}://${location.host}/w/`;
-
 const connection = new BareMuxConnection("/bm/worker.js");
 
 (async () => {
   await connection.setTransport("/ep/index.mjs", [{ wisp: wispurl }]);
-
   iframe.src = gourl;
-  Object.assign(iframe.style, {
-    width: "100vw",
-    height: "100vh",
-    border: "none",
-    outline: "none",
-    top: "0",
-    bottom: "0",
-    left: "0",
-    right: "0",
-    position: "fixed",
-  });
-
-  iframe.sandbox.add(
-    "allow-same-origin",
-    "allow-downloads",
-    "allow-scripts",
-    "allow-forms",
-    "allow-modals",
-    "allow-popups",
-    "allow-orientation-lock",
-    "allow-pointer-lock",
-    "allow-presentation",
-  );
-  document.body.appendChild(iframe);
-
   iframe.onload = () => {
+    iframe.style.display = "block";
     loadingDiv.style.display = "none";
-  };
-
-  iframe.contentWindow!.open = (url: string) => {
-    sessionStorage.setItem("@lunar/gourl", `/p/${config.encodeUrl(url)}`);
-    UpdateUrl();
-    return null;
+    try {
+      const iframeWindow = iframe.contentWindow;
+      if (iframeWindow) {
+        iframeWindow.open = (url: string) => {
+          console.log("URL:", url);
+          localStorage.setItem("@lunar/gourl", `/p/${config.encodeUrl(url)}`);
+          UpdateUrl();
+          return null;
+        };
+      }
+    } catch (error) {
+      console.error("Unable to update url", error);
+    }
   };
 })();
 
 function UpdateUrl() {
+  iframe.style.display = "none";
   loadingDiv.style.display = "block";
   iframe.src = localStorage.getItem("@lunar/gourl") || "";
 }
