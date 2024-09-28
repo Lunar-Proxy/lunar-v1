@@ -1,7 +1,23 @@
 ---
 import Main from "../layouts/main.astro";
+import { Plus } from "lucide-astro";
 ---
+
+<Main />
+<div class="flex justify-center items-center space-x-2 mt-4">
+  <div class="flex items-center space-x-2">
+    <button
+      class="bg-gray-300 border border-gray-500 rounded p-3 text-base font-semibold flex items-center"
+    >
+      <Plus class="mr-1" /> Add A Game
+    </button>
+    <input
+      type="text"
+      class="w-64 h-12 px-4 text-center border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
+      placeholder="Search for a game.."
+    />
+  </div>
+</div>
 
 <script src="../utils/games.ts"></script>
 <script src="../utils/global.ts"></script>
-<Main />

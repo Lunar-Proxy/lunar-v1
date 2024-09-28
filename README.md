@@ -15,5 +15,5 @@ npm start
 Thanks to all the contribuators!
 
 <a href="https://github.com/lunar-services/lunar/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=lunar-services/lunar" width="168" height="168"/>
+<img src="https://contrib.rocks/image?repo=lunar-services/lunar"/>
 </a>

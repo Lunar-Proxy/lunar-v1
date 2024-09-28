@@ -1,9 +1,9 @@
 [
   {
-    "title": "Youtube",
-    "website": "https://invidious.privacyredirect.com/feed/trending",
-    "logo": "./assets/games/yt.png",
+    "title": "CoolMathGames",
+    "website": "https://coolmathgames.com",
+    "logo": "./assets/games/cmg.png",
     "alert": "",
-    "category": "Streaming"
+    "category": "Gaming"
   }
 ]

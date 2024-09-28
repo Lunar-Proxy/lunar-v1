@@ -1,12 +1,12 @@
 importScripts("/assets/u/bundle.js", "/assets/u/config.js", "/assets/u/sw.js");
 
-const u = new UVServiceWorker();
+const uv = new UVServiceWorker();
 
 self.addEventListener("fetch", (event) => {
   event.respondWith(
     (async () => {
-      if (u.route(event)) {
-        return u.fetch(event);
+      if (uv.route(event)) {
+        return uv.fetch(event);
       }
       return fetch(event.request);
     })(),

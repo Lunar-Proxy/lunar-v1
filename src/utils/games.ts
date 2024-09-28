@@ -27,27 +27,27 @@ async function loadGameList() {
 loadGameList().then((gamelist) => {
   if (gamelist) {
     const gameContainerDiv = document.createElement("div");
-    gameContainerDiv.className = "flex flex-wrap justify-start";
+    gameContainerDiv.className = "mt-10 flex flex-wrap justify-start";
 
     gamelist.forEach((element: Game) => {
       const gamediv = document.createElement("div");
-      gamediv.className = "w-1/4 p-2";
+      gamediv.className = "w-1/4 m-1 p-1"; 
 
       const gameContainer = document.createElement("div");
       gameContainer.className = "relative inline-block overflow-hidden group";
 
-      const game = document.createElement("img");
-      game.src = element.logo;
-      game.alt = `${element.title}`;
-      game.className =
-        "h-32 w-40 transition duration-300 ease-in-out transform group-hover:blur-sm";
+      const gameImage = document.createElement("img");
+      gameImage.src = element.logo;
+      gameImage.alt = `${element.title}`;
+      gameImage.className =
+        "h-32 w-40 object-cover transition duration-300 ease-in-out transform group-hover:blur-sm";
 
       const gameName = document.createElement("h3");
       gameName.textContent = element.title;
       gameName.className =
-        "text-white absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-0 transition-opacity duration-300 ease-in-out group-hover:opacity-100 font-rubik text-2xl tracking-wide shadow-md";
+        "text-white absolute left-0 bottom-0 transform translate-y-full opacity-0 transition-opacity duration-300 ease-in-out group-hover:translate-y-0 group-hover:opacity-100 font-rubik text-lg tracking-wide p-0";
 
-      gameContainer.appendChild(game);
+      gameContainer.appendChild(gameImage);
       gameContainer.appendChild(gameName);
       gamediv.appendChild(gameContainer);
       gameContainerDiv.appendChild(gamediv);
