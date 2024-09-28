@@ -31,7 +31,7 @@ loadGameList().then((gamelist) => {
 
     gamelist.forEach((element: Game) => {
       const gamediv = document.createElement("div");
-      gamediv.className = "w-1/4 m-1 p-1"; 
+      gamediv.className = "w-1/4 m-1 p-1";
 
       const gameContainer = document.createElement("div");
       gameContainer.className = "relative inline-block overflow-hidden group";

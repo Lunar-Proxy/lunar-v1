@@ -8,8 +8,9 @@ import { Gamepad, Cog } from "lucide-astro";
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
-    <script is:inline src="./assets/u/bundle.js"></script>
-    <script is:inline src="./assets/u/config.js"></script>
+    <script is:inline src="./assets/u/bundle.js" defer></script>
+    <script is:inline src="./assets/u/config.js" defer></script>
+    <script is:inline src="/bm/index.js" defer></script>
   </head>
   <body class="bg-gray-900 text-white">
     <nav class="bg-gray-800 p-4">

@@ -17,16 +17,23 @@ let Placeholder = "unidentified";
       <form id="sear" method="post" class="flex justify-center mt-14">
         <input
           id="input"
-          class="custom-input color-ph text-black rounded-md border-gray-700 border-2 text-center"
+          class="custom-input w-[440px] h-[50px] p-4 text-lg text-black text-center border border-gray-300 rounded-full shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200"
           type="text"
           placeholder={Placeholder}
         />
       </form>
     </div>
   </div>
+  <footer
+    class="fixed bottom-0 left-0 right-0 text-center flex justify-center items-center"
+  >
+    <a href="/pp" class="cursor-pointer px-4">Privacy Policy</a>
+    <span>/</span>
+    <a href="/tos" class="cursor-pointer px-4">TOS</a>
+  </footer>
 </Main>
 
 <script>
   const inputElement = document.getElementById("input") as HTMLInputElement;
-  inputElement.placeholder = `Search with a search query using ${localStorage.getItem("@lunar/settings/se") || "Google"} or enter a URL`;
+  inputElement.placeholder = `Search with ${localStorage.getItem("@lunar/settings/se") || "Google"} or enter an url`;
 </script>

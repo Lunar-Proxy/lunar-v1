@@ -13,7 +13,6 @@ if ("serviceWorker" in navigator) {
 
 const loadingDiv = document.getElementById("loading")!;
 const iframe = document.getElementById("iframe") as HTMLIFrameElement;
-
 const gourl = localStorage.getItem("@lunar/gourl") || "/p/hvtrs8%2F-Gmoelg.aoo";
 const wispurl = `${location.protocol === "https:" ? "wss" : "ws"}://${location.host}/w/`;
 const connection = new BareMuxConnection("/bm/worker.js");
@@ -26,21 +25,21 @@ const connection = new BareMuxConnection("/bm/worker.js");
     iframe.style.display = "block";
     loadingDiv.style.display = "none";
 
-    try {
-      iframe.contentWindow!.open = (url: string) => {
+    const iframeWindow = iframe.contentWindow;
+    if (iframeWindow) {
+      iframeWindow.open = (url: string) => {
         console.log("URL:", url);
         localStorage.setItem("@lunar/gourl", `/p/${config.encodeUrl(url)}`);
-        updateUrl();
+        updateIframeUrl();
         return null;
       };
-    } catch (error) {
-      console.error("Unable to override open method:", error);
     }
   };
 })();
 
-function updateUrl() {
-  iframe.style.display = "none";
+function updateIframeUrl() {
+  const newUrl = localStorage.getItem("@lunar/gourl") || "";
   loadingDiv.style.display = "block";
-  iframe.src = localStorage.getItem("@lunar/gourl") || "";
+  iframe.style.display = "none";
+  iframe.src = newUrl;
 }
