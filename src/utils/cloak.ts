@@ -1,4 +1,3 @@
-const isApple = /iPhone|iPad|iPod|Macintosh/.test(navigator.userAgent);
 async function cloak(): Promise<void> {
   try {
     const response = await fetch("./assets/json/tbs.json");
@@ -19,7 +18,7 @@ async function cloak(): Promise<void> {
       const link =
         (document.querySelector("link[rel='icon']") as HTMLLinkElement) ||
         (document.createElement("link") as HTMLLinkElement);
-      link.rel = isApple ? "apple-touch-icon" : "icon";
+      link.rel = "icon";
       link.href =
         localStorage.getItem("@lunar/custom/favicon") || randomItem.favicon;
       document.head.appendChild(link);
@@ -55,7 +54,7 @@ async function cloak(): Promise<void> {
         const link =
           (win.document.querySelector("link[rel='icon']") as HTMLLinkElement) ||
           (win.document.createElement("link") as HTMLLinkElement);
-        link.rel = isApple ? "apple-touch-icon" : "icon";
+        link.rel = "icon";
         link.href = randomItem.favicon;
         win.document.head.appendChild(link);
         win.document.title = randomItem.title;
@@ -76,10 +75,7 @@ if (
   const link =
     (window.document.querySelector("link[rel='icon']") as HTMLLinkElement) ||
     (window.document.createElement("link") as HTMLLinkElement);
-  link.rel =
-    localStorage.getItem("@lunar/custom/favicon") || isApple
-      ? "apple-touch-icon"
-      : "icon";
+  link.rel = localStorage.getItem("@lunar/custom/favicon") || "icon";
   link.href = "./favicon.ico";
   localStorage.setItem("@lunar/cloak/title", document.title);
   localStorage.setItem("@lunar/cloak/favicon", link.href);
