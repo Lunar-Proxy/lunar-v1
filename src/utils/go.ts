@@ -15,9 +15,9 @@ const loadingDiv = document.getElementById("loading")!;
 const iframe = document.getElementById("iframe") as HTMLIFrameElement;
 const gourl = localStorage.getItem("@lunar/gourl") || "/p/hvtrs8%2F-Gmoelg.aoo";
 const wispurl = `${location.protocol === "https:" ? "wss" : "ws"}://${location.host}/w/`;
-const connection = new BareMuxConnection("/bm/worker.js");
 
 (async () => {
+  const connection = new BareMuxConnection("/bm/worker.js");
   await connection.setTransport("/ep/index.mjs", [{ wisp: wispurl }]);
   iframe.src = gourl;
 
