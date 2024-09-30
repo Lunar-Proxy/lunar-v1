@@ -10,7 +10,7 @@ npm run build
 npm start
 ```
 
-# detailed instructions on deployment and enabling extra features
+# Docs on deployment and enabling extra features
 
 For details about enabling extra features & How to deploy refer to [Here](https://github.com/Lunar-Services/Lunar/wiki)
 
