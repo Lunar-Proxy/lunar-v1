@@ -21,7 +21,7 @@ import { server as wisp } from "@mercuryworkshop/wisp-js/server";
 // wisp.options.dns_result_order = "ipv4first";
 
 const execPromise = promisify(exec);
-const port = 8080;
+const port = Number(process.env.PORT) || 8080;
 
 const serverFactory = (
   handler: (req: IncomingMessage, res: ServerResponse) => void,
