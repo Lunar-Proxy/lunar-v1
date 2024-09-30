@@ -10,6 +10,10 @@ npm run build
 npm start
 ```
 
+# Extra Features
+
+For details about enabling extra features refer to [Here](https://github.com/Lunar-Services/Lunar/wiki)
+
 # Credits
 
 Thanks to all the contribuators!

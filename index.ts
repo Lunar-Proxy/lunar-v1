@@ -12,7 +12,13 @@ import { IncomingMessage, ServerResponse, createServer, Server } from "http";
 import { Socket } from "net";
 import { epoxyPath } from "@mercuryworkshop/epoxy-transport";
 import { baremuxPath } from "@mercuryworkshop/bare-mux/node";
-import wisp from "wisp-server-node";
+import { server as wisp } from "@mercuryworkshop/wisp-js/server";
+
+// wisp settings
+// See readme for more details
+//  wisp.options.dns_method = "resolve";
+// wisp.options.dns_servers = ["1.1.1.3", "1.0.0.3"];
+// wisp.options.dns_result_order = "ipv4first";
 
 const execPromise = promisify(exec);
 const port = 8080;
