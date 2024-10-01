@@ -66,7 +66,9 @@ async function cloak(): Promise<void> {
 
 function checkCloak(): boolean {
   return !localStorage.getItem("@lunar/cloak/ab") ||
-  localStorage.getItem("@lunar/cloak/ab") === "on" ? true : false;
+    localStorage.getItem("@lunar/cloak/ab") === "on"
+    ? true
+    : false;
 }
 
 if (checkCloak()) {

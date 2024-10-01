@@ -22,7 +22,9 @@ async function fetchGames(): Promise<Game[]> {
 
     return gamelist;
   } catch (error: unknown) {
-    throw new Error(`Failed to fetch list of games: ${error instanceof Error ? error.message : error}`);
+    throw new Error(
+      `Failed to fetch list of games: ${error instanceof Error ? error.message : error}`,
+    );
   }
 }
 

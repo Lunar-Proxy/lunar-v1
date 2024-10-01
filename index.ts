@@ -1,5 +1,4 @@
 import Fastify from "fastify";
-import type { FastifyInstance } from "fastify";
 import fastifyMiddie from "@fastify/middie";
 import fastifyStatic from "@fastify/static";
 import fastifyCompress from "@fastify/compress";
@@ -34,7 +33,7 @@ const serverFactory = (
     }
   });
 
-const app: FastifyInstance = Fastify({
+const app = Fastify({
   logger: false, // Set to true to enable logging
   serverFactory,
 });
@@ -91,5 +90,7 @@ try {
 } catch (error: unknown) {
   // console.error() just prints out a red message to the console.
   // throw ... raises an exception in the current code block and causes it to exit, or to flow to next catch statement if raised in a try block.
-  throw new Error(`${chalk.red.bold(`Unable to start or build server: `)} ${error instanceof Error ? error.message : error}`);
+  throw new Error(
+    `${chalk.red.bold(`Unable to start or build server: `)} ${error instanceof Error ? error.message : error}`,
+  );
 }
