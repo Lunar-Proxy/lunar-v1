@@ -21,7 +21,7 @@ import { server as wisp } from "@mercuryworkshop/wisp-js/server";
 // wisp.options.dns_result_order = "ipv4first";
 
 const execPromise = promisify(exec);
-const port = Number(process.env.PORT) || 8080;
+const port: number = Number(process.env.PORT) || 8080;
 
 const serverFactory = (
   handler: (req: IncomingMessage, res: ServerResponse) => void,
@@ -88,9 +88,8 @@ try {
       console.log(chalk.blue.bold(`${address}`));
     }
   });
-} catch (error) {
-  console.error(
-    chalk.red.bold("Error building or starting the server:"),
-    error,
-  );
+} catch (error: unknown) {
+  // console.error() just prints out a red message to the console.
+  // throw ... raises an exception in the current code block and causes it to exit, or to flow to next catch statement if raised in a try block.
+  throw new Error(`${chalk.red.bold(`Unable to start or build server: `)} ${error instanceof Error ? error.message : error}`);
 }

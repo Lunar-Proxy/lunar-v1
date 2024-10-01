@@ -1,6 +1,6 @@
 async function cloak(): Promise<void> {
   try {
-    const response = await fetch("./assets/json/tbs.json");
+    const response: Response = await fetch("./assets/json/tbs.json");
     if (!response.ok) return;
 
     const data = await response.json();
@@ -64,10 +64,12 @@ async function cloak(): Promise<void> {
   } catch {}
 }
 
-if (
-  !localStorage.getItem("@lunar/cloak/ab") ||
-  localStorage.getItem("@lunar/cloak/ab") === "on"
-) {
+function checkCloak(): boolean {
+  return !localStorage.getItem("@lunar/cloak/ab") ||
+  localStorage.getItem("@lunar/cloak/ab") === "on" ? true : false;
+}
+
+if (checkCloak()) {
   cloak();
 } else {
   console.debug("Cloaking is disabled, you can turn it back on in settings.");

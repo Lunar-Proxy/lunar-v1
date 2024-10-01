@@ -7,24 +7,26 @@ interface Game {
   website: string;
 }
 
-async function loadGameList() {
+async function fetchGames(): Promise<Game[]> {
   try {
-    const response = await fetch("./assets/json/games.json");
+    const response: Response = await fetch("./assets/json/games.json");
 
     if (!response.ok) {
-      console.error("Error finding the file.");
-      return null;
+      throw new Error("Unable to find file");
     }
 
-    const gamelist = await response.json();
+    const gamelist: Game[] = await response.json();
+    if (!Array.isArray(gamelist)) {
+      throw new Error("Did not return json, returned something else.");
+    }
+
     return gamelist;
-  } catch (error) {
-    console.error("Failed to fetch the list of games:", error);
-    return null;
+  } catch (error: unknown) {
+    throw new Error(`Failed to fetch list of games: ${error instanceof Error ? error.message : error}`);
   }
 }
 
-loadGameList().then((gamelist) => {
+fetchGames().then((gamelist) => {
   if (gamelist) {
     const gameContainerDiv = document.createElement("div");
     gameContainerDiv.className = "mt-10 flex flex-wrap justify-start";

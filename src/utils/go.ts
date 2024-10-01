@@ -16,7 +16,14 @@ const iframe = document.getElementById("iframe") as HTMLIFrameElement;
 const gourl = localStorage.getItem("@lunar/gourl") || "/p/hvtrs8%2F-Gmoelg.aoo";
 const wispurl = `${location.protocol === "https:" ? "wss" : "ws"}://${location.host}/w/`;
 
-(async () => {
+function updateIframeUrl(): void {
+  const newUrl = localStorage.getItem("@lunar/gourl") || "";
+  loadingDiv.style.display = "block";
+  iframe.style.display = "none";
+  iframe.src = newUrl;
+}
+
+(async (): Promise<void> => {
   const connection = new BareMuxConnection("/bm/worker.js");
   await connection.setTransport("/ep/index.mjs", [{ wisp: wispurl }]);
   iframe.src = gourl;
@@ -36,10 +43,3 @@ const wispurl = `${location.protocol === "https:" ? "wss" : "ws"}://${location.h
     }
   };
 })();
-
-function updateIframeUrl() {
-  const newUrl = localStorage.getItem("@lunar/gourl") || "";
-  loadingDiv.style.display = "block";
-  iframe.style.display = "none";
-  iframe.src = newUrl;
-}
