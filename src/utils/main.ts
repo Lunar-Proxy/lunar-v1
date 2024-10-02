@@ -8,7 +8,7 @@ input.addEventListener("input", () => {
 });
 
 search.addEventListener("click", () => {
-  // Make it work ._. fm.submit();
+  //  fm.submit();
 });
 
 clearInput.addEventListener("click", () => {
