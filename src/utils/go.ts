@@ -14,9 +14,7 @@ function updateIframeUrl(): void {
 
 (async (): Promise<void> => {
   const connection = new BareMuxConnection("/bm/worker.js");
-  if ((await connection.getTransport()) !== "/ep/index.mjs") {
-    await connection.setTransport("/ep/index.mjs", [{ wisp: wispurl }]);
-  }
+  await connection.setTransport("/ep/index.mjs", [{ wisp: wispurl }]);
 
   if ("serviceWorker" in navigator) {
     navigator.serviceWorker
@@ -28,6 +26,7 @@ function updateIframeUrl(): void {
         console.error("Service Worker registration failed:", error),
       );
   }
+
   iframe.src = gourl;
   iframe.onload = () => {
     iframe.style.display = "block";
@@ -37,7 +36,7 @@ function updateIframeUrl(): void {
     if (iframeWindow) {
       iframeWindow.open = (url: string) => {
         console.log("URL:", url);
-        localStorage.setItem("@lunar/gourl", `/p/${config.encodeUrl(url)}`);
+        localStorage.setItem("@lunar/gourl", `/p/${encodeURIComponent(url)}`);
         updateIframeUrl();
         return null;
       };

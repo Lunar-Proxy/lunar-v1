@@ -1,16 +1,5 @@
 // Task - Make games look better
 
-if ("serviceWorker" in navigator) {
-  navigator.serviceWorker
-    .register("./sw.js", { scope: "/p/" })
-    .then(({ scope }) =>
-      console.log("Service Worker registered with scope:", scope),
-    )
-    .catch((error) =>
-      console.error("Service Worker registration failed:", error),
-    );
-}
-
 interface Game {
   title: string;
   logo: string;
