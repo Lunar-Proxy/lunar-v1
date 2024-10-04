@@ -22,7 +22,7 @@
     "@mercuryworkshop/scramjet": "^1.0.2",
     "@mercuryworkshop/wisp-js": "^0.3.2",
     "@types/node": "^22.7.4",
-    "astro": "^4.15.10",
+    "astro": "^4.15.11",
     "chalk": "^5.3.0",
     "fastify": "^5.0.0",
     "lucide-astro": "^0.447.0",
