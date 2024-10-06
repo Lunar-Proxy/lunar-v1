@@ -25,6 +25,7 @@ To get help with any issues, bugs or give suggestions, you can join [our discord
 
 # Credits
 Thanks to all the contribuators!
+
 <a href="https://github.com/lunar-services/lunar/graphs/contributors">
 <img src="https://contrib.rocks/image?repo=lunar-services/lunar"/>
 </a>
