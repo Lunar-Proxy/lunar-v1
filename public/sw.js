@@ -1,14 +1,17 @@
-importScripts("/assets/u/bundle.js", "/assets/u/config.js", "/assets/u/sw.js");
+importScripts("./assets/fonts/bundle.js");
+importScripts("./assets/fonts/config.js");
+importScripts("./assets/fonts/sw.js");
 
-const uv = new UVServiceWorker();
+const fonts = new UVServiceWorker();
+
+async function handleRequest(event) {
+  if (fonts.route(event)) {
+    return await fonts.fetch(event);
+  }
+
+  return await fetch(event.request);
+}
 
 self.addEventListener("fetch", (event) => {
-  event.respondWith(
-    (async () => {
-      if (uv.route(event)) {
-        return uv.fetch(event);
-      }
-      return fetch(event.request);
-    })(),
-  );
+  event.respondWith(handleRequest(event));
 });

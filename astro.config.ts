@@ -24,7 +24,7 @@ export default defineConfig({
         name: "custom-w-server",
         configureServer(server) {
           server.httpServer?.on("upgrade", (req, socket, head) =>
-            req.url?.startsWith("/w")
+            req.url?.startsWith("/ws")
               ? wisp.routeRequest(req, socket, head)
               : null,
           );

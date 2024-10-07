@@ -26,7 +26,7 @@ const serverFactory = (
   handler: (req: IncomingMessage, res: ServerResponse) => void,
 ): Server =>
   createServer(handler).on("upgrade", (req, socket: Socket, head) => {
-    if (req.url?.startsWith("/w")) {
+    if (req.url?.startsWith("/ws")) {
       wisp.routeRequest(req, socket, head);
     } else {
       socket.destroy();

@@ -3,7 +3,7 @@ import { BareMuxConnection } from "@mercuryworkshop/bare-mux";
 const loadingDiv = document.getElementById("loading")!;
 const iframe = document.getElementById("iframe") as HTMLIFrameElement;
 const gourl = localStorage.getItem("@lunar/gourl") || "/p/hvtrs8%2F-Gmoelg.aoo";
-const wispurl = `${location.protocol === "https:" ? "wss" : "ws"}://${location.host}/w/`;
+const wispurl = `${location.protocol === "https:" ? "wss" : "ws"}://${location.host}/ws/`;
 
 function updateIframeUrl(): void {
   const newUrl = localStorage.getItem("@lunar/gourl") || "";

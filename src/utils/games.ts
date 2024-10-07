@@ -1,9 +1,9 @@
 // Task - Make games look better
 
 interface Game {
-  title: string;
+  name: string;
   logo: string;
-  alert: string;
+  issue: string;
   category: string;
   website: string;
 }
@@ -43,12 +43,12 @@ fetchGames().then((gamelist) => {
 
       const gameImage = document.createElement("img");
       gameImage.src = element.logo;
-      gameImage.alt = `${element.title}`;
+      gameImage.alt = `${element.name}`;
       gameImage.className =
         "h-32 w-40 object-cover transition duration-300 ease-in-out transform group-hover:blur-sm";
 
       const gameName = document.createElement("h3");
-      gameName.textContent = element.title;
+      gameName.textContent = element.name;
       gameName.className =
         "text-white absolute left-0 bottom-0 transform translate-y-full opacity-0 transition-opacity duration-300 ease-in-out group-hover:translate-y-0 group-hover:opacity-100 font-rubik text-lg tracking-wide p-0";
 
@@ -59,8 +59,8 @@ fetchGames().then((gamelist) => {
 
       gameContainer.addEventListener("click", function (event) {
         event.preventDefault();
-        if (element.alert) {
-          alert(element.alert);
+        if (element.issue) {
+          alert(element.issue);
         } else {
           let value = element.website?.trim() ?? "";
           let url: string = "";

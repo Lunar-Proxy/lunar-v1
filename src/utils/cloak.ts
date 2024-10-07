@@ -4,9 +4,9 @@ async function cloak(): Promise<void> {
     if (!response.ok) return;
 
     const data = await response.json();
-    if (window.name === "tbclk") return;
+    if (window.name === "cloak") return;
 
-    const win = window.open("", "tbclk");
+    const win = window.open("", "cloak");
     const randomItem =
       data.items[Math.floor(Math.random() * data.items.length)];
 
