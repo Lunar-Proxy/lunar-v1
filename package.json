@@ -20,7 +20,7 @@
     "@mercuryworkshop/bare-mux": "^2.0.9",
     "@mercuryworkshop/epoxy-transport": "^2.1.13",
     "@mercuryworkshop/wisp-js": "^0.3.2",
-    "@types/node": "^22.7.4",
+    "@types/node": "^22.7.5",
     "astro": "^4.15.12",
     "chalk": "^5.3.0",
     "fastify": "^5.0.0",
