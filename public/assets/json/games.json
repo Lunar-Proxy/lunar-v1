@@ -5,13 +5,5 @@
     "logo": "./assets/games/cmg.png",
     "alert": "",
     "category": "Gaming"
-  },
-
-  {
-    "name": "Youtube",
-    "website": "https://youtube.com",
-    "logo": "./assets/games/cmg.png",
-    "alert": "",
-    "category": "streaming"
   }
 ]
