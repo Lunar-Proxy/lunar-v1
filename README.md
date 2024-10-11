@@ -8,10 +8,11 @@
 > This webproxy is in beta so expect bugs before the final release
 
 Lunar is a webproxy that offers stuff like
-* ad free searching 
-* fast speeds 
-* giving users better experience
-* Tab & about blank cloaking
+
+- ad free searching
+- fast speeds
+- giving users better experience
+- Tab & about blank cloaking
 
 # How do i deploy?
 
