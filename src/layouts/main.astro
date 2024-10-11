@@ -6,15 +6,17 @@ import { Gamepad, Cog } from "lucide-astro";
 <html lang="en">
   <head>
     <!-- Google Tag DO NOT REMOVE -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DQZPCVEF89"
-    ></script>
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
+      declare global {
+        interface Window {
+          dataLayer: any;
+        }
+      }
+      let dataLayer = window.dataLayer || [];
+      function gtag(a: string, b: string | object) {
         dataLayer.push(arguments);
       }
       gtag("js", new Date());
-
       gtag("config", "G-DQZPCVEF89");
     </script>
     <!-- Google Tag DO NOT REMOVE -->

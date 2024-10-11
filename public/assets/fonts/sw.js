@@ -293,7 +293,7 @@
         <ul>
         <li>Checking your internet connection</li>
         <li>Verifying you entered the correct address</li>
-        <li>Clearing the site data</li>
+        <li>Clearing your cookies</li>
         <li>Contacting <b id="uvHostname"></b>'s administrator</li>
         <li>Verify the server isn't censored</li>
         </ul>
@@ -301,7 +301,7 @@
         <ul>
         <li>Restarting your server</li>
         <li>Updating Ultraviolet</li>
-        <li>Troubleshooting the error on the <a href="https://github.com/titaniumnetwork-dev/Ultraviolet" target="_blank">GitHub repository</a></li>
+        <li>Troubleshooting the error on the <a href="https://github.com/uselunarservices/lunar" target="_blank">Lunar GitHub repository</a></li>
         </ul>
         <button id="reload">Reload</button>
         <hr />
