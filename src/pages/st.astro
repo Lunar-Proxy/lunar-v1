@@ -1,25 +1,142 @@
 ---
 import SettingsCard from "../layouts/settings.astro";
+import { Palette, Users, Info, House } from "lucide-astro";
 ---
 
-<div
-  class="flex flex-col items-center justify-center min-h-screen bg-gray-900 p-4 space-y-4"
->
-  <SettingsCard
-    title="Proxy Type"
-    description="Change what proxy Lunar uses to search."
-  >
-    <div class="mt-4">
-      <label for="ptype" class="block text-gray-300 mb-2"
-        >Select Proxy Type:</label
+<div class="flex min-h-screen bg-gray-900 text-white">
+  <nav class="w-64 bg-gray-800 p-4">
+    <ul class="space-y-4">
+      <li>
+        <button
+          class="setting-btn w-full text-left p-2 bg-gray-700 rounded hover:bg-gray-600 flex items-center space-x-2"
+          onclick="window.location.href='./';"
+        >
+        <House />
+         <span>Home</span>
+        </button>
+      </li>
+      <li>
+        <button
+          class="setting-btn w-full text-left p-2 bg-gray-700 rounded hover:bg-gray-600 flex items-center space-x-2"
+          data-target="ptype"
+        >
+          Proxy Type
+        </button>
+      </li>
+      <li>
+        <button
+          class="setting-btn w-full text-left p-2 bg-gray-700 rounded hover:bg-gray-600 flex items-center space-x-2"
+          data-target="customization"
+        >
+          <Palette />
+          <span>Customization</span>
+        </button>
+      </li>
+      <li>
+        <button
+          class="setting-btn w-full text-left p-2 bg-gray-700 rounded hover:bg-gray-600 flex items-center space-x-2"
+          data-target="credits"
+        >
+          <Users />
+          <span>Credits</span>
+        </button>
+      </li>
+      <li>
+        <button
+          class="setting-btn w-full text-left p-2 bg-gray-700 rounded hover:bg-gray-600 flex items-center space-x-2"
+          data-target="info"
+        >
+          <Info />
+          <span>Info</span>
+        </button>
+      </li>
+    </ul>
+  </nav>
+
+  <div id="content-container" class="flex-grow p-6">
+    <div id="ptype" class="hidden">
+      <SettingsCard
+        title="Proxy Type"
+        description="Change what proxy Lunar uses to search."
       >
-      <select
-        name="Proxy"
-        id="ptype"
-        class="w-full p-2 rounded bg-gray-700 text-white"
-      >
-        <option value="uv">(Default) Ultraviolet</option>
-      </select>
+        <div class="mt-4">
+          <label for="ptype" class="block text-gray-300 mb-2">Select Proxy Type:</label>
+          <select
+            name="Proxy"
+            id="ptype"
+            class="w-full p-2 rounded bg-gray-700 text-white"
+          >
+            <option value="uv">(Default) Ultraviolet</option>
+          </select>
+        </div>
+      </SettingsCard>
     </div>
-  </SettingsCard>
+
+    <div id="customization" class="hidden">
+      <SettingsCard
+        title="Theme"
+        description="Choose a theme for your experience."
+      >
+        <div class="mt-4">
+          <label for="theme" class="block text-gray-300 mb-2">Select Theme:</label>
+          <select id="theme" class="w-full p-2 rounded bg-gray-700 text-white">
+            <option value="dark">Dark</option>
+            <option value="light">Light</option>
+          </select>
+        </div>
+      </SettingsCard>
+    </div>
+
+    <div id="credits" class="hidden">
+      <SettingsCard
+        title="Credits"
+        description="Learn more about who made this project possible."
+      >
+        <ul class="list-disc list-inside mt-4 text-gray-400">
+          <li>owski09</li>
+          <li>endlessvortex</li>
+          <li>8bitbug</li>
+          <li>.evicly</li>
+        </ul>
+        <p class="mt-4 text-gray-400">Thank you for making lunar possible!</p>
+      </SettingsCard>
+    </div>
+
+    <div id="info" class="hidden">
+      <SettingsCard
+        title="Info"
+        description="More info about Lunar"
+      >
+        <div class="mt-4">
+          <p class="text-gray-400">Last Updated: 10/12/24 6:25PM</p>
+          <p class="mt-4 text-gray-400">For questions, email us at: <a href="mailto:youremailhere@e.com" class="text-blue-400 hover:underline">youremailhere@e.com</a></p>
+        </div>
+      </SettingsCard>
+    </div>
+  </div>
 </div>
+
+<script>
+  document.querySelectorAll(".setting-btn").forEach((button) => {
+    button.addEventListener("click", (event) => {
+      const targetElement = event.target as HTMLElement | null;
+      if (targetElement) {
+        const target = targetElement.getAttribute('data-target');
+        if (target) {
+          document.querySelectorAll("#content-container > div").forEach((section) => {
+            section.classList.add("hidden");
+          });
+          const targetSection = document.getElementById(target);
+          if (targetSection) {
+            targetSection.classList.remove("hidden");
+          }
+        }
+      }
+    });
+  });
+
+  const firstSection = document.querySelector("#content-container > div");
+  if (firstSection) {
+    firstSection.classList.remove("hidden");
+  }
+</script>
