@@ -1,6 +1,6 @@
 # Lunar
 
-[![Discord Server](https://skillicons.dev/icons?i=discord)](https://discord.gg/fuPtWjYuf8) [![Github Repo](https://skillicons.dev/icons?i=github)](https://github.com/Lunar-Services/Lunar)
+[![Discord Server](https://skillicons.dev/icons?i=discord)](https://discord.gg/fuPtWjYuf8) [![Github Repo](https://skillicons.dev/icons?i=github)](https://github.com/Lunar-proxy/Lunar)
 
 # What is lunar?
 
