@@ -8,7 +8,7 @@ input.addEventListener("input", () => {
 });
 
 search.addEventListener("click", () => {
-  //  fm.submit();
+  fm.dispatchEvent(new Event("submit"));
 });
 
 clearInput.addEventListener("click", () => {
@@ -19,9 +19,11 @@ clearInput.addEventListener("click", () => {
 
 fm.addEventListener("submit", (event) => {
   event.preventDefault();
+
   let value = input.value.trim();
   let url = value;
   const regex = /^(https?:\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(:\d+)?(\/.*)?$/;
+
   if (regex.test(value)) {
     if (!/^https?:\/\//i.test(value)) {
       url = `https://${value}`;

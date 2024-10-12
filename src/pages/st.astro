@@ -1,5 +1,25 @@
 ---
-import Main from "../layouts/main.astro";
+import SettingsCard from "../layouts/settings.astro";
 ---
 
-<Main />
+<div
+  class="flex flex-col items-center justify-center min-h-screen bg-gray-900 p-4 space-y-4"
+>
+  <SettingsCard
+    title="Proxy Type"
+    description="Change what proxy Lunar uses to search."
+  >
+    <div class="mt-4">
+      <label for="ptype" class="block text-gray-300 mb-2"
+        >Select Proxy Type:</label
+      >
+      <select
+        name="Proxy"
+        id="ptype"
+        class="w-full p-2 rounded bg-gray-700 text-white"
+      >
+        <option value="uv">(Default) Ultraviolet</option>
+      </select>
+    </div>
+  </SettingsCard>
+</div>
