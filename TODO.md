@@ -20,9 +20,6 @@
 8. Implement a sliding navigation bar instead of a static one.
    Add controls (refresh, back, forward, home) on the go.astro page.
 
-9. (@bearcat)
-   Create a settings page and implement corresponding settings.
-
 10. Create a TOS (Terms of Service) page and add the TOS content.
 
 11. Add a Privacy Policy page and include the relevant content.
