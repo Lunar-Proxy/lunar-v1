@@ -24,7 +24,7 @@ npm start
 
 # Docs
 
-For details about enabling extra features & more click [Here](https://github.com/Lunar-Services/Lunar/wiki)
+For details about enabling extra features & more click [here](https://github.com/Lunar-proxy/Lunar/wiki)
 
 # Support
 
