@@ -13,10 +13,10 @@ importers:
         version: 0.9.4(prettier-plugin-astro@0.14.1)(prettier@3.3.3)(typescript@5.6.3)
       '@astrojs/node':
         specifier: ^8.3.4
-        version: 8.3.4(astro@4.16.1(@types/node@22.7.5)(rollup@4.24.0)(typescript@5.6.3))
+        version: 8.3.4(astro@4.16.2(@types/node@22.7.5)(rollup@4.24.0)(typescript@5.6.3))
       '@astrojs/tailwind':
         specifier: ^5.1.2
-        version: 5.1.2(astro@4.16.1(@types/node@22.7.5)(rollup@4.24.0)(typescript@5.6.3))(tailwindcss@3.4.13)
+        version: 5.1.2(astro@4.16.2(@types/node@22.7.5)(rollup@4.24.0)(typescript@5.6.3))(tailwindcss@3.4.13)
       '@fastify/compress':
         specifier: ^8.0.1
         version: 8.0.1
@@ -27,11 +27,11 @@ importers:
         specifier: ^8.0.1
         version: 8.0.1
       '@mercuryworkshop/bare-mux':
-        specifier: 2.1.1
-        version: 2.1.1
+        specifier: ^2.1.2
+        version: 2.1.2
       '@mercuryworkshop/epoxy-transport':
-        specifier: 2.1.13
-        version: 2.1.13
+        specifier: ^2.1.17
+        version: 2.1.17
       '@mercuryworkshop/wisp-js':
         specifier: ^0.3.2
         version: 0.3.2
@@ -39,8 +39,8 @@ importers:
         specifier: ^22.7.5
         version: 22.7.5
       astro:
-        specifier: ^4.16.0
-        version: 4.16.1(@types/node@22.7.5)(rollup@4.24.0)(typescript@5.6.3)
+        specifier: ^4.16.2
+        version: 4.16.2(@types/node@22.7.5)(rollup@4.24.0)(typescript@5.6.3)
       chalk:
         specifier: ^5.3.0
         version: 5.3.0
@@ -49,7 +49,7 @@ importers:
         version: 5.0.0
       lucide-astro:
         specifier: ^0.451.0
-        version: 0.451.0(astro@4.16.1(@types/node@22.7.5)(rollup@4.24.0)(typescript@5.6.3))
+        version: 0.451.0(astro@4.16.2(@types/node@22.7.5)(rollup@4.24.0)(typescript@5.6.3))
       tailwindcss:
         specifier: ^3.4.13
         version: 3.4.13
@@ -684,14 +684,14 @@ packages:
     resolution: {integrity: sha512-9I2Zn6+NJLfaGoz9jN3lpwDgAYvfGeNYdbAIjJOqzs4Tpc+VU3Jqq4IofSUBKajiDS8k9fZIg18/z13mpk1bsA==}
     engines: {node: '>=8'}
 
-  '@mercuryworkshop/bare-mux@2.1.1':
-    resolution: {integrity: sha512-Y3cYn7BuuD9X+1Ym8R57VikB4AeO86idOEZHuPro5qvle2A9d3DBw0X9cMBmczuzwaE7THGwN4FueYuiFrzavQ==}
+  '@mercuryworkshop/bare-mux@2.1.2':
+    resolution: {integrity: sha512-RKjvM+3Ly2QK5U+AVyMSeJPyaU+xEfjoJDf97XJ9lohs9/JrbfFWeO7Nf65qfL+3WEAjvGzi/oWdN90rWKh1bw==}
 
-  '@mercuryworkshop/epoxy-tls@2.1.6-1':
-    resolution: {integrity: sha512-drnffDo9Ls73Fpmcup2Ys1z+BjzK+WLnzyfS4APFfWr9cJ0gu7567tx4M06XH5PUZMOS1J1Z3wqnRaBh/RX5bQ==}
+  '@mercuryworkshop/epoxy-tls@2.1.9-1':
+    resolution: {integrity: sha512-BB+dT1ChgEVLr1A0ZV7vJvvcaSB/UUIJFcHRK+AOHnmU8nbbHna6qdXdP0MjO00sd/8vWS0BaBIEmkhItbclKw==}
 
-  '@mercuryworkshop/epoxy-transport@2.1.13':
-    resolution: {integrity: sha512-2F3B+QCuuLSbi0449Xn31VdyrTzRcAlA6z4OLEVGNs9bi4HfTkFVKryarcts55euCZuVVGH7XtLqTXJUn0MX0g==}
+  '@mercuryworkshop/epoxy-transport@2.1.17':
+    resolution: {integrity: sha512-z9qGWH/5J5jY54zyHJ3ZUdf9vxe0OJIn4GQCg332uNOqWUad/vPOw0Sql7PCyA6Y158K6AHPXBNwSeQTUYoG6g==}
 
   '@mercuryworkshop/wisp-js@0.3.2':
     resolution: {integrity: sha512-Gt8fVo41cecIQhh9E86b9eUS9WUpChfADKtnEIRiE2282JlHOVVSIRftMsnJgeh8erH3w1/hECLnVBNlPNctTw==}
@@ -957,8 +957,8 @@ packages:
   array-iterate@2.0.1:
     resolution: {integrity: sha512-I1jXZMjAgCMmxT4qxXfPXa6SthSoE8h6gkSI9BGGNv8mP8G/v0blc+qFnZu6K42vTOiuME596QaLO0TP3Lk0xg==}
 
-  astro@4.16.1:
-    resolution: {integrity: sha512-ZeZd+L147HHgHmvoSkve7KM3EutV+hY0mOCa4PwARHEFAAh+omo4MUNoTWsFkfq7ozTgR0PCXQwslrZduoWHNg==}
+  astro@4.16.2:
+    resolution: {integrity: sha512-Dfkpyt6sA+nv6LnOJr+7bt+gQF5Qh02yqVgyes4c4SvcPScteq1bLX22/z/XW+VU0vlciJOMiM8GWtcDiF6gUQ==}
     engines: {node: ^18.17.1 || ^20.3.0 || >=21.0.0, npm: '>=9.6.5', pnpm: '>=7.1.0'}
     hasBin: true
 
@@ -2842,9 +2842,9 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@astrojs/node@8.3.4(astro@4.16.1(@types/node@22.7.5)(rollup@4.24.0)(typescript@5.6.3))':
+  '@astrojs/node@8.3.4(astro@4.16.2(@types/node@22.7.5)(rollup@4.24.0)(typescript@5.6.3))':
     dependencies:
-      astro: 4.16.1(@types/node@22.7.5)(rollup@4.24.0)(typescript@5.6.3)
+      astro: 4.16.2(@types/node@22.7.5)(rollup@4.24.0)(typescript@5.6.3)
       send: 0.19.1
       server-destroy: 1.0.1
     transitivePeerDependencies:
@@ -2854,9 +2854,9 @@ snapshots:
     dependencies:
       prismjs: 1.29.0
 
-  '@astrojs/tailwind@5.1.2(astro@4.16.1(@types/node@22.7.5)(rollup@4.24.0)(typescript@5.6.3))(tailwindcss@3.4.13)':
+  '@astrojs/tailwind@5.1.2(astro@4.16.2(@types/node@22.7.5)(rollup@4.24.0)(typescript@5.6.3))(tailwindcss@3.4.13)':
     dependencies:
-      astro: 4.16.1(@types/node@22.7.5)(rollup@4.24.0)(typescript@5.6.3)
+      astro: 4.16.2(@types/node@22.7.5)(rollup@4.24.0)(typescript@5.6.3)
       autoprefixer: 10.4.20(postcss@8.4.47)
       postcss: 8.4.47
       postcss-load-config: 4.0.2(postcss@8.4.47)
@@ -3339,13 +3339,13 @@ snapshots:
 
   '@lukeed/ms@2.0.2': {}
 
-  '@mercuryworkshop/bare-mux@2.1.1': {}
+  '@mercuryworkshop/bare-mux@2.1.2': {}
 
-  '@mercuryworkshop/epoxy-tls@2.1.6-1': {}
+  '@mercuryworkshop/epoxy-tls@2.1.9-1': {}
 
-  '@mercuryworkshop/epoxy-transport@2.1.13':
+  '@mercuryworkshop/epoxy-transport@2.1.17':
     dependencies:
-      '@mercuryworkshop/epoxy-tls': 2.1.6-1
+      '@mercuryworkshop/epoxy-tls': 2.1.9-1
 
   '@mercuryworkshop/wisp-js@0.3.2':
     dependencies:
@@ -3613,7 +3613,7 @@ snapshots:
 
   array-iterate@2.0.1: {}
 
-  astro@4.16.1(@types/node@22.7.5)(rollup@4.24.0)(typescript@5.6.3):
+  astro@4.16.2(@types/node@22.7.5)(rollup@4.24.0)(typescript@5.6.3):
     dependencies:
       '@astrojs/compiler': 2.10.3
       '@astrojs/internal-helpers': 0.4.1
@@ -4429,9 +4429,9 @@ snapshots:
     dependencies:
       yallist: 3.1.1
 
-  lucide-astro@0.451.0(astro@4.16.1(@types/node@22.7.5)(rollup@4.24.0)(typescript@5.6.3)):
+  lucide-astro@0.451.0(astro@4.16.2(@types/node@22.7.5)(rollup@4.24.0)(typescript@5.6.3)):
     dependencies:
-      astro: 4.16.1(@types/node@22.7.5)(rollup@4.24.0)(typescript@5.6.3)
+      astro: 4.16.2(@types/node@22.7.5)(rollup@4.24.0)(typescript@5.6.3)
 
   magic-string@0.30.12:
     dependencies:

@@ -2,6 +2,8 @@
 import SettingsCard from "../layouts/settings.astro";
 import { Palette, Users, Info, House } from "lucide-astro";
 ---
+<script src="../utils/st.ts" />
+<script src="../utils/global.ts"></script>
 
 <div class="flex min-h-screen bg-gray-900 text-white">
   <nav class="w-64 bg-gray-800 p-4">
@@ -11,8 +13,8 @@ import { Palette, Users, Info, House } from "lucide-astro";
           class="setting-btn w-full text-left p-2 bg-gray-700 rounded hover:bg-gray-600 flex items-center space-x-2"
           onclick="window.location.href='./';"
         >
-        <House />
-         <span>Home</span>
+          <House />
+          <span>Home</span>
         </button>
       </li>
       <li>
@@ -63,7 +65,7 @@ import { Palette, Users, Info, House } from "lucide-astro";
           <label for="ptype" class="block text-gray-300 mb-2">Select Proxy Type:</label>
           <select
             name="Proxy"
-            id="ptype"
+            id="ptype-select"
             class="w-full p-2 rounded bg-gray-700 text-white"
           >
             <option value="uv">(Default) Ultraviolet</option>
@@ -109,34 +111,9 @@ import { Palette, Users, Info, House } from "lucide-astro";
       >
         <div class="mt-4">
           <p class="text-gray-400">Last Updated: 10/12/24 6:25PM</p>
-          <p class="mt-4 text-gray-400">For questions, email us at: <a href="mailto:youremailhere@e.com" class="text-blue-400 hover:underline">youremailhere@e.com</a></p>
+          <p class="mt-4 text-gray-400">For questions or concerns, email us at: <a href="mailto:uselunarproxy@gmail.com" class="text-blue-400 hover:underline">uselunarproxy@gmail.com</a></p>
         </div>
       </SettingsCard>
     </div>
   </div>
 </div>
-
-<script>
-  document.querySelectorAll(".setting-btn").forEach((button) => {
-    button.addEventListener("click", (event) => {
-      const targetElement = event.target as HTMLElement | null;
-      if (targetElement) {
-        const target = targetElement.getAttribute('data-target');
-        if (target) {
-          document.querySelectorAll("#content-container > div").forEach((section) => {
-            section.classList.add("hidden");
-          });
-          const targetSection = document.getElementById(target);
-          if (targetSection) {
-            targetSection.classList.remove("hidden");
-          }
-        }
-      }
-    });
-  });
-
-  const firstSection = document.querySelector("#content-container > div");
-  if (firstSection) {
-    firstSection.classList.remove("hidden");
-  }
-</script>
