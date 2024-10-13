@@ -22,9 +22,9 @@ npm run build
 npm start
 ```
 
-# Docs
+# More guides
 
-For details about enabling extra features & more click [here](https://github.com/Lunar-proxy/Lunar/wiki)
+For details about enabling extra features & more, click [here](https://github.com/Lunar-proxy/Lunar/wiki)
 
 # Support
 
@@ -32,7 +32,7 @@ To get help with any issues, bugs or give suggestions, you can join [our discord
 
 # Credits
 
-Thanks to all the contribuators!
+Thanks to all the contribuators who made this possible. 
 
 <a href="https://github.com/lunar-proxy/lunar/graphs/contributors">
 <img src="https://contrib.rocks/image?repo=lunar-proxy/lunar"/>
