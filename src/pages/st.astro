@@ -2,118 +2,149 @@
 import SettingsCard from "../layouts/settings.astro";
 import { Palette, Users, Info, House } from "lucide-astro";
 ---
-<script src="../utils/st.ts" />
-<script src="../utils/global.ts"></script>
 
-<div class="flex min-h-screen bg-gray-900 text-white">
-  <nav class="w-64 bg-gray-800 p-4">
-    <ul class="space-y-4">
-      <li>
-        <button
-          class="setting-btn w-full text-left p-2 bg-gray-700 rounded hover:bg-gray-600 flex items-center space-x-2"
-          onclick="window.location.href='./';"
-        >
-          <House />
-          <span>Home</span>
-        </button>
-      </li>
-      <li>
-        <button
-          class="setting-btn w-full text-left p-2 bg-gray-700 rounded hover:bg-gray-600 flex items-center space-x-2"
-          data-target="ptype"
-        >
-          Proxy Type
-        </button>
-      </li>
-      <li>
-        <button
-          class="setting-btn w-full text-left p-2 bg-gray-700 rounded hover:bg-gray-600 flex items-center space-x-2"
-          data-target="customization"
-        >
-          <Palette />
-          <span>Customization</span>
-        </button>
-      </li>
-      <li>
-        <button
-          class="setting-btn w-full text-left p-2 bg-gray-700 rounded hover:bg-gray-600 flex items-center space-x-2"
-          data-target="credits"
-        >
-          <Users />
-          <span>Credits</span>
-        </button>
-      </li>
-      <li>
-        <button
-          class="setting-btn w-full text-left p-2 bg-gray-700 rounded hover:bg-gray-600 flex items-center space-x-2"
-          data-target="info"
-        >
-          <Info />
-          <span>Info</span>
-        </button>
-      </li>
-    </ul>
-  </nav>
-
-  <div id="content-container" class="flex-grow p-6">
-    <div id="ptype" class="hidden">
-      <SettingsCard
-        title="Proxy Type"
-        description="Change what proxy Lunar uses to search."
-      >
-        <div class="mt-4">
-          <label for="ptype" class="block text-gray-300 mb-2">Select Proxy Type:</label>
-          <select
-            name="Proxy"
-            id="ptype-select"
-            class="w-full p-2 rounded bg-gray-700 text-white"
+<head>
+  <script src="../utils/st.ts"></script>
+  <script src="../utils/global.ts"></script>
+</head>
+<body>
+  <div class="flex min-h-screen bg-gray-900 text-white">
+    <nav class="w-64 bg-gray-800 p-4">
+      <ul class="space-y-4">
+        <li>
+          <button
+            class="setting-btn w-full text-left p-2 bg-gray-700 rounded hover:bg-gray-600 flex items-center space-x-2"
+            onclick="window.location.href='./';"
           >
-            <option value="uv">(Default) Ultraviolet</option>
-          </select>
-        </div>
-      </SettingsCard>
-    </div>
+            <House />
+            <span>Home</span>
+          </button>
+        </li>
+        <li>
+          <button
+            class="setting-btn w-full text-left p-2 bg-gray-700 rounded hover:bg-gray-600 flex items-center space-x-2"
+            data-target="ptype"
+          >
+            Proxy Settings
+          </button>
+        </li>
+        <li>
+          <button
+            class="setting-btn w-full text-left p-2 bg-gray-700 rounded hover:bg-gray-600 flex items-center space-x-2"
+            data-target="customization"
+          >
+            <Palette />
+            <span>Customization</span>
+          </button>
+        </li>
+        <li>
+          <button
+            class="setting-btn w-full text-left p-2 bg-gray-700 rounded hover:bg-gray-600 flex items-center space-x-2"
+            data-target="credits"
+          >
+            <Users />
+            <span>Credits</span>
+          </button>
+        </li>
+        <li>
+          <button
+            class="setting-btn w-full text-left p-2 bg-gray-700 rounded hover:bg-gray-600 flex items-center space-x-2"
+            data-target="info"
+          >
+            <Info />
+            <span>Info</span>
+          </button>
+        </li>
+      </ul>
+    </nav>
 
-    <div id="customization" class="hidden">
-      <SettingsCard
-        title="Theme"
-        description="Choose a theme for your experience."
-      >
-        <div class="mt-4">
-          <label for="theme" class="block text-gray-300 mb-2">Select Theme:</label>
-          <select id="theme" class="w-full p-2 rounded bg-gray-700 text-white">
-            <option value="dark">Dark</option>
-            <option value="light">Light</option>
-          </select>
-        </div>
-      </SettingsCard>
-    </div>
+    <div id="content-container" class="flex-grow p-6">
+      <div id="ptype" class="hidden">
+        <SettingsCard
+          title="Proxy Type"
+          description="Change what proxy Lunar uses to search."
+        >
+          <div class="mt-4">
+            <label for="ptype" class="block text-gray-300 mb-2"
+              >Select Proxy Type:</label
+            >
+            <select
+              name="Proxy"
+              id="pinput"
+              class="w-full p-2 rounded bg-gray-700 text-white"
+            >
+              <option value="uv">(Default) Ultraviolet</option>
+              <option value="sj">ScramJet</option>
+            </select>
+          </div>
+        </SettingsCard>
+      </div>
 
-    <div id="credits" class="hidden">
-      <SettingsCard
-        title="Credits"
-        description="Learn more about who made this project possible."
-      >
-        <ul class="list-disc list-inside mt-4 text-gray-400">
-          <li>owski09</li>
-          <li>endlessvortex</li>
-          <li>8bitbug</li>
-          <li>.evicly</li>
-        </ul>
-        <p class="mt-4 text-gray-400">Thank you for making lunar possible!</p>
-      </SettingsCard>
-    </div>
+      <div id="customization" class="hidden">
+        <SettingsCard
+          title="Theme"
+          description="Choose a theme for your experience."
+        >
+          <div class="mt-4">
+            <label for="theme" class="block text-gray-300 mb-2"
+              >Select Theme:</label
+            >
+            <select
+              id="theme"
+              class="w-full p-2 rounded bg-gray-700 text-white"
+            >
+              <option value="dark">Dark</option>
+              <option value="light">Light</option>
+            </select>
+          </div>
+        </SettingsCard>
+        <br />
+        <SettingsCard
+          title="Background Image"
+          description="Choose a background for your experience."
+        >
+          <div class="mt-4">
+            <label for="bg-input" class="block text-gray-300 mb-2"
+              >Type in an image link:</label
+            >
+            <input
+              type="text"
+              id="bg-input"
+              class="w-full p-2 rounded bg-gray-700 text-white"
+              placeholder="Enter image URL"
+            />
+          </div>
+        </SettingsCard>
+      </div>
 
-    <div id="info" class="hidden">
-      <SettingsCard
-        title="Info"
-        description="More info about Lunar"
-      >
-        <div class="mt-4">
-          <p class="text-gray-400">Last Updated: 10/12/24 6:25PM</p>
-          <p class="mt-4 text-gray-400">For questions or concerns, email us at: <a href="mailto:uselunarproxy@gmail.com" class="text-blue-400 hover:underline">uselunarproxy@gmail.com</a></p>
-        </div>
-      </SettingsCard>
+      <div id="credits" class="hidden">
+        <SettingsCard
+          title="Credits"
+          description="Learn more about who made this project possible."
+        >
+          <ul class="list-disc list-inside mt-4 text-gray-400">
+            <li>owski09</li>
+            <li>endlessvortex</li>
+            <li>8bitbug</li>
+            <li>.evicly</li>
+          </ul>
+          <p class="mt-4 text-gray-400">Thank you for making lunar possible!</p>
+        </SettingsCard>
+      </div>
+
+      <div id="info" class="hidden">
+        <SettingsCard title="Info" description="More info about Lunar">
+          <div class="mt-4">
+            <p class="text-gray-400">Last Updated: 10/12/24 6:25PM</p>
+            <p class="mt-4 text-gray-400">
+              For questions or concerns, email us at: <a
+                href="mailto:uselunarproxy@gmail.com"
+                class="text-blue-400 hover:underline"
+                >uselunarproxy@gmail.com</a>
+            </p>
+          </div>
+        </SettingsCard>
+      </div>
     </div>
   </div>
-</div>
+</body>

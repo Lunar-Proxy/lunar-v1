@@ -20,21 +20,21 @@
 8. Implement a sliding navigation bar instead of a static one.
    Add controls (refresh, back, forward, home) on the go.astro page.
 
-10. Create a TOS (Terms of Service) page and add the TOS content.
+9. Create a TOS (Terms of Service) page and add the TOS content.
 
-11. Add a Privacy Policy page and include the relevant content.
+10. Add a Privacy Policy page and include the relevant content.
 
-12. (@bearcat)
+11. (@bearcat)
     Integrate Google Analytics.
 
-13. (@bearcat)
+12. (@bearcat)
     Add password protection (with a fallback page).
 
-14. (Optional) Implement volume controls for adjusting sound (up/down).
+13. (Optional) Implement volume controls for adjusting sound (up/down).
 
-15. In settings, add an option to change the transport type (e.g., epoxy, libcurl, baremux), enabling Vercel support.
+14. In settings, add an option to change the transport type (e.g., epoxy, libcurl, baremux), enabling Vercel support.
 
-16. Optimize UV to load faster.
+15. Optimize UV to load faster.
 
-17. (@bearcattt)
+16. (@bearcattt)
     Add a proxy switcher (for UV, Scramjet, and others) in the settings.

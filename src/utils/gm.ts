@@ -27,12 +27,14 @@ async function fetchGames(): Promise<Game[]> {
 fetchGames().then((gamelist) => {
   if (gamelist) {
     const gameContainerDiv = document.createElement("div");
-    gameContainerDiv.className = "mt-10 flex flex-wrap justify-start gap-4 p-4";
+    gameContainerDiv.className = "mt-10 flex flex-wrap p-4";
+    gameContainerDiv.id = "game-container";
 
     gamelist.forEach((element: Game) => {
       const gamediv = document.createElement("div");
       gamediv.className =
-        "w-1/4 m-0 transition-transform duration-300 transform hover:scale-105";
+        "game-item w-1/4 transition-transform duration-300 transform hover:scale-105";
+      gamediv.dataset.name = element.name.toLowerCase();
 
       const gameContainer = document.createElement("div");
       gameContainer.className =
@@ -46,7 +48,7 @@ fetchGames().then((gamelist) => {
       const gameName = document.createElement("h3");
       gameName.textContent = element.name;
       gameName.className =
-        "text-white absolute left-0 bottom-0 transform translate-y-full opacity-0 transition-opacity duration-300 ease-in-out group-hover:translate-y-0 group-hover:opacity-100 font-rubik text-lg tracking-wide p-2 bg-gradient-to-t from-gray-800 to-transparent"; // Gradient background for text
+        "text-white absolute left-0 bottom-0 transform translate-y-full opacity-0 transition-opacity duration-300 ease-in-out group-hover:translate-y-0 group-hover:opacity-100 font-rubik text-lg tracking-wide p-2 bg-gradient-to-t from-gray-800 to-transparent";
 
       gameContainer.appendChild(gameImage);
       gameContainer.appendChild(gameName);
@@ -75,5 +77,24 @@ fetchGames().then((gamelist) => {
     });
 
     document.body.appendChild(gameContainerDiv);
+
+    const searchInput = document.getElementById(
+      "search-input",
+    ) as HTMLInputElement;
+    searchInput.addEventListener("input", function () {
+      const searchTerm = searchInput.value.toLowerCase();
+      const gameItems = document.querySelectorAll(".game-item");
+
+      gameItems.forEach((gameItem) => {
+        const gameName = gameItem.getAttribute("data-name");
+        if (gameName && gameName.includes(searchTerm)) {
+          (gameItem as HTMLElement).style.visibility = "visible";
+          (gameItem as HTMLElement).style.display = "block";
+        } else {
+          (gameItem as HTMLElement).style.visibility = "hidden";
+          (gameItem as HTMLElement).style.display = "none";
+        }
+      });
+    });
   }
 });

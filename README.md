@@ -15,6 +15,7 @@ Lunar is a webproxy that offers features like
 - Automatic Tab cloaking
 - A bunch of Customization & Features
 - Even more!
+
 # How do i deploy?
 
 ```
@@ -33,7 +34,7 @@ To get help with any issues, bugs or give suggestions, you can join [our discord
 
 # Credits
 
-Thanks to all the contribuators who made this possible. 
+Thanks to all the contribuators who made this possible.
 
 <a href="https://github.com/lunar-proxy/lunar/graphs/contributors">
 <img src="https://contrib.rocks/image?repo=lunar-proxy/lunar"/>

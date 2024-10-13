@@ -1,6 +1,5 @@
 import { BareMuxConnection } from "@mercuryworkshop/bare-mux";
 
-
 if ("serviceWorker" in navigator) {
   navigator.serviceWorker
     .register("./sw.js", { scope: "/p/" })
@@ -12,13 +11,14 @@ if ("serviceWorker" in navigator) {
     );
 }
 
-
 const loadingDiv = document.getElementById("loading")!;
 const iframe = document.getElementById("iframe") as HTMLIFrameElement;
 const gourl = localStorage.getItem("@lunar/gourl") || "/p/hvtrs8%2F-Gmoelg.aoo";
 const wispurl = `${location.protocol === "https:" ? "wss" : "ws"}://${location.host}/ws/`;
 
-function updateIframeUrl(): void {
+async function updateUrl() {
+  const connection = new BareMuxConnection("/bm/worker.js");
+  await connection.setTransport("/ep/index.mjs", [{ wisp: wispurl }]);
   const newUrl = localStorage.getItem("@lunar/gourl") || "";
   loadingDiv.style.display = "block";
   iframe.style.display = "none";
@@ -37,8 +37,9 @@ function updateIframeUrl(): void {
     if (iframeWindow) {
       iframeWindow.open = (url: string) => {
         console.log("URL:", url);
-        localStorage.setItem("@lunar/gourl", `/p/${encodeURIComponent(url)}`);
-        updateIframeUrl();
+        let newurl = config.encodeUrl(url);
+        localStorage.setItem("@lunar/gourl", `/p/${newurl}`);
+        updateUrl();
         return null;
       };
     }
