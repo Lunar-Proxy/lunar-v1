@@ -7,13 +7,14 @@
 > [!NOTE]  
 > This webproxy is in beta so expect bugs before the final release
 
-Lunar is a webproxy that offers stuff like
+Lunar is a webproxy that offers features like
 
 - ad free searching
 - fast speeds
 - giving users better experience
-- Tab & about blank cloaking
-
+- Automatic Tab cloaking
+- A bunch of Customization & Features
+- Even more!
 # How do i deploy?
 
 ```
