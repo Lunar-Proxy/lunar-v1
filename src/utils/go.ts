@@ -13,14 +13,15 @@ if ("serviceWorker" in navigator) {
 
 const loadingDiv = document.getElementById("loading")!;
 const iframe = document.getElementById("iframe") as HTMLIFrameElement;
-const gourl = localStorage.getItem("@lunar/gourl") || "/us/hvtrs8%2F-Gmoelg.aoo";
+const gourl =
+  localStorage.getItem("@lunar/gourl") || "/us/hvtrs8%2F-Gmoelg.aoo";
 const wispurl = `${location.protocol === "https:" ? "wss" : "ws"}://${location.host}/ws/`;
 
 async function updateUrl() {
   const connection = new BareMuxConnection("/bm/worker.js");
   await connection.setTransport("/ep/index.mjs", [{ wisp: wispurl }]);
   const newUrl = localStorage.getItem("@lunar/gourl") || "";
-  console.debug("New url", newUrl)
+  console.debug("New url", newUrl);
   loadingDiv.style.display = "block";
   iframe.style.display = "none";
   iframe.src = newUrl;
@@ -29,7 +30,7 @@ async function updateUrl() {
 (async (): Promise<void> => {
   const connection = new BareMuxConnection("/bm/worker.js");
   await connection.setTransport("/ep/index.mjs", [{ wisp: wispurl }]);
-  console.debug("using default transport (Epoxy)")
+  console.debug("using default transport (Epoxy)");
   iframe.src = gourl;
   iframe.onload = () => {
     iframe.style.display = "block";

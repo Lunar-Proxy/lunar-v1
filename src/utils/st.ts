@@ -47,5 +47,6 @@ pinput?.addEventListener("change", function () {
   console.debug("Proxy type set to", option);
 });
 
-pinput.value = localStorage.getItem("@lunar/custom/ptype") || "uv"
-bginput.placeholder = localStorage.getItem("@lunar/custom/bg") || "Enter an image URL"
+pinput.value = localStorage.getItem("@lunar/custom/ptype") || "uv";
+bginput.placeholder =
+  localStorage.getItem("@lunar/custom/bg") || "Enter an image URL";
