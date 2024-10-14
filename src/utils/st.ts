@@ -43,6 +43,9 @@ const pinput = document.getElementById("pinput") as HTMLOptionElement;
 
 pinput?.addEventListener("change", function () {
   const option = this.value;
-  localStorage.setItem("@lunar/ptype", option);
+  localStorage.setItem("@lunar/custom/ptype", option);
   console.debug("Proxy type set to", option);
 });
+
+pinput.value = localStorage.getItem("@lunar/custom/ptype") || "uv"
+bginput.placeholder = localStorage.getItem("@lunar/custom/bg") || "Enter an image URL"

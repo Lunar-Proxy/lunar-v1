@@ -70,7 +70,7 @@ fetchGames().then((gamelist) => {
             url = `https://www.google.com/search?q=${encodeURIComponent(value)}`;
           }
           const encurl = config.encodeUrl(url);
-          localStorage.setItem("@lunar/gourl", "/p/" + encurl || "");
+          localStorage.setItem("@lunar/gourl", "/us/" + encurl || "");
           window.location.href = "./g";
         }
       });

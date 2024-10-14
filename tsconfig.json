@@ -1,5 +1,5 @@
 {
   "extends": "astro/tsconfigs/strict",
   "compilerOptions": {},
-  "exclude": ["node_modules", "dist", "./public/assets/u/**"]
+  "exclude": ["node_modules", "dist", "./public/assets/fonts/**"]
 }

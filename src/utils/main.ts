@@ -32,6 +32,6 @@ fm.addEventListener("submit", (event) => {
     url = `https://www.google.com/search?q=${encodeURIComponent(value)}`;
   }
 
-  localStorage.setItem("@lunar/gourl", `/p/${config.encodeUrl(url)}`);
+  localStorage.setItem("@lunar/gourl", `/us/${config.encodeUrl(url)}`);
   window.location.href = "./g";
 });

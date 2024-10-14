@@ -14,7 +14,7 @@ import { baremuxPath } from "@mercuryworkshop/bare-mux/node";
 import { server as wisp } from "@mercuryworkshop/wisp-js/server";
 
 // wisp settings
-// See readme for more details
+// See https://github.com/lunar-proxy/lunar/wiki
 //  wisp.options.dns_method = "resolve";
 // wisp.options.dns_servers = ["1.1.1.3", "1.0.0.3"];
 // wisp.options.dns_result_order = "ipv4first";

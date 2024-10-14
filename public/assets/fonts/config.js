@@ -1,5 +1,5 @@
 const config = {
-  prefix: "/p/",
+  prefix: "/us/",
   encodeUrl: (str) => {
     if (!str) return str;
     const result = new Array(str.length);

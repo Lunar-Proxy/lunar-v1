@@ -51,7 +51,7 @@ import { Gamepad, Cog } from "lucide-astro";
     <script>
       if ("serviceWorker" in navigator) {
         navigator.serviceWorker
-          .register("./sw.js", { scope: "/p/" })
+          .register("./sw.js", { scope: "/us/" })
           .then(({ scope }) =>
             console.log("Service Worker registered with scope:", scope),
           )
