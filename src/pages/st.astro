@@ -1,6 +1,7 @@
 ---
 import SettingsCard from "../layouts/settings.astro";
 import { Palette, Users, Info, House } from "lucide-astro";
+const Version = `v${process.env.npm_package_version}`;
 ---
 
 <head>
@@ -8,7 +9,7 @@ import { Palette, Users, Info, House } from "lucide-astro";
   <script src="../utils/global.ts"></script>
 </head>
 <body>
-  <div class="flex min-h-screen bg-gray-900 text-white">
+  <div class="flex min-h-screen text-white">
     <nav class="w-64 bg-gray-800 p-4">
       <ul class="space-y-4">
         <li>
@@ -25,7 +26,7 @@ import { Palette, Users, Info, House } from "lucide-astro";
             class="setting-btn w-full text-left p-2 bg-gray-700 rounded hover:bg-gray-600 flex items-center space-x-2"
             data-target="ptype"
           >
-            Proxy Settings
+            <span>Proxy Settings</span>
           </button>
         </li>
         <li>
@@ -62,11 +63,11 @@ import { Palette, Users, Info, House } from "lucide-astro";
       <div id="ptype" class="hidden">
         <SettingsCard
           title="Proxy Type"
-          description="Change what proxy Lunar uses to search."
+          description="Select the proxy type used for searching."
         >
           <div class="mt-4">
             <label for="ptype" class="block text-gray-300 mb-2"
-              >Select Proxy Type:</label
+              >Proxy Type:</label
             >
             <select
               name="Proxy"
@@ -79,16 +80,13 @@ import { Palette, Users, Info, House } from "lucide-astro";
           </div>
         </SettingsCard>
       </div>
-
       <div id="customization" class="hidden">
         <SettingsCard
           title="Theme"
-          description="Choose a theme for your experience."
+          description="Choose the theme that best suits your preference."
         >
           <div class="mt-4">
-            <label for="theme" class="block text-gray-300 mb-2"
-              >Select Theme:</label
-            >
+            <label for="theme" class="block text-gray-300 mb-2">Theme:</label>
             <select
               id="theme"
               class="w-full p-2 rounded bg-gray-700 text-white"
@@ -101,11 +99,11 @@ import { Palette, Users, Info, House } from "lucide-astro";
         <br />
         <SettingsCard
           title="Background Image"
-          description="Choose a background for your experience."
+          description="Set a custom background image for your background."
         >
           <div class="mt-4">
             <label for="bg-input" class="block text-gray-300 mb-2"
-              >Type in an image link:</label
+              >Background Image URL:</label
             >
             <input
               type="text"
@@ -115,11 +113,10 @@ import { Palette, Users, Info, House } from "lucide-astro";
           </div>
         </SettingsCard>
       </div>
-
       <div id="credits" class="hidden">
         <SettingsCard
           title="Credits"
-          description="Learn more about who made this project possible."
+          description="Credits to the contributors who made Lunar possible."
         >
           <ul class="list-disc list-inside mt-4 text-gray-400">
             <li>owski09</li>
@@ -127,16 +124,21 @@ import { Palette, Users, Info, House } from "lucide-astro";
             <li>8bitbug</li>
             <li>.evicly</li>
           </ul>
-          <p class="mt-4 text-gray-400">Thank you for making lunar possible!</p>
+          <p class="mt-4 text-gray-400">
+            Thank you to everyone who contributed to Lunar!
+          </p>
         </SettingsCard>
       </div>
-
       <div id="info" class="hidden">
-        <SettingsCard title="Info" description="More info about Lunar">
+        <SettingsCard
+          title="Info"
+          description="Details about the Lunar project."
+        >
           <div class="mt-4">
-            <p class="text-gray-400">Last Updated: 10/12/24 6:25PM</p>
+            <p class="text-gray-400">Version: {Version}</p>
             <p class="mt-4 text-gray-400">
-              For questions or concerns, email us at: <a
+              For questions or conserns contact us at:
+              <a
                 href="mailto:uselunarproxy@gmail.com"
                 class="text-blue-400 hover:underline">uselunarproxy@gmail.com</a
               >

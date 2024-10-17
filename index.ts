@@ -14,7 +14,7 @@ import { baremuxPath } from "@mercuryworkshop/bare-mux/node";
 import { server as wisp } from "@mercuryworkshop/wisp-js/server";
 
 // wisp settings
-// See https://github.com/lunar-proxy/lunar/wiki
+// See https://github.com/lunar-proxy/lunar/wiki for more details
 //  wisp.options.dns_method = "resolve";
 // wisp.options.dns_servers = ["1.1.1.3", "1.0.0.3"];
 // wisp.options.dns_result_order = "ipv4first";
@@ -40,9 +40,9 @@ const app = Fastify({
 
 try {
   if (!fs.existsSync("dist")) {
-    console.log(chalk.blue.bold("Dist not found, building..."));
+    console.log(chalk.blue.bold("Cannot find dist folder, building..."));
     await execPromise("npm run build");
-    console.log(chalk.green.bold("Dist successfully built!"));
+    console.log(chalk.green.bold("Dist folder successfully built."));
   }
 
   await app.register(fastifyMiddie);

@@ -17,8 +17,10 @@ Lunar is a webproxy that offers features like
 - Even more!
 
 # How do i deploy?
+
 > [!NOTE]
 > You will need to install [git](https://git-scm.com/downloads) and [nodejs](https://nodejs.org/en/download/prebuilt-installer)
+
 ```
 git clone https://github.com/Lunar-Proxy/Lunar.git
 cd Lunar

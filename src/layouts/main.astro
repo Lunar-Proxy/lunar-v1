@@ -1,25 +1,11 @@
 ---
 import { Gamepad, Cog } from "lucide-astro";
+import "@src/main.css";
 ---
 
 <!doctype html>
 <html lang="en">
   <head>
-    <!-- Google Tag DO NOT REMOVE -->
-    <script>
-      declare global {
-        interface Window {
-          dataLayer: any;
-        }
-      }
-      let dataLayer = window.dataLayer || [];
-      function gtag(a: string, b: string | object) {
-        dataLayer.push(arguments);
-      }
-      gtag("js", new Date());
-      gtag("config", "G-DQZPCVEF89");
-    </script>
-    <!-- Google Tag DO NOT REMOVE -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
@@ -27,7 +13,7 @@ import { Gamepad, Cog } from "lucide-astro";
     <script is:inline src="./assets/fonts/config.js" defer></script>
     <script is:inline src="/bm/index.js" defer></script>
   </head>
-  <body class="bg-gray-900 text-white">
+  <body class="text-white">
     <nav class="bg-gray-800 p-4">
       <div class="container mx-auto flex justify-between items-center">
         <a href="/" class="text-white text-2xl font-bold">Logo</a>

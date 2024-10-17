@@ -22,19 +22,17 @@
 
 9. Create a TOS (Terms of Service) page and add the TOS content.
 
-10. Add a Privacy Policy page and include the relevant content.
-
-11. (@bearcat)
+10. (@bearcat)
     Integrate Google Analytics.
 
-12. (@bearcat)
+11. (@bearcat)
     Add password protection (with a fallback page).
 
-13. (Optional) Implement volume controls for adjusting sound (up/down).
+12. (Optional) Implement volume controls for adjusting sound (up/down).
 
-14. In settings, add an option to change the transport type (e.g., epoxy, libcurl, baremux), enabling Vercel support.
+13. In settings, add an option to change the transport type (e.g., epoxy, libcurl, baremux), enabling Vercel support.
 
-15. Optimize UV to load faster.
+14. Optimize UV to load faster.
 
-16. (@bearcattt)
+15. (@bearcattt)
     Add a proxy switcher (for UV, Scramjet, and others) in the settings.

@@ -3,23 +3,23 @@ import Main from "../layouts/main.astro";
 import { Plus } from "lucide-astro";
 ---
 
-<Main />
-<div class="flex justify-center items-center space-x-2 mt-4">
-  <div class="flex items-center space-x-2">
-    <button
-      id="gameadd"
-      class="bg-gray-800 border border-gray-600 rounded-full p-3 text-base font-semibold flex items-center text-white hover:bg-gray-700 transition duration-200"
-    >
-      <Plus class="mr-1" /> Add A Game
-    </button>
-    <input
-      id="search-input"
-      type="text"
-      class="w-64 h-12 px-4 text-center text-white bg-gray-800 border border-gray-600 rounded-full shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
-      placeholder="Search for a game.."
-    />
+<Main>
+  <div class="flex justify-center items-center space-x-2 mt-4">
+    <div class="flex items-center space-x-2">
+      <button
+        id="gameadd"
+        class="bg-gray-800 border border-gray-600 rounded-full p-3 text-base font-semibold flex items-center text-white hover:bg-gray-700 transition duration-200"
+      >
+        <Plus class="mr-1" /> Add A Game
+      </button>
+      <input
+        id="search-input"
+        type="text"
+        class="w-64 h-12 px-4 text-center text-white bg-gray-800 border border-gray-600 rounded-full shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+        placeholder="Search for a game.."
+      />
+    </div>
   </div>
-</div>
-
+</Main>
 <script src="../utils/gm.ts"></script>
 <script src="../utils/global.ts"></script>
