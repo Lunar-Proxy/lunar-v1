@@ -1,7 +1,7 @@
 ---
 import SettingsCard from "../layouts/settings.astro";
-import { Palette, Users, Info, House } from "lucide-astro";
-const Version = `v${process.env.npm_package_version}`;
+import Main from "../layouts/main.astro";
+import { Palette, Users, Info, Link, Shield } from "lucide-astro";
 ---
 
 <head>
@@ -9,143 +9,216 @@ const Version = `v${process.env.npm_package_version}`;
   <script src="../utils/global.ts"></script>
 </head>
 <body>
-  <div class="flex min-h-screen text-white">
-    <nav class="w-64 bg-gray-800 p-4">
-      <ul class="space-y-4">
-        <li>
-          <button
-            class="setting-btn w-full text-left p-2 bg-gray-700 rounded hover:bg-gray-600 flex items-center space-x-2"
-            onclick="window.location.href='./';"
-          >
-            <House />
-            <span>Home</span>
-          </button>
-        </li>
-        <li>
-          <button
-            class="setting-btn w-full text-left p-2 bg-gray-700 rounded hover:bg-gray-600 flex items-center space-x-2"
-            data-target="ptype"
-          >
-            <span>Proxy Settings</span>
-          </button>
-        </li>
-        <li>
-          <button
-            class="setting-btn w-full text-left p-2 bg-gray-700 rounded hover:bg-gray-600 flex items-center space-x-2"
-            data-target="customization"
-          >
-            <Palette />
-            <span>Customization</span>
-          </button>
-        </li>
-        <li>
-          <button
-            class="setting-btn w-full text-left p-2 bg-gray-700 rounded hover:bg-gray-600 flex items-center space-x-2"
-            data-target="credits"
-          >
-            <Users />
-            <span>Credits</span>
-          </button>
-        </li>
-        <li>
-          <button
-            class="setting-btn w-full text-left p-2 bg-gray-700 rounded hover:bg-gray-600 flex items-center space-x-2"
-            data-target="info"
-          >
-            <Info />
-            <span>Info</span>
-          </button>
-        </li>
-      </ul>
-    </nav>
+  <Main>
+    <div class="flex min-h-screen text-white justify-center items-center">
+      <nav class="bg-gray-800 w-64 p-4 rounded-lg">
+        <ul class="space-y-4">
+          <li>
+            <button
+              class="setting-btn w-full text-left p-2 bg-gray-700 rounded hover:bg-gray-600 flex items-center space-x-2"
+              data-target="website"
+            >
+              <Link />
+              <span>Site Options</span>
+            </button>
+          </li>
+          <li>
+            <button
+              class="setting-btn w-full text-left p-2 bg-gray-700 rounded hover:bg-gray-600 flex items-center space-x-2"
+              data-target="ptype"
+            >
+              <Shield />
+              <span>Proxy Settings</span>
+            </button>
+          </li>
+          <li>
+            <button
+              class="setting-btn w-full text-left p-2 bg-gray-700 rounded hover:bg-gray-600 flex items-center space-x-2"
+              data-target="customization"
+            >
+              <Palette />
+              <span>Customization</span>
+            </button>
+          </li>
+          <li>
+            <button
+              class="setting-btn w-full text-left p-2 bg-gray-700 rounded hover:bg-gray-600 flex items-center space-x-2"
+              data-target="credits"
+            >
+              <Users />
+              <span>Credits</span>
+            </button>
+          </li>
+          <li>
+            <button
+              class="setting-btn w-full text-left p-2 bg-gray-700 rounded hover:bg-gray-600 flex items-center space-x-2"
+              data-target="info"
+            >
+              <Info />
+              <span>Info</span>
+            </button>
+          </li>
+        </ul>
+      </nav>
 
-    <div id="content-container" class="flex-grow p-6">
-      <div id="ptype" class="hidden">
-        <SettingsCard
-          title="Proxy Type"
-          description="Select the proxy type used for searching."
-        >
-          <div class="mt-4">
-            <label for="ptype" class="block text-gray-300 mb-2"
-              >Proxy Type:</label
-            >
-            <select
-              name="Proxy"
-              id="pinput"
-              class="w-full p-2 rounded bg-gray-700 text-white"
-            >
-              <option value="uv">(Default) Ultraviolet</option>
-              <option value="sj">ScramJet</option>
-            </select>
-          </div>
-        </SettingsCard>
-      </div>
-      <div id="customization" class="hidden">
-        <SettingsCard
-          title="Theme"
-          description="Choose the theme that best suits your preference."
-        >
-          <div class="mt-4">
-            <label for="theme" class="block text-gray-300 mb-2">Theme:</label>
-            <select
-              id="theme"
-              class="w-full p-2 rounded bg-gray-700 text-white"
-            >
-              <option value="dark">Dark</option>
-              <option value="light">Light</option>
-            </select>
-          </div>
-        </SettingsCard>
-        <br />
-        <SettingsCard
-          title="Background Image"
-          description="Set a custom background image for your background."
-        >
-          <div class="mt-4">
-            <label for="bg-input" class="block text-gray-300 mb-2"
-              >Background Image URL:</label
-            >
-            <input
-              type="text"
-              id="bg-input"
-              class="w-full p-2 rounded bg-gray-700 text-white"
-            />
-          </div>
-        </SettingsCard>
-      </div>
-      <div id="credits" class="hidden">
-        <SettingsCard
-          title="Credits"
-          description="Credits to the contributors who made Lunar possible."
-        >
-          <ul class="list-disc list-inside mt-4 text-gray-400">
-            <li>owski09</li>
-            <li>endlessvortex</li>
-            <li>8bitbug</li>
-            <li>.evicly</li>
-          </ul>
-          <p class="mt-4 text-gray-400">
-            Thank you to everyone who contributed to Lunar!
-          </p>
-        </SettingsCard>
-      </div>
-      <div id="info" class="hidden">
-        <SettingsCard
-          title="Info"
-          description="Details about the Lunar project."
-        >
-          <div class="mt-4">
-            <p class="text-gray-400">Version: {Version}</p>
-            <p class="mt-4 text-gray-400">
-              For questions or conserns contact us at:
-              <a
-                href="mailto:uselunarproxy@gmail.com"
-                class="text-blue-400 hover:underline">uselunarproxy@gmail.com</a
+      <div id="content-container" class="flex-grow p-6">
+        <div id="website" class="hidden">
+          <SettingsCard
+            title="Cloak"
+            description="Turn on or off the cloaking feature that cloaks the tab, favicon, and hides the website from your history"
+          >
+            <div class="flex justify-center mt-4">
+              <label class="flex items-center cursor-pointer">
+                <div class="relative">
+                  <input type="checkbox" id="cloak-toggle" class="hidden" />
+                  <div class="block bg-gray-500 w-16 h-8 rounded-full"></div>
+                  <div
+                    id=".dot"
+                    class="dot absolute left-1 top-1 bg-white w-6 h-6 rounded-full transition"
+                  >
+                  </div>
+                </div>
+              </label>
+            </div>
+          </SettingsCard>
+        </div>
+
+        <div id="ptype" class="hidden">
+          <SettingsCard
+            title="Proxy Type"
+            description="Select the proxy type used for searching."
+          >
+            <div class="mt-4">
+              <label for="ptype" class="block text-gray-300 mb-2 text-center"
+                >Proxy Type:</label
               >
+              <select
+                name="Proxy"
+                id="pinput"
+                class="w-full p-2 rounded bg-gray-700 text-white text-center appearance-none"
+              >
+                <option value="uv" class="text-center"
+                  >(Default) Ultraviolet</option
+                >
+                <option value="sj" class="text-center">ScramJet</option>
+              </select>
+            </div>
+          </SettingsCard>
+
+          <br />
+
+          <SettingsCard
+            title="Transport Type"
+            description="Select the transport used to search."
+          >
+            <div class="mt-4">
+              <label for="Ttype" class="block text-gray-300 mb-2 text-center"
+                >Transport:</label
+              >
+              <select
+                name="Transport"
+                id="Tinput"
+                class="w-full p-2 rounded bg-gray-700 text-white text-center appearance-none"
+              >
+                <option value="lc" class="text-center">(Default) Libcurl</option
+                >
+                <option value="ep" class="text-center">Epoxy</option>
+              </select>
+            </div>
+          </SettingsCard>
+        </div>
+
+        <div id="customization" class="hidden">
+          <SettingsCard
+            title="Theme"
+            description="Choose a theme to customize your experience."
+          >
+            <div class="mt-4">
+              <label for="theme" class="block text-gray-300 mb-2 text-center"
+                >Theme:</label
+              >
+              <select
+                id="theme"
+                class="w-full p-2 rounded bg-gray-700 text-white text-center appearance-none"
+              >
+                <option value="dark" class="text-center">Dark</option>
+                <option value="light" class="text-center">Light</option>
+              </select>
+            </div>
+          </SettingsCard>
+
+          <br />
+
+          <SettingsCard
+            title="Background Image"
+            description="Set a custom background image for the background."
+          >
+            <div class="mt-4">
+              <label for="bg-input" class="block text-gray-300 mb-2 text-center"
+                >Background Image URL:</label
+              >
+              <input
+                type="text"
+                id="bg-input"
+                class="w-full p-2 rounded bg-gray-700 text-white text-center placeholder-gray-500"
+                placeholder="Enter URL"
+              />
+            </div>
+          </SettingsCard>
+        </div>
+
+        <div id="credits" class="hidden">
+          <SettingsCard title="Credits" description="Credits to people.">
+            <ul class="list-disc list-inside mt-4 text-gray-400 text-center">
+              <li>owski09</li>
+              <li>endlessvortex</li>
+              <li>8bitbug</li>
+              <li>.evicly</li>
+            </ul>
+            <p class="mt-4 text-gray-400 text-center">
+              Thank you to everyone who contributed to Lunar!
             </p>
-          </div>
-        </SettingsCard>
+          </SettingsCard>
+        </div>
+
+        <div id="info" class="hidden">
+          <SettingsCard title="Info" description="Info about lunar.">
+            <div class="mt-4 text-center">
+              <p class="text-gray-400">Version: v{VERSION}</p>
+              <p class="text-gray-400">
+                Last Updated: {new Date(LAST_UPDATED).toLocaleString()}
+              </p>
+              <p class="mt-4 text-gray-400">
+                For questions or conserns, you can contact us with the links
+                below.
+                <br />
+
+                <ul
+                  class="text-bold list-disc list-inside mt-4 text-gray-400 text-center"
+                >
+                  <li>
+                    <a
+                      href="mailto:uselunarproxy@gmail.com"
+                      class="text-blue-400 hover:underline"
+                      >uselunarproxy@gmail.com</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      href="https://github.com/Lunar-Proxy/Lunar/tree/main"
+                      class="text-blue-400 hover:underline">Lunar's Github</a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://dsc.gg/golunar"
+                      class="text-blue-400 hover:underline">Lunar's Discord</a>
+                  </li>
+                </ul>
+              </p>
+            </div>
+          </SettingsCard>
+        </div>
       </div>
     </div>
-  </div>
+  </Main>
 </body>

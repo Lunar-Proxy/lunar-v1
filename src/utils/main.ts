@@ -32,6 +32,9 @@ fm.addEventListener("submit", (event) => {
     url = `https://www.google.com/search?q=${encodeURIComponent(value)}`;
   }
 
+  if (localStorage.getItem("@lunar/custom/transport") == null) {
+    localStorage.setItem("@lunar/custom/transport", "lc");
+  }
   localStorage.setItem("@lunar/gourl", `/us/${config.encodeUrl(url)}`);
   window.location.href = "./g";
 });

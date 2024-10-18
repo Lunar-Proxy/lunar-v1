@@ -26,14 +26,14 @@ import { X, Search } from "lucide-astro";
           </button>
           <input
             id="input"
-            class="custom-input w-full h-[50px] pl-12 pr-12 p-4 text-lg text-white text-center bg-gray-800 border border-gray-700 rounded-full shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200"
+            class="w-full h-[50px] pl-12 pr-12 p-4 text-lg text-white text-center bg-gray-800 border border-gray-700 rounded-full shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200"
             type="text"
             placeholder={Placeholder}
           />
           <button
             type="button"
             id="clear"
-            class="absolute right-4 top-1/2 transform -translate-y-1/2 text-red-500 text-2xl hover:text-red-700 focus:outline-none transition duration-200"
+            class="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-600 text-2xl hover:text-red-700 focus:outline-none transition duration-200"
             style="display: none;"
           >
             <X class="w-7 h-7" />
@@ -45,11 +45,28 @@ import { X, Search } from "lucide-astro";
   <p
     class="fixed bottom-0 left-0 right-0 text-center bg-gray-800 py-4 text-gray-300"
   >
-    <a href="/tos" class="hover:text-white transition duration-200">TOS</a>
+    <a id="time" class="hover:text-white transition duration-200"></a>
   </p>
 </Main>
 
 <script>
   const inputElement = document.getElementById("input") as HTMLInputElement;
+  const clock = document.getElementById("time") as HTMLElement;
   inputElement.placeholder = `Search with ${localStorage.getItem("@lunar/settings/se") || "Google"} or enter a URL`;
+  function updateClock() {
+    const now = new Date();
+    let hours = now.getHours();
+    const minutes = String(now.getMinutes()).padStart(2, "0");
+    const seconds = String(now.getSeconds()).padStart(2, "0");
+    const ampm = hours >= 12 ? "PM" : "AM";
+    hours = hours % 12;
+    hours = hours ? hours : 12;
+    const displayHours = String(hours).padStart(2, "0");
+    if (clock) {
+      clock.textContent = `${displayHours}:${minutes}:${seconds} ${ampm}`;
+    }
+  }
+
+  setInterval(updateClock, 1000);
+  updateClock();
 </script>

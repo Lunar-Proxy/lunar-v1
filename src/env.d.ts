@@ -1,5 +1,8 @@
 /// <reference path="../.astro/types.d.ts" />
 
+const LAST_UPDATED: string;
+const VERSION: string;
+
 interface Config {
   prefix: string;
   encodeUrl: (str: string) => string | null;
@@ -15,3 +18,4 @@ declare const config: Config;
 declare module "@mercuryworkshop/epoxy-transport";
 declare module "@mercuryworkshop/wisp-js/server";
 declare module "@mercuryworkshop/bare-mux/node";
+declare module "@mercuryworkshop/libcurl-transport";

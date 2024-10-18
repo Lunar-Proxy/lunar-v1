@@ -5,6 +5,7 @@ import fastifyCompress from "@fastify/compress";
 import fs from "node:fs";
 import { fileURLToPath } from "node:url";
 import { exec } from "child_process";
+import { libcurlPath } from "@mercuryworkshop/libcurl-transport";
 import { promisify } from "node:util";
 import chalk from "chalk";
 import { IncomingMessage, ServerResponse, createServer, Server } from "http";
@@ -67,7 +68,11 @@ try {
     prefix: "/ep/",
     decorateReply: false,
   });
-
+  app.register(fastifyStatic, {
+    root: libcurlPath,
+    prefix: "/lc/",
+    decorateReply: false,
+  });
   app.register(fastifyStatic, {
     root: baremuxPath,
     prefix: "/bm/",

@@ -1,3 +1,13 @@
+const pinput = document.getElementById("pinput") as HTMLOptionElement;
+const firstSection = document.querySelector(
+  "#content-container > div:not(.hidden)",
+);
+const bginput = document.getElementById("bg-input") as HTMLInputElement;
+const tinput = document.getElementById("Tinput") as HTMLOptionElement;
+const toggle = document.getElementById("cloak-toggle") as HTMLInputElement;
+const slider = toggle.nextElementSibling as HTMLElement;
+const dot = document.getElementById(".dot") as HTMLElement;
+
 document.querySelectorAll(".setting-btn").forEach((button) => {
   button.addEventListener("click", (event) => {
     const targetElement = event.currentTarget as HTMLElement;
@@ -17,17 +27,13 @@ document.querySelectorAll(".setting-btn").forEach((button) => {
   });
 });
 
-const firstSection = document.querySelector(
-  "#content-container > div:not(.hidden)",
-);
 if (!firstSection) {
-  const defaultSection = document.getElementById("ptype");
+  const defaultSection = document.getElementById("website");
   if (defaultSection) {
     defaultSection.classList.remove("hidden");
   }
 }
 
-const bginput = document.getElementById("bg-input") as HTMLInputElement;
 bginput.addEventListener("input", function () {
   const bgvalue = bginput.value.toLowerCase();
   const regex = /^(https?:\/\/.*\.(?:png|jpg|jpeg|gif|bmp|svg|webp|ico))$/;
@@ -39,14 +45,51 @@ bginput.addEventListener("input", function () {
     throw new Error("Invalid URL");
   }
 });
-const pinput = document.getElementById("pinput") as HTMLOptionElement;
 
 pinput?.addEventListener("change", function () {
   const option = this.value;
-  localStorage.setItem("@lunar/custom/ptype", option);
+  localStorage.setItem("@lunar/custom/proxy", option);
   console.debug("Proxy type set to", option);
 });
 
-pinput.value = localStorage.getItem("@lunar/custom/ptype") || "uv";
+tinput?.addEventListener("change", function () {
+  const option = this.value;
+  localStorage.setItem("@lunar/custom/transport", option);
+  console.debug("Transport set to", option);
+});
+
+pinput.value = localStorage.getItem("@lunar/custom/proxy") || "uv";
+tinput.value = localStorage.getItem("@lunar/custom/transport") || "lc";
 bginput.placeholder =
   localStorage.getItem("@lunar/custom/bg") || "Enter an image URL";
+
+const utoggle = () => {
+  const cloakState = localStorage.getItem("@lunar/cloak/ab");
+  if (cloakState === "on") {
+    toggle.checked = true;
+    slider.classList.add("bg-green-500");
+    slider.classList.remove("bg-gray-500");
+    dot.style.transform = "translateX(100%)";
+  } else {
+    toggle.checked = false;
+    slider.classList.add("bg-gray-500");
+    slider.classList.remove("bg-green-500");
+    dot.style.transform = "translateX(0)";
+  }
+};
+
+toggle.addEventListener("change", () => {
+  if (toggle.checked) {
+    slider.classList.remove("bg-gray-500");
+    slider.classList.add("bg-green-500");
+    dot.style.transform = "translateX(100%)";
+    localStorage.setItem("@lunar/cloak/ab", "on");
+  } else {
+    slider.classList.remove("bg-green-500");
+    slider.classList.add("bg-gray-500");
+    dot.style.transform = "translateX(0)";
+    localStorage.setItem("@lunar/cloak/ab", "off");
+  }
+});
+
+utoggle();
