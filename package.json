@@ -21,7 +21,7 @@
     "@mercuryworkshop/epoxy-transport": "^2.1.21",
     "@mercuryworkshop/wisp-js": "^0.3.2",
     "@types/node": "^22.7.6",
-    "astro": "^4.16.5",
+    "astro": "^4.16.6",
     "chalk": "^5.3.0",
     "fastify": "^5.0.0",
     "lucide-astro": "^0.453.0",
