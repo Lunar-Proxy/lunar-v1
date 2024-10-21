@@ -27,8 +27,8 @@ importers:
         specifier: ^8.0.2
         version: 8.0.2
       '@mercuryworkshop/bare-mux':
-        specifier: ^2.1.4
-        version: 2.1.4
+        specifier: ^2.1.6
+        version: 2.1.6
       '@mercuryworkshop/epoxy-transport':
         specifier: ^2.1.23
         version: 2.1.23
@@ -687,8 +687,8 @@ packages:
     resolution: {integrity: sha512-9I2Zn6+NJLfaGoz9jN3lpwDgAYvfGeNYdbAIjJOqzs4Tpc+VU3Jqq4IofSUBKajiDS8k9fZIg18/z13mpk1bsA==}
     engines: {node: '>=8'}
 
-  '@mercuryworkshop/bare-mux@2.1.4':
-    resolution: {integrity: sha512-Oir53uCI3Z/Mtwt6gqavKuufvkLs0lq/2AMGCDqrJ8OADaO7NkiA1LJ/0lJ3WXS2olg6cOBm3OcOvLKrjT39yg==}
+  '@mercuryworkshop/bare-mux@2.1.6':
+    resolution: {integrity: sha512-SMpPwHrRjeqBfuh5N9SKD2G7uzfQiOeiENcYjb0BYTpOEOFvoPDhjSppSZMSkN1maJJ1NNtCRv9Qb+uCeJWwgw==}
 
   '@mercuryworkshop/epoxy-tls@2.1.13-1':
     resolution: {integrity: sha512-vYOMX0rts+f2CFwB2KgcXphkVBP9gJpaa1k9H/CHtshzeTnxZO43O1fj2NSf/hkKCVGEIUYjQVCZjUiKGySs7A==}
@@ -3348,7 +3348,7 @@ snapshots:
 
   '@lukeed/ms@2.0.2': {}
 
-  '@mercuryworkshop/bare-mux@2.1.4': {}
+  '@mercuryworkshop/bare-mux@2.1.6': {}
 
   '@mercuryworkshop/epoxy-tls@2.1.13-1': {}
 
