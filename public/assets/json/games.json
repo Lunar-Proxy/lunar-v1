@@ -425,7 +425,7 @@
     "logo": "./assets/games/cmg.png",
     "alert": "",
     "category": "Gaming"
-  }
+  },
   {
     "name": "Core Ball",
     "website": "https://vortex-games.vercel.app/core-ball/index.html",
