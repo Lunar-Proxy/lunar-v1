@@ -35,7 +35,7 @@ export default defineConfig({
           server.httpServer?.on("upgrade", (req, socket, head) =>
             req.url?.startsWith("/ws")
               ? wisp.routeRequest(req, socket, head)
-              : null,
+              : undefined,
           );
         },
       },

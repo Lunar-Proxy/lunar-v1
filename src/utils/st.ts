@@ -61,7 +61,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   tinput?.addEventListener("change", function () {
     const option = this.value;
-    localStorage.setItem("@lunar/custom/transport", option);
+    localStorage.setItem("@lunar/settings/transport", option);
     console.debug("Transport set to", option);
   });
 

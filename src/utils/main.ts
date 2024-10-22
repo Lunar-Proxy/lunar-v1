@@ -32,8 +32,8 @@ fm.addEventListener("submit", (event) => {
     url = `https://www.google.com/search?q=${encodeURIComponent(value)}`;
   }
 
-  if (localStorage.getItem("@lunar/custom/transport") == null) {
-    localStorage.setItem("@lunar/custom/transport", "lc");
+  if (localStorage.getItem("@lunar/settings/transport") == null) {
+    localStorage.setItem("@lunar/settings/transport", "lc");
   }
   localStorage.setItem("@lunar/gourl", `/us/${config.encodeUrl(url)}`);
   window.location.href = "./g";
