@@ -3,7 +3,17 @@
 @tailwind utilities;
 
 @layer base {
+  :root {
+    --background: #111827;
+  }
+
+  .light {
+    --background: #374151;
+  }
+}
+
+@layer base {
   body {
-    @apply bg-gray-900;
+    @apply bg-background;
   }
 }

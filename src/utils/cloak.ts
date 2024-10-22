@@ -23,9 +23,9 @@ async function cloak(): Promise<void> {
         localStorage.getItem("@lunar/custom/favicon") || randomItem.favicon;
       document.head.appendChild(link);
       document.title =
-        localStorage.getItem("@lunar/custom/title") || randomItem.title;
-      localStorage.setItem("@lunar/cloak/title", document.title);
-      localStorage.setItem("@lunar/cloak/favicon", link.href);
+        localStorage.getItem("@lunar/settings/title") || randomItem.title;
+      localStorage.setItem("@lunar/settings/title", document.title);
+      localStorage.setItem("@lunar/settings/favicon", link.href);
     }
 
     if (win) {
@@ -65,8 +65,8 @@ async function cloak(): Promise<void> {
 }
 
 function checkCloak(): boolean {
-  return !localStorage.getItem("@lunar/cloak/ab") ||
-    localStorage.getItem("@lunar/cloak/ab") === "on"
+  return !localStorage.getItem("@lunar/settings/ab") ||
+    localStorage.getItem("@lunar/settings/ab") === "on"
     ? true
     : false;
 }
@@ -75,13 +75,13 @@ if (checkCloak()) {
   cloak();
 } else {
   console.debug("Cloaking is disabled, you can turn it back on in settings.");
-  document.title = localStorage.getItem("@lunar/custom/title") || "Lunar";
+  document.title = localStorage.getItem("@lunar/settings/title") || "Lunar";
   const link =
     (window.document.querySelector("link[rel='icon']") as HTMLLinkElement) ||
     (window.document.createElement("link") as HTMLLinkElement);
-  link.rel = localStorage.getItem("@lunar/custom/favicon") || "icon";
+  link.rel = localStorage.getItem("@lunar/settings/favicon") || "icon";
   link.href = "./favicon.ico";
-  localStorage.setItem("@lunar/cloak/title", document.title);
-  localStorage.setItem("@lunar/cloak/favicon", link.href);
+  localStorage.setItem("@lunar/settings/title", document.title);
+  localStorage.setItem("@lunar/settings/favicon", link.href);
   window.document.head.appendChild(link);
 }

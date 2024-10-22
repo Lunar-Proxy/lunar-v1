@@ -8,9 +8,9 @@ import { Palette, Users, Info, Link, Shield } from "lucide-astro";
   <script src="../utils/st.ts"></script>
   <script src="../utils/global.ts"></script>
 </head>
-<body>
+<body class="bg-gray-900 text-white">
   <Main>
-    <div class="flex min-h-screen text-white justify-center items-center">
+    <div class="flex min-h-screen justify-center items-center">
       <nav class="bg-gray-800 w-64 p-4 rounded-lg">
         <ul class="space-y-4">
           <li>
@@ -73,7 +73,6 @@ import { Palette, Users, Info, Link, Shield } from "lucide-astro";
                   <input type="checkbox" id="cloak-toggle" class="hidden" />
                   <div class="block bg-gray-500 w-16 h-8 rounded-full"></div>
                   <div
-                    id=".dot"
                     class="dot absolute left-1 top-1 bg-white w-6 h-6 rounded-full transition"
                   >
                   </div>
@@ -88,42 +87,72 @@ import { Palette, Users, Info, Link, Shield } from "lucide-astro";
             title="Proxy Type"
             description="Select the proxy type used for searching."
           >
-            <div class="mt-4">
+            <div class="relative mt-4">
               <label for="ptype" class="block text-gray-300 mb-2 text-center"
                 >Proxy Type:</label
               >
-              <select
-                name="Proxy"
-                id="pinput"
-                class="w-full p-2 rounded bg-gray-700 text-white text-center appearance-none"
-              >
-                <option value="uv" class="text-center"
-                  >(Default) Ultraviolet</option
+              <div class="relative">
+                <button
+                  id="dropdown-toggle"
+                  class="w-full p-2 rounded bg-gray-700 text-white text-left flex justify-between items-center"
+                  type="button"
                 >
-                <option value="sj" class="text-center">ScramJet</option>
-              </select>
+                  <span id="selected-option">Select Proxy Type</span>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-4 w-4"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                      clip-rule="evenodd"></path>
+                  </svg>
+                </button>
+                <ul
+                  id="dropdown-menu"
+                  class="absolute left-0 right-0 mt-1 hidden bg-gray-700 rounded shadow-lg z-10"
+                >
+                  <li
+                    class="dropdown-item p-2 hover:bg-blue-500 cursor-pointer"
+                    data-value="uv"
+                  >
+                    Ultraviolet (Default)
+                  </li>
+                  <li
+                    class="dropdown-item p-2 hover:bg-blue-500 cursor-pointer"
+                    data-value="sj"
+                  >
+                    ScramJet
+                  </li>
+                </ul>
+              </div>
             </div>
           </SettingsCard>
-
           <br />
-
           <SettingsCard
-            title="Transport Type"
-            description="Select the transport used to search."
+            title="Custom Wisp Server"
+            description="Type in a wisp server below to use for the proxy."
           >
-            <div class="mt-4">
-              <label for="Ttype" class="block text-gray-300 mb-2 text-center"
-                >Transport:</label
+            <div class="relative mt-4">
+              <label
+                for="wispserver"
+                class="block text-gray-300 mb-2 text-center"
+                >Wisp Server url:
+              </label>
+              <input
+                type="text"
+                id="wispserver"
+                class="w-full p-2 rounded bg-gray-700 text-white text-center placeholder-gray-500"
+              />
+              <button
+                id="reset-wispserver"
+                class="mt-2 w-full p-2 bg-red-600 rounded hover:bg-red-500"
+                type="button"
               >
-              <select
-                name="Transport"
-                id="Tinput"
-                class="w-full p-2 rounded bg-gray-700 text-white text-center appearance-none"
-              >
-                <option value="lc" class="text-center">(Default) Libcurl</option
-                >
-                <option value="ep" class="text-center">Epoxy</option>
-              </select>
+                Reset Wisp Server
+              </button>
             </div>
           </SettingsCard>
         </div>
@@ -163,6 +192,13 @@ import { Palette, Users, Info, Link, Shield } from "lucide-astro";
                 class="w-full p-2 rounded bg-gray-700 text-white text-center placeholder-gray-500"
                 placeholder="Enter URL"
               />
+              <button
+                id="reset-bg-input"
+                class="mt-2 w-full p-2 bg-red-600 rounded hover:bg-red-500"
+                type="button"
+              >
+                Reset Background Image
+              </button>
             </div>
           </SettingsCard>
         </div>
@@ -174,6 +210,7 @@ import { Palette, Users, Info, Link, Shield } from "lucide-astro";
               <li>endlessvortex</li>
               <li>8bitbug</li>
               <li>.evicly</li>
+              <li>3kh0</li>
             </ul>
             <p class="mt-4 text-gray-400 text-center">
               Thank you to everyone who contributed to Lunar!
@@ -189,10 +226,9 @@ import { Palette, Users, Info, Link, Shield } from "lucide-astro";
                 Last Updated: {new Date(LAST_UPDATED).toLocaleString()}
               </p>
               <p class="mt-4 text-gray-400">
-                For questions or conserns, you can contact us with the links
+                For questions or concerns, you can contact us with the links
                 below.
                 <br />
-
                 <ul
                   class="text-bold list-disc list-inside mt-4 text-gray-400 text-center"
                 >
@@ -206,12 +242,14 @@ import { Palette, Users, Info, Link, Shield } from "lucide-astro";
                   <li>
                     <a
                       href="https://github.com/Lunar-Proxy/Lunar/tree/main"
-                      class="text-blue-400 hover:underline">Lunar's Github</a>
+                      class="text-blue-400 hover:underline">Lunar's Github</a
+                    >
                   </li>
                   <li>
                     <a
                       href="https://dsc.gg/golunar"
-                      class="text-blue-400 hover:underline">Lunar's Discord</a>
+                      class="text-blue-400 hover:underline">Lunar's Discord</a
+                    >
                   </li>
                 </ul>
               </p>

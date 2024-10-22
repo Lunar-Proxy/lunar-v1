@@ -3,7 +3,13 @@
 export default {
   content: ["./src/**/*.{astro,html,js,md,ts,vue}"],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        background: {
+          DEFAULT: "var(--background)",
+        },
+      },
+    },
   },
   plugins: [],
 };
