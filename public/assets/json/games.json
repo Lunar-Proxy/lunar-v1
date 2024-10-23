@@ -37,8 +37,8 @@
   {
     "name": "Dogeminer 2",
     "website": "https://vortex-games.vercel.app/Dogeminer2/index.html",
-    "logo": "https://vortex-games.vercel.app/Dogeminer2/thumb.jpg",
-    "issue": "../assets/games/dm2.png",
+    "logo": "../assets/games/dm2.png",
+    "issue": "",
     "category": "Gaming"
   },
   {

@@ -42,8 +42,9 @@ document.addEventListener("DOMContentLoaded", () => {
   pinput?.addEventListener("change", function () {
     if (pinput) {
       const option = this.value;
-      localStorage.setItem("@lunar/custom/ptype", option);
-      console.debug("Proxy type set to", option);
+      localStorage.setItem("@lunar/custom/engine", option);
+      console.debug("Search engine is set to", option);
+      window.location.reload;
     }
   });
 
@@ -51,10 +52,13 @@ document.addEventListener("DOMContentLoaded", () => {
     const option = this.value;
     localStorage.setItem("@lunar/settings/transport", option);
     console.debug("Transport set to", option);
+    window.location.reload;
   });
 
   if (pinput) {
-    pinput.value = localStorage.getItem("@lunar/settings/ptype") || "uv";
+    pinput.value =
+      localStorage.getItem("@lunar/settings/engine") ||
+      "https://www.google.com/search?q=";
   }
 
   if (tinput) {
@@ -75,7 +79,6 @@ document.addEventListener("DOMContentLoaded", () => {
         slider.classList.remove("bg-gray-500");
       }
       if (dot) dot.style.transform = "translateX(100%)";
-      cloak();
     } else {
       if (toggle) toggle.checked = false;
       if (slider) {
@@ -120,10 +123,12 @@ document.addEventListener("DOMContentLoaded", () => {
     "selected-option",
   ) as HTMLSpanElement;
 
-  const savedProxyType = localStorage.getItem("@lunar/settings/ptype");
+  const savedProxyType = localStorage.getItem("@lunar/settings/engine");
   if (savedProxyType) {
     selectedOption.textContent =
-      savedProxyType === "uv" ? "Ultraviolet (Default)" : "ScramJet";
+      savedProxyType === "https://www.google.com/search?q="
+        ? "Google"
+        : "Duckduckgo";
   }
 
   dropdownToggle.addEventListener("click", () => {
@@ -143,7 +148,7 @@ document.addEventListener("DOMContentLoaded", () => {
       target.classList.add("selected");
       selectedOption.textContent = target.textContent || "";
       if (value) {
-        localStorage.setItem("@lunar/settings/ptype", value);
+        localStorage.setItem("@lunar/settings/engine", value);
       }
       dropdownMenu.classList.add("hidden");
     }

@@ -19,7 +19,9 @@ clearInput.addEventListener("click", () => {
 
 fm.addEventListener("submit", (event) => {
   event.preventDefault();
-
+  let engine =
+    localStorage.getItem("@lunar/settings/engine") ||
+    "https://www.google.com/search?q=";
   let value = input.value.trim();
   let url = value;
   const regex = /^(https?:\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(:\d+)?(\/.*)?$/;
@@ -29,7 +31,7 @@ fm.addEventListener("submit", (event) => {
       url = `https://${value}`;
     }
   } else {
-    url = `https://www.google.com/search?q=${encodeURIComponent(value)}`;
+    url = `${engine}${encodeURIComponent(value)}`;
   }
 
   if (localStorage.getItem("@lunar/settings/transport") == null) {

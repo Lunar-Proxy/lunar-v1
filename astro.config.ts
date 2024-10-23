@@ -37,7 +37,7 @@ export default defineConfig({
             if (req.url?.startsWith("/ws")) {
               wisp.routeRequest(req, socket, head);
             } else {
-              null;
+              return;
             }
           });
         },
