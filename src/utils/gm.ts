@@ -27,28 +27,28 @@ async function fetchGames(): Promise<Game[]> {
 fetchGames().then((gamelist) => {
   if (gamelist) {
     const gameContainerDiv = document.createElement("div");
-    gameContainerDiv.className = "mt-10 flex flex-wrap p-4";
+    gameContainerDiv.className = "mt-10 flex flex-wrap justify-center";
     gameContainerDiv.id = "game-container";
 
     gamelist.forEach((element: Game) => {
       const gamediv = document.createElement("div");
       gamediv.className =
-        "game-item w-1/4 transition-transform duration-300 transform hover:scale-105";
-      gamediv.dataset.name = element.name.toLowerCase();
+        "game-item w-56 h-56 transition-transform duration-300 transform hover:scale-105 m-2";
 
       const gameContainer = document.createElement("div");
       gameContainer.className =
-        "relative inline-block overflow-hidden rounded-lg shadow-lg bg-gray-800 group hover:shadow-xl transition-shadow duration-300";
+        "relative flex items-center justify-center overflow-hidden rounded-lg shadow-lg bg-gray-800 group hover:shadow-xl transition-shadow duration-300 h-full";
+
       const gameImage = document.createElement("img");
       gameImage.src = element.logo;
       gameImage.alt = `${element.name}`;
       gameImage.className =
-        "h-32 w-40 object-cover transition duration-300 ease-in-out transform group-hover:blur-sm";
+        "h-full w-full object-contain transition duration-300 ease-in-out transform group-hover:blur-sm"; // Use object-contain to ensure logos fit without distortion
 
       const gameName = document.createElement("h3");
       gameName.textContent = element.name;
       gameName.className =
-        "text-white absolute left-0 bottom-0 transform translate-y-full opacity-0 transition-opacity duration-300 ease-in-out group-hover:translate-y-0 group-hover:opacity-100 font-rubik text-lg tracking-wide p-2 bg-gradient-to-t from-gray-800 to-transparent";
+        "text-white absolute bottom-0 left-0 right-0 text-center transform translate-y-full opacity-0 transition-opacity duration-300 ease-in-out group-hover:translate-y-0 group-hover:opacity-100 font-rubik text-lg tracking-wide p-2 bg-gradient-to-t from-gray-800 to-transparent"; // Increased font size to text-lg
 
       gameContainer.appendChild(gameImage);
       gameContainer.appendChild(gameName);
@@ -87,7 +87,6 @@ fetchGames().then((gamelist) => {
     searchInput.addEventListener("input", function () {
       const searchTerm = searchInput.value.toLowerCase();
       const gameItems = document.querySelectorAll(".game-item");
-
       gameItems.forEach((gameItem) => {
         const gameName = gameItem.getAttribute("data-name");
         if (gameName && gameName.includes(searchTerm)) {
