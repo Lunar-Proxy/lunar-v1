@@ -8,6 +8,7 @@ import tailwind from "@astrojs/tailwind";
 import { libcurlPath } from "@mercuryworkshop/libcurl-transport";
 import { execSync } from "child_process";
 import { version } from "./package.json";
+import { normalizePath } from "vite";
 
 // wisp settings
 // See https://github.com/lunar-proxy/lunar/wiki for more details
@@ -30,27 +31,29 @@ export default defineConfig({
     },
     plugins: [
       {
-        name: "wisp-server",
+        name: "vite-ws-server",
         configureServer(server) {
-          server.httpServer?.on("upgrade", (req, socket, head) =>
-            req.url?.startsWith("/ws")
-              ? wisp.routeRequest(req, socket, head)
-              : undefined,
-          );
+          server.httpServer?.on("upgrade", (req, socket, head) => {
+            if (req.url?.startsWith("/ws")) {
+              wisp.routeRequest(req, socket, head);
+            } else {
+              null;
+            }
+          });
         },
       },
       viteStaticCopy({
         targets: [
           {
-            src: epoxyPath + "/**/*",
+            src: normalizePath(epoxyPath + "/**/*"),
             dest: "ep",
           },
           {
-            src: baremuxPath + "/**/*",
+            src: normalizePath(baremuxPath + "/**/*"),
             dest: "bm",
           },
           {
-            src: libcurlPath + "/**/*",
+            src: normalizePath(libcurlPath + "/**/*"),
             dest: "lc",
           },
         ],
