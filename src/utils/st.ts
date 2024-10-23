@@ -39,18 +39,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  bginput?.addEventListener("input", function () {
-    const bgvalue = bginput.value.toLowerCase();
-    const regex = /^(https?:\/\/.*\.(?:png|jpg|jpeg|gif|bmp|svg|webp|ico))$/;
-
-    if (regex.test(bgvalue)) {
-      localStorage.setItem("@lunar/settings/bg", bgvalue);
-    } else {
-      localStorage.removeItem("@lunar/settings/bg");
-      console.error("Invalid URL");
-    }
-  });
-
   pinput?.addEventListener("change", function () {
     if (pinput) {
       const option = this.value;
@@ -80,13 +68,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const utoggle = () => {
     const cloakState = localStorage.getItem("@lunar/settings/ab");
-    if (cloakState === "on") {
+    if (cloakState === "on" || cloakState === null) {
       if (toggle) toggle.checked = true;
       if (slider) {
         slider.classList.add("bg-green-500");
         slider.classList.remove("bg-gray-500");
       }
       if (dot) dot.style.transform = "translateX(100%)";
+      cloak();
     } else {
       if (toggle) toggle.checked = false;
       if (slider) {
@@ -152,7 +141,6 @@ document.addEventListener("DOMContentLoaded", () => {
       });
 
       target.classList.add("selected");
-
       selectedOption.textContent = target.textContent || "";
       if (value) {
         localStorage.setItem("@lunar/settings/ptype", value);
@@ -174,9 +162,39 @@ document.addEventListener("DOMContentLoaded", () => {
     "wispserver",
   ) as HTMLInputElement;
   const wispUrl =
-    localStorage.getItem("@lunar/settings/ws") ||
+    localStorage.getItem("@lunar/settings/wisp") ||
     `${location.protocol === "https:" ? "wss" : "ws"}://${location.host}/ws/`;
   if (wispInput) {
     wispInput.placeholder = wispUrl;
   }
+});
+
+document.getElementById("reset-wispserver")?.addEventListener("click", () => {
+  const wsInput = document.getElementById("wispserver") as HTMLInputElement;
+  wsInput.value = "";
+  localStorage.removeItem("@lunar/settings/wisp");
+  window.location.reload();
+});
+
+document.getElementById("save-wispserver")?.addEventListener("click", () => {
+  const wsInput = document.getElementById("wispserver") as HTMLInputElement;
+  const wsServer = wsInput.value;
+  console.log(`Wisp Server saved: ${wsServer}`);
+  localStorage.setItem("@lunar/settings/wisp", `${wsServer}`);
+  window.location.reload();
+});
+
+document.getElementById("reset-bg-input")?.addEventListener("click", () => {
+  const bgInput = document.getElementById("bg-input") as HTMLInputElement;
+  bgInput.value = "";
+  localStorage.removeItem("@lunar/settings/bg");
+  window.location.reload();
+});
+
+document.getElementById("save-bg-input")?.addEventListener("click", () => {
+  const bgInput = document.getElementById("bg-input") as HTMLInputElement;
+  const bgValue = bgInput.value;
+  console.log(`Background Image URL saved: ${bgValue}`);
+  localStorage.setItem("@lunar/settings/bg", `${bgValue}`);
+  window.location.reload();
 });

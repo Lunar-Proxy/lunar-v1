@@ -146,13 +146,22 @@ import { Palette, Users, Info, Link, Shield } from "lucide-astro";
                 id="wispserver"
                 class="w-full p-2 rounded bg-gray-700 text-white text-center placeholder-gray-500"
               />
-              <button
-                id="reset-wispserver"
-                class="mt-2 w-full p-2 bg-red-600 rounded hover:bg-red-500"
-                type="button"
-              >
-                Reset Wisp Server
-              </button>
+              <div class="flex justify-between mt-2">
+                <button
+                  id="reset-wispserver"
+                  class="w-1/2 mr-2 p-2 bg-red-600 rounded hover:bg-red-500"
+                  type="button"
+                >
+                  Reset Wisp Server
+                </button>
+                <button
+                  id="save-wispserver"
+                  class="w-1/2 p-2 bg-green-600 rounded hover:bg-green-500"
+                  type="button"
+                >
+                  Save Wisp Server
+                </button>
+              </div>
             </div>
           </SettingsCard>
         </div>
@@ -192,13 +201,22 @@ import { Palette, Users, Info, Link, Shield } from "lucide-astro";
                 class="w-full p-2 rounded bg-gray-700 text-white text-center placeholder-gray-500"
                 placeholder="Enter URL"
               />
-              <button
-                id="reset-bg-input"
-                class="mt-2 w-full p-2 bg-red-600 rounded hover:bg-red-500"
-                type="button"
-              >
-                Reset Background Image
-              </button>
+              <div class="flex justify-between mt-2">
+                <button
+                  id="reset-bg-input"
+                  class="w-1/2 mr-2 p-2 bg-red-600 rounded hover:bg-red-500"
+                  type="button"
+                >
+                  Reset Background Image
+                </button>
+                <button
+                  id="save-bg-input"
+                  class="w-1/2 p-2 bg-green-600 rounded hover:bg-green-500"
+                  type="button"
+                >
+                  Save Background Image
+                </button>
+              </div>
             </div>
           </SettingsCard>
         </div>
