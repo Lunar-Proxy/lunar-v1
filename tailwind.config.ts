@@ -8,6 +8,10 @@ export default {
         background: {
           DEFAULT: "var(--background)",
         },
+        text: {
+          DEFAULT: "var(--text)",
+              
+        }
       },
     },
   },

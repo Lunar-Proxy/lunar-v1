@@ -4,16 +4,16 @@
 
 @layer base {
   :root {
-    --background: #111827;
+    --background: #111827; 
+    --text: #f9fafb; 
   }
 
   .light {
     --background: #374151;
+    --text: #1f2937; 
   }
-}
 
-@layer base {
   body {
-    @apply bg-background;
+    @apply bg-background text-text; 
   }
 }

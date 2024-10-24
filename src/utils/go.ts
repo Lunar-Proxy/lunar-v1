@@ -47,9 +47,8 @@ async function updateUrl() {
   iframe.onload = () => {
     loadingDiv.classList.add("hidden");
     iframe.classList.remove("hidden");
-
-    const iframeWindow = iframe.contentWindow;
-    if (iframeWindow) {
+    
+    const iframeWindow = iframe.contentWindow!;
       iframeWindow.open = (url: string) => {
         console.debug("Opening new page with the url:", url);
         const newUrl = config.encodeUrl(url);
@@ -58,5 +57,4 @@ async function updateUrl() {
         return null;
       };
     }
-  };
 })();
