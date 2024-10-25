@@ -3,11 +3,11 @@
   "type": "module",
   "version": "0.0.5",
   "scripts": {
-    "dev": "astro dev",
+    "dev": "npx astro dev",
     "start": "tsx index.ts",
-    "build": "astro check && astro build",
-    "preview": "astro preview",
-    "astro": "astro",
+    "build": "npx astro check && npx astro build",
+    "preview": "npx astro preview",
+    "astro": "npx astro",
     "pretty": "prettier . --write "
   },
   "dependencies": {
