@@ -7,17 +7,15 @@
 > [!NOTE]  
 > This webproxy is in beta so expect bugs before the final release
 
-Lunar is a webproxy that offers features like
+Lunar is a webproxy that unblocks censorship and has features like
 
 - ad free searching
 - fast speeds
-- giving users better experience
 - Automatic Tab cloaking
 - A bunch of Customization & Features
 - Even more!
 
-# How do i deploy?
-
+# Deploying
 > [!NOTE]
 > You will need to install [git](https://git-scm.com/downloads) and [nodejs](https://nodejs.org/en/download/prebuilt-installer)
 
