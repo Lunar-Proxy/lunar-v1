@@ -5,15 +5,16 @@
 # What is lunar?
 
 > [!NOTE]  
-> This webproxy is in beta so expect bugs before the final release
+> Lunar is in beta so expect bugs before the final release
 
-Lunar is a webproxy that unblocks censorship and has features like
+Lunar is a webproxy that removes censorship.
 
-- ad free searching
-- fast speeds
-- Automatic Tab cloaking
-- A bunch of Customization & Features
-- Even more!
+# Features
+- No Ads
+- 🚀 Fast speeds
+- 🪞 Automatic Tab cloaking
+- 🎨  A bunch of Customization & Features
+- ➕ Even more!
 
 # Deploying
 > [!NOTE]
