@@ -160,8 +160,56 @@ import { Palette, Users, Info, Link, Shield } from "lucide-astro";
               </div>
             </div>
           </SettingsCard>
+          <br>
+          
+          <SettingsCard
+            title="Transport Type"
+            description="Select the transport used to search."
+          >
+          <div class="relative mt-4">
+            <label for="ptype" class="block text-gray-300 mb-2 text-center"
+              >Transport:</label
+            >
+            <div class="relative">
+              <button
+                id="dropdown-toggle"
+                class="w-full p-2 rounded bg-gray-700 text-white text-left flex justify-between items-center"
+                type="button"
+              >
+                <span id="selected-option">Select a transport</span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-4 w-4"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                    clip-rule="evenodd"></path>
+                </svg>
+              </button>
+              <ul
+                id="dropdown-menu"
+                class="absolute left-0 right-0 mt-1 hidden bg-gray-700 rounded shadow-lg z-10"
+              >
+                <li
+                  class="dropdown-item p-2 hover:bg-gray-600 cursor-pointer"
+                  data-value="ep"
+                >
+                  Epoxy
+                </li>
+                <li
+                  class="dropdown-item p-2 hover:bg-gray-600 cursor-pointer"
+                  data-value="lc"
+                >
+                  Libcurl
+                                </li>
+              </ul>
+            </div>
+          </div>
+          </SettingsCard>
         </div>
-
         <div id="customization" class="hidden">
           <SettingsCard
             title="Theme"

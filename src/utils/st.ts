@@ -6,7 +6,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const bginput = document.getElementById(
     "bg-input",
   ) as HTMLInputElement | null;
-  const tinput = document.getElementById("Tinput") as HTMLSelectElement | null;
   const toggle = document.getElementById(
     "cloak-toggle",
   ) as HTMLInputElement | null;
@@ -48,21 +47,10 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  tinput?.addEventListener("change", function () {
-    const option = this.value;
-    localStorage.setItem("@lunar/settings/transport", option);
-    console.debug("Transport set to", option);
-    window.location.reload;
-  });
-
   if (pinput) {
     pinput.value =
       localStorage.getItem("@lunar/settings/engine") ||
       "https://www.google.com/search?q=";
-  }
-
-  if (tinput) {
-    tinput.value = localStorage.getItem("@lunar/settings/transport") || "lc";
   }
 
   if (bginput) {
