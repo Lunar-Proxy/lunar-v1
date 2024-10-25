@@ -10,8 +10,7 @@ export default {
         },
         text: {
           DEFAULT: "var(--text)",
-              
-        }
+        },
       },
     },
   },

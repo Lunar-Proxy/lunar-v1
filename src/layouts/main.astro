@@ -2,6 +2,7 @@
 import { Gamepad, Cog, Album } from "lucide-astro";
 import "@src/main.css";
 ---
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -11,10 +12,10 @@ import "@src/main.css";
     <script is:inline src="./assets/fonts/bundle.js" defer></script>
     <script is:inline src="./assets/fonts/config.js" defer></script>
     <script>
-      (function() {
+      (function () {
         const theme = localStorage.getItem("@lunar/theme");
         if (theme) {
-        // TODO: Make themes work  document.body.classList.add(theme);
+          // TODO: Make themes work  document.body.classList.add(theme);
         }
       })();
     </script>

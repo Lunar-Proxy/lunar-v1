@@ -47,14 +47,14 @@ async function updateUrl() {
   iframe.onload = () => {
     loadingDiv.classList.add("hidden");
     iframe.classList.remove("hidden");
-    
+
     const iframeWindow = iframe.contentWindow!;
-      iframeWindow.open = (url: string) => {
-        console.debug("Opening new page with the url:", url);
-        const newUrl = config.encodeUrl(url);
-        localStorage.setItem("@lunar/gourl", `/us/${newUrl}`);
-        updateUrl();
-        return null;
-      };
-    }
+    iframeWindow.open = (url: string) => {
+      console.debug("Opening new page with the url:", url);
+      const newUrl = config.encodeUrl(url);
+      localStorage.setItem("@lunar/gourl", `/us/${newUrl}`);
+      updateUrl();
+      return null;
+    };
+  };
 })();
