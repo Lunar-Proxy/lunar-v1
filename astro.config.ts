@@ -12,7 +12,7 @@ import { normalizePath } from "vite";
 
 // wisp settings
 // See https://github.com/lunar-proxy/lunar/wiki for more details
-//  wisp.options.dns_method = "resolve";
+// wisp.options.dns_method = "resolve";
 // wisp.options.dns_servers = ["1.1.1.3", "1.0.0.3"];
 // wisp.options.dns_result_order = "ipv4first";
 
@@ -37,7 +37,7 @@ export default defineConfig({
             if (req.url?.startsWith("/ws")) {
               wisp.routeRequest(req, socket, head);
             } else {
-              return;
+             null
             }
           });
         },

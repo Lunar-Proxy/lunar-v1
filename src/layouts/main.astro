@@ -11,14 +11,6 @@ import "@src/main.css";
     <meta name="generator" content={Astro.generator} />
     <script is:inline src="./assets/fonts/bundle.js" defer></script>
     <script is:inline src="./assets/fonts/config.js" defer></script>
-    <script>
-      (function () {
-        const theme = localStorage.getItem("@lunar/theme");
-        if (theme) {
-          // TODO: Make themes work  document.body.classList.add(theme);
-        }
-      })();
-    </script>
   </head>
   <body class="text-white">
     <nav class="bg-gray-800 p-4">

@@ -1,5 +1,4 @@
 import { BareMuxConnection } from "@mercuryworkshop/bare-mux";
-
 if ("serviceWorker" in navigator) {
   navigator.serviceWorker
     .register("./sw.js", { scope: "/us/" })

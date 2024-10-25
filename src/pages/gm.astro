@@ -1,25 +1,30 @@
 ---
 import Main from "../layouts/main.astro";
-import { Plus } from "lucide-astro";
 ---
 
 <Main>
   <div class="flex justify-center items-center space-x-2 mt-4">
-    <div class="flex items-center space-x-2">
-      <button
-        id="gameadd"
-        class="bg-gray-800 border border-gray-600 rounded-full p-3 text-base font-semibold flex items-center text-white hover:bg-gray-700 transition duration-200"
-      >
-        <Plus class="mr-1" /> Add A Game
+    <div class="relative">
+      <button id="category-button" class="bg-gray-700 text-white border border-gray-600 rounded-full p-3 text-base font-semibold flex items-center hover:bg-gray-600 transition duration-200">
+        <span id="category-label">All Categories</span>
+        <svg class="ml-1 w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
       </button>
-      <input
-        id="search-input"
-        type="text"
-        class="w-64 h-12 px-4 text-center text-white bg-gray-800 border border-gray-600 rounded-full shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
-        placeholder="Search for a game.."
-      />
+      <div id="category-menu" class="hidden absolute right-0 bg-gray-800 border border-gray-600 rounded-md shadow-lg mt-2 z-10">
+        <ul class="py-2">
+          <li class="px-4 py-2 text-white hover:bg-gray-700 cursor-pointer" data-value="">All Categories</li>
+          <li class="px-4 py-2 text-white hover:bg-gray-700 cursor-pointer" data-value="lastPlayed">Last Played</li>
+        </ul>
+      </div>
     </div>
+    <input
+      id="search-input"
+      type="text"
+      class="w-64 h-12 px-4 text-center text-white bg-gray-800 border border-gray-600 rounded-full shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+      placeholder="Search for a game.."
+    />
   </div>
+
+  <div id="game-container" class="mt-4 flex flex-wrap justify-center"></div>
 </Main>
 <script src="../utils/gm.ts"></script>
 <script src="../utils/global.ts"></script>
