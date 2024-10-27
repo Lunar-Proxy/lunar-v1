@@ -156,7 +156,7 @@ document.addEventListener("DOMContentLoaded", () => {
   ) as HTMLInputElement;
   const wispUrl =
     localStorage.getItem("@lunar/settings/wisp") ||
-    `${location.protocol === "https:" ? "wss" : "ws"}://${location.host}/ws/`;
+    `${location.protocol === "https:" ? "wss" : "ws"}://${location.host}/s/`;
   if (wispInput) {
     wispInput.placeholder = wispUrl;
   }

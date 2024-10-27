@@ -14,8 +14,11 @@ interface Config {
   sw: string;
 }
 
+let connection: BareMuxConnection | null;
+
 declare const config: Config;
 declare module "@mercuryworkshop/epoxy-transport";
 declare module "@mercuryworkshop/wisp-js/server";
 declare module "@mercuryworkshop/bare-mux/node";
 declare module "@mercuryworkshop/libcurl-transport";
+

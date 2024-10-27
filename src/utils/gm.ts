@@ -69,7 +69,7 @@ fetchGames().then((gamelist) => {
           const encurl = config.encodeUrl(url);
           localStorage.setItem("@lunar/gourl", "/us/" + encurl || "");
           if (localStorage.getItem("@lunar/settings/transport") == null) {
-            localStorage.setItem("@lunar/settings/transport", "lc");
+            localStorage.setItem("@lunar/settings/transport", "ep");
           }
           window.location.href = "./g";
         });

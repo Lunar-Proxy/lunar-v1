@@ -1,4 +1,5 @@
 import { BareMuxConnection } from "@mercuryworkshop/bare-mux";
+
 if ("serviceWorker" in navigator) {
   navigator.serviceWorker
     .register("./sw.js", { scope: "/us/" })
@@ -16,7 +17,7 @@ const gourl =
   localStorage.getItem("@lunar/gourl") || "/us/hvtrs8%2F-Gmoelg.aoo";
 const wispurl =
   localStorage.getItem("@lunar/settings/wisp") ||
-  `${location.protocol === "https:" ? "wss" : "ws"}://${location.host}/ws/`;
+  `${location.protocol === "https:" ? "wss" : "ws"}://${location.host}/s/`;
 const tType = localStorage.getItem("@lunar/settings/transport");
 let connection = new BareMuxConnection("/bm/worker.js");
 
@@ -33,7 +34,6 @@ async function updateUrl() {
   iframe.src = newUrl;
 }
 
-(async (): Promise<void> => {
   if (tType === "ep") {
     await connection.setTransport("/ep/index.mjs", [{ wisp: wispurl }]);
     console.debug("Using default transport (Epoxy)");
@@ -55,5 +55,4 @@ async function updateUrl() {
       updateUrl();
       return null;
     };
-  };
-})();
+  }
