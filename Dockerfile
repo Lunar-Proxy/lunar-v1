@@ -8,4 +8,6 @@ WORKDIR /Lunar
 
 RUN npm install
 
+RUN npx astro build
+
 CMD ["npm", "start"]
