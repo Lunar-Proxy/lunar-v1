@@ -54,16 +54,13 @@ const build = async () => {
 const app = Fastify({
   logger: false,
   serverFactory: (handler) =>
-    createServer(handler).on(
-      "upgrade",
-      (req, socket: Socket, head) => {
-        if (req.url?.startsWith("/s")) {
-          wisp.routeRequest(req, socket, head);
-        } else {
-          socket.destroy();
-        }
-      },
-    ),
+    createServer(handler).on("upgrade", (req, socket: Socket, head) => {
+      if (req.url?.startsWith("/s")) {
+        wisp.routeRequest(req, socket, head);
+      } else {
+        socket.destroy();
+      }
+    }),
 });
 
 try {

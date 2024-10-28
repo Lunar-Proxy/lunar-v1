@@ -19,7 +19,7 @@ async function fetchGames(): Promise<Game[]> {
     return gamelist;
   } catch (error: unknown) {
     throw new Error(
-      `Failed to fetch list of games: ${error instanceof Error ? error.message : error}`
+      `Failed to fetch list of games: ${error instanceof Error ? error.message : error}`,
     );
   }
 }
@@ -27,27 +27,33 @@ async function fetchGames(): Promise<Game[]> {
 fetchGames().then((gamelist) => {
   if (gamelist) {
     const gameContainerDiv = document.getElementById("game-container")!;
-    const lastPlayedGames: Game[] = JSON.parse(localStorage.getItem("@lunar/lp") || "[]");
+    const lastPlayedGames: Game[] = JSON.parse(
+      localStorage.getItem("@lunar/lp") || "[]",
+    );
     const categoryLabel = document.getElementById("category-label")!;
 
     const renderGames = (filteredList: Game[], container: HTMLElement) => {
-      container.innerHTML = '';
+      container.innerHTML = "";
       filteredList.forEach((element: Game) => {
         const gamediv = document.createElement("div");
-        gamediv.className = "game-item w-56 h-56 transition-transform duration-300 transform hover:scale-105 m-2";
+        gamediv.className =
+          "game-item w-56 h-56 transition-transform duration-300 transform hover:scale-105 m-2";
         gamediv.setAttribute("data-name", element.name.toLowerCase());
 
         const gameContainer = document.createElement("div");
-        gameContainer.className = "relative flex items-center justify-center overflow-hidden rounded-lg shadow-lg bg-gray-800 group hover:shadow-xl transition-shadow duration-300 h-full";
+        gameContainer.className =
+          "relative flex items-center justify-center overflow-hidden rounded-lg shadow-lg bg-gray-800 group hover:shadow-xl transition-shadow duration-300 h-full";
 
         const gameImage = document.createElement("img");
         gameImage.src = element.logo;
         gameImage.alt = `${element.name}`;
-        gameImage.className = "h-full w-full object-contain transition duration-300 ease-in-out transform group-hover:blur-sm";
+        gameImage.className =
+          "h-full w-full object-contain transition duration-300 ease-in-out transform group-hover:blur-sm";
 
         const gameName = document.createElement("h3");
         gameName.textContent = element.name;
-        gameName.className = "text-white absolute bottom-0 left-0 right-0 text-center transform translate-y-full opacity-0 transition-opacity duration-300 ease-in-out group-hover:translate-y-0 group-hover:opacity-100 font-rubik text-lg tracking-wide p-2 bg-gradient-to-t from-gray-800 to-transparent";
+        gameName.className =
+          "text-white absolute bottom-0 left-0 right-0 text-center transform translate-y-full opacity-0 transition-opacity duration-300 ease-in-out group-hover:translate-y-0 group-hover:opacity-100 font-rubik text-lg tracking-wide p-2 bg-gradient-to-t from-gray-800 to-transparent";
 
         gameContainer.appendChild(gameImage);
         gameContainer.appendChild(gameName);
@@ -57,10 +63,14 @@ fetchGames().then((gamelist) => {
         gameContainer.addEventListener("click", function (event) {
           event.preventDefault();
           lastPlayedGames.unshift(element);
-          localStorage.setItem("@lunar/lp", JSON.stringify(lastPlayedGames.slice(0, 5)));
+          localStorage.setItem(
+            "@lunar/lp",
+            JSON.stringify(lastPlayedGames.slice(0, 5)),
+          );
           let value = element.website?.trim() ?? "";
           let url: string = "";
-          let regex = /^(https?:\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(:\d+)?(\/.*)?$/;
+          let regex =
+            /^(https?:\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(:\d+)?(\/.*)?$/;
           if (regex.test(value)) {
             url = /^https?:\/\//i.test(value) ? value : `https://${value}`;
           } else {
@@ -78,7 +88,9 @@ fetchGames().then((gamelist) => {
 
     renderGames(gamelist, gameContainerDiv);
 
-    const searchInput = document.getElementById("search-input") as HTMLInputElement;
+    const searchInput = document.getElementById(
+      "search-input",
+    ) as HTMLInputElement;
     const categoryButton = document.getElementById("category-button")!;
     const categoryMenu = document.getElementById("category-menu")!;
 
@@ -92,7 +104,9 @@ fetchGames().then((gamelist) => {
         filteredList = gamelist;
       }
 
-      filteredList = filteredList.filter((game) => game.name.toLowerCase().includes(searchTerm));
+      filteredList = filteredList.filter((game) =>
+        game.name.toLowerCase().includes(searchTerm),
+      );
       renderGames(filteredList, gameContainerDiv);
     };
 
@@ -113,7 +127,8 @@ fetchGames().then((gamelist) => {
       const target = event.target as HTMLElement;
       if (target.tagName === "LI") {
         const selectedCategory = target.getAttribute("data-value")!;
-        categoryLabel.textContent = selectedCategory === "lastPlayed" ? "Last Played" : "All Categories";
+        categoryLabel.textContent =
+          selectedCategory === "lastPlayed" ? "Last Played" : "All Categories";
         filterGames(selectedCategory);
         categoryMenu.classList.add("hidden");
       }

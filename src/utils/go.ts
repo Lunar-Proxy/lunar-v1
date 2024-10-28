@@ -18,13 +18,13 @@ const gourl =
 const wispurl =
   localStorage.getItem("@lunar/settings/wisp") ||
   `${location.protocol === "https:" ? "wss" : "ws"}://${location.host}/s/`;
-const tType = localStorage.getItem("@lunar/settings/transport");
+const transport = localStorage.getItem("@lunar/settings/transport");
 let connection = new BareMuxConnection("/bm/worker.js");
 
 async function updateUrl() {
-  if (tType === "ep") {
+  if (transport === "ep") {
     await connection.setTransport("/ep/index.mjs", [{ wisp: wispurl }]);
-  } else if (tType === "lc") {
+  } else if (transport === "lc") {
     await connection.setTransport("/lc/index.mjs", [{ wisp: wispurl }]);
   }
   const newUrl = localStorage.getItem("@lunar/gourl") || "";
@@ -34,25 +34,25 @@ async function updateUrl() {
   iframe.src = newUrl;
 }
 
-  if (tType === "ep") {
-    await connection.setTransport("/ep/index.mjs", [{ wisp: wispurl }]);
-    console.debug("Using default transport (Epoxy)");
-  } else if (tType === "lc") {
-    await connection.setTransport("/lc/index.mjs", [{ wisp: wispurl }]);
-    console.debug("Using transport libcurl");
-  }
+if (transport === "ep") {
+  await connection.setTransport("/ep/index.mjs", [{ wisp: wispurl }]);
+  console.debug("Using default transport (Epoxy)");
+} else if (transport === "lc") {
+  await connection.setTransport("/lc/index.mjs", [{ wisp: wispurl }]);
+  console.debug("Using transport libcurl");
+}
 
-  iframe.src = gourl;
-  iframe.onload = () => {
-    loadingDiv.classList.add("hidden");
-    iframe.classList.remove("hidden");
+iframe.src = gourl;
+iframe.onload = () => {
+  loadingDiv.classList.add("hidden");
+  iframe.classList.remove("hidden");
 
-    const iframeWindow = iframe.contentWindow!;
-    iframeWindow.open = (url: string) => {
-      console.debug("Opening new page with the url:", url);
-      const newUrl = config.encodeUrl(url);
-      localStorage.setItem("@lunar/gourl", `/us/${newUrl}`);
-      updateUrl();
-      return null;
-    };
-  }
+  const iframeWindow = iframe.contentWindow!;
+  iframeWindow.open = (url: string) => {
+    console.debug("Opening new page with the url:", url);
+    const newUrl = config.encodeUrl(url);
+    localStorage.setItem("@lunar/gourl", `/us/${newUrl}`);
+    updateUrl();
+    return null;
+  };
+};

@@ -10,13 +10,15 @@
 Lunar is a webproxy that removes censorship.
 
 # Features
+
 - No Ads
 - 🚀 Fast speeds
 - 🪞 Automatic Tab cloaking
-- 🎨  A bunch of Customization & Features
+- 🎨 A bunch of Customization & Features
 - ➕ Even more!
 
 # Deploying
+
 > [!NOTE]
 > You will need to install [git](https://git-scm.com/downloads) and [nodejs](https://nodejs.org/en/download/prebuilt-installer)
 

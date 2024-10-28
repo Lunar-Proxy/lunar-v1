@@ -7,7 +7,7 @@ if ("serviceWorker" in navigator) {
     .catch((error) =>
       console.error("Service Worker registration failed:", error),
     );
-  }
+}
 
 const titl =
   localStorage.getItem("@lunar/settings/title") || "Home - Google Drive";
