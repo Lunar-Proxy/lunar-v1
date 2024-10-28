@@ -5,7 +5,6 @@ import { server as wisp } from "@mercuryworkshop/wisp-js/server";
 import { baremuxPath } from "@mercuryworkshop/bare-mux/node";
 import { epoxyPath } from "@mercuryworkshop/epoxy-transport";
 import tailwind from "@astrojs/tailwind";
-import { uvPath } from "@titaniumnetwork-dev/ultraviolet";
 import { libcurlPath } from "@mercuryworkshop/libcurl-transport";
 import { execSync } from "child_process";
 import { version } from "./package.json";
@@ -50,12 +49,6 @@ export default defineConfig({
           {
             src: normalizePath(libcurlPath + "/**/*"),
             dest: "lc",
-          },
-          {
-            src: normalizePath(uvPath + "/**/*.js"),
-            dest: "assets/fonts/",
-            overwrite: false,
-            rename: (name) => name.replace("uv", "").replace(/\./g, "") + ".js",
           },
         ],
       }),

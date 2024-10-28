@@ -2,64 +2,64 @@
   {
     "name": "OvO",
     "website": "https://www.coolmathgames.com/0-ovo/play",
-    "logo": "../assets/games/ovo.png",
-    "issue": "",
+    "icon": "../assets/games/ovo.png",
+    "error": false,
     "category": "Action"
   },
   {
     "name": "PaperIO",
     "website": "https://paper-io.com",
-    "logo": "../assets/games/paper.png",
-    "issue": "",
+    "icon": "../assets/games/paper.png",
+    "issue": false,
     "category": "Action"
   },
   {
     "name": "Invidious (Youtube)",
     "website": "https://inv.nadeko.net/feed/popular",
-    "logo": "../assets/games/yt.png",
-    "issue": "",
+    "icon": "../assets/games/yt.png",
+    "issue": false,
     "category": "Streaming"
   },
   {
     "name": "Motox3m",
     "website": "https://www.coolmathgames.com/0-moto-x3m/play",
-    "logo": "../assets/games/x3m.png",
-    "issue": "",
+    "icon": "../assets/games/x3m.png",
+    "issue": false,
     "category": "Action"
   },
   {
     "name": "W3School",
     "website": "https://www.w3schools.com/",
-    "logo": "../assets/games/w3.png",
-    "issue": "",
+    "icon": "../assets/games/w3.png",
+    "issue": false,
     "category": "Educational"
   },
   {
-    "name": "Discord (Login)",
+    "name": "Discord Login",
     "website": "https://www.discord.com/login",
-    "logo": "../assets/games/discord.png",
-    "issue": "",
+    "icon": "../assets/games/discord.png",
+    "issue": false,
     "category": "Social Media"
   },
   {
     "name": "Tiktok",
     "website": "https://www.tiktok.com",
-    "logo": "../assets/games/tiktok.png",
-    "issue": "",
+    "icon": "../assets/games/tiktok.png",
+    "issue": false,
     "category": "Social Media"
   },
   {
     "name": "Racoon Retail",
     "website": "https://www.coolmathgames.com/0-raccoon-retail/play",
-    "logo": "../assets/games/rr.png",
-    "issue": "",
+    "icon": "../assets/games/rr.png",
+    "issue": false,
     "category": "Social Media"
   },
   {
     "name": "Retro Bowl",
     "website": "https://game316009.konggames.com/gamez/0031/6009/live/index.html",
-    "logo": "../assets/games/rb.png",
-    "issue": "",
+    "icon": "../assets/games/rb.png",
+    "issue": false,
     "category": "Action"
   }
 ]

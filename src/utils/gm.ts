@@ -1,137 +1,123 @@
+import { createWindowElement } from "astro/runtime/client/dev-toolbar/apps/utils/window.js";
+
 interface Game {
-  name: string;
-  logo: string;
-  issue: string;
-  category: string;
+  icon: string;
   website: string;
+  name: string;
+  error: boolean;
 }
 
-async function fetchGames(): Promise<Game[]> {
+const lp = "@lunar/ls";
+const gameContainer = document.getElementById("gameContainer") as HTMLElement;
+const searchInput = document.getElementById("searchInput") as HTMLInputElement;
+const categoryButton = document.getElementById(
+  "category-button",
+) as HTMLElement;
+const categoryMenu = document.getElementById("category-menu") as HTMLElement;
+
+let currentCategory: "all" | "lastPlayed" = "all";
+
+async function loadGames(): Promise<void> {
   try {
-    const response: Response = await fetch("./assets/json/games.json");
-    if (!response.ok) {
-      throw new Error("Unable to find file");
-    }
-    const gamelist: Game[] = await response.json();
-    if (!Array.isArray(gamelist)) {
-      throw new Error("Did not return json, returned something else.");
-    }
-    return gamelist;
+    const response = await fetch("./assets/json/games.json");
+    const games: Game[] = await response.json();
+    renderGames(gameContainer, games);
   } catch (error: unknown) {
     throw new Error(
-      `Failed to fetch list of games: ${error instanceof Error ? error.message : error}`,
+      ` Unable to load games: ${error instanceof Error ? error.message : error}`,
     );
   }
 }
 
-fetchGames().then((gamelist) => {
-  if (gamelist) {
-    const gameContainerDiv = document.getElementById("game-container")!;
-    const lastPlayedGames: Game[] = JSON.parse(
-      localStorage.getItem("@lunar/lp") || "[]",
-    );
-    const categoryLabel = document.getElementById("category-label")!;
+function loadLastPlayed(): void {
+  const lastPlayed: Game[] = JSON.parse(localStorage.getItem(lp) || "[]");
+  renderGames(gameContainer, lastPlayed);
+}
 
-    const renderGames = (filteredList: Game[], container: HTMLElement) => {
-      container.innerHTML = "";
-      filteredList.forEach((element: Game) => {
-        const gamediv = document.createElement("div");
-        gamediv.className =
-          "game-item w-56 h-56 transition-transform duration-300 transform hover:scale-105 m-2";
-        gamediv.setAttribute("data-name", element.name.toLowerCase());
+function saveLastPlayed(game: Game): void {
+  const lastPlayed: Game[] = JSON.parse(localStorage.getItem(lp) || "[]");
+  const existingIndex = lastPlayed.findIndex(
+    (item) => item.website === game.website,
+  );
+  if (existingIndex !== -1) lastPlayed.splice(existingIndex, 1);
+  lastPlayed.unshift(game);
+  localStorage.setItem(lp, JSON.stringify(lastPlayed.slice(0, 5)));
+}
 
-        const gameContainer = document.createElement("div");
-        gameContainer.className =
-          "relative flex items-center justify-center overflow-hidden rounded-lg shadow-lg bg-gray-800 group hover:shadow-xl transition-shadow duration-300 h-full";
+function createGameCard(
+  container: HTMLElement,
+  { icon, website, name, error }: Game,
+): void {
+  const gameCard = document.createElement("div");
+  gameCard.className =
+    "bg-[#162447] h-72 w-48 rounded-lg p-3 shadow-lg cursor-pointer transition transform hover:scale-105 game-card flex flex-col justify-between";
 
-        const gameImage = document.createElement("img");
-        gameImage.src = element.logo;
-        gameImage.alt = `${element.name}`;
-        gameImage.className =
-          "h-full w-full object-contain transition duration-300 ease-in-out transform group-hover:blur-sm";
+  gameCard.onclick = () => {
+    if (!error) {
+      saveLastPlayed({ icon, website, name, error });
+      localStorage.setItem("@lunar/gourl", `/us/${config.encodeUrl(website)}`);
+      window.location.href = "./g";
+    } else {
+      alert("Error: This game is unavailable.");
+    }
+  };
 
-        const gameName = document.createElement("h3");
-        gameName.textContent = element.name;
-        gameName.className =
-          "text-white absolute bottom-0 left-0 right-0 text-center transform translate-y-full opacity-0 transition-opacity duration-300 ease-in-out group-hover:translate-y-0 group-hover:opacity-100 font-rubik text-lg tracking-wide p-2 bg-gradient-to-t from-gray-800 to-transparent";
+  const gameIcon = document.createElement("img");
+  gameIcon.src = icon;
+  gameIcon.alt = name;
+  gameIcon.className = "w-full h-40 object-cover rounded-md";
 
-        gameContainer.appendChild(gameImage);
-        gameContainer.appendChild(gameName);
-        gamediv.appendChild(gameContainer);
-        container.appendChild(gamediv);
+  const gameName = document.createElement("div");
+  gameName.className =
+    "text-lg text-white font-semibold game-name text-center mt-2";
+  gameName.innerText = name;
 
-        gameContainer.addEventListener("click", function (event) {
-          event.preventDefault();
-          lastPlayedGames.unshift(element);
-          localStorage.setItem(
-            "@lunar/lp",
-            JSON.stringify(lastPlayedGames.slice(0, 5)),
-          );
-          let value = element.website?.trim() ?? "";
-          let url: string = "";
-          let regex =
-            /^(https?:\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(:\d+)?(\/.*)?$/;
-          if (regex.test(value)) {
-            url = /^https?:\/\//i.test(value) ? value : `https://${value}`;
-          } else {
-            url = `https://www.google.com/search?q=${encodeURIComponent(value)}`;
-          }
-          const encurl = config.encodeUrl(url);
-          localStorage.setItem("@lunar/gourl", "/us/" + encurl || "");
-          if (localStorage.getItem("@lunar/settings/transport") == null) {
-            localStorage.setItem("@lunar/settings/transport", "lc");
-          }
-          window.location.href = "./g";
-        });
-      });
-    };
+  gameCard.append(gameIcon, gameName);
+  container.appendChild(gameCard);
+}
 
-    renderGames(gamelist, gameContainerDiv);
+function renderGames(container: HTMLElement, games: Game[]): void {
+  container.innerHTML = "";
+  games.forEach((game) => createGameCard(container, game));
+}
 
-    const searchInput = document.getElementById(
-      "search-input",
-    ) as HTMLInputElement;
-    const categoryButton = document.getElementById("category-button")!;
-    const categoryMenu = document.getElementById("category-menu")!;
+function filterGames(): void {
+  const searchTerm = searchInput.value.toLowerCase();
+  document.querySelectorAll<HTMLElement>(".game-card").forEach((card) => {
+    const gameName = (
+      card.querySelector(".game-name") as HTMLElement
+    ).innerText.toLowerCase();
+    card.style.display = gameName.includes(searchTerm) ? "" : "none";
+  });
+}
 
-    const filterGames = (selectedCategory: string) => {
-      const searchTerm = searchInput.value.toLowerCase();
+function toggleCategoryMenu(): void {
+  categoryMenu.classList.toggle("hidden");
+}
 
-      let filteredList: Game[] = [];
-      if (selectedCategory === "lastPlayed") {
-        filteredList = lastPlayedGames;
-      } else {
-        filteredList = gamelist;
-      }
+function changeCategory(category: "all" | "lastPlayed"): void {
+  currentCategory = category;
+  categoryMenu.classList.add("hidden");
 
-      filteredList = filteredList.filter((game) =>
-        game.name.toLowerCase().includes(searchTerm),
-      );
-      renderGames(filteredList, gameContainerDiv);
-    };
+  if (currentCategory === "lastPlayed") {
+    loadLastPlayed();
+  } else {
+    loadGames();
+  }
+}
 
-    searchInput.addEventListener("input", () => filterGames(""));
-
-    categoryButton.addEventListener("click", () => {
-      categoryMenu.classList.toggle("hidden");
-    });
-
-    document.addEventListener("click", (event) => {
-      const target = event.target as HTMLElement;
-      if (!categoryButton.contains(target) && !categoryMenu.contains(target)) {
-        categoryMenu.classList.add("hidden");
-      }
-    });
-
-    categoryMenu.addEventListener("click", (event) => {
-      const target = event.target as HTMLElement;
-      if (target.tagName === "LI") {
-        const selectedCategory = target.getAttribute("data-value")!;
-        categoryLabel.textContent =
-          selectedCategory === "lastPlayed" ? "Last Played" : "All Categories";
-        filterGames(selectedCategory);
-        categoryMenu.classList.add("hidden");
-      }
-    });
+categoryButton.addEventListener("click", toggleCategoryMenu);
+categoryMenu.addEventListener("click", (event) => {
+  const target = event.target as HTMLElement;
+  if (target.tagName === "LI") {
+    changeCategory(target.dataset.value as "all" | "lastPlayed");
   }
 });
+
+searchInput.addEventListener("input", filterGames);
+
+async function init() {
+  await loadGames();
+}
+
+init();
