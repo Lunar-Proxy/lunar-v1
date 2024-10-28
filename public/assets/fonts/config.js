@@ -20,11 +20,11 @@ const config = {
     }
     return result.join("") + (search.length ? "?" + search.join("?") : "");
   },
-  handler: "/assets/fonts/handler.js",
-  client: "/assets/fonts/client.js",
-  bundle: "/assets/fonts/bundle.js",
-  config: "/assets/fonts/config.js",
-  sw: "/assets/fonts/sw.js",
+  handler: "./assets/fonts/handler.js",
+  client: "./assets/fonts/client.js",
+  bundle: "./assets/fonts/bundle.js",
+  config: "./assets/fonts/config.js",
+  sw: "./assets/fonts/sw.js",
   inject: [
     {
       host: "discord.com",
