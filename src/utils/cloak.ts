@@ -1,6 +1,6 @@
 async function cloak(): Promise<void> {
   try {
-    const response: Response = await fetch("./assets/json/tbs.json");
+    const response: Response = await fetch("./assets/cloaks/tbs.json");
     if (!response.ok) return;
 
     const data = await response.json();

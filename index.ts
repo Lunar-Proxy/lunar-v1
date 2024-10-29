@@ -6,7 +6,7 @@ import fs from "node:fs";
 import { fileURLToPath } from "node:url";
 import { exec } from "child_process";
 import chalk from "chalk";
-import { IncomingMessage, ServerResponse, createServer, Server } from "http";
+import { createServer } from "http";
 import { Socket } from "net";
 import { epoxyPath } from "@mercuryworkshop/epoxy-transport";
 import { libcurlPath } from "@mercuryworkshop/libcurl-transport";
@@ -79,12 +79,12 @@ try {
   });
   app.register(fastifyStatic, {
     root: epoxyPath,
-    prefix: "/ep/",
+    prefix: "/e/",
     decorateReply: false,
   });
   app.register(fastifyStatic, {
     root: libcurlPath,
-    prefix: "/lc/",
+    prefix: "/l/",
     decorateReply: false,
   });
   app.register(fastifyStatic, {

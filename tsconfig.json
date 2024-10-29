@@ -6,5 +6,5 @@
       "@src/*": ["src/*"]
     }
   },
-  "exclude": ["node_modules", "dist", "public/assets/fonts/**"]
+  "exclude": ["node_modules", "dist", "public/assets/v/**"]
 }

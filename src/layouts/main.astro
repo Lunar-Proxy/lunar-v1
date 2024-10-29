@@ -9,8 +9,8 @@ import "@src/main.css";
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
-    <script is:inline src="./assets/fonts/bundle.js" defer></script>
-    <script is:inline src="./assets/fonts/config.js" defer></script>
+    <script is:inline src="./assets/v/bundle.js" defer></script>
+    <script is:inline src="./assets/v/config.js" defer></script>
   </head>
   <body class="text-white">
     <nav class="bg-gray-800 p-4">
@@ -41,4 +41,16 @@ import "@src/main.css";
     </nav>
     <slot />
   </body>
+  <script>
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker
+        .register("./sw.js", { scope: "/p/" })
+        .then(({ scope }) =>
+          console.debug("Service Worker registered with scope:", scope),
+        )
+        .catch((error) =>
+          console.error("Service Worker registration failed:", error),
+        );
+    }
+  </script>
 </html>

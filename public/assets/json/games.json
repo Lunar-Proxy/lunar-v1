@@ -1,64 +1,64 @@
 [
   {
     "name": "OvO",
-    "website": "https://www.coolmathgames.com/0-ovo/play",
-    "icon": "../assets/games/ovo.png",
+    "website": "https://www.coolmathlogo.com/0-ovo/play",
+    "icon": "../assets/logo/ovo.png",
     "error": false,
     "category": "Action"
   },
   {
     "name": "PaperIO",
     "website": "https://paper-io.com",
-    "icon": "../assets/games/paper.png",
+    "icon": "../assets/logo/paper.png",
     "issue": false,
     "category": "Action"
   },
   {
     "name": "Invidious (Youtube)",
     "website": "https://inv.nadeko.net/feed/popular",
-    "icon": "../assets/games/yt.png",
+    "icon": "../assets/logo/yt.png",
     "issue": false,
     "category": "Streaming"
   },
   {
     "name": "Motox3m",
     "website": "https://www.coolmathgames.com/0-moto-x3m/play",
-    "icon": "../assets/games/x3m.png",
+    "icon": "../assets/logo/x3m.png",
     "issue": false,
     "category": "Action"
   },
   {
     "name": "W3School",
     "website": "https://www.w3schools.com/",
-    "icon": "../assets/games/w3.png",
+    "icon": "../assets/logo/w3.png",
     "issue": false,
     "category": "Educational"
   },
   {
     "name": "Discord Login",
     "website": "https://www.discord.com/login",
-    "icon": "../assets/games/discord.png",
+    "icon": "../assets/logo/discord.png",
     "issue": false,
     "category": "Social Media"
   },
   {
     "name": "Tiktok",
     "website": "https://www.tiktok.com",
-    "icon": "../assets/games/tiktok.png",
+    "icon": "../assets/logo/tiktok.png",
     "issue": false,
     "category": "Social Media"
   },
   {
     "name": "Racoon Retail",
     "website": "https://www.coolmathgames.com/0-raccoon-retail/play",
-    "icon": "../assets/games/rr.png",
+    "icon": "../assets/logo/rr.png",
     "issue": false,
     "category": "Social Media"
   },
   {
     "name": "Retro Bowl",
     "website": "https://game316009.konggames.com/gamez/0031/6009/live/index.html",
-    "icon": "../assets/games/rb.png",
+    "icon": "../assets/logo/rb.png",
     "issue": false,
     "category": "Action"
   }

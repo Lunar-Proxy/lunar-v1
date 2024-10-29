@@ -1,5 +1,3 @@
-import { createWindowElement } from "astro/runtime/client/dev-toolbar/apps/utils/window.js";
-
 interface Game {
   icon: string;
   website: string;

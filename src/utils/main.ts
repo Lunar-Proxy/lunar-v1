@@ -37,6 +37,6 @@ fm.addEventListener("submit", (event) => {
   if (localStorage.getItem("@lunar/settings/transport") == null) {
     localStorage.setItem("@lunar/settings/transport", "lc");
   }
-  localStorage.setItem("@lunar/gourl", `/us/${config.encodeUrl(url)}`);
+  localStorage.setItem("@lunar/gourl", `/p/${config.encodeUrl(url)}`);
   window.location.href = "./g";
 });

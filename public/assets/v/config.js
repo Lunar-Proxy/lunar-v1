@@ -1,5 +1,5 @@
 const config = {
-  prefix: "/us/",
+  prefix: "/p/",
   encodeUrl: (str) => {
     if (!str) return str;
     const result = new Array(str.length);
@@ -20,11 +20,11 @@ const config = {
     }
     return result.join("") + (search.length ? "?" + search.join("?") : "");
   },
-  handler: "./assets/fonts/handler.js",
-  client: "./assets/fonts/client.js",
-  bundle: "./assets/fonts/bundle.js",
-  config: "./assets/fonts/config.js",
-  sw: "./assets/fonts/sw.js",
+  handler: "./assets/v/handler.js",
+  client: "./assets/v/client.js",
+  bundle: "./assets/v/bundle.js",
+  config: "./assets/v/config.js",
+  sw: "./assets/v/sw.js",
   inject: [
     {
       host: "discord.com",

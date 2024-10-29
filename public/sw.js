@@ -1,12 +1,12 @@
-importScripts("/assets/fonts/bundle.js");
-importScripts("/assets/fonts/config.js");
-importScripts("/assets/fonts/sw.js");
+importScripts("/assets/v/bundle.js");
+importScripts("/assets/v/config.js");
+importScripts("/assets/v/sw.js");
 
-const uv = new UVServiceWorker();
+const o = new UVServiceWorker();
 
 async function handleRequest(event) {
-  if (uv.route(event)) {
-    return await uv.fetch(event);
+  if (o.route(event)) {
+    return await o.fetch(event);
   }
 
   return await fetch(event.request);

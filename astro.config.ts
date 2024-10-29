@@ -25,7 +25,7 @@ export default defineConfig({
     },
     plugins: [
       {
-        name: "vite-ws-server",
+        name: "viteserver",
         configureServer(server) {
           server.httpServer?.on("upgrade", (req, socket, head) => {
             if (req.url?.startsWith("/s")) {
@@ -40,7 +40,7 @@ export default defineConfig({
         targets: [
           {
             src: normalizePath(epoxyPath + "/**/*"),
-            dest: "ep",
+            dest: "e",
           },
           {
             src: normalizePath(baremuxPath + "/**/*"),
@@ -48,7 +48,7 @@ export default defineConfig({
           },
           {
             src: normalizePath(libcurlPath + "/**/*"),
-            dest: "lc",
+            dest: "l",
           },
         ],
       }),

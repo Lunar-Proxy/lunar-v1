@@ -2,7 +2,7 @@ import { BareMuxConnection } from "@mercuryworkshop/bare-mux";
 
 if ("serviceWorker" in navigator) {
   navigator.serviceWorker
-    .register("./sw.js", { scope: "/us/" })
+    .register("./sw.js", { scope: "/p/" })
     .then(({ scope }) =>
       console.debug("Service Worker registered with scope:", scope),
     )
@@ -13,8 +13,7 @@ if ("serviceWorker" in navigator) {
 
 const loadingDiv = document.getElementById("loading")!;
 const iframe = document.getElementById("iframe") as HTMLIFrameElement;
-const gourl =
-  localStorage.getItem("@lunar/gourl") || "/us/hvtrs8%2F-Gmoelg.aoo";
+const gourl = localStorage.getItem("@lunar/gourl") || "/v/hvtrs8%2F-Gmoelg.aoo";
 const wispurl =
   localStorage.getItem("@lunar/settings/wisp") ||
   `${location.protocol === "https:" ? "wss" : "ws"}://${location.host}/s/`;
@@ -23,9 +22,9 @@ let connection = new BareMuxConnection("/bm/worker.js");
 
 async function updateUrl() {
   if (transport === "ep") {
-    await connection.setTransport("/ep/index.mjs", [{ wisp: wispurl }]);
+    await connection.setTransport("/e/index.mjs", [{ wisp: wispurl }]);
   } else if (transport === "lc") {
-    await connection.setTransport("/lc/index.mjs", [{ wisp: wispurl }]);
+    await connection.setTransport("/l/index.mjs", [{ wisp: wispurl }]);
   }
   const newUrl = localStorage.getItem("@lunar/gourl") || "";
   console.debug("New URL", newUrl);
@@ -35,10 +34,10 @@ async function updateUrl() {
 }
 
 if (transport === "ep") {
-  await connection.setTransport("/ep/index.mjs", [{ wisp: wispurl }]);
+  await connection.setTransport("/e/index.mjs", [{ wisp: wispurl }]);
   console.debug("Using default transport (Epoxy)");
 } else if (transport === "lc") {
-  await connection.setTransport("/lc/index.mjs", [{ wisp: wispurl }]);
+  await connection.setTransport("/l/index.mjs", [{ wisp: wispurl }]);
   console.debug("Using transport libcurl");
 }
 
@@ -51,7 +50,7 @@ iframe.onload = () => {
   iframeWindow.open = (url: string) => {
     console.debug("Opening new page with the url:", url);
     const newUrl = config.encodeUrl(url);
-    localStorage.setItem("@lunar/gourl", `/us/${newUrl}`);
+    localStorage.setItem("@lunar/gourl", `/p/${newUrl}`);
     updateUrl();
     return null;
   };
