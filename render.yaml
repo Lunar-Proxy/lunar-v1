@@ -1,5 +1,15 @@
 services:
   - type: web
-    name: school
-    env: docker
-    plan: free
+    name: nodejs-postgresql
+    env: node
+    repo: https://github.com/geshan/nodejs-posgresql.git
+    region: oregon
+    branch: master
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    healthCheckPath: /
+    envVars:
+      - key: NODE_VERSION
+        value: ~20.0.0
+      - key: NODE_ENV
+        value: production
