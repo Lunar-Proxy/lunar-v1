@@ -11,7 +11,7 @@ Lunar is a webproxy that removes censorship.
 
 # Features
 
-- No Ads
+- 🚫 No Ads
 - 🚀 Fast speeds
 - 🪞 Automatic Tab cloaking
 - 🎨 A bunch of Customization & Features
@@ -32,7 +32,7 @@ npm start
 
 # More guides
 
-For details about enabling extra features & more, click [here](https://github.com/Lunar-proxy/Lunar/wiki)
+For guides to enable extra features & more, click [here](https://github.com/Lunar-proxy/Lunar/wiki)
 
 # Support
 
