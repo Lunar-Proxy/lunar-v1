@@ -1,34 +1,37 @@
 async function cloak(): Promise<void> {
   try {
-    const response: Response = await fetch("./assets/cloaks/tbs.json");
+    const response: Response = await fetch("./assets/json/tbs.json");
     if (!response.ok) return;
 
     const data = await response.json();
     if (window.name === "cloak") return;
 
     const win = window.open("", "cloak");
-    const randomItem =
-      data.items[Math.floor(Math.random() * data.items.length)];
-
-    if (!win || win.closed) {
-      alert(
-        "Consider allowing popups to use about:blank so this site doesnt show up in your history.",
-      );
-
-      const link =
-        (document.querySelector("link[rel='icon']") as HTMLLinkElement) ||
-        (document.createElement("link") as HTMLLinkElement);
-      link.rel = "icon";
-      link.href =
-        localStorage.getItem("@lunar/custom/favicon") || randomItem.favicon;
-      document.head.appendChild(link);
-      document.title =
-        localStorage.getItem("@lunar/settings/title") || randomItem.title;
-      localStorage.setItem("@lunar/settings/title", document.title);
-      localStorage.setItem("@lunar/settings/favicon", link.href);
+    if (!win) {
+      alert("Popup blocked. Please allow popups for this site.");
     }
 
-    if (win) {
+    if (!Array.isArray(data.items) || data.items.length === 0) {
+      console.error("Invalid items data");
+      return;
+    }
+
+    const randomIndex = Math.floor(Math.random() * data.items.length);
+    const randomItem = data.items[randomIndex];
+
+    const link =
+      (document.querySelector("link[rel='icon']") as HTMLLinkElement) ||
+      (document.createElement("link") as HTMLLinkElement);
+    link.rel = "icon";
+    link.href =
+      localStorage.getItem("@lunar/custom/favicon") || randomItem.favicon;
+    document.head.appendChild(link);
+    document.title =
+      localStorage.getItem("@lunar/settings/title") || randomItem.title;
+    localStorage.setItem("@lunar/settings/title", document.title);
+    localStorage.setItem("@lunar/settings/favicon", link.href);
+
+    if (win && !win.closed) {
       const bodyStyles = {
         margin: "0",
         padding: "0",
@@ -51,17 +54,19 @@ async function cloak(): Promise<void> {
         iframe.src = location.href;
         win.document.body.appendChild(iframe);
 
-        const link =
+        const winLink =
           (win.document.querySelector("link[rel='icon']") as HTMLLinkElement) ||
           (win.document.createElement("link") as HTMLLinkElement);
-        link.rel = "icon";
-        link.href = randomItem.favicon;
-        win.document.head.appendChild(link);
+        winLink.rel = "icon";
+        winLink.href = randomItem.favicon;
+        win.document.head.appendChild(winLink);
         win.document.title = randomItem.title;
         location.replace(randomItem.redir);
       }
     }
-  } catch {}
+  } catch (error) {
+    console.error("An error occurred:", error);
+  }
 }
 
 function checkCloak(): boolean {
