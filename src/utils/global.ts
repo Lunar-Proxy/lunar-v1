@@ -3,7 +3,7 @@ const titl =
   localStorage.getItem("@lunar/settings/title") || "Home - Google Drive";
 const favi =
   localStorage.getItem("@lunar/settings/favicon") ||
-  "./assets/favicon/drive.svg";
+  "./assets/cloaks/drive.svg";
 
 document.title = titl;
 
