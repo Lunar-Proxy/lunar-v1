@@ -20,14 +20,14 @@ Lunar is a webproxy that removes censorship.
 # Deploying
 
 > [!NOTE]
-> You will need to install [git](https://git-scm.com/downloads) and [nodejs](https://nodejs.org/en/download/prebuilt-installer)
+> You will need to install [git](https://git-scm.com/downloads), [nodejs](https://nodejs.org/en/download/prebuilt-installer) and pnpm by running `npm i -g pnpm`
 
 ```
 git clone https://github.com/Lunar-Proxy/Lunar.git
 cd Lunar
-npm install
-npm run build
-npm start
+pnpm install
+pnpm run build
+pnpm start
 ```
 
 # More guides
