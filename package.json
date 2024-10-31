@@ -8,7 +8,8 @@
     "build": "npx astro check && npx astro build",
     "preview": "npx astro preview",
     "astro": "npx astro",
-    "pretty": "prettier . --write "
+    "pretty": "prettier . --write ",
+    "preinstall": "npx only-allow pnpm"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.4",
