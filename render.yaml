@@ -1,13 +1,11 @@
 services:
   - type: web
     name: classroomded
-    env: node
+    env: docker
     plan: free
     repo: https://github.com/Lunar-Proxy/Lunar.git
     region: oregon
     branch: master
-    buildCommand: npm install -g pnpm && pnpm install && pnpm run build
-    startCommand: npm start
     healthCheckPath: /
     envVars:
       - key: NODE_VERSION
