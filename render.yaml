@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: nodejs-postgresql
+    name: classroomded
     env: node
     plan: free
     repo: https://github.com/geshan/nodejs-posgresql.git
