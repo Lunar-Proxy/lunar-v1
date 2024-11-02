@@ -1,7 +1,7 @@
 FROM node:20
 ENV NODE_ENV=production
 WORKDIR /app
-COPY package.json pnpm-lock.yaml astro.config.mjs ./
+COPY package.json pnpm-lock.yaml astro.config.ts ./
 RUN npm install -g pnpm && pnpm install
 COPY . .
 RUN pnpm build
