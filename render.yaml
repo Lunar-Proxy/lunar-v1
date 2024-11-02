@@ -5,7 +5,7 @@ services:
     repo: https://github.com/geshan/nodejs-posgresql.git
     region: oregon
     branch: master
-    buildCommand: npm install && npm run build
+    buildCommand: npm install -g pnpm && pnpm install && pnpm run build
     startCommand: npm start
     healthCheckPath: /
     envVars:
