@@ -8,7 +8,7 @@ import tailwind from "@astrojs/tailwind";
 import { libcurlPath } from "@mercuryworkshop/libcurl-transport";
 import { version } from "./package.json";
 import { normalizePath } from "vite";
-
+import { uvPath } from "@titaniumnetwork-dev/ultraviolet";
 export default defineConfig({
   output: "hybrid",
   adapter: node({
@@ -38,14 +38,23 @@ export default defineConfig({
           {
             src: normalizePath(epoxyPath + "/**/*.mjs"),
             dest: "e",
+            overwrite: false,
           },
           {
             src: normalizePath(baremuxPath + "/**/*.js"),
             dest: "bm",
+            overwrite: false,
           },
           {
             src: normalizePath(libcurlPath + "/**/*.mjs"),
             dest: "l",
+            overwrite: false,
+          },
+          {
+            src: normalizePath(uvPath + "/**/*.js"),
+            dest: "assets/v",
+            overwrite: false,
+            rename: (name) => name.replace("uv", "").replace(/\./g, "") + ".js",
           },
         ],
       }),
