@@ -19,6 +19,10 @@ Lunar is a webproxy that removes censorship.
 
 # Deploying
 
+<a href="https://render.com/deploy?repo=https://github.com/lunar-proxy/lunar">
+<img src="https://raw.githubusercontent.com/BinBashBanana/deploy-buttons/main/buttons/remade/render.svg"></img></a>
+[![Deploy to Koyeb](https://binbashbanana.github.io/deploy-buttons/buttons/remade/koyeb.svg)](https://app.koyeb.com/deploy?type=git&repository=github.com/lunar-proxy/lunar)
+
 > [!NOTE]
 > You will need to install [git](https://git-scm.com/downloads), [nodejs](https://nodejs.org/en/download/prebuilt-installer) and pnpm by running `npm i -g pnpm`
 
