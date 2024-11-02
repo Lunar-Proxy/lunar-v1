@@ -11,9 +11,9 @@ async function cloak(): Promise<void> {
       data.items[Math.floor(Math.random() * data.items.length)];
 
     if (!win || win.closed) {
-      alert(
+      /* alert(
         "Consider allowing popups to use about:blank so this site doesnt show up in your history.",
-      );
+      );*/
 
       const link =
         (document.querySelector("link[rel='icon']") as HTMLLinkElement) ||

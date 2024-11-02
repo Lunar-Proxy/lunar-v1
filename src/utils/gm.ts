@@ -48,7 +48,7 @@ function createGameCard(
 ): void {
   const gameCard = document.createElement("div");
   gameCard.className =
-    "bg-[#162447] h-72 w-48 rounded-lg p-3 shadow-lg cursor-pointer transition transform hover:scale-105 game-card flex flex-col justify-between";
+    "bg-gray-800 border border-gray-600 h-72 w-48 rounded-lg p-3 shadow-lg cursor-pointer transition transform hover:scale-105 game-card flex flex-col justify-between";
 
   gameCard.onclick = () => {
     if (!error) {
