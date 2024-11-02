@@ -4,14 +4,14 @@ let Placeholder = "unidentified";
 import { X, Search } from "lucide-astro";
 ---
 
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width" />
+  <meta name="generator" content={Astro.generator} />
+  <script src="../utils/main.ts"></script>
+  <script src="../utils/cloak.ts"></script>
+</head>
 <Main>
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <meta name="generator" content={Astro.generator} />
-    <script src="../utils/main.ts"></script>
-    <script src="../utils/cloak.ts"></script>
-  </head>
   <div class="flex items-center justify-center min-h-screen">
     <div class="text-center p-6 w-full max-w-lg">
       <h1
@@ -51,26 +51,26 @@ import { X, Search } from "lucide-astro";
   >
     <a id="time" class="hover:text-white transition duration-200"></a>
   </p>
-</Main>
 
-<script>
-  const inputElement = document.getElementById("input") as HTMLInputElement;
-  const clock = document.getElementById("time") as HTMLElement;
-  inputElement.placeholder = `Search with ${localStorage.getItem("@lunar/settings/se") || "Google"} or enter a URL`;
-  function updateClock() {
-    const now = new Date();
-    let hours = now.getHours();
-    const minutes = String(now.getMinutes()).padStart(2, "0");
-    const seconds = String(now.getSeconds()).padStart(2, "0");
-    const ampm = hours >= 12 ? "PM" : "AM";
-    hours = hours % 12;
-    hours = hours ? hours : 12;
-    const displayHours = String(hours).padStart(2, "0");
-    if (clock) {
-      clock.textContent = `${displayHours}:${minutes}:${seconds} ${ampm}`;
+  <script>
+    const inputElement = document.getElementById("input") as HTMLInputElement;
+    const clock = document.getElementById("time") as HTMLElement;
+    inputElement.placeholder = `Search with ${localStorage.getItem("@lunar/settings/se") || "Google"} or enter a URL`;
+    function updateClock() {
+      const now = new Date();
+      let hours = now.getHours();
+      const minutes = String(now.getMinutes()).padStart(2, "0");
+      const seconds = String(now.getSeconds()).padStart(2, "0");
+      const ampm = hours >= 12 ? "PM" : "AM";
+      hours = hours % 12;
+      hours = hours ? hours : 12;
+      const displayHours = String(hours).padStart(2, "0");
+      if (clock) {
+        clock.textContent = `${displayHours}:${minutes}:${seconds} ${ampm}`;
+      }
     }
-  }
 
-  setInterval(updateClock, 1000);
-  updateClock();
-</script>
+    setInterval(updateClock, 1000);
+    updateClock();
+  </script>
+</Main>

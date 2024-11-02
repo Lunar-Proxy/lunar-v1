@@ -53,6 +53,9 @@ function createGameCard(
   gameCard.onclick = () => {
     if (!error) {
       saveLastPlayed({ icon, website, name, error });
+      if (localStorage.getItem("@lunar/settings/transport") == null) {
+        localStorage.setItem("@lunar/settings/transport", "ep");
+      }
       localStorage.setItem("@lunar/gourl", `${website}`);
       window.location.href = "./g";
     } else {

@@ -2,11 +2,11 @@ importScripts("/assets/v/bundle.js");
 importScripts("/assets/v/config.js");
 importScripts("/assets/v/sw.js");
 
-const o = new UVServiceWorker();
+const uv = new UVServiceWorker();
 
 async function handleRequest(event) {
-  if (o.route(event)) {
-    return await o.fetch(event);
+  if (uv.route(event)) {
+    return await uv.fetch(event);
   }
 
   return await fetch(event.request);

@@ -2,6 +2,12 @@
 import Main from "../layouts/main.astro";
 ---
 
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width" />
+  <meta name="generator" content={Astro.generator} />
+  <script src="../utils/global.ts"></script>
+</head>
 <Main>
   <div class="flex justify-center">
     <h1 class="mt-9 text-3xl text-white font-bold mb-4 text-center">
