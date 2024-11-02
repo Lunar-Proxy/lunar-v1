@@ -6,6 +6,7 @@ import { baremuxPath } from "@mercuryworkshop/bare-mux/node";
 import { epoxyPath } from "@mercuryworkshop/epoxy-transport";
 import tailwind from "@astrojs/tailwind";
 import { libcurlPath } from "@mercuryworkshop/libcurl-transport";
+import { execSync } from "child_process";
 import { version } from "./package.json";
 import { normalizePath } from "vite";
 
@@ -18,6 +19,9 @@ export default defineConfig({
 
   vite: {
     define: {
+      LAST_UPDATED: JSON.stringify(
+        execSync("git log -1 --format=%cd").toString().trim(),
+      ),
       VERSION: JSON.stringify(version),
     },
     plugins: [
