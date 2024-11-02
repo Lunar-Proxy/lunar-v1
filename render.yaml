@@ -3,7 +3,7 @@ services:
     name: classroomded
     env: node
     plan: free
-    repo: https://github.com/geshan/nodejs-posgresql.git
+    repo: https://github.com/Lunar-Proxy/Lunar.git
     region: oregon
     branch: master
     buildCommand: npm install -g pnpm && pnpm install && pnpm run build
