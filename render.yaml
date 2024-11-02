@@ -1,13 +1,5 @@
 services:
   - type: web
-    name: classroomded
+    name: clasdb
     env: docker
     plan: free
-    repo: https://github.com/Lunar-Proxy/Lunar.git
-    region: oregon
-    healthCheckPath: /
-    envVars:
-      - key: NODE_VERSION
-        value: ~20.0.0
-      - key: NODE_ENV
-        value: production
