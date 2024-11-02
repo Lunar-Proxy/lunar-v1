@@ -2,6 +2,7 @@ services:
   - type: web
     name: nodejs-postgresql
     env: node
+    plan: free
     repo: https://github.com/geshan/nodejs-posgresql.git
     region: oregon
     branch: master
