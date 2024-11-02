@@ -3,28 +3,26 @@ import { LoaderCircle } from "lucide-astro";
 import "@src/main.css";
 ---
 
-<script is:inline src="./assets/v/bundle.js" defer></script>
-<script is:inline src="./assets/v/config.js" defer></script>
-
-<script src="../utils/go.ts"></script>
-<script src="../utils/global.ts"></script>
-
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width" />
+  <meta name="generator" content={Astro.generator} />
+  <script is:inline src="/assets/v/bundle.js" defer></script>
+  <script is:inline src="/assets/v/config.js" defer></script>
+  <script src="../utils/go.ts"></script>
+  <script src="../utils/global.ts"></script>
+</head>
 <body>
-  <div id="loading" class="h-screen flex flex-col items-center justify-center">
-    <div class="flex flex-col items-center">
-      <LoaderCircle class="w-12 h-12 animate-spin text-gray-300" />
-      <p class="mt-4 text-center text-gray-300">
-        Please wait while Lunar loads your content. Having issues?
-        <a
-          class="text-blue-400 underline cursor-pointer transition-colors duration-300"
-          href="https://github.com/Lunar-Services/Lunar/issues/new/choose"
-          target="_blank">Report it!</a
-        >
-      </p>
-    </div>
+  <div class="h-screen flex flex-col items-center justify-center z-10">
+    <LoaderCircle class="w-12 h-12 animate-spin text-gray-300" />
+    <p class="mt-4 text-center text-gray-300">
+      Please wait while Lunar loads your content. Having issues?
+      <a
+        class="text-blue-400 underline cursor-pointer transition-colors duration-300"
+        href="https://github.com/Lunar-Services/Lunar/issues/new/choose"
+        target="_blank">Report it</a
+      >
+    </p>
   </div>
-  <iframe
-    class="fixed inset-0 w-full h-full border-0 outline-none z-[9999] overflow-auto"
-    sandbox="allow-presentation allow-same-origin allow-scripts allow-forms allow-pointer-lock allow-modals allow-orientation-lock"
-    id="iframe"></iframe>
+  <iframe id="iframe" class="absolute inset-0 w-full h-full z-20"></iframe>
 </body>

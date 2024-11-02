@@ -53,7 +53,7 @@ function createGameCard(
   gameCard.onclick = () => {
     if (!error) {
       saveLastPlayed({ icon, website, name, error });
-      localStorage.setItem("@lunar/gourl", `/us/${config.encodeUrl(website)}`);
+      localStorage.setItem("@lunar/gourl", `${website}`);
       window.location.href = "./g";
     } else {
       alert("Error: This game is unavailable.");

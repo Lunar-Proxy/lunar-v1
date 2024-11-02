@@ -4,10 +4,14 @@ let Placeholder = "unidentified";
 import { X, Search } from "lucide-astro";
 ---
 
-<script src="../utils/main.ts"></script>
-<script src="../utils/cloak.ts"></script>
-
 <Main>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <script src="../utils/main.ts"></script>
+    <script src="../utils/cloak.ts"></script>
+  </head>
   <div class="flex items-center justify-center min-h-screen">
     <div class="text-center p-6 w-full max-w-lg">
       <h1
@@ -33,10 +37,10 @@ import { X, Search } from "lucide-astro";
           <button
             type="button"
             id="clear"
-            class="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-600 text-2xl hover:text-red-700 focus:outline-none transition duration-200"
+            class="absolute right-4 top-1/2 transform -translate-y-1/2 text-white text-2xl hover:text-red-700 focus:outline-none transition duration-200"
             style="display: none;"
           >
-            <X class="w-7 h-7" />
+            <X class="w-[19px] h-[21px]" />
           </button>
         </div>
       </form>

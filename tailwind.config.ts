@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 
-export default {
+module.exports = {
   content: ["./src/**/*.{astro,html,js,md,ts,vue}"],
   theme: {
     extend: {
@@ -14,5 +14,4 @@ export default {
       },
     },
   },
-  plugins: [],
 };

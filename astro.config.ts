@@ -16,6 +16,7 @@ export default defineConfig({
     mode: "middleware",
   }),
   integrations: [tailwind()],
+
   vite: {
     define: {
       LAST_UPDATED: JSON.stringify(
@@ -31,7 +32,7 @@ export default defineConfig({
             if (req.url?.startsWith("/s")) {
               wisp.routeRequest(req, socket, head);
             } else {
-              null;
+              undefined;
             }
           });
         },
@@ -39,15 +40,15 @@ export default defineConfig({
       viteStaticCopy({
         targets: [
           {
-            src: normalizePath(epoxyPath + "/**/*"),
+            src: normalizePath(epoxyPath + "/**/*.mjs"),
             dest: "e",
           },
           {
-            src: normalizePath(baremuxPath + "/**/*"),
+            src: normalizePath(baremuxPath + "/**/*.js"),
             dest: "bm",
           },
           {
-            src: normalizePath(libcurlPath + "/**/*"),
+            src: normalizePath(libcurlPath + "/**/*.mjs"),
             dest: "l",
           },
         ],
