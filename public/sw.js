@@ -1,7 +1,6 @@
-
-importScripts('./assets/v/bundle.js');
-importScripts('./assets/v/config.js');
-importScripts('./assets/v/sw.js');
+importScripts('/assets/v/bundle.js');
+importScripts('/assets/v/config.js');
+importScripts('/assets/v/sw.js');
 
 const uv = new UVServiceWorker();
 
