@@ -30,9 +30,9 @@ pnpm run build
 pnpm start
 ```
 
-# More guides
+# Guides
 
-For guides to enable extra features & more, click [here](https://github.com/Lunar-proxy/Lunar/wiki)
+To enable extra features, updating Lunar & more click [here](https://github.com/Lunar-proxy/Lunar/wiki)
 
 # Support
 
@@ -40,7 +40,7 @@ To get help with any issues, bugs or give suggestions, you can join [our discord
 
 # Credits
 
-Thanks to all the contribuators who made this possible.
+Thanks to everyone who made lunar possible.
 
 <a href="https://github.com/lunar-proxy/lunar/graphs/contributors">
 <img src="https://contrib.rocks/image?repo=lunar-proxy/lunar"/>
