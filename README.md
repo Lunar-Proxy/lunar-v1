@@ -20,7 +20,9 @@ Lunar is a webproxy that removes censorship.
 # Deploying
 
 <a href="https://render.com/deploy?repo=https://github.com/lunar-proxy/lunar">
-<img src="https://raw.githubusercontent.com/BinBashBanana/deploy-buttons/main/buttons/remade/render.svg"></img></a>
+    <img src="https://raw.githubusercontent.com/BinBashBanana/deploy-buttons/main/buttons/remade/render.svg" alt="Deploy to Render">
+</a>
+
 [![Deploy to Koyeb](https://binbashbanana.github.io/deploy-buttons/buttons/remade/koyeb.svg)](https://app.koyeb.com/deploy?type=git&repository=github.com/lunar-proxy/lunar)
 
 > [!NOTE]
