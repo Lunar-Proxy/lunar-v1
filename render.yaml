@@ -5,7 +5,6 @@ services:
     plan: free
     repo: https://github.com/Lunar-Proxy/Lunar.git
     region: oregon
-    branch: master
     healthCheckPath: /
     envVars:
       - key: NODE_VERSION
