@@ -29,6 +29,12 @@ import "@src/main.css";
             </a>
           </li>
           <li class="flex items-center">
+            <a href="./apps" class="flex items-center py-2 px-4">
+              <Album class="icon w-8 h-8 mr-2" />
+              Apps
+            </a>
+          </li>
+          <li class="flex items-center">
             <a href="./st" class="flex items-center py-2 px-4">
               <Cog class="icon w-8 h-8 mr-2" />
               Settings
@@ -38,22 +44,16 @@ import "@src/main.css";
       </div>
     </div>
     <slot />
-    <div
-    class=" border-t border-r border-l border-gray-600 fixed bottom-0 text-center mx-auto left-20 right-20 rounded-t-[30px] bg-gray-800 py-4 text-gray-300"
-  >
-    <a id="time" class="hover:text-white transition duration-200"></a>
-  </div>
+    <div class="border-t border-r border-l border-gray-600 fixed bottom-0 text-center mx-auto left-20 right-20 rounded-t-[30px] bg-gray-800 py-4 text-gray-300">
+      <a id="time" class="hover:text-white transition duration-200"></a>
+    </div>
   </body>
   <script>
     if ("serviceWorker" in navigator) {
       navigator.serviceWorker
         .register("./sw.js", { scope: "/p/" })
-        .then(({ scope }) =>
-          console.debug("Service Worker registered with scope:", scope),
-        )
-        .catch((error) =>
-          console.error("Service Worker registration failed:", error),
-        );
+        .then(({ scope }) => console.debug("Service Worker registered with scope:", scope))
+        .catch((error) => console.error("Service Worker registration failed:", error));
     }
   </script>
   <script>
@@ -71,7 +71,6 @@ import "@src/main.css";
         clock.textContent = `${displayHours}:${minutes}:${seconds} ${ampm}`;
       }
     }
-
     setInterval(updateClock, 1000);
     updateClock();
   </script>
