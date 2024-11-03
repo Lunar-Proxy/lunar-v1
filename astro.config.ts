@@ -24,10 +24,10 @@ export default defineConfig({
         name: "viteserver",
         configureServer(server) {
           server.httpServer?.on("upgrade", (req, socket, head) => {
-            if (req.url?.startsWith("/s")) {
+            if (req.url?.startsWith("/goo")) {
               wisp.routeRequest(req, socket, head);
             } else {
-              undefined;
+              null;
             }
           });
         },
@@ -36,18 +36,16 @@ export default defineConfig({
         targets: [
           {
             src: normalizePath(epoxyPath + "/**/*.mjs"),
-            dest: "e",
+            dest: "ep",
             overwrite: false,
           },
           {
             src: normalizePath(baremuxPath + "/**/*.js"),
             dest: "bm",
-            overwrite: false,
           },
           {
             src: normalizePath(libcurlPath + "/**/*.mjs"),
-            dest: "l",
-            overwrite: false,
+            dest: "lb",
           },
         ],
       }),

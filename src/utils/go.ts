@@ -3,20 +3,20 @@ import { BareMuxConnection } from "@mercuryworkshop/bare-mux";
 const iframe = document.getElementById("iframe") as HTMLIFrameElement;
 const wispurl =
   localStorage.getItem("@lunar/settings/wisp") ||
-  `${location.protocol === "https:" ? "wss" : "ws"}://${location.host}/s/`;
+  `${location.protocol === "https:" ? "wss" : "ws"}://${location.host}/goo/`;
 const transport = localStorage.getItem("@lunar/settings/transport");
 const connection = new BareMuxConnection("/bm/worker.js");
 
 async function frame() {
   if (transport === "ep") {
     console.debug("Using epoxy transport");
-    await connection.setTransport("/e/index.mjs", [{ wisp: wispurl }]);
+    await connection.setTransport("/ep/index.mjs", [{ wisp: wispurl }]);
   } else if (transport === "lc") {
     console.debug("Using libcurl transport");
-    await connection.setTransport("/l/index.mjs", [{ wisp: wispurl }]);
+    await connection.setTransport("/lb/index.mjs", [{ wisp: wispurl }]);
   } else {
     console.error("No valid transport found, defaulting to epoxy...");
-    await connection.setTransport("/e/index.mjs", [{ wisp: wispurl }]);
+    await connection.setTransport("/ep/index.mjs", [{ wisp: wispurl }]);
   }
 
   if ("serviceWorker" in navigator) {

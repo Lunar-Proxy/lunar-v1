@@ -27,4 +27,4 @@ const config = {
     config: "/assets/v/config.js",
     sw: "/assets/v/sw.js",
   };
-  const __uv$config = config;
+  self.__uv$config = config;
