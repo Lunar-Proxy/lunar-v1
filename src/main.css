@@ -4,34 +4,39 @@
 
 @layer base {
   @font-face {
-    font-family: 'Nunito';
+    font-family: "Nunito";
     font-style: normal;
     font-weight: 400;
     font-display: swap;
-    src: url(./assets/fonts/nunito.ttf) format('ttf');
+    src: url("./assets/fonts/nunito.ttf") format("truetype");
   }
 
   @font-face {
-    font-family: 'Poppins';
+    font-family: "Poppins";
     font-style: normal;
     font-weight: 400;
     font-display: swap;
-    src: url(./assets/fonts/poppins.ttf) format('ttf');
+    src: url("./assets/fonts/poppins.ttf") format("truetype");
   }
 
   :root {
     --background: #111827;
     --text: #f9fafb;
-
   }
 
   .light {
     --background: #374151;
     --text: #1f2937;
-
   }
 
   body {
     @apply bg-background text-text;
+  }
+  .font-nunito {
+    font-family: "Nunito", sans-serif;
+  }
+
+  .font-poppins {
+    font-family: "Poppins", sans-serif;
   }
 }

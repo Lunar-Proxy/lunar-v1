@@ -5,7 +5,7 @@ interface Game {
   error: boolean;
 }
 
-const lp = "@lunar/ls";
+const lp = "@lunar/lsg";
 const gameContainer = document.getElementById("gameContainer") as HTMLElement;
 const searchInput = document.getElementById("searchInput") as HTMLInputElement;
 const categoryButton = document.getElementById(

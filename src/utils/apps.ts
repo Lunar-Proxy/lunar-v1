@@ -5,7 +5,7 @@ interface App {
     error: boolean;
   }
   
-  const lp1 = "@lunar/ls";
+  const lp1 = "@lunar/lsa";
   const appContainer = document.getElementById("appContainer") as HTMLElement;
   const searchInput1 = document.getElementById("searchInput") as HTMLInputElement;
   const categoryButton1 = document.getElementById("category-button") as HTMLElement;
