@@ -32,6 +32,12 @@ import "@src/main.css";
             </a>
           </li>
           <li class="flex items-center">
+            <a href="./apps" class="flex items-center py-2 px-4">
+              <Album class="icon w-8 h-8 mr-2" />
+              Apps
+            </a>
+          </li>
+          <li class="flex items-center">
             <a href="./st" class="flex items-center py-2 px-4">
               <Cog class="icon w-8 h-8 mr-2" />
               Settings
@@ -74,7 +80,6 @@ import "@src/main.css";
         clock.textContent = `${displayHours}:${minutes}:${seconds} ${ampm}`;
       }
     }
-
     setInterval(updateClock, 1000);
     updateClock();
   </script>

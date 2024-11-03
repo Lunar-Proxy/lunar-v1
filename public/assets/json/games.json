@@ -14,13 +14,6 @@
     "category": "Action"
   },
   {
-    "name": "Invidious (Youtube)",
-    "website": "https://inv.nadeko.net/feed/popular",
-    "icon": "../assets/logo/yt.png",
-    "issue": false,
-    "category": "Streaming"
-  },
-  {
     "name": "Motox3m",
     "website": "https://www.coolmathgames.com/0-moto-x3m/play",
     "icon": "../assets/logo/x3m.png",
@@ -28,28 +21,7 @@
     "category": "Action"
   },
   {
-    "name": "W3School",
-    "website": "https://www.w3schools.com/",
-    "icon": "../assets/logo/w3.png",
-    "issue": false,
-    "category": "Educational"
-  },
-  {
-    "name": "Discord Login",
-    "website": "https://www.discord.com/login",
-    "icon": "../assets/logo/discord.png",
-    "issue": false,
-    "category": "Social Media"
-  },
-  {
-    "name": "Tiktok",
-    "website": "https://www.tiktok.com",
-    "icon": "../assets/logo/tiktok.png",
-    "issue": false,
-    "category": "Social Media"
-  },
-  {
-    "name": "Racoon Retail",
+    "name": "Raccoon Retail",
     "website": "https://www.coolmathgames.com/0-raccoon-retail/play",
     "icon": "../assets/logo/rr.png",
     "issue": false,
@@ -63,3 +35,4 @@
     "category": "Action"
   }
 ]
+
