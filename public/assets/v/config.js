@@ -21,10 +21,10 @@ const config = {
       return result.join("") + (search.length ? "?" + search.join("?") : "");
     },
     
-    handler: "/assets/v/uv.handler.js",
-    client: "/assets/v/uv.client.js",
-    bundle: "/assets/v/uv.bundle.js",
-    config: "/assets/v/uv.config.js",
-    sw: "/assets/v/uv.sw.js",
+    handler: "/assets/v/handler.js",
+    client: "/assets/v/client.js",
+    bundle: "/assets/v/bundle.js",
+    config: "/assets/v/config.js",
+    sw: "/assets/v/sw.js",
   };
   self.__uv$config = config;

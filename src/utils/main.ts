@@ -38,5 +38,6 @@ fm.addEventListener("submit", (event) => {
     localStorage.setItem("@lunar/settings/transport", "ep");
   }
   localStorage.setItem("@lunar/gourl", url);
+  alert(url);
   window.location.href = "./g";
 });
