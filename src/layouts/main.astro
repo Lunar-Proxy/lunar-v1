@@ -9,11 +9,14 @@ import "@src/main.css";
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
-    <script is:inline src="./assets/v/bundle.js" defer></script>
-    <script is:inline src="./assets/v/config.js" defer></script>
+    <script is:inline src="./assets/v/uv.bundle.js" defer></script>
+    <script is:inline src="./assets/v/uv.config.js" defer></script>
+    <script is:inline src="/bm/index.js" defer></script>
   </head>
   <body class="text-white w-[80vw] mx-auto font-sans">
-    <div class="bg-gray-800 p-4 w-[80vw] mx-auto rounded-b-[30px] border-b border-r border-l border-gray-600">
+    <div
+      class="bg-gray-800 p-4 w-[80vw] mx-auto rounded-b-[30px] border-b border-r border-l border-gray-600"
+    >
       <div class="container mx-auto flex justify-center items-center">
         <ul class="flex text-white">
           <li class="flex items-center">
@@ -39,10 +42,10 @@ import "@src/main.css";
     </div>
     <slot />
     <div
-    class=" border-t border-r border-l border-gray-600 fixed bottom-0 text-center mx-auto left-20 right-20 rounded-t-[30px] bg-gray-800 py-4 text-gray-300"
-  >
-    <a id="time" class="hover:text-white transition duration-200"></a>
-  </div>
+      class="border-t border-r border-l border-gray-600 fixed bottom-0 text-center mx-auto left-20 right-20 rounded-t-[30px] bg-gray-800 py-4 text-gray-300"
+    >
+      <a id="time" class="hover:text-white transition duration-200"></a>
+    </div>
   </body>
   <script>
     if ("serviceWorker" in navigator) {
