@@ -1,25 +1,25 @@
 /// <reference path="../.astro/types.d.ts" />
-declare const config: Window.Config;
 
-interface Window {
-  __uv$location?: any;
-  LAST_UPDATED: string;
-  VERSION: string;
+const LAST_UPDATED: string;
+const VERSION: string;
+const __uv$location: Location;
+
+interface Config {
+  prefix: string;
+  encodeUrl: (str: string) => string | null;
+  decodeUrl: (str: string) => string | null;
 }
 
-declare namespace Window {
-  interface Config {
-    prefix: string;
-    encodeUrl: (str: string) => string | null;
-    decodeUrl: (str: string) => string | null;
-    handler: string;
-    client: string;
-    bundle: string;
-    config: string;
-    sw: string;
-  }
+declare const config: Config;
+
+interface Window {
+  __uv$location?: {
+    href: string;
+    origin: string;
+  };
 }
 
 declare module "@mercuryworkshop/epoxy-transport";
 declare module "@mercuryworkshop/wisp-js/server";
 declare module "@mercuryworkshop/bare-mux/node";
+declare module "@mercuryworkshop/libcurl-transport";
