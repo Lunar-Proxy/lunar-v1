@@ -13,44 +13,57 @@ import "@src/main.css";
     <script is:inline src="./assets/v/config.js" defer></script>
     <script is:inline src="/bm/index.js" defer></script>
   </head>
-  <body class="text-white w-[80vw] mx-auto font-sans">
-    <div
-      class="bg-gray-800 p-4 w-[80vw] mx-auto rounded-b-[30px] border-b border-r border-l border-gray-600"
-    >
-      <div class="container mx-auto flex justify-center items-center">
-        <ul class="flex text-white">
-          <li class="flex items-center">
-            <a href="./" class="flex items-center py-2 px-4">
-              <House class="icon w-7 h-7 mr-2" />
-              Home
-            </a>
-          </li>
-          <li class="flex items-center">
-            <a href="./gm" class="flex items-center py-2 px-4">
-              <Gamepad class="icon w-8 h-8 mr-2" />
-              Games
-            </a>
-          </li>
-          <li class="flex items-center">
-            <a href="./apps" class="flex items-center py-2 px-4">
-              <Album class="icon w-8 h-8 mr-2" />
-              Apps
-            </a>
-          </li>
-          <li class="flex items-center">
-            <a href="./st" class="flex items-center py-2 px-4">
-              <Cog class="icon w-8 h-8 mr-2" />
-              Settings
-            </a>
-          </li>
-        </ul>
-      </div>
+  <body class="text-white font-nunito">
+    <div class="flex mx-auto w-[100vw]">
+      <div class="bg-gray-800 border-gray-600 border-b h-10 w-[10vw]" /><div class="bg-gray-800 w-[80vw] h-10" /><div class=" bg-gray-800 border-gray-600 border-b h-10 w-[10vw]" />
     </div>
-    <slot />
+    <div class="w-[80vw] mx-auto">
+      <div
+        class="bg-gray-800 p-1 w-[80vw] mx-auto rounded-b-[30px] border-b border-r border-l border-gray-600"
+      >
+        <div class="container mx-auto flex justify-center items-center">
+          <ul class="flex text-white">
+            <li class="flex items-center">
+              <a href="./" class="flex items-center py-2 px-4">
+                <House class="icon w-5 h-5 mr-2" />
+                Home
+              </a>
+            </li>
+            <li class="flex items-center">
+              <a href="./gm" class="flex items-center py-2 px-4">
+                <Gamepad class="icon w-6 h-6 mr-2" />
+                Games
+              </a>
+            </li>
+            <li class="flex items-center">
+              <a href="./apps" class="flex items-center py-2 px-4">
+                <Album class="icon w-5 h-5 mr-2" />
+                Apps
+              </a>
+            </li>
+            <li class="flex items-center">
+              <a href="./st" class="flex items-center py-2 px-4">
+                <Cog class="icon w-5 h-5 mr-2" />
+                Settings
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <slot />
+    </div>
     <div
-      class="border-t border-r border-l border-gray-600 fixed bottom-0 text-center mx-auto left-20 right-20 rounded-t-[30px] bg-gray-800 py-4 text-gray-300"
+      class="border-t border-r border-l border-gray-600 fixed bottom-10 text-center mx-auto left-[5vw] right-[5vw] rounded-t-[30px] bg-gray-800 py-1 text-gray-300"
     >
       <a id="time" class="hover:text-white transition duration-200"></a>
+    </div>
+    <div class="flex mx-auto w-[100vw] bottom-0 fixed">
+      <div class="bg-gray-800 border-gray-600 border-t h-10 w-[5vw]" />
+      <div class="bg-gray-800 w-[90vw] h-10 text-center">
+        
+      <span class=""><p class="text-gray-300"><a href="https://discord.gg/BEzeunW2">Discord</a> &#12539; <a href="tos">TOS</a></p></span>
+
+      </div><div class=" bg-gray-800 border-gray-600 border-t h-10 w-[5vw]" />
     </div>
   </body>
   <script>
