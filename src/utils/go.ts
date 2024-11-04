@@ -54,7 +54,6 @@ async function frame() {
   } else {
     gourl = `${engine}${encodeURIComponent(gourl)}`;
   }
-
   iframe.src = `/p/${config.encodeUrl(gourl)}`;
 
   // Nav Bar

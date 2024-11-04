@@ -47,6 +47,8 @@ export default defineConfig({
             }
           });
         },
+      },
+      
       viteStaticCopy({
         targets: [
           {
