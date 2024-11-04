@@ -1,41 +1,91 @@
 import { BareMuxConnection } from "@mercuryworkshop/bare-mux";
 
 const iframe = document.getElementById("iframe") as HTMLIFrameElement;
-const wispurl =
-  localStorage.getItem("@lunar/settings/wisp") ||
-  `${location.protocol === "https:" ? "wss" : "ws"}://${location.host}/goo/`;
+let wisp =
+  (location.protocol === "https:" ? "wss" : "ws") +
+  "://" +
+  location.host +
+  "/goo/";
 const transport = localStorage.getItem("@lunar/settings/transport");
 const connection = new BareMuxConnection("/bm/worker.js");
+let bar = document.getElementById("url") as HTMLInputElement;
+let previousUrl = "";
+let clear = document.getElementById("clear") as HTMLButtonElement;
+let favicon = document.getElementById("favicon") as HTMLImageElement;
+function limit() {
+  const vw = Math.max(
+    document.documentElement.clientWidth || 0,
+    window.innerWidth || 0,
+  );
+  const charWidth = 8;
+  return Math.floor(vw / charWidth);
+}
 
 async function frame() {
   if (transport === "ep") {
     console.debug("Using epoxy transport");
-    await connection.setTransport("/ep/index.mjs", [{ wisp: wispurl }]);
+    await connection.setTransport("/ep/index.mjs", [{ wisp: wisp }]);
   } else if (transport === "lc") {
     console.debug("Using libcurl transport");
-    await connection.setTransport("/lb/index.mjs", [{ wisp: wispurl }]);
+    await connection.setTransport("/lb/index.mjs", [{ wisp: wisp }]);
   } else {
-    console.error("No valid transport found, defaulting to epoxy...");
-    await connection.setTransport("/ep/index.mjs", [{ wisp: wispurl }]);
+    console.error("No valid transport found, defaulting to libcurl...");
+    await connection.setTransport("/lb/index.mjs", [{ wisp: wisp }]);
   }
 
   if ("serviceWorker" in navigator) {
     navigator.serviceWorker
       .register("./sw.js", { scope: "/p/" })
       .then(({ scope }) => console.debug("SW registered with scope:", scope))
-      .catch((error) => console.error("SW registration failed:", error));
+      .catch((error) =>
+        console.error("SW registration failed with error:", error),
+      );
   }
-  let url = localStorage.getItem("@lunar/gourl") || "https://google.com";
-  iframe.src = `/p/${config.encodeUrl(url)}`;
+  let gourl = localStorage.getItem("@lunar/gourl") || "https://google.com";
+  const regex = /^(https?:\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(:\d+)?(\/.*)?$/;
+  const engine =
+    localStorage.getItem("@lunar/settings/engine") ||
+    "https://www.google.com/search?q=";
+
+  if (regex.test(gourl)) {
+    if (!/^https?:\/\//i.test(gourl)) {
+      gourl = `https://${gourl}`;
+    }
+  } else {
+    gourl = `${engine}${encodeURIComponent(gourl)}`;
+  }
+
+  iframe.src = `/p/${config.encodeUrl(gourl)}`;
+
+  // Nav Bar
+
+  setInterval(() => {
+    const url = iframe.contentWindow?.__uv$location?.href;
+    if (url && url !== previousUrl) {
+      const charLimit = limit();
+      bar.value =
+        url.length > charLimit ? url.substring(0, charLimit) + "..." : url;
+      previousUrl = url;
+    }
+
+    const image = `${iframe.contentWindow!.__uv$location.origin}/favicon.ico`;
+    favicon.src =
+      image ||
+      "/p/hvtrs8%2F-ioaeeq.qqwapeqpccg-adl.aoo%2Faoltgnv%2Ft1-60bc173512ac8f1aa%3B8%3A1ce1%2F364012051233%3B-WIKXHLTWPHK4L4G00KQX-Gno%60e%2Cplg";
+  }, 1000);
 }
 
-if (iframe.contentWindow) {
-  iframe.contentWindow.open = (url: string) => {
-    console.debug("new url:", url);
-    localStorage.setItem("@lunar/gourl", url);
+bar.onkeydown = (e) => {
+  if (e.key === "Enter") {
+    let Inputurl = bar.value;
+    localStorage.setItem("@lunar/gourl", Inputurl);
     frame();
-    return null;
-  };
-}
+  }
+};
+
+clear.addEventListener("click", () => {
+  bar.value = "";
+  bar.focus();
+});
 
 frame();

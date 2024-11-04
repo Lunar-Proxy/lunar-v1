@@ -3,27 +3,59 @@ import { LoaderCircle } from "lucide-astro";
 import "@src/main.css";
 ---
 
+<meta name="viewport" content="width=device-width" />
+<meta name="generator" content={Astro.generator} />
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width" />
-  <meta name="generator" content={Astro.generator} />
   <script is:inline src="/assets/v/bundle.js" defer></script>
   <script is:inline src="/assets/v/config.js" defer></script>
-  <script is:inline src="/bm/index.js" defer></script>
   <script src="../utils/go.ts"></script>
   <script src="../utils/global.ts"></script>
 </head>
 <body>
-  <div class="h-screen flex flex-col items-center justify-center z-10">
-    <LoaderCircle class="w-12 h-12 animate-spin text-gray-300" />
-    <p class="mt-4 text-center text-gray-300">
-      Please wait while Lunar loads your content. Having issues?
-      <a
-        class="text-blue-400 underline cursor-pointer transition-colors duration-300"
-        href="https://github.com/Lunar-Services/Lunar/issues/new/choose"
-        target="_blank">Report it</a
-      >
+  <div
+    id="bar"
+    class="h-12 w-full bg-gray-800 fixed top-0 z-50 border-b border-gray-700 flex items-center"
+  >
+    <img id="favicon" class="h-8 w-8 rounded-full ml-4" />
+    <div class="relative flex items-center justify-center h-full px-4 w-full">
+      <div class="relative max-w-[40%] w-[calc(50vw-20px)] mx-auto">
+        <input
+          id="url"
+          class="w-full truncate text-sm px-2 py-1 text-white text-center bg-gray-600 border border-gray-700 rounded-full pr-10"
+        />
+        <button
+          type="button"
+          id="clear"
+          class="absolute right-3 top-1/2 transform -translate-y-1/2 text-white text-2xl hover:text-red-700 focus:outline-none transition duration-200"
+        >
+          <svg
+            class="w-[19px] h-[21px]"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div
+    id="loader"
+    class="z-10 h-screen flex flex-col items-center justify-center"
+  >
+    <LoaderCircle class="w-16 h-12 animate-spin text-gray-300" />
+    <p class="mt-10 text-center text-2xl text-gray-300">
+      Please wait while Lunar loads your content...
     </p>
   </div>
-  <iframe id="iframe" class="absolute inset-0 w-full h-full z-20"></iframe>
+  <iframe
+    id="iframe"
+    class="absolute top-12 inset-x-0 bottom-0 w-full h-[calc(100vh-3rem)] z-20"
+    title=""></iframe>
 </body>

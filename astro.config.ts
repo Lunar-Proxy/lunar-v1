@@ -14,7 +14,6 @@ export default defineConfig({
     mode: "middleware",
   }),
   integrations: [tailwind()],
-
   vite: {
     define: {
       VERSION: JSON.stringify(version),
