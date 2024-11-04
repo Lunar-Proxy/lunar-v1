@@ -8,6 +8,22 @@ import tailwind from "@astrojs/tailwind";
 import { libcurlPath } from "@mercuryworkshop/libcurl-transport";
 import { version } from "./package.json";
 import { normalizePath } from "vite";
+import { execSync } from 'child_process';
+import fs from 'fs';
+import path from 'path';
+
+function LU() {
+  const git = path.join(process.cwd(), '.git');
+  if (fs.existsSync(git)) {
+    try {
+      const commitDate = execSync('git log -1 --format=%cd --date=iso').toString().trim();
+      return JSON.stringify(new Date(commitDate).toISOString());
+    } catch {
+    }
+  }
+  return JSON.stringify(new Date().toISOString());
+}
+
 export default defineConfig({
   output: "hybrid",
   adapter: node({
@@ -17,6 +33,7 @@ export default defineConfig({
   vite: {
     define: {
       VERSION: JSON.stringify(version),
+      LAST_UPDATED: LU(),
     },
     plugins: [
       {
@@ -25,8 +42,6 @@ export default defineConfig({
           server.httpServer?.on("upgrade", (req, socket, head) => {
             if (req.url?.startsWith("/goo")) {
               wisp.routeRequest(req, socket, head);
-            } else {
-              null;
             }
           });
         },
