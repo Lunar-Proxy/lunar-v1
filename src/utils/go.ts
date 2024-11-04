@@ -12,6 +12,7 @@ let bar = document.getElementById("url") as HTMLInputElement;
 let previousUrl = "";
 let clear = document.getElementById("clear") as HTMLButtonElement;
 let favicon = document.getElementById("favicon") as HTMLImageElement;
+let title = document.getElementById("name") as HTMLTitleElement;
 function limit() {
   const vw = Math.max(
     document.documentElement.clientWidth || 0,
@@ -71,8 +72,10 @@ async function frame() {
     const image = `${iframe.contentWindow!.__uv$location.origin}/favicon.ico`;
     favicon.src =
       image ||
-      "/p/hvtrs8%2F-ioaeeq.qqwapeqpccg-adl.aoo%2Faoltgnv%2Ft1-60bc173512ac8f1aa%3B8%3A1ce1%2F364012051233%3B-WIKXHLTWPHK4L4G00KQX-Gno%60e%2Cplg";
-  }, 1000);
+      "./global.png";
+     
+     title.textContent = iframe.contentWindow?.document.title || "";
+    }, 1000);
 }
 
 bar.onkeydown = (e) => {
@@ -87,5 +90,6 @@ clear.addEventListener("click", () => {
   bar.value = "";
   bar.focus();
 });
+
 
 frame();
