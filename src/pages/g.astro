@@ -1,39 +1,69 @@
 ---
-import { LoaderCircle } from "lucide-astro";
+import { Loader2, X, Link2 } from "lucide-astro";
 import "@src/main.css";
+import { Image } from "astro:assets";
+import Globe from "../globe.png";
 ---
+
 <meta name="viewport" content="width=device-width" />
 <meta name="generator" content={Astro.generator} />
 <head>
-<script is:inline src="/assets/v/bundle.js" defer></script>
-<script is:inline src="/assets/v/config.js" defer></script>
-<script src="../utils/go.ts"></script>
-<script src="../utils/global.ts"></script>
+  <script is:inline src="/assets/v/bundle.js" defer></script>
+  <script is:inline src="/assets/v/config.js" defer></script>
+  <script src="../utils/go.ts"></script>
+  <script src="../utils/global.ts"></script>
 </head>
 <body>
-  <div id="bar" class="h-12 w-full bg-gray-800 fixed top-0 z-50 border-b border-gray-700 flex items-center">
-    <img id="favicon" class="h-8 w-8 rounded-full ml-4" />
-    <div id="name" class="text-white ml-2 flex-shrink-0" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 200px;"></div>
-    <div class="relative flex items-center justify-center h-full px-4 w-full">
-      <div class="relative max-w-[40%] w-[calc(50vw-20px)] mx-auto">
-        <input id="url" class="w-full truncate text-sm px-2 py-1 text-white text-center bg-gray-600 border border-gray-700 rounded-full pr-10"/>
+  <div
+    id="bar"
+    class="h-12 w-full bg-gray-800 fixed top-0 z-50 border-b border-gray-700 flex items-center justify-between px-4"
+  >
+    <div class="flex items-center">
+      <Image
+        src={Globe}
+        id="favicon"
+        class="h-8 w-8 rounded-full"
+        loading="eager"
+        alt=""
+      />
+      <div id="name" class="text-white ml-2"></div>
+    </div>
+    <div
+      class="absolute left-1/2 transform -translate-x-1/2 w-full max-w-[600px] px-4"
+    >
+      <div class="relative w-full">
+        <input
+          id="url"
+          class="w-full max-w-[600px] truncate text-sm px-2 py-1 pl-10 text-white text-center bg-gray-600 border border-gray-700 rounded-full pr-10"
+        />
+        <button
+          type="button"
+          id="copy"
+          class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-300 text-2xl hover:text-white transition duration-200"
+        >
+          <Link2 class="w-[19px] h-[21px]" />
+        </button>
         <button
           type="button"
           id="clear"
-          class="absolute right-3 top-1/2 transform -translate-y-1/2 text-white text-2xl hover:text-red-700 focus:outline-none transition duration-200"
+          class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-300 text-2xl hover:text-red-700 focus:outline-none transition duration-200"
         >
-          <svg class="w-[19px] h-[21px]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-          </svg>
+          <X class="w-[19px] h-[21px]" />
         </button>
       </div>
     </div>
   </div>
-  <div id="loader" class="z-10 h-screen flex flex-col items-center justify-center">
-    <LoaderCircle class="w-16 h-12 animate-spin text-gray-300" />
+  <div
+    id="loader"
+    class="z-10 h-screen flex flex-col items-center justify-center"
+  >
+    <Loader2 class="w-16 h-12 animate-spin text-gray-300" />
     <p class="mt-10 text-center text-2xl text-gray-300">
       Please wait while Lunar loads your content...
     </p>
   </div>
-  <iframe id="iframe" class="absolute top-12 inset-x-0 bottom-0 w-full h-[calc(100vh-3rem)] z-20" title=""></iframe>
+  <iframe
+    id="iframe"
+    class="absolute top-12 inset-x-0 bottom-0 w-full h-[calc(100vh-3rem)] z-20"
+    title=""></iframe>
 </body>

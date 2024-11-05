@@ -280,7 +280,11 @@ import { Palette, Users, Info, Link, Shield } from "lucide-astro";
           <SettingsCard title="Info" description="Info about lunar.">
             <div class="mt-4 text-center">
               <p class="text-gray-400">Version: v{VERSION}</p>
-              <p class="text-gray-400">Last Updated: {new Date(LAST_UPDATED).toLocaleString() || "ERROR"}</p>
+              <p class="text-gray-400">
+                Last Updated: {
+                  new Date(LAST_UPDATED).toLocaleString() || "ERROR"
+                }
+              </p>
               <p class="mt-4 text-gray-400">
                 For questions or concerns, you can contact us with the links
                 below.
