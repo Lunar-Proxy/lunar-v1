@@ -1,4 +1,4 @@
-import { defineConfig } from "astro/config";
+import { defineConfig, passthroughImageService} from "astro/config";
 import node from "@astrojs/node";
 import { viteStaticCopy } from "vite-plugin-static-copy";
 import { server as wisp } from "@mercuryworkshop/wisp-js/server";
@@ -27,6 +27,9 @@ function LU() {
 
 export default defineConfig({
   output: "hybrid",
+  image: {
+    service: passthroughImageService(),
+  },
   adapter: node({
     mode: "middleware",
   }),
