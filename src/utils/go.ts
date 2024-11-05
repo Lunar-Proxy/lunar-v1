@@ -72,7 +72,7 @@ async function frame() {
     }
 
     const image = `${iframe.contentWindow!.__uv$location?.origin}/favicon.ico`;
-    favicon.src = image || "../global.jpg";
+    favicon.src = image || "../global.png"
 
     title.textContent = iframe.contentWindow?.document.title || "";
   }, 1000);
