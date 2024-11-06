@@ -1,7 +1,7 @@
 [
   {
     "name": "OvO",
-    "website": "https://www.coolmathlogo.com/0-ovo/play",
+    "website": "https://www.coolmathgames.com/0-ovo/play",
     "icon": "../assets/logo/ovo.png",
     "error": false,
     "category": "Action"
@@ -14,23 +14,58 @@
     "category": "Action"
   },
   {
-    "name": "Motox3m",
-    "website": "https://www.coolmathgames.com/0-moto-x3m/play",
-    "icon": "../assets/logo/x3m.png",
+    "name": "2048",
+    "website": "https://2048game.com",
+    "icon": "../assets/logo/2048.png",
     "issue": false,
     "category": "Action"
   },
   {
-    "name": "Raccoon Retail",
-    "website": "https://www.coolmathgames.com/0-raccoon-retail/play",
-    "icon": "../assets/logo/rr.png",
+    "name": "Cluster Rush",
+    "website": "https://clusterrush.io",
+    "icon": "../assets/logo/clusterrush.jpeg",
     "issue": false,
-    "category": "Social Media"
+    "category": "Action"
   },
   {
-    "name": "Retro Bowl",
-    "website": "https://game316009.konggames.com/gamez/0031/6009/live/index.html",
-    "icon": "../assets/logo/rb.png",
+    "name": "1v1.lol",
+    "website": "https://1v1.lol/",
+    "icon": "../assets/logo/1v1.webp",
+    "issue": false,
+    "category": "Action"
+  },
+  {
+    "name": "Crossy Road",
+    "website": "https://poki.com/en/g/crossy-road",
+    "icon": "../assets/logo/crossyroad.png",
+    "issue": false,
+    "category": "Action"
+  },
+  {
+    "name": "Drift Boss",
+    "website": "https://www.crazygames.com/game/drift-boss",
+    "icon": "../assets/logo/driftboss.jpg",
+    "issue": false,
+    "category": "Action"
+  },
+  {
+    "name": "8 Ball Pool",
+    "website": "https://8ball-pool.io/",
+    "icon": "../assets/logo/8ball.webp",
+    "issue": false,
+    "category": "Action"
+  },
+  {
+    "name": "Eaglercraft",
+    "website": "https://8ball-pool.io/",
+    "icon": "../assets/logo/eaglercraft.webp",
+    "issue": false,
+    "category": "Action"
+  },
+  {
+    "name": "Geometry Dash",
+    "website": "https://geometrygame.org/",
+    "icon": "../assets/logo/geometrydash.png",
     "issue": false,
     "category": "Action"
   }
