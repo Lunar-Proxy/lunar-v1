@@ -17,7 +17,10 @@ let copy = document.getElementById("copy") as HTMLButtonElement;
 let forward = document.getElementById("forward") as HTMLButtonElement;
 let back = document.getElementById("back") as HTMLButtonElement;
 
-if (transport === "ep") {
+
+function frame() {
+  if (iframe) {
+    if (transport === "ep") {
   console.debug("Using epoxy transport");
   await connection.setTransport("/ep/index.mjs", [{ wisp: wisp }]);
 } else if (transport === "lc") {
@@ -36,9 +39,6 @@ if ("serviceWorker" in navigator) {
       console.error("SW registration failed with error:", error),
     );
 }
-
-function frame() {
-  if (iframe) {
     let gourl = localStorage.getItem("@lunar/gourl") || "https://google.com";
     const regex =
       /^(https?:\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(:\d+)?(\/.*)?$/;
