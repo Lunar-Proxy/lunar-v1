@@ -17,7 +17,7 @@ let currentCategory1: "all" | "lastPlayed" = "all";
 
 async function loadApps(): Promise<void> {
   try {
-    const response = await fetch("/assets/json/apps.json");
+    const response = await fetch("/assets/json/a.json");
     const apps: App[] = await response.json();
     renderApps(appContainer, apps);
   } catch (error: unknown) {

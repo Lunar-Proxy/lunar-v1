@@ -17,7 +17,7 @@ let currentCategory: "all" | "lastPlayed" = "all";
 
 async function loadGames(): Promise<void> {
   try {
-    const response = await fetch("./assets/json/games.json");
+    const response = await fetch("./assets/json/g.json");
     const games: Game[] = await response.json();
     renderGames(gameContainer, games);
   } catch (error: unknown) {

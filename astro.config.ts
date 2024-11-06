@@ -1,4 +1,4 @@
-import { defineConfig, passthroughImageService} from "astro/config";
+import { defineConfig, passthroughImageService } from "astro/config";
 import node from "@astrojs/node";
 import { viteStaticCopy } from "vite-plugin-static-copy";
 import { server as wisp } from "@mercuryworkshop/wisp-js/server";

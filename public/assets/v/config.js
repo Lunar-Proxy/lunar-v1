@@ -20,11 +20,11 @@ const config = {
     }
     return result.join("") + (search.length ? "?" + search.join("?") : "");
   },
-
   handler: "/assets/v/handler.js",
   client: "/assets/v/client.js",
   bundle: "/assets/v/bundle.js",
   config: "/assets/v/config.js",
   sw: "/assets/v/sw.js",
+  inject: [],
 };
 self.__uv$config = config;

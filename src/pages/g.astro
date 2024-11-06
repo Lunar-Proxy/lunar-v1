@@ -1,5 +1,5 @@
 ---
-import { Loader2, X, Link2 } from "lucide-astro";
+import { Loader2, X, Link2, House, ArrowLeft, ArrowRight } from "lucide-astro";
 import "@src/main.css";
 import { Image } from "astro:assets";
 import Globe from "../globe.png";
@@ -48,9 +48,32 @@ import Globe from "../globe.png";
           id="clear"
           class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-300 text-2xl hover:text-red-700 focus:outline-none transition duration-200"
         >
-          <X class="w-[19px] h-[21px]" />
+          <X class="w-[19px] h/[21px]" />
         </button>
       </div>
+    </div>
+    <div class="flex items-center">
+      <button
+        type="button"
+        onclick="window.location.href = '/';"
+        class="text-gray-300 text-2xl focus:outline-none hover:text-white transition duration-200"
+      >
+        <House class="w-[24px] h-[21px]" />
+      </button>
+      <button
+        type="button"
+        id="back"
+        class="text-gray-300 text-2xl hover:text-white transition duration-200 ml-2"
+      >
+        <ArrowLeft class="w-[24px] h/[21px]" />
+      </button>
+      <button
+        type="button"
+        id="foward"
+        class="text-gray-300 text-2xl hover:text-white transition duration-200 ml-2"
+      >
+        <ArrowRight class="w/[24px] h/[21px]" />
+      </button>
     </div>
   </div>
   <div
