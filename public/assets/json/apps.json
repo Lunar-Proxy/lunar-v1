@@ -1,5 +1,12 @@
 [
   {
+    "name": "Pico 8",
+    "website": "https://www.pico-8-edu.com/",
+    "icon": "../assets/logo/pico8.png",
+    "issue": false,
+    "category": "Action"
+  },
+  {
     "name": "Invidious (Youtube)",
     "website": "https://inv.nadeko.net/feed/popular",
     "icon": "../assets/logo/yt.png",
@@ -26,5 +33,19 @@
     "icon": "../assets/logo/tiktok.png",
     "issue": false,
     "category": "Social Media"
+  },
+  {
+    "name": "Cool Math Games",
+    "website": "https://www.coolmathgames.com/",
+    "icon": "../assets/logo/coolmathgames.png",
+    "issue": false,
+    "category": "Action"
+  },
+  {
+    "name": "Y8",
+    "website": "https://www.y8.com/",
+    "icon": "../assets/logo/Y8.png",
+    "issue": false,
+    "category": "Action"
   }
 ]
