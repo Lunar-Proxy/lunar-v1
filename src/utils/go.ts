@@ -18,7 +18,7 @@ let forward = document.getElementById("forward") as HTMLButtonElement;
 let back = document.getElementById("back") as HTMLButtonElement;
 
 
-function frame() {
+async function frame() {
   if (iframe) {
     if (transport === "ep") {
   console.debug("Using epoxy transport");
