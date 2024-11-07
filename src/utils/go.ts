@@ -14,8 +14,8 @@ let clear = document.getElementById("clear") as HTMLButtonElement;
 let favicon = document.getElementById("favicon") as HTMLImageElement;
 let title = document.getElementById("name") as HTMLTitleElement;
 let copy = document.getElementById("copy") as HTMLButtonElement;
-let forward = document.getElementById("forward") as HTMLButtonElement;
-let back = document.getElementById("back") as HTMLButtonElement;
+let f = document.getElementById("forward") as HTMLButtonElement;
+let b = document.getElementById("back") as HTMLButtonElement;
 
 
 async function frame() {
@@ -115,8 +115,8 @@ if (copy) {
   });
 }
 
-if (forward) {
-  forward.addEventListener("click", () => {
+if (f) {
+  f.addEventListener("click", () => {
     if (iframe) {
       iframe.contentWindow?.history.forward();
     } else {
@@ -125,8 +125,8 @@ if (forward) {
   });
 }
 
-if (back) {
-  back.addEventListener("click", () => {
+if (b) {
+   b.addEventListener("click", () => {
     if (iframe) {
       iframe.contentWindow?.history.back();
     } else {
