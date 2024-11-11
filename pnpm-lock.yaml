@@ -33,8 +33,8 @@ importers:
         specifier: ^2.1.26
         version: 2.1.26
       '@mercuryworkshop/libcurl-transport':
-        specifier: ^1.3.12
-        version: 1.3.12
+        specifier: ^1.3.14
+        version: 1.3.14
       '@mercuryworkshop/wisp-js':
         specifier: ^0.3.3
         version: 0.3.3
@@ -691,8 +691,8 @@ packages:
   '@mercuryworkshop/epoxy-transport@2.1.26':
     resolution: {integrity: sha512-ihQ2aL3MB4ZJM5tGHVxYLMY9m+jZmnSvMP32Lu7u9eYqzP96h6JJrwgqMSqHoiavOmEDV5/b8uJbuWeJbfgmcA==}
 
-  '@mercuryworkshop/libcurl-transport@1.3.12':
-    resolution: {integrity: sha512-SIOeXwiP/p9VMA7Lz20ou3vUDU55ZRZ62eaKOcB2XENK336n6038GQ0lwI+RtZABwbEywXwAqD0+RFp2tqJHHg==}
+  '@mercuryworkshop/libcurl-transport@1.3.14':
+    resolution: {integrity: sha512-H2tDNmS3jZBzHpX6kVzmrdIc+0tif721eVCkEnSxoXXuz6g4GkfNFL2b7llRSZcxV+p/V/kGbSFvdDo/yCxUIw==}
 
   '@mercuryworkshop/wisp-js@0.3.3':
     resolution: {integrity: sha512-egc9jbBmNqPXGOkvOOG142SLaBL3jBkz0IGnhYYWOnmg5FeC6KfGSRU5xlk+dKYecE3tuH03bFNi3/vBAOoJKA==}
@@ -1619,8 +1619,8 @@ packages:
     resolution: {integrity: sha512-o+NO+8WrRiQEE4/7nwRJhN1HWpVmJm511pBHUxPLtp0BUISzlBplORYSmTclCnJvQq2tKu/sgl3xVpkc7ZWuQQ==}
     engines: {node: '>=6'}
 
-  libcurl.js@0.6.17:
-    resolution: {integrity: sha512-hmbVn02mbZSN1ufhPF+lM+0n+FqjEjr9ONbzhYQrzDNTKlkPkls6hMf0AIIrp/1P+zyhOtkUbD5XgSnAIy4fBA==}
+  libcurl.js@0.6.20:
+    resolution: {integrity: sha512-tBXjza50/OJWnG9dYthlwBSY/OezR5r6R+lyG0kQzmIUhUxHvNXnngWUAJqzQjDZ+xhx17XVZz9b294FNCoJQg==}
 
   light-my-request@6.3.0:
     resolution: {integrity: sha512-bWTAPJmeWQH5suJNYwG0f5cs0p6ho9e6f1Ppoxv5qMosY+s9Ir2+ZLvvHcgA7VTDop4zl/NCHhOVVqU+kd++Ow==}
@@ -3325,9 +3325,9 @@ snapshots:
     dependencies:
       '@mercuryworkshop/epoxy-tls': 2.1.15-1
 
-  '@mercuryworkshop/libcurl-transport@1.3.12':
+  '@mercuryworkshop/libcurl-transport@1.3.14':
     dependencies:
-      libcurl.js: 0.6.17
+      libcurl.js: 0.6.20
 
   '@mercuryworkshop/wisp-js@0.3.3':
     dependencies:
@@ -4359,7 +4359,7 @@ snapshots:
 
   kleur@4.1.5: {}
 
-  libcurl.js@0.6.17: {}
+  libcurl.js@0.6.20: {}
 
   light-my-request@6.3.0:
     dependencies:
