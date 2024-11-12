@@ -8,9 +8,11 @@ import "@src/main.css";
 <meta name="generator" content={Astro.generator} />
 <head>
   <script src="../utils/global.ts"></script>
-  <link rel="prefetch" href="/assets/s/worker.js" />
-  <link rel="prefetch" href="/assets/s/shared.js" />
-  <script is:inline src="/assets/s/controller.js"></script>
+  <script is:inline src="/bm/index.js"></script>
+  <script is:inline src="/e/index.js"></script>
+  <link rel="prefetch" href="/assets/s/scramjet.worker.js" />
+  <link rel="prefetch" href="/assets/s/scramjet.shared.js" />
+  <script is:inline src="/assets/s/scramjet.controller.js"></script>
   <script src="../utils/go.ts"></script>
 </head>
 <body>
