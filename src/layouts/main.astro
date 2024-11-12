@@ -9,8 +9,6 @@ import "@src/main.css";
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
-    <script is:inline src="./assets/v/bundle.js" defer></script>
-    <script is:inline src="./assets/v/config.js" defer></script>
   </head>
   <body class="font-nunito">
     <div class="flex mx-auto w-full">
@@ -44,7 +42,7 @@ import "@src/main.css";
             </li>
             <li class="flex items-center">
               <a
-                href="./a"
+                href="./ap"
                 class="text-gray-300 hover:text-white transition duration-200 flex items-center py-2 px-4"
               >
                 <Album class="icon w-5 h-5 mr-2" />
@@ -85,16 +83,7 @@ import "@src/main.css";
     </div>
   </body>
   <script>
-    if ("serviceWorker" in navigator) {
-      navigator.serviceWorker
-        .register("./sw.js", { scope: "/p/" })
-        .then(({ scope }) =>
-          console.debug("Service Worker registered with scope:", scope),
-        )
-        .catch((error) =>
-          console.error("Service Worker registration failed:", error),
-        );
-    }
+   
   </script>
   <script>
     const clock = document.getElementById("time");

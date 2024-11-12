@@ -1,13 +1,11 @@
 import { BareMuxConnection } from "@mercuryworkshop/bare-mux";
 
 const iframe = document.getElementById("iframe") as HTMLIFrameElement;
-let wisp =
-  (location.protocol === "https:" ? "wss" : "ws") +
-  "://" +
-  location.host +
-  "/goo/";
+let wisp = (location.protocol === "https:" ? "wss" : "ws") +
+				"://" +
+				location.host +
+				"/goo/";
 const transport = localStorage.getItem("@lunar/settings/transport");
-const connection = new BareMuxConnection("/bm/worker.js");
 let bar = document.getElementById("url") as HTMLInputElement;
 let previousUrl = "";
 let clear = document.getElementById("clear") as HTMLButtonElement;
@@ -16,9 +14,24 @@ let title = document.getElementById("name") as HTMLTitleElement;
 let copy = document.getElementById("copy") as HTMLButtonElement;
 let f = document.getElementById("forward") as HTMLButtonElement;
 let b = document.getElementById("back") as HTMLButtonElement;
+let r = document.getElementById("reload") as HTMLButtonElement;
+let pro = localStorage.getItem("@lunar/settings/ptype") || "sj";
+ // @ts-ignore
+ const scramjet = new ScramjetController({
+  prefix: "/scram/",
+  files: {
+    wasm: "/assets/sj/wasm.js",
+    worker: "/assets/sj/worker.js",
+    client: "/assets/sj/client.js",
+    shared: "/assets/sj/shared.js",
+    sync: "/assets/sj/sync.js",
+  },
+});
+window.sj = scramjet;
+scramjet.init("../sw.js");
 
-
-async function frame() {
+async function frame() { 
+const connection = new BareMuxConnection("/bm/worker.js");
   if (iframe) {
     if (transport === "ep") {
   console.debug("Using epoxy transport");
@@ -30,15 +43,7 @@ async function frame() {
   console.error("No valid transport found, defaulting to libcurl...");
   await connection.setTransport("/lb/index.mjs", [{ wisp: wisp }]);
 }
-
-if ("serviceWorker" in navigator) {
-  navigator.serviceWorker
-    .register("./sw.js", { scope: "/p/" })
-    .then(({ scope }) => console.debug("SW registered with scope:", scope))
-    .catch((error) =>
-      console.error("SW registration failed with error:", error),
-    );
-}
+    console.debug("using scramjet");
     let gourl = localStorage.getItem("@lunar/gourl") || "https://google.com";
     const regex =
       /^(https?:\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(:\d+)?(\/.*)?$/;
@@ -53,11 +58,8 @@ if ("serviceWorker" in navigator) {
     } else {
       gourl = `${engine}${encodeURIComponent(gourl)}`;
     }
-    iframe.src = `/p/${config.encodeUrl(gourl)}`;
-  } else {
-    throw new Error("iframe not found");
+    iframe.src = `${window.sj.encodeUrl(gourl)}`;
   }
-
   // Nav Bar
   setInterval(() => {
     if (iframe) {
@@ -134,6 +136,18 @@ if (b) {
     }
   });
 }
+
+
+if (r) {
+  r.addEventListener("click", () => {
+   if (iframe) {
+     iframe.contentWindow?.location.reload();
+   } else {
+     throw new Error("iframe not found");
+   }
+ });
+}
+
 
 function limit() {
   const vw = Math.max(
