@@ -9,9 +9,6 @@ import "@src/main.css";
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
-  <link rel="prefetch" href="/assets/s/scramjet.worker.js" />
-  <link rel="prefetch" href="/assets/s/scramjet.shared.js" />
-  <script is:inline src="/assets/s/scramjet.controller.js"></script>
   </head>
   <body class="font-nunito">
     <div class="flex mx-auto w-full">
@@ -86,7 +83,16 @@ import "@src/main.css";
     </div>
   </body>
   <script>
-   
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker
+        .register("./sw.js", { scope: "/p/" })
+        .then(({ scope }) =>
+          console.debug("Service Worker registered with scope:", scope),
+        )
+        .catch((error) =>
+          console.error("Service Worker registration failed:", error),
+        );
+    }
   </script>
   <script>
     const clock = document.getElementById("time");

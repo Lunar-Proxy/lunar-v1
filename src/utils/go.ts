@@ -10,44 +10,70 @@ let copy = document.getElementById("copy") as HTMLButtonElement;
 let f = document.getElementById("forward") as HTMLButtonElement;
 let b = document.getElementById("back") as HTMLButtonElement;
 let r = document.getElementById("reload") as HTMLButtonElement;
-let setup = {
-  wisp: localStorage.getItem("@lunar/settings/wisp") || (location.protocol === "https:" ? "wss" : "ws") + "://" + location.host + "/goo/",
-  transport: localStorage.getItem("@lunar/settings/transport") || "lc", 
-  ptype: localStorage.getItem("@lunar/settings/ptype") || "uv"
+const setup = {
+  wisp:
+    localStorage.getItem("@lunar/settings/wisp") ||
+    (location.protocol === "https:" ? "wss" : "ws") +
+      "://" +
+      location.host +
+      "/goo/",
+  transport: localStorage.getItem("@lunar/settings/transport") || "lc",
+  ptype: localStorage.getItem("@lunar/settings/ptype") || "uv",
+  gourl: localStorage.getItem("@lunar/gourl") || "https://www.google.com",
+  engine: localStorage.getItem("@lunar/settings/engine") || "https://www.google.com/search?q=",
+};
+
+async function frame() {
+  const connection = new BareMuxConnection("/bm/worker.js");
+  if (setup.transport === "ep") {
+    console.debug("Using epoxy transport");
+    await connection.setTransport("/ep/index.mjs", [{ wisp: setup.wisp }]);
+  } else {
+    console.debug("Using libcurl transport");
+    await connection.setTransport("/lb/index.mjs", [{ wisp: setup.wisp }]);
+  }
+  if ("serviceWorker" in navigator) {
+    navigator.serviceWorker
+      .register("./sw.js", { scope: "/p/" })
+      .then(({ scope }) =>
+        console.debug("Service Worker registered with scope:", scope),
+      )
+      .catch((error) =>
+        console.error("Service Worker registration failed:", error),
+      );
+  }
+}
+ // Coming soon
+ // if (setup.ptype === "uv") {
+   uv();
+ // } else if (setup.ptype === "sj") {
+    // sj();
+//  }
+// }
+
+// setup
+function validate(url: string): boolean {
+  return /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/i.test(url);
 }
 
-async function frame() { 
-const connection = new BareMuxConnection("/bm/worker.js");
-    if (setup.transport === "ep") {
-  console.debug("Using epoxy transport");
-  await connection.setTransport("/ep/index.mjs", [{ wisp: setup.wisp }]);
-} else {
-  console.debug("Using libcurl transport");
-  await connection.setTransport("/lb/index.mjs", [{ wisp: setup.wisp }]);
-}
-
-if (setup.ptype == "uv") {
-  uv()
-} else if (setup.ptype == "sj") {
-  sj()
-}
+function uv() {
+  let newurl: string;
+  console.debug("Using UV");
+  if (validate(setup.gourl)) {
+    newurl = setup.gourl;
+  } else {
+    newurl = setup.engine + encodeURIComponent(setup.gourl);  
   }
 
-  // Proxy Types setup 
-  function uv() {
- console.debug("Using UV")
-
+    iframe.src = `/p/${config.encodeUrl(newurl)}`;  
   }
 
-  function sj() {
-    console.debug("Using ScramJet (Beta)")
-  }
 
-  // Nav Bar setup
- iframe.onload = function() {
+// Nav Bar setup
+iframe.onload = function () {
   setInterval(() => {
     if (iframe) {
-      const url = iframe.contentWindow?.__uv$location?.href;
+      let url = iframe.contentWindow?.__uv$location?.href;
       if (url && url !== previousUrl) {
         const charLimit = limit();
         bar.value =
@@ -66,26 +92,25 @@ if (setup.ptype == "uv") {
     }
   }, 1000);
 
+  if (bar) {
+    bar.onkeydown = (e) => {
+      if (e.key === "Enter") {
+        let Inputurl = bar.value;
+        localStorage.setItem("@lunar/gourl", Inputurl);
+        frame();
+      }
+    };
+  }
 
-if (bar) {
-  bar.onkeydown = (e) => {
-    if (e.key === "Enter") {
-      let Inputurl = bar.value;
-      localStorage.setItem("@lunar/gourl", Inputurl);
-      frame();
-    }
-  };
-}
+  if (clear) {
+    clear.addEventListener("click", () => {
+      bar.value = "";
+      bar.focus();
+    });
+  }
 
-if (clear) {
-  clear.addEventListener("click", () => {
-    bar.value = "";
-    bar.focus();
-  });
-}
-
-if (copy) {
-  copy.addEventListener("click", async () => {
+  if (copy) {
+    copy.addEventListener("click", async () => {
       try {
         await navigator.clipboard.writeText(
           iframe.contentWindow!.__uv$location?.href || "",
@@ -94,30 +119,27 @@ if (copy) {
       } catch (error) {
         new Error("Failed to copy url to clipboard");
       }
-  });
-}
+    });
+  }
 
-if (f) {
-  f.addEventListener("click", () => {
+  if (f) {
+    f.addEventListener("click", () => {
       iframe.contentWindow?.history.forward();
-    } 
-  )}
+    });
+  }
 
-
-if (b) {
-   b.addEventListener("click", () => {
+  if (b) {
+    b.addEventListener("click", () => {
       iframe.contentWindow?.history.back();
-    } 
-  )};
+    });
+  }
 
-
-if (r) {
-  r.addEventListener("click", () => {
-     iframe.contentWindow?.location.reload();
-   } 
-  );
-}
- }
+  if (r) {
+    r.addEventListener("click", () => {
+      iframe.contentWindow?.location.reload();
+    });
+  }
+};
 
 function limit() {
   const vw = Math.max(
