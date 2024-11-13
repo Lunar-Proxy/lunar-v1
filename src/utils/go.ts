@@ -1,5 +1,16 @@
 import { BareMuxConnection } from "@mercuryworkshop/bare-mux";
 
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker
+    .register("./sw.js", { scope: "/p/" })
+    .then(({ scope }) =>
+      console.debug("Service Worker registered with scope:", scope),
+    )
+    .catch((error) =>
+      console.error("Service Worker registration failed:", error),
+    );
+}
+
 const iframe = document.getElementById("iframe") as HTMLIFrameElement;
 let bar = document.getElementById("url") as HTMLInputElement;
 let previousUrl: string;
@@ -20,58 +31,62 @@ const setup = {
   transport: localStorage.getItem("@lunar/settings/transport") || "lc",
   ptype: localStorage.getItem("@lunar/settings/ptype") || "uv",
   gourl: localStorage.getItem("@lunar/gourl") || "https://www.google.com",
-  engine: localStorage.getItem("@lunar/settings/engine") || "https://www.google.com/search?q=",
+  engine:
+    localStorage.getItem("@lunar/settings/engine") ||
+    "https://www.google.com/search?q=",
 };
 
 async function frame() {
   const connection = new BareMuxConnection("/bm/worker.js");
-  if (setup.transport === "ep") {
-    console.debug("Using epoxy transport");
-    await connection.setTransport("/ep/index.mjs", [{ wisp: setup.wisp }]);
-  } else {
-    console.debug("Using libcurl transport");
-    await connection.setTransport("/lb/index.mjs", [{ wisp: setup.wisp }]);
-  }
-  if ("serviceWorker" in navigator) {
-    navigator.serviceWorker
-      .register("./sw.js", { scope: "/p/" })
-      .then(({ scope }) =>
-        console.debug("Service Worker registered with scope:", scope),
-      )
-      .catch((error) =>
-        console.error("Service Worker registration failed:", error),
-      );
-  }
-}
- // Coming soon
- // if (setup.ptype === "uv") {
-   uv();
- // } else if (setup.ptype === "sj") {
-    // sj();
-//  }
-// }
 
+  if (setup.transport === "ep") {
+    if ((await connection.getTransport()) !== "/ep/index.mjs") {
+      console.debug("Using epoxy transport");
+      await connection.setTransport("/ep/index.mjs", [{ wisp: setup.wisp }]);
+    }
+  } else {
+    if ((await connection.getTransport()) !== "/lb/index.mjs") {
+      console.debug("Using libcurl transport");
+      await connection.setTransport("/lb/index.mjs", [{ wisp: setup.wisp }]);
+    }
+  }
+  // Coming soon
+  // if (setup.ptype === "uv") {
+  uv();
+  // } else if (setup.ptype === "sj") {
+  // sj();
+  // }
+}
 // setup
 function validate(url: string): boolean {
-  return /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/i.test(url);
+  try {
+    new URL(url);
+    return true;
+  } catch (e) {
+    return false;
+  }
 }
 
 function uv() {
   let newurl: string;
   console.debug("Using UV");
+
   if (validate(setup.gourl)) {
-    newurl = setup.gourl;
+    if (!/^https?:\/\//i.test(setup.gourl)) {
+      newurl = `https://${setup.gourl}`;
+    } else {
+      newurl = setup.gourl;
+    }
   } else {
-    newurl = setup.engine + encodeURIComponent(setup.gourl);  
+    newurl = setup.engine + encodeURIComponent(setup.gourl);
   }
 
-    iframe.src = `/p/${config.encodeUrl(newurl)}`;  
-  }
-
+  iframe.src = `/p/${config.encodeUrl(newurl)}`;
+}
 
 // Nav Bar setup
 iframe.onload = function () {
-  setInterval(() => {
+  const updateContent = () => {
     if (iframe) {
       let url = iframe.contentWindow?.__uv$location?.href;
       if (url && url !== previousUrl) {
@@ -90,13 +105,14 @@ iframe.onload = function () {
     } else {
       throw new Error("iframe not found");
     }
-  }, 1000);
+  };
+  setInterval(updateContent, 1000);
 
   if (bar) {
     bar.onkeydown = (e) => {
       if (e.key === "Enter") {
         let Inputurl = bar.value;
-        localStorage.setItem("@lunar/gourl", Inputurl);
+        setup.gourl = Inputurl;
         frame();
       }
     };
