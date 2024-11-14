@@ -1,3 +1,4 @@
+
 const fm = document.getElementById("sear") as HTMLFormElement;
 const input = document.getElementById("input") as HTMLInputElement;
 const clearInput = document.getElementById("clear") as HTMLButtonElement;
@@ -18,6 +19,7 @@ clearInput.addEventListener("click", () => {
 });
 
 fm.addEventListener("submit", (event) => {
+  localStorage.setItem("@lunar/gourl", input.value)
   event.preventDefault();
   window.location.href = "./browse";
 });
