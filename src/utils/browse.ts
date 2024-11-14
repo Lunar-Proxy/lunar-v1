@@ -1,4 +1,5 @@
 import { BareMuxConnection } from "@mercuryworkshop/bare-mux";
+import setup from "./config.ts";
 
 if ("serviceWorker" in navigator) {
   navigator.serviceWorker
@@ -21,24 +22,23 @@ let copy = document.getElementById("copy") as HTMLButtonElement;
 let f = document.getElementById("forward") as HTMLButtonElement;
 let b = document.getElementById("back") as HTMLButtonElement;
 let r = document.getElementById("reload") as HTMLButtonElement;
-const setup = {
-  wisp:
-    localStorage.getItem("@lunar/settings/wisp") ||
-    (location.protocol === "https:" ? "wss" : "ws") +
-      "://" +
-      location.host +
-      "/goo/",
-  transport: localStorage.getItem("@lunar/settings/transport") || "lc",
-  ptype: localStorage.getItem("@lunar/settings/ptype") || "uv",
-  gourl: localStorage.getItem("@lunar/gourl") || "https://www.google.com",
-  engine:
-    localStorage.getItem("@lunar/settings/engine") ||
-    "https://www.google.com/search?q=",
-};
+// @ts-ignore
+const scram = new ScramjetController({
+  prefix: "/sj/",
+  files: {
+    wasm: "/assets/s/wasm.js",
+    worker: "/assets/s/worker.js",
+    client: "/assets/s/client.js",
+    shared: "/assets/s/shared.js",
+    sync: "/assets/s/sync.js",
+  },
+});
+
+window.sj = scram;
+scram.init("./sjsw.js");
 
 async function frame() {
   const connection = new BareMuxConnection("/bm/worker.js");
-
   if (setup.transport === "ep") {
     if ((await connection.getTransport()) !== "/ep/index.mjs") {
       console.debug("Using epoxy transport");
@@ -50,12 +50,12 @@ async function frame() {
       await connection.setTransport("/lb/index.mjs", [{ wisp: setup.wisp }]);
     }
   }
-  // Coming soon
-  // if (setup.ptype === "uv") {
-  uv();
-  // } else if (setup.ptype === "sj") {
-  // sj();
-  // }
+
+  if (setup.proxy === "uv") {
+    uv();
+  } else if (setup.proxy === "sj") {
+    sj();
+  }
 }
 // setup
 function validate(url: string): boolean {
@@ -84,6 +84,23 @@ function uv() {
   iframe.src = `/p/${config.encodeUrl(newurl)}`;
 }
 
+function sj() {
+  let newurl: string;
+  console.debug("Using scramjet (BETA)");
+
+  if (validate(setup.gourl)) {
+    if (!/^https?:\/\//i.test(setup.gourl)) {
+      newurl = `https://${setup.gourl}`;
+    } else {
+      newurl = setup.gourl;
+    }
+  } else {
+    newurl = setup.engine + encodeURIComponent(setup.gourl);
+  }
+
+  iframe.src = `${scram.encodeUrl(newurl)}`;
+}
+
 // Nav Bar setup
 iframe.onload = function () {
   const updateContent = () => {
@@ -96,10 +113,10 @@ iframe.onload = function () {
         previousUrl = url;
       }
 
-      const image = `${iframe.contentWindow!.__uv$location?.origin}/favicon.ico`;
+      const image = `https://www.google.com/s2/favicons?domain=${iframe.contentWindow!.__uv$location?.origin}&sz=24`;
       favicon.src = image;
       favicon.onerror = () => {
-        favicon.src = "/src/globe.png";
+        favicon.src = "https://www.google.com/s2/favicons?domain=null&sz=24";
       };
       title.textContent = iframe.contentWindow?.document.title || "";
     } else {

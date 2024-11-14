@@ -41,9 +41,9 @@ document.addEventListener("DOMContentLoaded", () => {
   pinput?.addEventListener("change", function () {
     if (pinput) {
       const option = this.value;
-      localStorage.setItem("@lunar/custom/engine", option);
+      localStorage.setItem("@lunar/settings/engine", option);
       console.debug("Search engine is set to", option);
-      window.location.reload;
+      window.location.reload();
     }
   });
 
@@ -98,56 +98,60 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   utoggle();
-});
 
-document.addEventListener("DOMContentLoaded", () => {
-  const dropdownToggle = document.getElementById(
-    "dropdown-toggle",
+  const engineDropdownToggle = document.getElementById(
+    "engine-dropdown-toggle",
   ) as HTMLButtonElement;
-  const dropdownMenu = document.getElementById(
-    "dropdown-menu",
+  const engineDropdownMenu = document.getElementById(
+    "engine-dropdown-menu",
   ) as HTMLUListElement;
-  const selectedOption = document.getElementById(
-    "selected-option",
+  const selectedEngine = document.getElementById(
+    "selected-engine",
   ) as HTMLSpanElement;
 
-  const savedProxyType = localStorage.getItem("@lunar/settings/engine");
-  if (savedProxyType) {
-    selectedOption.textContent =
-      savedProxyType === "https://www.google.com/search?q="
-        ? "Google"
-        : "Duckduckgo";
+  if (selectedEngine) {
+    const savedEngine = localStorage.getItem("@lunar/settings/engine");
+    if (savedEngine) {
+      const currentItem = engineDropdownMenu.querySelector(
+        `[data-value="${savedEngine}"]`,
+      );
+      if (currentItem) {
+        selectedEngine.textContent = currentItem.textContent;
+      }
+    }
   }
 
-  dropdownToggle.addEventListener("click", () => {
-    dropdownMenu.classList.toggle("hidden");
-    dropdownMenu.classList.toggle("fade-in");
+  engineDropdownToggle?.addEventListener("click", () => {
+    engineDropdownMenu?.classList.toggle("hidden");
+    engineDropdownMenu?.classList.toggle("fade-in");
   });
 
-  dropdownMenu.addEventListener("click", (event) => {
+  engineDropdownMenu?.addEventListener("click", (event) => {
     const target = event.target as HTMLElement;
     if (target.classList.contains("dropdown-item")) {
       const value = target.getAttribute("data-value");
 
-      dropdownMenu.querySelectorAll(".dropdown-item").forEach((item) => {
+      engineDropdownMenu.querySelectorAll(".dropdown-item").forEach((item) => {
         item.classList.remove("selected");
       });
 
       target.classList.add("selected");
-      selectedOption.textContent = target.textContent || "";
+      if (selectedEngine) {
+        selectedEngine.textContent = target.textContent || "";
+      }
       if (value) {
         localStorage.setItem("@lunar/settings/engine", value);
       }
-      dropdownMenu.classList.add("hidden");
+      engineDropdownMenu.classList.add("hidden");
     }
   });
 
   document.addEventListener("click", (event) => {
     if (
-      !dropdownToggle.contains(event.target as Node) &&
-      !dropdownMenu.contains(event.target as Node)
+      !engineDropdownToggle?.contains(event.target as Node) &&
+      !engineDropdownMenu?.contains(event.target as Node)
     ) {
-      dropdownMenu.classList.add("hidden");
+      engineDropdownMenu?.classList.add("hidden");
     }
   });
 
@@ -159,6 +163,94 @@ document.addEventListener("DOMContentLoaded", () => {
     `${location.protocol === "https:" ? "wss" : "ws"}://${location.host}/p/`;
   if (wispInput) {
     wispInput.placeholder = wispUrl;
+  }
+
+  const proxyDropdownToggle = document.getElementById("proxy-dropdown-toggle");
+  const proxyDropdownMenu = document.getElementById("proxy-dropdown-menu");
+  const selectedProxy = document.getElementById("selected-proxy");
+
+  if (proxyDropdownToggle && proxyDropdownMenu && selectedProxy) {
+    proxyDropdownToggle.addEventListener("click", () => {
+      proxyDropdownMenu.classList.toggle("hidden");
+    });
+
+    document.addEventListener("click", (event) => {
+      if (
+        !proxyDropdownToggle.contains(event.target as Node) &&
+        !proxyDropdownMenu.contains(event.target as Node)
+      ) {
+        proxyDropdownMenu.classList.add("hidden");
+      }
+    });
+
+    proxyDropdownMenu.querySelectorAll(".dropdown-item").forEach((item) => {
+      item.addEventListener("click", (event) => {
+        const targetElement = event.currentTarget as HTMLElement;
+        const value = targetElement.getAttribute("data-value");
+        if (value) {
+          localStorage.setItem("@lunar/settings/ptype", value);
+          selectedProxy.textContent = targetElement.textContent;
+          proxyDropdownMenu.classList.add("hidden");
+          console.log(`Proxy set to: ${value}`);
+        }
+      });
+    });
+
+    const currentProxy = localStorage.getItem("@lunar/settings/ptype");
+    if (currentProxy) {
+      const currentItem = proxyDropdownMenu.querySelector(
+        `[data-value="${currentProxy}"]`,
+      );
+      if (currentItem) {
+        selectedProxy.textContent = currentItem.textContent;
+      }
+    }
+  }
+
+  const transportDropdownToggle = document.getElementById(
+    "transport-dropdown-toggle",
+  );
+  const transportDropdownMenu = document.getElementById(
+    "transport-dropdown-menu",
+  );
+  const selectedTransport = document.getElementById("selected-transport");
+
+  if (transportDropdownToggle && transportDropdownMenu && selectedTransport) {
+    transportDropdownToggle.addEventListener("click", () => {
+      transportDropdownMenu.classList.toggle("hidden");
+    });
+
+    document.addEventListener("click", (event) => {
+      if (
+        !transportDropdownToggle.contains(event.target as Node) &&
+        !transportDropdownMenu.contains(event.target as Node)
+      ) {
+        transportDropdownMenu.classList.add("hidden");
+      }
+    });
+
+    transportDropdownMenu.querySelectorAll(".dropdown-item").forEach((item) => {
+      item.addEventListener("click", (event) => {
+        const targetElement = event.currentTarget as HTMLElement;
+        const value = targetElement.getAttribute("data-value");
+        if (value) {
+          localStorage.setItem("@lunar/settings/ptype", value);
+          selectedTransport.textContent = targetElement.textContent;
+          transportDropdownMenu.classList.add("hidden");
+          console.log(`Transport set to: ${value}`);
+        }
+      });
+    });
+
+    const currentTransport = localStorage.getItem("@lunar/settings/ptype");
+    if (currentTransport) {
+      const currentItem = transportDropdownMenu.querySelector(
+        `[data-value="${currentTransport}"]`,
+      );
+      if (currentItem) {
+        selectedTransport.textContent = currentItem.textContent;
+      }
+    }
   }
 });
 

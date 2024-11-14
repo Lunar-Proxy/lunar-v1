@@ -9,8 +9,11 @@ import "@src/main.css";
 <head>
   <script src="../utils/global.ts"></script>
   <script is:inline src="/assets/v/bundle.js" defer></script>
-  <script is:inline src="/assets/v/config.js" defer></script>\
-  <script src="../utils/go.ts"></script>
+  <script is:inline src="/assets/v/config.js" defer></script>
+  <link rel="prefetch" href="/assets/s/worker.js" />
+  <link rel="prefetch" href="/assets/s/shared.js" />
+  <script is:inline src="/assets/s/controller.js"></script>
+  <script src="../utils/browse.ts"></script>
 </head>
 <body>
   <Toolbar>

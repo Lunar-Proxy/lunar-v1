@@ -57,7 +57,7 @@ function createGameCard(
         localStorage.setItem("@lunar/settings/transport", "lc");
       }
       localStorage.setItem("@lunar/gourl", `${website}`);
-      window.location.href = "./g";
+      window.location.href = "./browse";
     } else {
       alert("Error: This game is unavailable.");
     }

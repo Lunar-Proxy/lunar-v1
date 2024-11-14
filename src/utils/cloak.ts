@@ -32,8 +32,8 @@ async function cloak(): Promise<void> {
       const bodyStyles = {
         margin: "0",
         padding: "0",
-        height: "100vh",
-        width: "100vw",
+        height: window.innerHeight,
+        width: window.innerWidth,
       };
       Object.assign(win.document.body.style, bodyStyles);
       win.document.documentElement.style.height = "100%";

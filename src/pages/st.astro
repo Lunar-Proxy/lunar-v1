@@ -87,20 +87,20 @@ import { Palette, Users, Info, Link, Shield } from "lucide-astro";
 
         <div id="ptype" class="hidden">
           <SettingsCard
-            title="Search Engine"
-            description="Select the search engine used for searching."
+            title="Proxy Type"
+            description="Select the proxy used to search with."
           >
             <div class="relative mt-4">
               <label for="ptype" class="block text-gray-300 mb-2 text-center"
-                >Search Engine:</label
+                >Proxy:</label
               >
               <div class="relative">
                 <button
-                  id="dropdown-toggle"
+                  id="proxy-dropdown-toggle"
                   class="w-full p-2 rounded bg-gray-700 text-white text-left flex justify-between items-center"
                   type="button"
                 >
-                  <span id="selected-option">Select a search engine</span>
+                  <span id="selected-proxy">Select a Proxy</span>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     class="h-4 w-4"
@@ -114,20 +114,20 @@ import { Palette, Users, Info, Link, Shield } from "lucide-astro";
                   </svg>
                 </button>
                 <ul
-                  id="dropdown-menu"
+                  id="proxy-dropdown-menu"
                   class="absolute left-0 right-0 mt-1 hidden bg-gray-700 rounded shadow-lg z-10"
                 >
                   <li
                     class="dropdown-item p-2 hover:bg-gray-600 cursor-pointer"
-                    data-value="https://www.google.com/search?q="
+                    data-value="sj"
                   >
-                    Google
+                    Scramjet (Beta)
                   </li>
                   <li
                     class="dropdown-item p-2 hover:bg-gray-600 cursor-pointer"
-                    data-value="https://duckduckgo.com/?q="
+                    data-value="uv"
                   >
-                    Duckduckgo
+                    Ultraviolet (Default)
                   </li>
                 </ul>
               </div>
@@ -135,51 +135,21 @@ import { Palette, Users, Info, Link, Shield } from "lucide-astro";
           </SettingsCard>
           <br />
           <SettingsCard
-            title="Custom Wisp Server"
-            description="Type in a wisp server below to use for the proxy."
-          >
-            <div class="relative mt-4">
-              <label
-                for="wispserver"
-                class="block text-gray-300 mb-2 text-center"
-                >Wisp Server url:</label
-              >
-              <input
-                type="text"
-                id="wispserver"
-                class="w-full p-2 rounded bg-gray-700 text-white text-center placeholder-gray-500"
-              />
-              <div class="flex justify-between mt-2">
-                <button
-                  id="reset-wispserver"
-                  class="w-1/2 mr-2 p-2 bg-gray-600 rounded hover:bg-gray-500"
-                  type="button">Clear</button
-                >
-                <button
-                  id="save-wispserver"
-                  class="w-1/2 p-2 bg-gray-600 rounded hover:bg-gray-500"
-                  type="button">Save</button
-                >
-              </div>
-            </div>
-          </SettingsCard>
-          <br />
-
-          <SettingsCard
             title="Transport Type"
             description="Select the transport used to search."
           >
             <div class="relative mt-4">
-              <label for="ptype" class="block text-gray-300 mb-2 text-center"
-                >Transport:</label
+              <label
+                for="transport"
+                class="block text-gray-300 mb-2 text-center">Transport:</label
               >
               <div class="relative">
                 <button
-                  id="dropdown-toggle"
+                  id="transport-dropdown-toggle"
                   class="w-full p-2 rounded bg-gray-700 text-white text-left flex justify-between items-center"
                   type="button"
                 >
-                  <span id="selected-option">Select a transport</span>
+                  <span id="selected-transport">Select a transport</span>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     class="h-4 w-4"
@@ -193,7 +163,7 @@ import { Palette, Users, Info, Link, Shield } from "lucide-astro";
                   </svg>
                 </button>
                 <ul
-                  id="dropdown-menu"
+                  id="transport-dropdown-menu"
                   class="absolute left-0 right-0 mt-1 hidden bg-gray-700 rounded shadow-lg z-10"
                 >
                   <li
@@ -212,109 +182,167 @@ import { Palette, Users, Info, Link, Shield } from "lucide-astro";
               </div>
             </div>
           </SettingsCard>
-        </div>
-        <div id="customization" class="hidden">
-          <SettingsCard
-            title="Theme"
-            description="Choose a theme to customize your experience."
-          >
-            <div class="mt-4">
-              <label for="theme" class="block text-gray-300 mb-2 text-center"
-                >Theme:</label
-              >
-              <select
-                id="theme"
-                class="w-full p-2 rounded bg-gray-700 text-white text-center appearance-none"
-              >
-                <option value="dark" class="text-center">Dark</option>
-                <option value="light" class="text-center">Light</option>
-              </select>
-            </div>
-          </SettingsCard>
           <br />
           <SettingsCard
-            title="Background Image"
-            description="Set a custom background image for the background."
+            title="Search Engine"
+            description="Select the Search Engine used to help you with your searches."
           >
-            <div class="mt-4">
-              <label for="bg-input" class="block text-gray-300 mb-2 text-center"
-                >Background Image URL:</label
+            <div class="relative mt-4">
+              <label for="engine" class="block text-gray-300 mb-2 text-center"
+                >Search Engine:</label
               >
-              <input
-                type="text"
-                id="bg-input"
-                class="w-full p-2 rounded bg-gray-700 text-white text-center placeholder-gray-500"
-                placeholder="Enter URL"
-              />
-              <div class="flex justify-between mt-2">
+              <div class="relative">
                 <button
-                  id="reset-bg-input"
-                  class="w-1/2 mr-2 p-2 bg-gray-600 rounded hover:bg-gray-500"
-                  type="button">Clear</button
+                  id="engine-dropdown-toggle"
+                  class="w-full p-2 rounded bg-gray-700 text-white text-left flex justify-between items-center"
+                  type="button"
                 >
-                <button
-                  id="save-bg-input"
-                  class="w-1/2 p-2 bg-gray-600 rounded hover:bg-gray-500"
-                  type="button">Save</button
+                  <span id="selected-engine">Select a search engine</span>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-4 w-4"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                      clip-rule="evenodd"></path>
+                  </svg>
+                </button>
+                <ul
+                  id="engine-dropdown-menu"
+                  class="absolute left-0 right-0 mt-1 hidden bg-gray-700 rounded shadow-lg z-10"
                 >
+                  <li
+                    class="dropdown-item p-2 hover:bg-gray-600 cursor-pointer"
+                    data-value="https://duckduckgo.com/?q="
+                  >
+                    DuckDuckGo
+                  </li>
+                  <li
+                    class="dropdown-item p-2 hover:bg-gray-600 cursor-pointer"
+                    data-value="https://www.google.com/search?q="
+                  >
+                    Google (Default)
+                  </li>
+                  <li
+                    class="dropdown-item p-2 hover:bg-gray-600 cursor-pointer"
+                    data-value="https://search.yahoo.com/search?p="
+                  >
+                    Yahoo
+                  </li>
+                  <li
+                    class="dropdown-item p-2 hover:bg-gray-600 cursor-pointer"
+                    data-value="https://search.brave.com/search?q="
+                  >
+                    Brave
+                  </li>
+                </ul>
               </div>
             </div>
           </SettingsCard>
         </div>
-
-        <div id="credits" class="hidden">
-          <SettingsCard title="Credits" description="Credits to people.">
-            <ul class="list-disc list-inside mt-4 text-gray-400 text-center">
-              <li>owski09</li>
-              <li>8bitbug</li>
-              <li>3kh0</li>
-              <li>madjikware</li>
-            </ul>
-            <p class="mt-4 text-gray-400 text-center">
-              Thank you to everyone who contributed to Lunar!
-            </p>
-          </SettingsCard>
-        </div>
-
-        <div id="info" class="hidden">
-          <SettingsCard title="Info" description="Info about lunar.">
-            <div class="mt-4 text-center">
-              <p class="text-gray-400">Version: v{VERSION}</p>
-              <p class="text-gray-400">
-                Last Updated: {
-                  new Date(LAST_UPDATED).toLocaleString() || "ERROR"
-                }
-              </p>
-              <p class="mt-4 text-gray-400">
-                For questions or concerns, you can contact us with the links
-                below.
-              </p>
-              <ul
-                class="text-bold list-disc list-inside mt-4 text-gray-400 text-center"
+      </div>
+      <div id="customization" class="hidden">
+        <SettingsCard
+          title="Theme"
+          description="Choose a theme to customize your experience."
+        >
+          <div class="mt-4">
+            <label for="theme" class="block text-gray-300 mb-2 text-center"
+              >Theme:</label
+            >
+            <select
+              id="theme"
+              class="w-full p-2 rounded bg-gray-700 text-white text-center appearance-none"
+            >
+              <option value="dark" class="text-center">Dark</option>
+              <option value="light" class="text-center">Light</option>
+            </select>
+          </div>
+        </SettingsCard>
+        <br />
+        <SettingsCard
+          title="Background Image"
+          description="Set a custom background image for the background."
+        >
+          <div class="mt-4">
+            <label for="bg-input" class="block text-gray-300 mb-2 text-center"
+              >Background Image URL:</label
+            >
+            <input
+              type="text"
+              id="bg-input"
+              class="w-full p-2 rounded bg-gray-700 text-white text-center placeholder-gray-500"
+              placeholder="Enter URL"
+            />
+            <div class="flex justify-between mt-2">
+              <button
+                id="reset-bg-input"
+                class="w-1/2 mr-2 p-2 bg-gray-600 rounded hover:bg-gray-500"
+                type="button">Clear</button
               >
-                <li>
-                  <a
-                    href="mailto:uselunarproxy@gmail.com"
-                    class="text-blue-400 hover:underline"
-                    >uselunarproxy@gmail.com</a
-                  >
-                </li>
-                <li>
-                  <a
-                    href="https://github.com/Lunar-Proxy/Lunar/tree/main"
-                    class="text-blue-400 hover:underline">Lunar's Github</a
-                  >
-                </li>
-                <li>
-                  <a
-                    href="https://discord.com/invite/fuPtWjYuf8"
-                    class="text-blue-400 hover:underline">Lunar's Discord</a
-                  >
-                </li>
-              </ul>
+              <button
+                id="save-bg-input"
+                class="w-1/2 p-2 bg-gray-600 rounded hover:bg-gray-500"
+                type="button">Save</button
+              >
             </div>
-          </SettingsCard>
-        </div>
+          </div>
+        </SettingsCard>
+      </div>
+
+      <div id="credits" class="hidden">
+        <SettingsCard title="Credits" description="Credits to people.">
+          <ul class="list-disc list-inside mt-4 text-gray-400 text-center">
+            <li>owski09</li>
+            <li>8bitbug</li>
+            <li>3kh0</li>
+            <li>madjikware</li>
+          </ul>
+          <p class="mt-4 text-gray-400 text-center">
+            Thank you to everyone who contributed to Lunar!
+          </p>
+        </SettingsCard>
+      </div>
+
+      <div id="info" class="hidden">
+        <SettingsCard title="Info" description="Info about lunar.">
+          <div class="mt-4 text-center">
+            <p class="text-gray-400">Version: v{VERSION}</p>
+            <p class="text-gray-400">
+              Last Updated: {new Date(LAST_UPDATED).toLocaleString() || "ERROR"}
+            </p>
+            <p class="mt-4 text-gray-400">
+              For questions or concerns, you can contact us with the links
+              below.
+            </p>
+            <ul
+              class="text-bold list-disc list-inside mt-4 text-gray-400 text-center"
+            >
+              <li>
+                <a
+                  href="mailto:uselunarproxy@gmail.com"
+                  class="text-blue-400 hover:underline"
+                  >uselunarproxy@gmail.com</a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://github.com/Lunar-Proxy/Lunar/tree/main"
+                  class="text-blue-400 hover:underline">Lunar's Github</a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://discord.com/invite/fuPtWjYuf8"
+                  class="text-blue-400 hover:underline">Lunar's Discord</a
+                >
+              </li>
+            </ul>
+          </div>
+        </SettingsCard>
       </div>
     </div>
   </Main>

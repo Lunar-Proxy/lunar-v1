@@ -13,6 +13,7 @@ interface Config {
 declare const config: Config;
 
 interface Window {
+  sj: any;
   __uv$location?: {
     href: string;
     origin: string;
