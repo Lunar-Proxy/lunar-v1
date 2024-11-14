@@ -234,7 +234,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const targetElement = event.currentTarget as HTMLElement;
         const value = targetElement.getAttribute("data-value");
         if (value) {
-          localStorage.setItem("@lunar/settings/ptype", value);
+          localStorage.setItem("@lunar/settings/transport", value);
           selectedTransport.textContent = targetElement.textContent;
           transportDropdownMenu.classList.add("hidden");
           console.log(`Transport set to: ${value}`);
@@ -242,7 +242,7 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     });
 
-    const currentTransport = localStorage.getItem("@lunar/settings/ptype");
+    const currentTransport = localStorage.getItem("@lunar/settings/transport");
     if (currentTransport) {
       const currentItem = transportDropdownMenu.querySelector(
         `[data-value="${currentTransport}"]`,

@@ -53,9 +53,6 @@ function createAppCard(
   appCard.onclick = () => {
     if (!error) {
       saveLastPlayed1({ icon, website, name, error });
-      if (localStorage.getItem("@lunar/settings/transport") == null) {
-        localStorage.setItem("@lunar/settings/transport", "lc");
-      }
       localStorage.setItem("@lunar/gourl", `${website}`);
       window.location.href = "./browse";
     } else {
