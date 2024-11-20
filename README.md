@@ -24,13 +24,14 @@ Lunar is a webproxy that removes censorship.
 </a>
 
 [![Deploy to Koyeb](https://binbashbanana.github.io/deploy-buttons/buttons/remade/koyeb.svg)](https://app.koyeb.com/deploy?type=git&repository=github.com/lunar-proxy/lunar)
+
 > [!NOTE]
 > You cannot deploy Lunar to netlify, vercel, Github Pages, or any static hosting website.
 
 ## Terminal
+
 > [!NOTE]
 > You will need to install [git](https://git-scm.com/downloads), [nodejs](https://nodejs.org/en/download/prebuilt-installer) and pnpm by running `npm i -g pnpm`
-
 
 ```
 git clone https://github.com/Lunar-Proxy/Lunar.git

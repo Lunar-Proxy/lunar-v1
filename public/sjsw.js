@@ -1,7 +1,7 @@
 importScripts(
-  "/assets/s/wasm.js",
-  "/assets/s/shared.js",
-  "/assets/s/worker.js",
+  "/assets/sj/wasm.js",
+  "/assets/sj/shared.js",
+  "/assets/sj/worker.js",
 );
 const scramjet = new ScramjetServiceWorker();
 

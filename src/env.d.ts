@@ -11,7 +11,7 @@ interface Config {
 }
 
 declare const config: Config;
-
+declare const ScramjetController: any;
 interface Window {
   sj: any;
   __uv$location?: {

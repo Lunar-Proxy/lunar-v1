@@ -1,25 +1,81 @@
+import { BareMuxConnection } from "@mercuryworkshop/bare-mux";
 
-const fm = document.getElementById("sear") as HTMLFormElement;
-const input = document.getElementById("input") as HTMLInputElement;
-const clearInput = document.getElementById("clear") as HTMLButtonElement;
-const search = document.getElementById("search") as HTMLButtonElement;
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker
+    .register("./sw.js", { scope: "/p/" })
+    .then(({ scope }) =>
+      console.debug("Service Worker registered with scope:", scope),
+    )
+    .catch((error) =>
+      console.error("Service Worker registration failed:", error),
+    );
+}
 
-input.addEventListener("input", () => {
-  clearInput.style.display = input.value ? "block" : "none";
-});
+const input = document.getElementById("inp") as HTMLInputElement;
+const form = document.getElementById("fm") as HTMLFormElement;
+const frame = document.getElementById("frame") as HTMLIFrameElement;
+const loading = document.getElementById("loading") as HTMLDivElement;
+const welcome = document.getElementById("starting") as HTMLDivElement;
 
-search.addEventListener("click", () => {
-  fm.dispatchEvent(new Event("submit"));
-});
+if (form && input) {
+  form.addEventListener("submit", async event => {
+    let value = input.value;
+     if (value.startsWith("lunar://")) {
+      event.preventDefault();
+      pagecheck(value);
+      return;
+     }
+      welcome.classList.add("hidden");
+      loading.classList.remove("hidden");
+      event.preventDefault();
+      if (validate(value)) {
+        if (!/^https?:\/\//i.test(value)) {
+          value = "https://" + value;
+        }
+      } else {
+        value = "https://www.google.com/search?q=" + value;
+       
+      }
+      launch(value);
+  });
+}
 
-clearInput.addEventListener("click", () => {
-  input.value = "";
-  clearInput.style.display = "none";
-  input.focus();
-});
 
-fm.addEventListener("submit", (event) => {
-  localStorage.setItem("@lunar/gourl", input.value)
-  event.preventDefault();
-  window.location.href = "./browse";
-});
+async function launch(link: string) {
+    const connection = new BareMuxConnection("/bm/worker.js");
+    const wispurl =  (location.protocol === "https:" ? "wss" : "ws") +
+    "://" +
+    location.host +
+    "/goo/";
+    if ((await connection.getTransport()) !==  "/ep/index.mjs") {
+        await connection.setTransport("/ep/index.mjs", [{ wisp: wispurl }]);
+    }
+     const url = "/p/" + config.encodeUrl(link);
+       frame.src = url;
+
+}
+
+function validate(url: string): boolean {
+  const rgex = /^[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  return rgex.test(url);
+}
+
+frame.onload = () => {
+  // Not really needed, since z index but ehhhh
+  loading.classList.add("hidden");
+  
+}
+
+function pagecheck(url: string) {
+  const page = url.split("://")[1];
+  const pages = ["home"];
+  if (pages.includes(page)) {
+    if (page === "home") {
+      window.location.href = "/";
+    } else {
+    window.location.href = page;
+    }
+} else {
+  window.location.href = "404";
+}
+}
