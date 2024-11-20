@@ -5,9 +5,9 @@
 # What is lunar?
 
 > [!NOTE]  
-> Lunar is in beta so expect bugs before the final release
+> Lunar is in beta so expect bugs before the final release.
 
-Lunar is a webproxy that removes censorship.
+Lunar is a webproxy that removes censorship & Focuses on providing the best user experience possible.
 
 # Features
 
