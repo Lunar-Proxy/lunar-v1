@@ -25,6 +25,18 @@ const config = {
   bundle: "/assets/v/bundle.js",
   config: "/assets/v/config.js",
   sw: "/assets/v/sw.js",
-  inject: [],
+  inject: [
+    {
+      host: /./g,
+      injectTo: "head",
+      html: `
+     <script>
+      window.urlchange = () => {
+        console.log('urlchange');
+        };
+            </script>
+      `
+    },
+  ],
 };
 self.__uv$config = config;

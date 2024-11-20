@@ -7,9 +7,10 @@ module.exports = {
       colors: {
         background: {
           DEFAULT: "var(--background)",
+          overlay: "var(--background-overlay)",
         },
         text: {
-          DEFAULT: "var(--text)",
+          HEADER: "var(--text-header)",
         },
       },
     },

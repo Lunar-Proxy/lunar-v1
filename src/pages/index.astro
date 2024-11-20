@@ -1,71 +1,67 @@
 ---
-import Main from "../layouts/main.astro";
-let Placeholder = "unidentified";
-import { X, Search } from "lucide-astro";
+import "@src/main.css";
+import { ArrowLeft, ArrowRight, LoaderCircle, Menu, RotateCw } from "lucide-astro";
 ---
 
+<!DOCTYPE html>
+<html lang="en">
+<meta name="viewport" content="width=device-width" />
+<meta name="generator" content={Astro.generator} />
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width" />
-  <meta name="generator" content={Astro.generator} />
+  <script is:inline src="/assets/v/config.js" defer></script>
+  <script is:inline src="/assets/v/bundle.js" defer></script>
   <script src="../utils/main.ts"></script>
-  <script src="../utils/cloak.ts"></script>
 </head>
-<Main>
-  <div class="flex items-center justify-center">
-    <div class="text-center p-6 mt-[30vh] w-full max-w-lg">
-      <h1
-        class="text-6xl font-bold text-white mb-6 text-shadow-bubble text-shadow-bubble-blur"
-      >
-        Lunar
-      </h1>
-      <form id="sear" method="post" class="relative flex justify-center mt-6">
-        <div class="relative w-full">
-          <button
-            type="button"
-            id="search-btn"
-            class="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-300 transition duration-200"
-          >
-            <Search id="search" class="w-6 h-6" />
-          </button>
-          <input
-            id="input"
-            class="w-full h-[50px] pl-12 pr-12 p-4 text-lg text-white text-center bg-gray-800 border border-gray-700 rounded-full shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200"
-            type="text"
-            placeholder={Placeholder}
-          />
-          <button
-            type="button"
-            id="clear"
-            class="absolute right-4 top-1/2 transform -translate-y-1/2 text-white text-2xl hover:text-red-700 focus:outline-none transition duration-200"
-            style="display: none;"
-          >
-            <X class="w-[19px] h-[21px]" />
-          </button>
-        </div>
-      </form>
+<body>
+  <div class="flex justify-between items-center bg-background-overlay p-4 rounded-lg space-x-4 z-30" id="navbar">
+    <div class="flex space-x-4">
+      <a
+        title="Forward"
+        href="#"
+        class="text-[#a5adce] hover:text-white active:text-white transition duration-150 transform hover:translate-x-0.5"
+      ><ArrowLeft /></a>
+      <a
+        title="Back"
+        href="#"
+        class="text-[#a5adce] hover:text-white active:text-white transition duration-150 transform hover:translate-x-0.5"
+      ><ArrowRight /></a>
+      <a
+        title="Refresh"
+        href="#"
+        class="text-[#a5adce] hover:text-white active:text-white transition duration-150 transform hover:translate-x-0.5"
+      ><RotateCw /></a>
     </div>
+    <form method="post" class="flex-grow mx-4" id="sfm">
+      <input
+        id="sinp"
+        type="text"
+        placeholder="Search..."
+        class="w-full bg-transparent text-white p-2 rounded-full border border-[#a5adce] placeholder-white focus:outline-none focus:ring-2 focus:ring-[#a5adce]"
+      />
+    </form>
+    <a
+      title="Menu"
+      href="#"
+      class="text-[#a5adce] hover:text-white active:text-white transition duration-150 transform hover:translate-x-0.5"
+    ><Menu /></a>
   </div>
-
-  <script>
-    const inputElement = document.getElementById("input") as HTMLInputElement;
-    const clock = document.getElementById("time") as HTMLElement;
-    inputElement.placeholder = `Search with ${localStorage.getItem("@lunar/settings/se") || "Google"} or enter a URL`;
-    function updateClock() {
-      const now = new Date();
-      let hours = now.getHours();
-      const minutes = String(now.getMinutes()).padStart(2, "0");
-      const seconds = String(now.getSeconds()).padStart(2, "0");
-      const ampm = hours >= 12 ? "PM" : "AM";
-      hours = hours % 12;
-      hours = hours ? hours : 12;
-      const displayHours = String(hours).padStart(2, "0");
-      if (clock) {
-        clock.textContent = `${displayHours}:${minutes}:${seconds} ${ampm}`;
-      }
-    }
-
-    setInterval(updateClock, 1000);
-    updateClock();
-  </script>
-</Main>
+  <div id="starting" class="text-center mt-10 p-4 rounded-lg space-x-4 z-30 relative">
+    <h1 class="text-6xl mt-52 text-text-HEADER font-bold">Lunar.</h1>
+    <form method="post" class="flex-grow mx-4" id="fm">
+      <input
+        id="inp"
+        type="text"
+        placeholder="Enter an URL to get started..."
+        class="w-[400px] mt-12 bg-[#737994]  text-white p-2 rounded-full border border-[#a5adce] placeholder-white focus:outline-none focus:ring-2 focus:ring-[#a5adce]"
+      />
+    </form>
+  </div>
+  <div id="loading" class="z-10 relative hidden">
+    <LoaderCircle class="text-[#a5adce] w-16 h-12 mx-auto mt-[220px] animate-spin" />
+    <h1 class="text-center mt-10 text-4xl text-text-HEADER font-bold">
+      Please wait while lunar loads your content.
+    </h1>
+  </div>
+  <iframe id="frame" title="" class="absolute top-[64px] left-0 z-20 h-[calc(100vh-64px)] w-[100vw]"></iframe>
+</body>
+</html>

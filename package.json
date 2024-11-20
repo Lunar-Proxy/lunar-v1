@@ -6,10 +6,10 @@
     "dev": "npx astro dev",
     "start": "tsx index.ts",
     "build": "npx astro check && npx astro build",
-    "preview": "npx astro preview",
-    "astro": "npx astro",
-    "pretty": "prettier . --write ",
-    "preinstall": "npx only-allow pnpm"
+    "format": "prettier . --write ",
+    "preinstall": "npx only-allow pnpm",
+    "precommit": "npx astro check && pnpm format",
+    "revert": "git reset HEAD --hard && git clean -fd"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.4",
@@ -18,7 +18,7 @@
     "@fastify/compress": "^8.0.1",
     "@fastify/middie": "^9.0.2",
     "@fastify/static": "^8.0.2",
-    "@mercuryworkshop/bare-mux": "^2.1.6",
+    "@mercuryworkshop/bare-mux": "^2.1.7",
     "@mercuryworkshop/epoxy-transport": "^2.1.26",
     "@mercuryworkshop/libcurl-transport": "^1.3.14",
     "@mercuryworkshop/wisp-js": "^0.3.3",
@@ -37,7 +37,11 @@
     "node": ">=20.0.0"
   },
   "devDependencies": {
+    "@eslint/js": "^9.15.0",
+    "eslint": "^9.15.0",
+    "globals": "^15.12.0",
     "prettier": "^3.3.3",
-    "prettier-plugin-astro": "^0.14.1"
+    "prettier-plugin-astro": "^0.14.1",
+    "typescript-eslint": "^8.14.0"
   }
 }
