@@ -64,8 +64,7 @@ frame.onload = () => {
   const originalWindowOpen = window.open;
   window.open = function (url, target, features) {
     if (typeof url === 'string' || url instanceof URL) {
-      location.href = url;
-      return null; 
+      return location.href = url;
     }
     return null;
   };
