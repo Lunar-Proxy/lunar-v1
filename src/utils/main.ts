@@ -1,6 +1,5 @@
 import { BareMuxConnection } from "@mercuryworkshop/bare-mux";
-
-
+import settings from "../utils/config"
 if ("serviceWorker" in navigator) {
   navigator.serviceWorker
     .register("./sw.js", { scope: "/p/" })
@@ -13,15 +12,15 @@ if ("serviceWorker" in navigator) {
 }
 
 const input = document.getElementById("inp") as HTMLInputElement;
-const form = document.getElementById("fm") as HTMLFormElement;
+const fm = document.getElementById("fm") as HTMLFormElement;
 const frame = document.getElementById("frame") as HTMLIFrameElement;
 const loading = document.getElementById("loading") as HTMLDivElement;
 const welcome = document.getElementById("starting") as HTMLDivElement;
 
-form.addEventListener("submit", (event) => {
+fm.addEventListener("submit", (event) => {
+  event.preventDefault();
   let value = input.value;
   if (value.startsWith("lunar://")) {
-    event.preventDefault();
     pagecheck(value);
     return;
   }
@@ -33,7 +32,7 @@ form.addEventListener("submit", (event) => {
       value = "https://" + value;
     }
   } else {
-    value = "https://www.google.com/search?q=" + value;
+    value = settings.prefences.searchengine || "https://www.google.com/search?q=" + value;
   }
   launch(value);
 });
@@ -48,6 +47,7 @@ async function launch(link: string) {
     await connection.setTransport("/ep/index.mjs", [{ wisp: wispurl }]);
   }
   const url = "/p/" + config.encodeUrl(link);
+  
   frame.src = url;
 }
 
@@ -56,26 +56,42 @@ function validate(url: string): boolean {
   return rgex.test(url);
 }
 
+const interceptLinks = (win = window) => {
+  console.log("working??");
+  win.open = new Proxy(win.open, {
+      apply(_target, _thisArg, argArray) {
+          if (argArray[0]) {
+              launch(argArray[0]);
+              return;
+          }
+          return;
+      },
+  });
+  
+win.addEventListener("click", (e) => {
+  const target = e.target as HTMLElement;
+  if (target && target.tagName == "A" && target.hasAttribute("href")) {
+      let isNewTab =
+          (target.hasAttribute("target") &&
+              target.getAttribute("target")?.includes("_blank"));
+
+      if (isNewTab) {
+          e.preventDefault();
+          const href = (e.target as HTMLElement)?.getAttribute("href");
+          if (href) {
+              launch(href);
+          }
+      }
+  }
+});
+};
+
+
 frame.onload = () => {
   // Not really needed, since z index but ehhhh
   loading.classList.add("hidden");
-  const scriptContent = `
-(function () {
-  const originalWindowOpen = window.open;
-  window.open = function (url, target, features) {
-    if (typeof url === 'string' || url instanceof URL) {
-      return location.href = url;
-    }
-    return null;
-  };
-})();`;
-  if (frame.contentDocument) {
-    const scriptElement = frame.contentDocument.createElement("script");
-    scriptElement.textContent = scriptContent;
-    frame.contentDocument.body.appendChild(scriptElement);
-  }
+  interceptLinks(frame.contentWindow! as Window & typeof globalThis);
 };
-
 
 function pagecheck(url: string) {
   const page = url.split("://")[1];
@@ -90,3 +106,5 @@ function pagecheck(url: string) {
     window.location.href = "404";
   }
 }
+
+window.history.replaceState?.('', '', window.location.href);
