@@ -1,6 +1,12 @@
 import { Settings } from "../utils/config";
 import { BareMuxConnection } from "@mercuryworkshop/bare-mux";
 
+   async function init() {
+  await Settings();
+}
+
+init()
+
 if ("serviceWorker" in navigator) {
   navigator.serviceWorker
     .register("./sw.js", { scope: "/p/" })
@@ -23,7 +29,7 @@ async function launch(link: string) {
   const wispurl = (location.protocol  === "https:" ? "wss" : "ws") +
     "://" +
     location.host +
-    "/goo/";
+    "/w/";
   if ((await connection.getTransport()) !== "/ep/index.mjs") {
     await connection.setTransport("/ep/index.mjs", [{ wisp: wispurl }]);
   }

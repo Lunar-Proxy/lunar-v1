@@ -44,7 +44,7 @@ export default defineConfig({
         name: "viteserver",
         configureServer(server) {
           server.httpServer?.on("upgrade", (req, socket, head) => {
-            if (req.url?.startsWith("/goo")) {
+            if (req.url?.startsWith("/w/")) {
               wisp.routeRequest(req, socket, head);
             } else {
               undefined;
