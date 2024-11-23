@@ -35,7 +35,7 @@ const config = {
         console.log('urlchange');
         };
             </script>
-      `
+      `,
     },
   ],
 };

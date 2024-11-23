@@ -4,12 +4,12 @@
       1762: function (e, t, r) {
         r.d(t, {
           Z: function () {
-            return o;
+            return s;
           },
         });
-        let o = {
+        let s = {
           fmt: function (e, t, ...r) {
-            let o = Error.prepareStackTrace;
+            let s = Error.prepareStackTrace;
             Error.prepareStackTrace = (e, t) => {
               t.shift(), t.shift(), t.shift();
               let r = "";
@@ -18,17 +18,17 @@
                   (r += `${t[e].getFunctionName()} -> ` + r);
               return (r += t[0].getFunctionName() || "Anonymous");
             };
-            let s = (function () {
+            let o = (function () {
               try {
                 throw Error();
               } catch (e) {
                 return e.stack;
               }
             })();
-            Error.prepareStackTrace = o;
+            Error.prepareStackTrace = s;
             let n = console[e] || console.log;
             n(
-              `%c${s}%c ${t}`,
+              `%c${o}%c ${t}`,
               `
 		background-color: ${{ log: "#000", warn: "#f80", error: "#f00", debug: "transparent" }[e]};
 		color: ${{ log: "#fff", warn: "#fff", error: "#fff", debug: "gray" }[e]};
@@ -57,22 +57,22 @@
       },
     },
     t = {};
-  function r(o) {
-    var s = t[o];
-    if (void 0 !== s) return s.exports;
-    var n = (t[o] = { exports: {} });
-    return e[o](n, n.exports, r), n.exports;
+  function r(s) {
+    var o = t[s];
+    if (void 0 !== o) return o.exports;
+    var n = (t[s] = { exports: {} });
+    return e[s](n, n.exports, r), n.exports;
   }
   (r.d = function (e, t) {
-    for (var o in t)
-      r.o(t, o) &&
-        !r.o(e, o) &&
-        Object.defineProperty(e, o, { enumerable: !0, get: t[o] });
+    for (var s in t)
+      r.o(t, s) &&
+        !r.o(e, s) &&
+        Object.defineProperty(e, s, { enumerable: !0, get: t[s] });
   }),
     (r.o = function (e, t) {
       return Object.prototype.hasOwnProperty.call(e, t);
     });
-  class o {
+  class s {
     handle;
     origin;
     syncToken;
@@ -116,43 +116,43 @@
             destinitation: e.destination,
           },
         },
-        o = e.body ? [e.body] : [];
-      this.handle.postMessage(r, o);
-      let { scramjet$response: s } = await new Promise((e) => {
+        s = e.body ? [e.body] : [];
+      this.handle.postMessage(r, s);
+      let { scramjet$response: o } = await new Promise((e) => {
         this.promises[t] = e;
       });
       return (
-        !!s &&
-        new Response(s.body, {
-          headers: s.headers,
-          status: s.status,
-          statusText: s.statusText,
+        !!o &&
+        new Response(o.body, {
+          headers: o.headers,
+          status: o.status,
+          statusText: o.statusText,
         })
       );
     }
   }
   !("$scramjet" in self) &&
     (self.$scramjet = {
-      version: { build: "e4a0ee9", version: "1.0.2-dev" },
+      version: { build: "f561029", version: "1.0.2-dev" },
       codec: {},
       flagEnabled: function (e, t) {
-        let r = s.config.defaultFlags[e];
-        for (let r in s.config.siteFlags) {
-          let o = s.config.siteFlags[r];
-          if (new RegExp(r).test(t.href) && e in o) return o[e];
+        let r = o.config.defaultFlags[e];
+        for (let r in o.config.siteFlags) {
+          let s = o.config.siteFlags[r];
+          if (new RegExp(r).test(t.href) && e in s) return s[e];
         }
         return r;
       },
     });
-  let s = self.$scramjet,
+  let o = self.$scramjet,
     n = Function,
     {
       util: { BareClient: i, ScramjetHeaders: a, BareMuxConnection: c },
-      url: { rewriteUrl: l, unrewriteUrl: d, rewriteBlob: u, unrewriteBlob: h },
+      url: { rewriteUrl: l, unrewriteUrl: d, rewriteBlob: h, unrewriteBlob: u },
       rewrite: {
         rewriteCss: f,
-        unrewriteCss: p,
-        rewriteHtml: m,
+        unrewriteCss: m,
+        rewriteHtml: p,
         unrewriteHtml: g,
         rewriteSrcset: y,
         rewriteJs: b,
@@ -161,7 +161,7 @@
         htmlRules: k,
       },
       CookieStore: x,
-    } = s.shared;
+    } = o.shared;
   function R(e) {
     return { origin: e, base: e };
   }
@@ -170,19 +170,19 @@
     if (r.has("url"))
       return Response.redirect(l(r.get("url"), R(new URL(r.get("url")))));
     try {
-      let o = new URL(e.url),
+      let s = new URL(e.url),
         n = "";
       if (
-        (o.searchParams.has("type") &&
-          ((n = o.searchParams.get("type")), o.searchParams.delete("type")),
-        o.searchParams.has("dest") && o.searchParams.delete("dest"),
-        o.pathname.startsWith(this.config.prefix + "blob:") ||
-          o.pathname.startsWith(this.config.prefix + "data:"))
+        (s.searchParams.has("type") &&
+          ((n = s.searchParams.get("type")), s.searchParams.delete("type")),
+        s.searchParams.has("dest") && s.searchParams.delete("dest"),
+        s.pathname.startsWith(this.config.prefix + "blob:") ||
+          s.pathname.startsWith(this.config.prefix + "data:"))
       ) {
         let r,
-          s = o.pathname.substring(this.config.prefix.length);
-        s.startsWith("blob:") && (s = h(s));
-        let i = await fetch(s, {});
+          o = s.pathname.substring(this.config.prefix.length);
+        o.startsWith("blob:") && (o = u(o));
+        let i = await fetch(o, {});
         i.body &&
           (r = await j(
             i,
@@ -208,7 +208,7 @@
           })
         );
       }
-      let i = new URL(d(o)),
+      let i = new URL(d(s)),
         c = this.serviceWorkers.find((e) => e.origin === i.origin);
       if (c && c.connected && "swruntime" !== r.get("from")) {
         let t = await c.fetch(e);
@@ -220,22 +220,18 @@
         );
       let l = new a();
       for (let [t, r] of e.headers.entries()) l.set(t, r);
-      if (t && new URL(t.url).pathname.startsWith(s.config.prefix)) {
+      if (t && new URL(t.url).pathname.startsWith(o.config.prefix)) {
         let e = new URL(d(t.url));
         e.toString().includes("youtube.com") ||
           (l.set("Referer", e.toString()), l.set("Origin", e.origin));
       }
-      let u = this.cookieStore.getCookies(i, !1);
-      u.length && l.set("Cookie", u);
-      let f = new E("request");
-      (f.url = i),
-        (f.body = e.body),
-        (f.method = e.method),
-        (f.destination = e.destination),
-        (f.client = t),
-        (f.requestHeaders = l.headers),
-        this.dispatchEvent(f);
-      let p =
+      let h = this.cookieStore.getCookies(i, !1);
+      h.length && l.set("Cookie", h),
+        l.set("Sec-Fetch-Dest", e.destination),
+        l.set("Sec-Fetch-Mode", "cors" === e.mode ? e.mode : "same-origin");
+      let f = new E(i, e.body, e.method, e.destination, t, l.headers);
+      this.dispatchEvent(f);
+      let m =
         f.response ||
         (await this.client.fetch(f.url, {
           method: f.method,
@@ -247,7 +243,7 @@
           redirect: "manual",
           duplex: "half",
         }));
-      return await $(i, n, e.destination, p, this.cookieStore, t, this);
+      return await $(i, n, e.destination, m, this.cookieStore, t, this);
     } catch (t) {
       if (
         (console.error("ERROR FROM SERVICE WORKER FETCH", t),
@@ -266,8 +262,8 @@
                 fetchedURL.textContent = ${JSON.stringify(t)};
                 for (const node of document.querySelectorAll("#hostname")) node.textContent = ${JSON.stringify(location.hostname)};
                 reload.addEventListener("click", () => location.reload());
-                version.textContent = ${JSON.stringify(s.version.version)};
-                build.textContent = ${JSON.stringify(s.version.build)};
+                version.textContent = ${JSON.stringify(o.version.version)};
+                build.textContent = ${JSON.stringify(o.version.build)};
         `;
               return `<!DOCTYPE html>
             <html>
@@ -409,22 +405,22 @@
       })(t, d(e.url));
     }
   }
-  async function $(e, t, r, o, s, n, i) {
+  async function $(e, t, r, s, o, n, i) {
     let a;
-    let c = w(o.rawHeaders, R(e)),
+    let c = w(s.rawHeaders, R(e)),
       l = c["set-cookie"] || [];
     for (let t in l)
       n && n.postMessage({ scramjet$type: "cookie", cookie: t, url: e.href });
-    for (let t in (await s.setCookies(l instanceof Array ? l : [l], e), c))
+    for (let t in (await o.setCookies(l instanceof Array ? l : [l], e), c))
       Array.isArray(c[t]) && (c[t] = c[t][0]);
     if (
-      (o.body && (a = await j(o, R(e), r, t, s)),
+      (s.body && (a = await j(s, R(e), r, t, o)),
       ["document", "iframe"].includes(r))
     ) {
       let e = c["content-disposition"];
       if (!/\s*?((inline|attachment);\s*?)filename=/i.test(e)) {
         let t = /^\s*?attachment/i.test(e) ? "attachment" : "inline",
-          [r] = new URL(o.finalURL).pathname.split("/").slice(-1);
+          [r] = new URL(s.finalURL).pathname.split("/").slice(-1);
         c["content-disposition"] = `${t}; filename=${JSON.stringify(r)}`;
       }
     }
@@ -442,16 +438,8 @@
         ].includes(r) &&
         ((c["Cross-Origin-Embedder-Policy"] = "require-corp"),
         (c["Cross-Origin-Opener-Policy"] = "same-origin"));
-    let d = new C("handleResponse");
+    let d = new C(a, c, s.status, s.statusText, r, e, s, n);
     return (
-      (d.responseBody = a),
-      (d.responseHeaders = c),
-      (d.status = o.status),
-      (d.statusText = o.statusText),
-      (d.destination = r),
-      (d.url = e),
-      (d.rawResponse = o),
-      (d.client = n),
       i.dispatchEvent(d),
       new Response(d.responseBody, {
         headers: d.responseHeaders,
@@ -460,54 +448,74 @@
       })
     );
   }
-  async function j(e, t, r, o, s) {
+  async function j(e, t, r, s, o) {
     switch (r) {
       case "iframe":
       case "document":
         if (e.headers.get("content-type")?.startsWith("text/html"))
-          return m(await e.text(), s, t, !0);
+          return p(await e.text(), o, t, !0);
         return e.body;
       case "script":
-        return b(await e.arrayBuffer(), e.url, t);
+        return b(await e.arrayBuffer(), e.finalURL, t);
       case "style":
         return f(await e.text(), t);
       case "sharedworker":
       case "worker":
-        return v(await e.arrayBuffer(), o, e.url, t);
+        return v(await e.arrayBuffer(), s, e.url, t);
       default:
         return e.body;
     }
   }
-  s.config;
+  o.config;
   class C extends Event {
-    responseHeaders;
     responseBody;
+    responseHeaders;
     status;
     statusText;
     destination;
     url;
     rawResponse;
     client;
+    constructor(e, t, r, s, o, n, i, a) {
+      super("handleResponse"),
+        (this.responseBody = e),
+        (this.responseHeaders = t),
+        (this.status = r),
+        (this.statusText = s),
+        (this.destination = o),
+        (this.url = n),
+        (this.rawResponse = i),
+        (this.client = a);
+    }
   }
   class E extends Event {
     url;
+    body;
+    method;
     destination;
     client;
-    method;
-    body;
     requestHeaders;
+    constructor(e, t, r, s, o, n) {
+      super("request"),
+        (this.url = e),
+        (this.body = t),
+        (this.method = r),
+        (this.destination = s),
+        (this.client = o),
+        (this.requestHeaders = n);
+    }
     response;
   }
   var O = r(1762).Z;
-  class T extends EventTarget {
+  class L extends EventTarget {
     client;
     config;
     syncPool = {};
     synctoken = 0;
-    cookieStore = new s.shared.CookieStore();
+    cookieStore = new o.shared.CookieStore();
     serviceWorkers = [];
     constructor() {
-      super(), (this.client = new s.shared.util.BareClient());
+      super(), (this.client = new o.shared.util.BareClient());
       let e = indexedDB.open("$scramjet", 1);
       (e.onsuccess = () => {
         let t = e.result
@@ -523,7 +531,7 @@
         addEventListener("message", async ({ data: t }) => {
           if ("scramjet$type" in t) {
             if ("registerServiceWorker" === t.scramjet$type) {
-              this.serviceWorkers.push(new o(t.port, t.origin));
+              this.serviceWorkers.push(new s(t.port, t.origin));
               return;
             }
             "cookie" === t.scramjet$type &&
@@ -540,18 +548,18 @@
       let e = indexedDB.open("$scramjet", 1);
       return new Promise((t, r) => {
         (e.onsuccess = async () => {
-          let o = e.result
+          let s = e.result
             .transaction("config", "readonly")
             .objectStore("config")
             .get("config");
-          (o.onsuccess = () => {
-            (this.config = o.result),
-              (s.config = o.result),
-              (s.codec.encode = n("url", s.config.codec.encode)),
-              (s.codec.decode = n("url", s.config.codec.decode)),
+          (s.onsuccess = () => {
+            (this.config = s.result),
+              (o.config = s.result),
+              (o.codec.encode = n("url", o.config.codec.encode)),
+              (o.codec.decode = n("url", o.config.codec.decode)),
               t();
           }),
-            (o.onerror = () => r(o.error));
+            (s.onerror = () => r(s.error));
         }),
           (e.onerror = () => r(e.error));
       });
@@ -564,6 +572,6 @@
       return S.call(this, e, r);
     }
   }
-  self.ScramjetServiceWorker = T;
+  self.ScramjetServiceWorker = L;
 })();
 //# sourceMappingURL=scramjet.worker.js.map

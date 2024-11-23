@@ -65,8 +65,8 @@
           "./shared/event.ts": "8231",
           "./shared/function": "7636",
           "./shared/function.ts": "7636",
-          "./shared/import": "7513",
-          "./shared/import.ts": "7513",
+          "./shared/import": "7341",
+          "./shared/import.ts": "7341",
           "./shared/indexeddb": "2930",
           "./shared/indexeddb.ts": "2930",
           "./shared/postmessage": "2625",
@@ -201,7 +201,9 @@
           }
           get frame() {
             if (!n.iswindow) return null;
-            let e = this.global.window.frameElement;
+            let e = this.descriptors["window.frameElement"]
+              ? this.descriptors["window.frameElement"].get.call(this.global)
+              : this.global.window.frameElement;
             if (!e) return null;
             let t = e[o.D];
             if (!t) {
@@ -431,9 +433,12 @@
                                     ? Reflect.apply(e, t, o)
                                     : Reflect.apply(e, n, o),
                               })
-                            : this.has(e, n)
-                              ? a
-                              : void 0;
+                            : ("string" != typeof n && "number" != typeof n) ||
+                                isNaN(Number(n))
+                              ? this.has(e, n)
+                                ? a
+                                : void 0
+                              : t[Object.keys(r)[n]];
                   },
                   ownKeys(e) {
                     return Reflect.ownKeys(e).filter((t) => this.has(e, t));
@@ -573,14 +578,18 @@
         function o(e, t) {
           e.Proxy("Document.prototype.write", {
             apply(t) {
-              t.args[0] &&
-                (t.args[0] = (0, n.r4)(t.args[0], e.cookieStore, e.meta, !1));
+              if (t.args[0])
+                try {
+                  t.args[0] = (0, n.r4)(t.args[0], e.cookieStore, e.meta, !1);
+                } catch {}
             },
           }),
             e.Proxy("Document.prototype.writeln", {
               apply(t) {
-                t.args[0] &&
-                  (t.args[0] = (0, n.r4)(t.args[0], e.cookieStore, e.meta, !1));
+                if (t.args[0])
+                  try {
+                    t.args[0] = (0, n.r4)(t.args[0], e.cookieStore, e.meta, !1);
+                  } catch {}
               },
             });
         }
@@ -757,8 +766,10 @@
             }),
             e.Proxy("Element.prototype.insertAdjacentHTML", {
               apply(t) {
-                t.args[1] &&
-                  (t.args[1] = (0, s.r4)(t.args[1], e.cookieStore, e.meta, !1));
+                if (t.args[1])
+                  try {
+                    t.args[1] = (0, s.r4)(t.args[1], e.cookieStore, e.meta, !1);
+                  } catch {}
               },
             }),
             e.Trap("HTMLIFrameElement.prototype.contentWindow", {
@@ -827,8 +838,10 @@
             }),
             e.Proxy("DOMParser.prototype.parseFromString", {
               apply(t) {
-                "text/html" === t.args[1] &&
-                  (t.args[0] = (0, s.r4)(t.args[0], e.cookieStore, e.meta, !1));
+                if ("text/html" === t.args[1])
+                  try {
+                    t.args[0] = (0, s.r4)(t.args[0], e.cookieStore, e.meta, !1);
+                  } catch {}
               },
             });
         }
@@ -863,14 +876,17 @@
         function a(e, t) {
           e.Proxy("History.prototype.pushState", {
             apply(t) {
-              t.args[2] && (t.args[2] = (0, n.dm)(t.args[2], e.meta)), t.call();
+              (t.args[2] || "" === t.args[2]) &&
+                (t.args[2] = (0, n.dm)(t.args[2], e.meta)),
+                t.call();
               let r = new o.UrlChangeEvent(e.url.href);
               e.frame && e.frame.dispatchEvent(r);
             },
           }),
             e.Proxy("History.prototype.replaceState", {
               apply(t) {
-                t.args[2] && (t.args[2] = (0, n.dm)(t.args[2], e.meta)),
+                (t.args[2] || "" === t.args[2]) &&
+                  (t.args[2] = (0, n.dm)(t.args[2], e.meta)),
                   t.call();
                 let r = new o.UrlChangeEvent(e.url.href);
                 e.frame && e.frame.dispatchEvent(r);
@@ -1322,18 +1338,19 @@
         r.r(t),
           r.d(t, {
             createLocationProxy: function () {
-              return s;
+              return i;
             },
           });
         var n = r(3498),
           o = r(4471),
-          a = r(6707);
-        function s(e, t) {
-          let r = a.iswindow ? t.Location : t.WorkerLocation,
-            s = {};
-          Object.setPrototypeOf(s, r.prototype), (s.constructor = r);
-          let i = a.iswindow ? t.location : r.prototype;
-          for (let t of [
+          a = r(5008),
+          s = r(6707);
+        function i(e, t) {
+          let r = s.iswindow ? t.Location : t.WorkerLocation,
+            i = {};
+          Object.setPrototypeOf(i, r.prototype), (i.constructor = r);
+          let l = s.iswindow ? t.location : r.prototype;
+          for (let r of [
             "protocol",
             "hash",
             "host",
@@ -1344,52 +1361,58 @@
             "port",
             "search",
           ]) {
-            let r = (0, n.nativeGetOwnPropertyDescriptor)(i, t);
-            if (!r) continue;
-            let o = { configurable: !0, enumerable: !0 };
-            r.get && (o.get = new Proxy(r.get, { apply: () => e.url[t] })),
-              r.set &&
-                (o.set = new Proxy(r.set, {
-                  apply(r, n, o) {
-                    if ("href" === t) {
-                      e.url = o[0];
+            let o = (0, n.nativeGetOwnPropertyDescriptor)(l, r);
+            if (!o) continue;
+            let s = { configurable: !0, enumerable: !0 };
+            o.get && (s.get = new Proxy(o.get, { apply: () => e.url[r] })),
+              o.set &&
+                (s.set = new Proxy(o.set, {
+                  apply(n, o, s) {
+                    if ("href" === r) {
+                      e.url = s[0];
                       return;
                     }
-                    let a = new URL(e.url.href);
-                    (a[t] = o[0]), (e.url = a);
+                    if ("hash" === r) {
+                      t.location.hash = s[0];
+                      let r = new a.UrlChangeEvent(e.url.href);
+                      e.frame && e.frame.dispatchEvent(r);
+                      return;
+                    }
+                    let i = new URL(e.url.href);
+                    (i[r] = s[0]), (e.url = i);
                   },
                 })),
-              Object.defineProperty(s, t, o);
+              Object.defineProperty(i, r, s);
           }
           return (
-            (s.toString = new Proxy(t.location.toString, {
+            (i.toString = new Proxy(t.location.toString, {
               apply: () => e.url.href,
             })),
             t.location.valueOf &&
-              (s.valueOf = new Proxy(t.location.valueOf, {
+              (i.valueOf = new Proxy(t.location.valueOf, {
                 apply: () => e.url.href,
               })),
             t.location.assign &&
-              (s.assign = new Proxy(t.location.assign, {
+              (i.assign = new Proxy(t.location.assign, {
                 apply(r, n, a) {
                   (a[0] = (0, o.dm)(a[0], e.meta)),
                     Reflect.apply(r, t.location, a);
                 },
               })),
             t.location.reload &&
-              (s.reload = new Proxy(t.location.reload, {
+              (i.reload = new Proxy(t.location.reload, {
                 apply(e, r, n) {
                   Reflect.apply(e, t.location, n);
                 },
               })),
             t.location.replace &&
-              (s.replace = new Proxy(t.location.replace, {
+              (i.replace = new Proxy(t.location.replace, {
                 apply(r, n, a) {
                   (a[0] = (0, o.dm)(a[0], e.meta)),
                     Reflect.apply(r, t.location, a);
                 },
               })),
-            s
+            i
           );
         }
       },
@@ -1815,71 +1838,13 @@
             );
         }
       },
-      7513: function (e, t, r) {
+      7341: function (e, t, r) {
         "use strict";
         let n;
         r.r(t), r.d(t, { default: () => S });
         var o = r("4471"),
           a = r("8810");
-        let s = 0,
-          i = null;
-        function l() {
-          return (
-            (null === i || i.buffer !== n.memory.buffer) &&
-              (i = new Uint8Array(n.memory.buffer)),
-            i
-          );
-        }
-        let c =
-            "undefined" != typeof TextEncoder
-              ? new TextEncoder("utf-8")
-              : {
-                  encode: () => {
-                    throw Error("TextEncoder not available");
-                  },
-                },
-          u = function (e, t) {
-            let r = c.encode(e);
-            return t.set(r), { read: e.length, written: r.length };
-          };
-        function f(e, t, r) {
-          if (void 0 === r) {
-            let r = c.encode(e),
-              n = t(r.length, 1) >>> 0;
-            return (
-              l()
-                .subarray(n, n + r.length)
-                .set(r),
-              (s = r.length),
-              n
-            );
-          }
-          let n = e.length,
-            o = t(n, 1) >>> 0,
-            a = l(),
-            i = 0;
-          for (; i < n; i++) {
-            let t = e.charCodeAt(i);
-            if (t > 127) break;
-            a[o + i] = t;
-          }
-          if (i !== n) {
-            0 !== i && (e = e.slice(i)),
-              (o = r(o, n, (n = i + 3 * e.length), 1) >>> 0);
-            let t = u(e, l().subarray(o + i, o + n));
-            (i += t.written), (o = r(o, n, i, 1) >>> 0);
-          }
-          return (s = i), o;
-        }
-        let p = null;
-        function g() {
-          return (
-            (null === p || p.buffer !== n.memory.buffer) &&
-              (p = new DataView(n.memory.buffer)),
-            p
-          );
-        }
-        let d =
+        let s =
           "undefined" != typeof TextDecoder
             ? new TextDecoder("utf-8", { ignoreBOM: !0, fatal: !0 })
             : {
@@ -1887,15 +1852,73 @@
                   throw Error("TextDecoder not available");
                 },
               };
-        function y(e, t) {
-          return (e >>>= 0), d.decode(l().slice(e, e + t));
+        "undefined" != typeof TextDecoder && s.decode();
+        let i = null;
+        function l() {
+          return (
+            (null === i || i.buffer !== n.memory.buffer) &&
+              (i = new Uint8Array(n.memory.buffer)),
+            i
+          );
         }
-        "undefined" != typeof TextDecoder && d.decode();
+        function c(e, t) {
+          return (e >>>= 0), s.decode(l().slice(e, e + t));
+        }
+        let u = 0,
+          f =
+            "undefined" != typeof TextEncoder
+              ? new TextEncoder("utf-8")
+              : {
+                  encode: () => {
+                    throw Error("TextEncoder not available");
+                  },
+                },
+          p = function (e, t) {
+            let r = f.encode(e);
+            return t.set(r), { read: e.length, written: r.length };
+          };
+        function g(e, t, r) {
+          if (void 0 === r) {
+            let r = f.encode(e),
+              n = t(r.length, 1) >>> 0;
+            return (
+              l()
+                .subarray(n, n + r.length)
+                .set(r),
+              (u = r.length),
+              n
+            );
+          }
+          let n = e.length,
+            o = t(n, 1) >>> 0,
+            a = l(),
+            s = 0;
+          for (; s < n; s++) {
+            let t = e.charCodeAt(s);
+            if (t > 127) break;
+            a[o + s] = t;
+          }
+          if (s !== n) {
+            0 !== s && (e = e.slice(s)),
+              (o = r(o, n, (n = s + 3 * e.length), 1) >>> 0);
+            let t = p(e, l().subarray(o + s, o + n));
+            (s += t.written), (o = r(o, n, s, 1) >>> 0);
+          }
+          return (u = s), o;
+        }
+        let d = null;
+        function y() {
+          return (
+            (null === d || d.buffer !== n.memory.buffer) &&
+              (d = new DataView(n.memory.buffer)),
+            d
+          );
+        }
         function m(e) {
           let t = n.__wbindgen_export_4.get(e);
           return n.__externref_table_dealloc(e), t;
         }
-        function b(e, t) {
+        function h(e, t) {
           try {
             return e.apply(this, t);
           } catch (t) {
@@ -1906,7 +1929,7 @@
             n.__wbindgen_exn_store(e);
           }
         }
-        async function h(e, t) {
+        async function b(e, t) {
           if ("function" == typeof Response && e instanceof Response) {
             if ("function" == typeof WebAssembly.instantiateStreaming)
               try {
@@ -1933,37 +1956,50 @@
           let e = {};
           return (
             (e.wbg = {}),
+            (e.wbg.__wbindgen_error_new = function (e, t) {
+              return Error(c(e, t));
+            }),
+            (e.wbg.__wbindgen_string_new = function (e, t) {
+              return c(e, t);
+            }),
+            (e.wbg.__wbg_call_3bfa248576352471 = function () {
+              return h(function (e, t, r) {
+                return e.call(t, r);
+              }, arguments);
+            }),
             (e.wbg.__wbindgen_string_get = function (e, t) {
               let r = "string" == typeof t ? t : void 0;
               var o,
                 a =
                   null == (o = r)
                     ? 0
-                    : f(r, n.__wbindgen_malloc, n.__wbindgen_realloc),
-                i = s;
-              g().setInt32(e + 4, i, !0), g().setInt32(e + 0, a, !0);
+                    : g(r, n.__wbindgen_malloc, n.__wbindgen_realloc),
+                s = u;
+              y().setInt32(e + 4, s, !0), y().setInt32(e + 0, a, !0);
             }),
-            (e.wbg.__wbindgen_error_new = function (e, t) {
-              return Error(y(e, t));
+            (e.wbg.__wbg_get_ef828680c64da212 = function () {
+              return h(function (e, t) {
+                return Reflect.get(e, t);
+              }, arguments);
             }),
-            (e.wbg.__wbindgen_string_new = function (e, t) {
-              return y(e, t);
-            }),
-            (e.wbg.__wbg_now_d3cbc9581625f686 = function (e) {
-              return e.now();
+            (e.wbg.__wbg_toString_4b677455b9167e31 = function (e) {
+              return e.toString();
             }),
             (e.wbg.__wbg_set_e864d25d9b399c9f = function () {
-              return b(function (e, t, r) {
+              return h(function (e, t, r) {
                 return Reflect.set(e, t, r);
               }, arguments);
             }),
+            (e.wbg.__wbindgen_is_function = function (e) {
+              return "function" == typeof e;
+            }),
             (e.wbg.__wbg_new_1cabf49927794f50 = function () {
-              return b(function (e, t) {
-                return new URL(y(e, t));
+              return h(function (e, t) {
+                return new URL(c(e, t));
               }, arguments);
             }),
             (e.wbg.__wbg_call_5fb7c8066a4a4825 = function () {
-              return b(function (e, t, r, n) {
+              return h(function (e, t, r, n) {
                 return e.call(t, r, n);
               }, arguments);
             }),
@@ -1982,85 +2018,47 @@
                 l().subarray(r / 1, r / 1 + o)).slice();
               return n.__wbindgen_free(e, 1 * t, 1), a;
             }),
-            (e.wbg.__wbindgen_array_new = function () {
+            (e.wbg.__wbg_new_034f913e7636e987 = function () {
               return [];
-            }),
-            (e.wbg.__wbindgen_array_push = function (e, t) {
-              e.push(t);
             }),
             (e.wbg.__wbindgen_number_new = function (e) {
               return e;
             }),
-            (e.wbg.__wbg_new_abda76e883ba8a5f = function () {
-              return Error();
+            (e.wbg.__wbg_scramtag_51d94caa8a743d31 = function (e) {
+              let t = g(
+                  "10000000000".replace(/[018]/g, (e) =>
+                    (
+                      e ^
+                      (crypto.getRandomValues(new Uint8Array(1))[0] &
+                        (15 >> (e / 4)))
+                    ).toString(16),
+                  ),
+                  n.__wbindgen_malloc,
+                  n.__wbindgen_realloc,
+                ),
+                r = u;
+              y().setInt32(e + 4, r, !0), y().setInt32(e + 0, t, !0);
             }),
-            (e.wbg.__wbg_stack_658279fe44541cf6 = function (e, t) {
-              let r = f(t.stack, n.__wbindgen_malloc, n.__wbindgen_realloc),
-                o = s;
-              g().setInt32(e + 4, o, !0), g().setInt32(e + 0, r, !0);
-            }),
-            (e.wbg.__wbg_error_f851667af71bcfc6 = function (e, t) {
-              let r, o;
-              try {
-                (r = e), (o = t), console.error(y(e, t));
-              } finally {
-                n.__wbindgen_free(r, o, 1);
-              }
-            }),
-            (e.wbg.__wbindgen_is_object = function (e) {
-              return "object" == typeof e && null !== e;
-            }),
-            (e.wbg.__wbg_crypto_1d1f22824a6a080c = function (e) {
-              return e.crypto;
-            }),
-            (e.wbg.__wbg_process_4a72847cc503995b = function (e) {
-              return e.process;
-            }),
-            (e.wbg.__wbg_versions_f686565e586dd935 = function (e) {
-              return e.versions;
-            }),
-            (e.wbg.__wbg_node_104a2ff8d6ea03a2 = function (e) {
-              return e.node;
-            }),
-            (e.wbg.__wbindgen_is_string = function (e) {
-              return "string" == typeof e;
-            }),
-            (e.wbg.__wbg_require_cca90b1a94a0255b = function () {
-              return b(function () {
-                return module.require;
-              }, arguments);
-            }),
-            (e.wbg.__wbg_msCrypto_eb05e62b530a1508 = function (e) {
-              return e.msCrypto;
-            }),
-            (e.wbg.__wbg_newwithlength_76462a666eca145f = function (e) {
-              return new Uint8Array(e >>> 0);
-            }),
-            (e.wbg.__wbindgen_is_function = function (e) {
-              return "function" == typeof e;
-            }),
-            (e.wbg.__wbg_get_ef828680c64da212 = function () {
-              return b(function (e, t) {
-                return Reflect.get(e, t);
-              }, arguments);
+            (e.wbg.__wbg_now_d3cbc9581625f686 = function (e) {
+              return e.now();
             }),
             (e.wbg.__wbg_self_bf91bf94d9e04084 = function () {
-              return b(function () {
+              return h(function () {
                 return self.self;
               }, arguments);
             }),
             (e.wbg.__wbg_window_52dd9f07d03fd5f8 = function () {
-              return b(function () {
+              return h(function () {
                 return window.window;
               }, arguments);
             }),
             (e.wbg.__wbg_globalThis_05c129bf37fcf1be = function () {
-              return b(function () {
+              return h(function () {
                 return globalThis.globalThis;
               }, arguments);
             }),
             (e.wbg.__wbg_global_3eca19bb09e9c484 = function () {
-              return b(function () {
+              return h(function () {
                 return global.global;
               }, arguments);
             }),
@@ -2068,94 +2066,15 @@
               return void 0 === e;
             }),
             (e.wbg.__wbg_newnoargs_1ede4bf2ebbaaf43 = function (e, t) {
-              return Function(y(e, t));
+              return Function(c(e, t));
             }),
             (e.wbg.__wbg_call_a9ef466721e824f2 = function () {
-              return b(function (e, t) {
+              return h(function (e, t) {
                 return e.call(t);
               }, arguments);
             }),
-            (e.wbg.__wbg_call_3bfa248576352471 = function () {
-              return b(function (e, t, r) {
-                return e.call(t, r);
-              }, arguments);
-            }),
-            (e.wbg.__wbindgen_memory = function () {
-              return n.memory;
-            }),
-            (e.wbg.__wbg_buffer_ccaed51a635d8a2d = function (e) {
-              return e.buffer;
-            }),
-            (e.wbg.__wbg_newwithbyteoffsetandlength_7e3eb787208af730 =
-              function (e, t, r) {
-                return new Uint8Array(e, t >>> 0, r >>> 0);
-              }),
-            (e.wbg.__wbg_randomFillSync_5c9c955aa56b6049 = function () {
-              return b(function (e, t) {
-                e.randomFillSync(t);
-              }, arguments);
-            }),
-            (e.wbg.__wbg_subarray_975a06f9dbd16995 = function (e, t, r) {
-              return e.subarray(t >>> 0, r >>> 0);
-            }),
-            (e.wbg.__wbg_getRandomValues_3aa56aa6edec874c = function () {
-              return b(function (e, t) {
-                e.getRandomValues(t);
-              }, arguments);
-            }),
-            (e.wbg.__wbg_new_fec2611eb9180f95 = function (e) {
-              return new Uint8Array(e);
-            }),
-            (e.wbg.__wbg_set_ec2fcf81bc573fd9 = function (e, t, r) {
-              e.set(t, r >>> 0);
-            }),
             (e.wbg.__wbindgen_throw = function (e, t) {
-              throw Error(y(e, t));
-            }),
-            (e.wbg.__wbindgen_debug_string = function (e, t) {
-              let r = f(
-                  (function e(t) {
-                    let r;
-                    let n = typeof t;
-                    if ("number" == n || "boolean" == n || null == t)
-                      return `${t}`;
-                    if ("string" == n) return `"${t}"`;
-                    if ("symbol" == n) {
-                      let e = t.description;
-                      return null == e ? "Symbol" : `Symbol(${e})`;
-                    }
-                    if ("function" == n) {
-                      let e = t.name;
-                      return "string" == typeof e && e.length > 0
-                        ? `Function(${e})`
-                        : "Function";
-                    }
-                    if (Array.isArray(t)) {
-                      let r = t.length,
-                        n = "[";
-                      r > 0 && (n += e(t[0]));
-                      for (let o = 1; o < r; o++) n += ", " + e(t[o]);
-                      return (n += "]");
-                    }
-                    let o = /\[object ([^\]]+)\]/.exec(toString.call(t));
-                    if (!(o.length > 1)) return toString.call(t);
-                    r = o[1];
-                    if ("Object" == r)
-                      try {
-                        return "Object(" + JSON.stringify(t) + ")";
-                      } catch (e) {
-                        return "Object";
-                      }
-                    return t instanceof Error
-                      ? `${t.name}: ${t.message}
-${t.stack}`
-                      : r;
-                  })(t),
-                  n.__wbindgen_malloc,
-                  n.__wbindgen_realloc,
-                ),
-                o = s;
-              g().setInt32(e + 4, o, !0), g().setInt32(e + 0, r, !0);
+              throw Error(c(e, t));
             }),
             (e.wbg.__wbindgen_init_externref_table = function () {
               let e = n.__wbindgen_export_4,
@@ -2169,23 +2088,23 @@ ${t.stack}`
             e
           );
         }
-        function _(e, t) {
+        function v(e, t) {
           e.wbg.memory =
             t ||
-            new WebAssembly.Memory({ initial: 22, maximum: 16384, shared: !0 });
+            new WebAssembly.Memory({ initial: 21, maximum: 16384, shared: !0 });
         }
-        function v(e, t, r) {
+        function x(e, t, r) {
           if (
             ((n = e.exports),
-            (x.__wbindgen_wasm_module = t),
-            (p = null),
+            (P.__wbindgen_wasm_module = t),
+            (d = null),
             (i = null),
             void 0 !== r && ("number" != typeof r || 0 === r || r % 65536 != 0))
           )
             throw "invalid stack size";
           return n.__wbindgen_start(r), n;
         }
-        async function x(e, t) {
+        async function P(e, t) {
           let r;
           if (void 0 !== n) return n;
           void 0 !== e &&
@@ -2200,9 +2119,9 @@ ${t.stack}`
             ("function" == typeof Request && e instanceof Request) ||
             ("function" == typeof URL && e instanceof URL)) &&
             (e = fetch(e)),
-            _(o, t);
-          let { instance: a, module: s } = await h(await e, o);
-          return v(a, s, r);
+            v(o, t);
+          let { instance: a, module: s } = await b(await e, o);
+          return x(a, s, r);
         }
         !(function (e, t) {
           let r;
@@ -2214,23 +2133,22 @@ ${t.stack}`
                   "using deprecated parameters for `initSync()`; pass a single object instead",
                 ));
           let o = w();
-          _(o, t),
+          v(o, t),
             !(e instanceof WebAssembly.Module) &&
               (e = new WebAssembly.Module(e)),
-            v(new WebAssembly.Instance(e, o), e, r);
+            x(new WebAssembly.Instance(e, o), e, r);
         })({
           module: new WebAssembly.Module(
             Uint8Array.from(atob(self.WASM), (e) => e.charCodeAt(0)),
           ),
         }),
-          n.init(),
           (Error.stackTraceLimit = 50);
-        let P = new TextDecoder();
+        let _ = new TextDecoder();
         function S(e, t) {
           let r = e.natives.Function;
           (t[o.vc.globals.importfn] = function (t) {
             return function (o) {
-              let i = new URL(o, t).href;
+              let s = new URL(o, t).href;
               return r(
                 `return import("${(function (e, t) {
                   if (
@@ -2265,61 +2183,61 @@ ${t.stack}`
                         return (e = (function (e, t, r) {
                           let o;
                           let {
-                            js: i,
-                            errors: c,
-                            duration: u,
+                            js: s,
+                            errors: i,
+                            duration: c,
                           } = (o =
                             "string" == typeof e
                               ? (function (e, t, r, o) {
-                                  let a = f(
+                                  let a = g(
                                       e,
                                       n.__wbindgen_malloc,
                                       n.__wbindgen_realloc,
                                     ),
-                                    i = s,
-                                    l = f(
+                                    s = u,
+                                    i = g(
                                       t,
                                       n.__wbindgen_malloc,
                                       n.__wbindgen_realloc,
                                     ),
-                                    c = s,
-                                    u = f(
+                                    l = u,
+                                    c = g(
                                       r,
                                       n.__wbindgen_malloc,
                                       n.__wbindgen_realloc,
                                     ),
-                                    p = s,
-                                    g = n.rewrite_js(a, i, l, c, u, p, o);
-                                  if (g[2]) throw m(g[1]);
-                                  return m(g[0]);
+                                    f = u,
+                                    p = n.rewrite_js(a, s, i, l, c, f, o);
+                                  if (p[2]) throw m(p[1]);
+                                  return m(p[0]);
                                 })(e, r.base.href, t || "(unknown)", a.h3)
                               : (function (e, t, r, o) {
                                   let a = (function (e, t) {
                                       let r = t(1 * e.length, 1) >>> 0;
                                       return (
-                                        l().set(e, r / 1), (s = e.length), r
+                                        l().set(e, r / 1), (u = e.length), r
                                       );
                                     })(e, n.__wbindgen_malloc),
-                                    i = s,
-                                    c = f(
+                                    s = u,
+                                    i = g(
                                       t,
                                       n.__wbindgen_malloc,
                                       n.__wbindgen_realloc,
                                     ),
-                                    u = s,
-                                    p = f(
+                                    c = u,
+                                    f = g(
                                       r,
                                       n.__wbindgen_malloc,
                                       n.__wbindgen_realloc,
                                     ),
-                                    g = s,
+                                    p = u,
                                     d = n.rewrite_js_from_arraybuffer(
                                       a,
+                                      s,
                                       i,
                                       c,
-                                      u,
+                                      f,
                                       p,
-                                      g,
                                       o,
                                     );
                                   if (d[2]) throw m(d[1]);
@@ -2330,18 +2248,20 @@ ${t.stack}`
                                   t || "(unknown)",
                                   a.h3,
                                 ));
-                          for (let e of c) console.error("oxc parse error", e);
+                          for (let e of i) console.error("oxc parse error", e);
                           {
                             let e;
                             (e =
-                              u < 1n
+                              c < 1n
                                 ? "BLAZINGLY FAST"
-                                : u < 500n
+                                : c < 500n
                                   ? "decent speed"
                                   : "really slow"),
-                              console.log(`oxc rewrite was ${e} (${u}ms)`);
+                              console.log(
+                                `oxc rewrite for "${t || "(unknown)"}" was ${e} (${c}ms)`,
+                              );
                           }
-                          return "string" == typeof e ? P.decode(i) : i;
+                          return "string" == typeof e ? _.decode(s) : s;
                         })(e, null, r));
                       })(e.slice(11), null, t)
                     );
@@ -2390,7 +2310,7 @@ ${t.stack}`
                         a.h3.codec.encode(new URL(e, r).href)
                     );
                   }
-                })(i, e.meta)}")`,
+                })(s, e.meta)}")`,
               )();
             };
           }),
@@ -2736,78 +2656,79 @@ ${t.stack}`
       },
       7481: function (e, t, r) {
         "use strict";
-        let n, o;
         r.r(t),
           r.d(t, {
             default: function () {
-              return i;
+              return a;
             },
           });
-        var a = r(8810),
-          s = r(4471);
-        function i(e, t) {
+        var n = r(8810),
+          o = r(4471);
+        function a(e, t) {
           let r;
           t.Worker &&
-            (0, a.Sp)("syncxhr", e.url) &&
-            (r = new n(s.vc.files.sync));
-          let i = Symbol("xhr original args"),
-            l = Symbol("xhr headers");
+            (0, n.Sp)("syncxhr", e.url) &&
+            (r = new (e.natives.Worker ? e.natives.Worker : Worker)(
+              o.vc.files.sync,
+            ));
+          let a = Symbol("xhr original args"),
+            s = Symbol("xhr headers");
           e.Proxy("XMLHttpRequest.prototype.open", {
             apply(t) {
-              t.args[1] && (t.args[1] = (0, s.dm)(t.args[1], e.meta)),
-                (t.this[i] = t.args);
+              t.args[1] && (t.args[1] = (0, o.dm)(t.args[1], e.meta)),
+                (t.this[a] = t.args);
             },
           }),
             e.Proxy("XMLHttpRequest.prototype.setRequestHeader", {
               apply(e) {
-                (e.this[l] || (e.this[l] = {}))[e.args[0]] = e.args[1];
+                (e.this[s] || (e.this[s] = {}))[e.args[0]] = e.args[1];
               },
             }),
             e.Proxy("XMLHttpRequest.prototype.send", {
               apply(t) {
-                let n = t.this[i];
-                if (!n || n[2]) return;
-                if (!(0, a.Sp)("syncxhr", e.url)) {
+                let o = t.this[a];
+                if (!o || o[2]) return;
+                if (!(0, n.Sp)("syncxhr", e.url)) {
                   console.warn("ignoring request - sync xhr disabled in flags");
                   return;
                 }
-                let s = new SharedArrayBuffer(1024, {
+                let i = new SharedArrayBuffer(1024, {
                     maxByteLength: 0x7fffffff,
                   }),
-                  c = new DataView(s);
-                o.call(r, {
-                  sab: s,
-                  args: n,
-                  headers: t.this[l],
+                  l = new DataView(i);
+                e.natives["Worker.prototype.postMessage"].call(r, {
+                  sab: i,
+                  args: o,
+                  headers: t.this[s],
                   body: t.args[0],
                 });
-                let u = performance.now();
-                for (; 0 === c.getUint8(0); )
-                  if (performance.now() - u > 1e3) throw Error("xhr timeout");
-                let f = c.getUint16(1),
-                  p = c.getUint32(3),
-                  g = new Uint8Array(p);
-                g.set(new Uint8Array(s.slice(7, 7 + p)));
-                let d = new TextDecoder().decode(g),
-                  y = c.getUint32(7 + p),
-                  m = new Uint8Array(y);
-                m.set(new Uint8Array(s.slice(11 + p, 11 + p + y)));
-                let b = new TextDecoder().decode(m);
-                e.RawTrap(t.this, "status", { get: () => f }),
-                  e.RawTrap(t.this, "responseText", { get: () => b }),
+                let c = performance.now();
+                for (; 0 === l.getUint8(0); )
+                  if (performance.now() - c > 1e3) throw Error("xhr timeout");
+                let u = l.getUint16(1),
+                  f = l.getUint32(3),
+                  p = new Uint8Array(f);
+                p.set(new Uint8Array(i.slice(7, 7 + f)));
+                let g = new TextDecoder().decode(p),
+                  d = l.getUint32(7 + f),
+                  y = new Uint8Array(d);
+                y.set(new Uint8Array(i.slice(11 + f, 11 + f + d)));
+                let m = new TextDecoder().decode(y);
+                e.RawTrap(t.this, "status", { get: () => u }),
+                  e.RawTrap(t.this, "responseText", { get: () => m }),
                   e.RawTrap(t.this, "response", {
                     get: () =>
-                      "arraybuffer" === t.this.responseType ? m.buffer : b,
+                      "arraybuffer" === t.this.responseType ? y.buffer : m,
                   }),
                   e.RawTrap(t.this, "responseXML", {
-                    get: () => new DOMParser().parseFromString(b, "text/xml"),
+                    get: () => new DOMParser().parseFromString(m, "text/xml"),
                   }),
                   e.RawTrap(t.this, "getAllResponseHeaders", {
-                    get: () => () => d,
+                    get: () => () => g,
                   }),
                   e.RawTrap(t.this, "getResponseHeader", {
                     get: () => (e) => {
-                      let t = RegExp(`^${e}: (.*)$`, "m").exec(d);
+                      let t = RegExp(`^${e}: (.*)$`, "m").exec(g);
                       return t ? t[1] : null;
                     },
                   }),
@@ -2815,10 +2736,9 @@ ${t.stack}`
               },
             }),
             e.Trap("XMLHttpRequest.prototype.responseURL", {
-              get: (e) => (0, s.Sd)(e.get()),
+              get: (e) => (0, o.Sd)(e.get()),
             });
         }
-        self.Worker && ((n = Worker), (o = Worker.prototype.postMessage));
       },
       6321: function (e, t, r) {
         "use strict";
@@ -2974,41 +2894,43 @@ ${t.stack}`
       },
       8475: function (e, t, r) {
         "use strict";
-        let n;
         r.r(t),
           r.d(t, {
             default: function () {
-              return i;
+              return a;
             },
           });
-        var o = r(6707),
-          a = r(4471);
-        let s = MessagePort.prototype.postMessage;
-        function i(e, t) {
+        var n = r(6707),
+          o = r(4471);
+        function a(e, t) {
           t.Worker &&
             e.Proxy("Worker", {
               construct({ args: t, call: r }) {
                 t[0] instanceof URL && (t[0] = t[0].href),
-                  (t[0] = (0, a.dm)(t[0], e.meta) + "?dest=worker"),
+                  (t[0] = (0, o.dm)(t[0], e.meta) + "?dest=worker"),
                   t[1] && "module" === t[1].type && (t[0] += "&type=module");
-                let o = r(),
-                  s = new a.ut();
+                let n = r(),
+                  a = new o.ut();
                 (async () => {
-                  let e = await s.getInnerPort();
-                  n.call(o, { $scramjet$type: "baremuxinit", port: e }, [e]);
+                  let t = await a.getInnerPort();
+                  e.natives["Worker.prototype.postMessage"].call(
+                    n,
+                    { $scramjet$type: "baremuxinit", port: t },
+                    [t],
+                  );
                 })();
               },
             }),
-            o.iswindow &&
+            n.iswindow &&
               (e.Proxy("Worklet.prototype.addModule", {
                 apply(t) {
-                  t.args[0] && (t.args[0] = (0, a.dm)(t.args[0], e.meta));
+                  t.args[0] && (t.args[0] = (0, o.dm)(t.args[0], e.meta));
                 },
               }),
               e.Proxy("SharedWorker", {
                 construct({ args: t, call: r }) {
                   t[0] instanceof URL && (t[0] = t[0].href),
-                    (t[0] = (0, a.dm)(t[0], e.meta) + "?dest=worker"),
+                    (t[0] = (0, o.dm)(t[0], e.meta) + "?dest=worker"),
                     t[1] &&
                       "string" == typeof t[1] &&
                       (t[1] = `${e.url.origin}@${t[1]}`),
@@ -3018,17 +2940,18 @@ ${t.stack}`
                       t[1].name &&
                         (t[1].name = `${e.url.origin}@${t[1].name}`));
                   let n = r(),
-                    o = new a.ut();
+                    a = new o.ut();
                   (async () => {
-                    let e = await o.getInnerPort();
-                    s.call(n.port, { $scramjet$type: "baremuxinit", port: e }, [
-                      e,
-                    ]);
+                    let t = await a.getInnerPort();
+                    e.natives["MessagePort.prototype.postMessage"].call(
+                      n.port,
+                      { $scramjet$type: "baremuxinit", port: t },
+                      [t],
+                    );
                   })();
                 },
               }));
         }
-        self.Worker && (n = Worker.prototype.postMessage);
       },
       7706: function (e, t, r) {
         "use strict";
@@ -3302,7 +3225,7 @@ ${t.stack}`
         }),
           !("$scramjet" in self) &&
             (self.$scramjet = {
-              version: { build: "e4a0ee9", version: "1.0.2-dev" },
+              version: { build: "f561029", version: "1.0.2-dev" },
               codec: {},
               flagEnabled: s,
             });
@@ -3352,7 +3275,7 @@ ${t.stack}`
             return i;
           },
           hc: function () {
-            return _;
+            return v;
           },
           ls: function () {
             return c;
@@ -3364,7 +3287,7 @@ ${t.stack}`
             return s;
           },
           vc: function () {
-            return v;
+            return x;
           },
         });
         var n = r(8810);
@@ -3383,13 +3306,13 @@ ${t.stack}`
               unrewriteHtml: d,
               rewriteSrcset: y,
               rewriteJs: m,
-              rewriteHeaders: b,
-              rewriteWorkers: h,
+              rewriteHeaders: h,
+              rewriteWorkers: b,
               htmlRules: w,
             },
-            CookieStore: _,
+            CookieStore: v,
           } = n.h3.shared,
-          v = n.h3.config;
+          x = n.h3.config;
       },
       9777: function (e, t, r) {
         "use strict";

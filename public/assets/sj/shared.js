@@ -15,10 +15,10 @@
     g,
     p,
     b,
-    f,
     k,
+    f,
     y = {
-      8213: function (e) {
+      799: function (e) {
         var a = { decodeValues: !0, map: !1, silent: !1 };
         function t(e) {
           return "string" == typeof e && !!e.trim();
@@ -93,8 +93,7 @@
                 (e = o);
             }
           }
-          return (!Array.isArray(e) && (e = [e]),
-          (s = s ? Object.assign({}, a, s) : a).map)
+          return (!Array.isArray(e) && (e = [e]), s.map)
             ? e.filter(t).reduce(function (e, a) {
                 var t = i(a, s);
                 return (e[t.name] = t), e;
@@ -225,7 +224,7 @@
     });
   !("$scramjet" in self) &&
     (self.$scramjet = {
-      version: { build: "e4a0ee9", version: "1.0.2-dev" },
+      version: { build: "f561029", version: "1.0.2-dev" },
       codec: {},
       flagEnabled: z,
     });
@@ -238,8 +237,16 @@
     }
     return t;
   }
-  let j = 0,
-    S = null;
+  let j =
+    "undefined" != typeof TextDecoder
+      ? new TextDecoder("utf-8", { ignoreBOM: !0, fatal: !0 })
+      : {
+          decode: () => {
+            throw Error("TextDecoder not available");
+          },
+        };
+  "undefined" != typeof TextDecoder && j.decode();
+  let S = null;
   function q() {
     return (
       (null === S || S.buffer !== e.memory.buffer) &&
@@ -247,7 +254,11 @@
       S
     );
   }
-  let A =
+  function A(e, a) {
+    return (e >>>= 0), j.decode(q().slice(e, e + a));
+  }
+  let E = 0,
+    T =
       "undefined" != typeof TextEncoder
         ? new TextEncoder("utf-8")
         : {
@@ -255,19 +266,19 @@
               throw Error("TextEncoder not available");
             },
           },
-    E = function (e, a) {
-      let t = A.encode(e);
+    I = function (e, a) {
+      let t = T.encode(e);
       return a.set(t), { read: e.length, written: t.length };
     };
-  function _(e, a, t) {
+  function N(e, a, t) {
     if (void 0 === t) {
-      let t = A.encode(e),
+      let t = T.encode(e),
         i = a(t.length, 1) >>> 0;
       return (
         q()
           .subarray(i, i + t.length)
           .set(t),
-        (j = t.length),
+        (E = t.length),
         i
       );
     }
@@ -283,31 +294,19 @@
     if (n !== i) {
       0 !== n && (e = e.slice(n)),
         (s = t(s, i, (i = n + 3 * e.length), 1) >>> 0);
-      let a = E(e, q().subarray(s + n, s + i));
+      let a = I(e, q().subarray(s + n, s + i));
       (n += a.written), (s = t(s, i, n, 1) >>> 0);
     }
-    return (j = n), s;
+    return (E = n), s;
   }
-  let T = null;
-  function I() {
+  let C = null;
+  function _() {
     return (
-      (null === T || T.buffer !== e.memory.buffer) &&
-        (T = new DataView(e.memory.buffer)),
-      T
+      (null === C || C.buffer !== e.memory.buffer) &&
+        (C = new DataView(e.memory.buffer)),
+      C
     );
   }
-  let N =
-    "undefined" != typeof TextDecoder
-      ? new TextDecoder("utf-8", { ignoreBOM: !0, fatal: !0 })
-      : {
-          decode: () => {
-            throw Error("TextDecoder not available");
-          },
-        };
-  function C(e, a) {
-    return (e >>>= 0), N.decode(q().slice(e, e + a));
-  }
-  "undefined" != typeof TextDecoder && N.decode();
   function L(a) {
     let t = e.__wbindgen_export_4.get(a);
     return e.__externref_table_dealloc(a), t;
@@ -348,33 +347,46 @@
     let a = {};
     return (
       (a.wbg = {}),
+      (a.wbg.__wbindgen_error_new = function (e, a) {
+        return Error(A(e, a));
+      }),
+      (a.wbg.__wbindgen_string_new = function (e, a) {
+        return A(e, a);
+      }),
+      (a.wbg.__wbg_call_3bfa248576352471 = function () {
+        return D(function (e, a, t) {
+          return e.call(a, t);
+        }, arguments);
+      }),
       (a.wbg.__wbindgen_string_get = function (a, t) {
         let i = "string" == typeof t ? t : void 0;
         var s,
           o =
             null == (s = i)
               ? 0
-              : _(i, e.__wbindgen_malloc, e.__wbindgen_realloc),
-          n = j;
-        I().setInt32(a + 4, n, !0), I().setInt32(a + 0, o, !0);
+              : N(i, e.__wbindgen_malloc, e.__wbindgen_realloc),
+          n = E;
+        _().setInt32(a + 4, n, !0), _().setInt32(a + 0, o, !0);
       }),
-      (a.wbg.__wbindgen_error_new = function (e, a) {
-        return Error(C(e, a));
+      (a.wbg.__wbg_get_ef828680c64da212 = function () {
+        return D(function (e, a) {
+          return Reflect.get(e, a);
+        }, arguments);
       }),
-      (a.wbg.__wbindgen_string_new = function (e, a) {
-        return C(e, a);
-      }),
-      (a.wbg.__wbg_now_d3cbc9581625f686 = function (e) {
-        return e.now();
+      (a.wbg.__wbg_toString_4b677455b9167e31 = function (e) {
+        return e.toString();
       }),
       (a.wbg.__wbg_set_e864d25d9b399c9f = function () {
         return D(function (e, a, t) {
           return Reflect.set(e, a, t);
         }, arguments);
       }),
+      (a.wbg.__wbindgen_is_function = function (e) {
+        return "function" == typeof e;
+      }),
       (a.wbg.__wbg_new_1cabf49927794f50 = function () {
         return D(function (e, a) {
-          return new URL(C(e, a));
+          return new URL(A(e, a));
         }, arguments);
       }),
       (a.wbg.__wbg_call_5fb7c8066a4a4825 = function () {
@@ -397,67 +409,28 @@
           q().subarray(i / 1, i / 1 + s)).slice();
         return e.__wbindgen_free(a, 1 * t, 1), o;
       }),
-      (a.wbg.__wbindgen_array_new = function () {
+      (a.wbg.__wbg_new_034f913e7636e987 = function () {
         return [];
-      }),
-      (a.wbg.__wbindgen_array_push = function (e, a) {
-        e.push(a);
       }),
       (a.wbg.__wbindgen_number_new = function (e) {
         return e;
       }),
-      (a.wbg.__wbg_new_abda76e883ba8a5f = function () {
-        return Error();
+      (a.wbg.__wbg_scramtag_51d94caa8a743d31 = function (a) {
+        let t = N(
+            "10000000000".replace(/[018]/g, (e) =>
+              (
+                e ^
+                (crypto.getRandomValues(new Uint8Array(1))[0] & (15 >> (e / 4)))
+              ).toString(16),
+            ),
+            e.__wbindgen_malloc,
+            e.__wbindgen_realloc,
+          ),
+          i = E;
+        _().setInt32(a + 4, i, !0), _().setInt32(a + 0, t, !0);
       }),
-      (a.wbg.__wbg_stack_658279fe44541cf6 = function (a, t) {
-        let i = _(t.stack, e.__wbindgen_malloc, e.__wbindgen_realloc),
-          s = j;
-        I().setInt32(a + 4, s, !0), I().setInt32(a + 0, i, !0);
-      }),
-      (a.wbg.__wbg_error_f851667af71bcfc6 = function (a, t) {
-        let i, s;
-        try {
-          (i = a), (s = t), console.error(C(a, t));
-        } finally {
-          e.__wbindgen_free(i, s, 1);
-        }
-      }),
-      (a.wbg.__wbindgen_is_object = function (e) {
-        return "object" == typeof e && null !== e;
-      }),
-      (a.wbg.__wbg_crypto_1d1f22824a6a080c = function (e) {
-        return e.crypto;
-      }),
-      (a.wbg.__wbg_process_4a72847cc503995b = function (e) {
-        return e.process;
-      }),
-      (a.wbg.__wbg_versions_f686565e586dd935 = function (e) {
-        return e.versions;
-      }),
-      (a.wbg.__wbg_node_104a2ff8d6ea03a2 = function (e) {
-        return e.node;
-      }),
-      (a.wbg.__wbindgen_is_string = function (e) {
-        return "string" == typeof e;
-      }),
-      (a.wbg.__wbg_require_cca90b1a94a0255b = function () {
-        return D(function () {
-          return module.require;
-        }, arguments);
-      }),
-      (a.wbg.__wbg_msCrypto_eb05e62b530a1508 = function (e) {
-        return e.msCrypto;
-      }),
-      (a.wbg.__wbg_newwithlength_76462a666eca145f = function (e) {
-        return new Uint8Array(e >>> 0);
-      }),
-      (a.wbg.__wbindgen_is_function = function (e) {
-        return "function" == typeof e;
-      }),
-      (a.wbg.__wbg_get_ef828680c64da212 = function () {
-        return D(function (e, a) {
-          return Reflect.get(e, a);
-        }, arguments);
+      (a.wbg.__wbg_now_d3cbc9581625f686 = function (e) {
+        return e.now();
       }),
       (a.wbg.__wbg_self_bf91bf94d9e04084 = function () {
         return D(function () {
@@ -483,96 +456,15 @@
         return void 0 === e;
       }),
       (a.wbg.__wbg_newnoargs_1ede4bf2ebbaaf43 = function (e, a) {
-        return Function(C(e, a));
+        return Function(A(e, a));
       }),
       (a.wbg.__wbg_call_a9ef466721e824f2 = function () {
         return D(function (e, a) {
           return e.call(a);
         }, arguments);
       }),
-      (a.wbg.__wbg_call_3bfa248576352471 = function () {
-        return D(function (e, a, t) {
-          return e.call(a, t);
-        }, arguments);
-      }),
-      (a.wbg.__wbindgen_memory = function () {
-        return e.memory;
-      }),
-      (a.wbg.__wbg_buffer_ccaed51a635d8a2d = function (e) {
-        return e.buffer;
-      }),
-      (a.wbg.__wbg_newwithbyteoffsetandlength_7e3eb787208af730 = function (
-        e,
-        a,
-        t,
-      ) {
-        return new Uint8Array(e, a >>> 0, t >>> 0);
-      }),
-      (a.wbg.__wbg_randomFillSync_5c9c955aa56b6049 = function () {
-        return D(function (e, a) {
-          e.randomFillSync(a);
-        }, arguments);
-      }),
-      (a.wbg.__wbg_subarray_975a06f9dbd16995 = function (e, a, t) {
-        return e.subarray(a >>> 0, t >>> 0);
-      }),
-      (a.wbg.__wbg_getRandomValues_3aa56aa6edec874c = function () {
-        return D(function (e, a) {
-          e.getRandomValues(a);
-        }, arguments);
-      }),
-      (a.wbg.__wbg_new_fec2611eb9180f95 = function (e) {
-        return new Uint8Array(e);
-      }),
-      (a.wbg.__wbg_set_ec2fcf81bc573fd9 = function (e, a, t) {
-        e.set(a, t >>> 0);
-      }),
       (a.wbg.__wbindgen_throw = function (e, a) {
-        throw Error(C(e, a));
-      }),
-      (a.wbg.__wbindgen_debug_string = function (a, t) {
-        let i = _(
-            (function e(a) {
-              let t;
-              let i = typeof a;
-              if ("number" == i || "boolean" == i || null == a) return `${a}`;
-              if ("string" == i) return `"${a}"`;
-              if ("symbol" == i) {
-                let e = a.description;
-                return null == e ? "Symbol" : `Symbol(${e})`;
-              }
-              if ("function" == i) {
-                let e = a.name;
-                return "string" == typeof e && e.length > 0
-                  ? `Function(${e})`
-                  : "Function";
-              }
-              if (Array.isArray(a)) {
-                let t = a.length,
-                  i = "[";
-                t > 0 && (i += e(a[0]));
-                for (let s = 1; s < t; s++) i += ", " + e(a[s]);
-                return (i += "]");
-              }
-              let s = /\[object ([^\]]+)\]/.exec(toString.call(a));
-              if (!(s.length > 1)) return toString.call(a);
-              t = s[1];
-              if ("Object" == t)
-                try {
-                  return "Object(" + JSON.stringify(a) + ")";
-                } catch (e) {
-                  return "Object";
-                }
-              return a instanceof Error
-                ? `${a.name}: ${a.message}
-${a.stack}`
-                : t;
-            })(t),
-            e.__wbindgen_malloc,
-            e.__wbindgen_realloc,
-          ),
-          s = j;
-        I().setInt32(a + 4, s, !0), I().setInt32(a + 0, i, !0);
+        throw Error(A(e, a));
       }),
       (a.wbg.__wbindgen_init_externref_table = function () {
         let a = e.__wbindgen_export_4,
@@ -588,13 +480,13 @@ ${a.stack}`
   }
   function B(e, a) {
     e.wbg.memory =
-      a || new WebAssembly.Memory({ initial: 22, maximum: 16384, shared: !0 });
+      a || new WebAssembly.Memory({ initial: 21, maximum: 16384, shared: !0 });
   }
   function $(a, t, i) {
     if (
       ((e = a.exports),
       (O.__wbindgen_wasm_module = t),
-      (T = null),
+      (C = null),
       (S = null),
       void 0 !== i && ("number" != typeof i || 0 === i || i % 65536 != 0))
     )
@@ -638,7 +530,6 @@ ${a.stack}`
       Uint8Array.from(atob(self.WASM), (e) => e.charCodeAt(0)),
     ),
   }),
-    e.init(),
     (Error.stackTraceLimit = 50);
   let U = new TextDecoder();
   function V(a, t, i) {
@@ -669,12 +560,12 @@ ${a.stack}`
       } = (s =
         "string" == typeof a
           ? (function (a, t, i, s) {
-              let o = _(a, e.__wbindgen_malloc, e.__wbindgen_realloc),
-                n = j,
-                r = _(t, e.__wbindgen_malloc, e.__wbindgen_realloc),
-                c = j,
-                l = _(i, e.__wbindgen_malloc, e.__wbindgen_realloc),
-                u = j,
+              let o = N(a, e.__wbindgen_malloc, e.__wbindgen_realloc),
+                n = E,
+                r = N(t, e.__wbindgen_malloc, e.__wbindgen_realloc),
+                c = E,
+                l = N(i, e.__wbindgen_malloc, e.__wbindgen_realloc),
+                u = E,
                 d = e.rewrite_js(o, n, r, c, l, u, s);
               if (d[2]) throw L(d[1]);
               return L(d[0]);
@@ -682,13 +573,13 @@ ${a.stack}`
           : (function (a, t, i, s) {
               let o = (function (e, a) {
                   let t = a(1 * e.length, 1) >>> 0;
-                  return q().set(e, t / 1), (j = e.length), t;
+                  return q().set(e, t / 1), (E = e.length), t;
                 })(a, e.__wbindgen_malloc),
-                n = j,
-                r = _(t, e.__wbindgen_malloc, e.__wbindgen_realloc),
-                c = j,
-                l = _(i, e.__wbindgen_malloc, e.__wbindgen_realloc),
-                u = j,
+                n = E,
+                r = N(t, e.__wbindgen_malloc, e.__wbindgen_realloc),
+                c = E,
+                l = N(i, e.__wbindgen_malloc, e.__wbindgen_realloc),
+                u = E,
                 d = e.rewrite_js_from_arraybuffer(o, n, r, c, l, u, s);
               if (d[2]) throw L(d[1]);
               return L(d[0]);
@@ -702,7 +593,9 @@ ${a.stack}`
             : r < 500n
               ? "decent speed"
               : "really slow"),
-          console.log(`oxc rewrite was ${e} (${r}ms)`);
+          console.log(
+            `oxc rewrite for "${t || "(unknown)"}" was ${e} (${r}ms)`,
+          );
       }
       return "string" == typeof a ? U.decode(o) : o;
     })(a, t, i));
@@ -711,7 +604,7 @@ ${a.stack}`
     let a = new URL(e.substring(5));
     return "blob:" + location.origin + a.pathname;
   }
-  function F(e, a) {
+  function W(e, a) {
     if ((e instanceof URL && (e = e.href), e.startsWith("javascript:")))
       return "javascript:" + V(e.slice(11), null, a);
     if (e.startsWith("blob:")) return location.origin + x.config.prefix + e;
@@ -720,12 +613,12 @@ ${a.stack}`
       if (e.startsWith("mailto:") || e.startsWith("about:")) return e;
       let t = a.base.href;
       return (
-        t.startsWith("about:") && (t = W(self.location.href)),
+        t.startsWith("about:") && (t = F(self.location.href)),
         location.origin + x.config.prefix + x.codec.encode(new URL(e, t).href)
       );
     }
   }
-  function W(e) {
+  function F(e) {
     e instanceof URL && (e = e.href);
     let a = location.origin + x.config.prefix;
     if (e.startsWith("javascript:")) return e;
@@ -754,7 +647,7 @@ ${a.stack}`
     return (a = (a = (a = new String(a).toString()).replace(
       /url\(['"]?(.+?)['"]?\)/gm,
       (a, i) => {
-        let s = "rewrite" === e ? F(i.trim(), t) : W(i.trim());
+        let s = "rewrite" === e ? W(i.trim(), t) : F(i.trim());
         return a.replace(i, s);
       },
     )).replace(
@@ -766,7 +659,7 @@ ${a.stack}`
             /^(url\(['"]?|['"]|)(.+?)(['"]|['"]?\)|)$/gm,
             (a, i, s, o) => {
               if (i.startsWith("url")) return a;
-              let n = "rewrite" === e ? F(s.trim(), t) : W(s.trim());
+              let n = "rewrite" === e ? W(s.trim(), t) : F(s.trim());
               return `${i}${n}${o}`;
             },
           ),
@@ -1745,8 +1638,8 @@ ${a.stack}`
       "desc",
       "title",
     ]),
-    ef = /\s|\//;
-  class ek {
+    ek = /\s|\//;
+  class ef {
     constructor(e, a = {}) {
       var t, i, s, o, n, r;
       (this.options = a),
@@ -1932,7 +1825,7 @@ ${a.stack}`
         (this.attribvalue = "");
     }
     getInstructionName(e) {
-      let a = e.search(ef),
+      let a = e.search(ek),
         t = a < 0 ? e : e.substr(0, a);
       return this.lowerCaseTagNames && (t = t.toLowerCase()), t;
     }
@@ -2120,7 +2013,7 @@ ${a.stack}`
       return eM(this, e);
     }
   }
-  class e_ extends eE {
+  class eT extends eE {
     constructor(e) {
       super(), (this.data = e);
     }
@@ -2131,7 +2024,7 @@ ${a.stack}`
       this.data = e;
     }
   }
-  class eT extends e_ {
+  class eI extends eT {
     constructor() {
       super(...arguments), (this.type = d.Text);
     }
@@ -2139,7 +2032,7 @@ ${a.stack}`
       return 3;
     }
   }
-  class eI extends e_ {
+  class eN extends eT {
     constructor() {
       super(...arguments), (this.type = d.Comment);
     }
@@ -2147,7 +2040,7 @@ ${a.stack}`
       return 8;
     }
   }
-  class eN extends e_ {
+  class eC extends eT {
     constructor(e, a) {
       super(a), (this.name = e), (this.type = d.Directive);
     }
@@ -2155,7 +2048,7 @@ ${a.stack}`
       return 1;
     }
   }
-  class eC extends eE {
+  class e_ extends eE {
     constructor(e) {
       super(), (this.children = e);
     }
@@ -2175,7 +2068,7 @@ ${a.stack}`
       this.children = e;
     }
   }
-  class eL extends eC {
+  class eL extends e_ {
     constructor() {
       super(...arguments), (this.type = d.CDATA);
     }
@@ -2183,7 +2076,7 @@ ${a.stack}`
       return 4;
     }
   }
-  class eD extends eC {
+  class eD extends e_ {
     constructor() {
       super(...arguments), (this.type = d.Root);
     }
@@ -2191,7 +2084,7 @@ ${a.stack}`
       return 9;
     }
   }
-  class eR extends eC {
+  class eR extends e_ {
     constructor(
       e,
       a,
@@ -2229,8 +2122,8 @@ ${a.stack}`
   }
   function eM(e, a = !1) {
     let t;
-    if (e.type === d.Text) t = new eT(e.data);
-    else if (e.type === d.Comment) t = new eI(e.data);
+    if (e.type === d.Text) t = new eI(e.data);
+    else if (e.type === d.Comment) t = new eN(e.data);
     else {
       var i;
       if ((i = e).type === d.Tag || i.type === d.Script || i.type === d.Style) {
@@ -2256,7 +2149,7 @@ ${a.stack}`
             (t = s);
         } else {
           if (e.type === d.Directive) {
-            let a = new eN(e.name, e.data);
+            let a = new eC(e.name, e.data);
             null != e["x-name"] &&
               ((a["x-name"] = e["x-name"]),
               (a["x-publicId"] = e["x-publicId"]),
@@ -2329,7 +2222,7 @@ ${a.stack}`
         (a.data += e),
           this.options.withEndIndices && (a.endIndex = this.parser.endIndex);
       else {
-        let a = new eT(e);
+        let a = new eI(e);
         this.addNode(a), (this.lastNode = a);
       }
     }
@@ -2338,14 +2231,14 @@ ${a.stack}`
         this.lastNode.data += e;
         return;
       }
-      let a = new eI(e);
+      let a = new eN(e);
       this.addNode(a), (this.lastNode = a);
     }
     oncommentend() {
       this.lastNode = null;
     }
     oncdatastart() {
-      let e = new eT(""),
+      let e = new eI(""),
         a = new eL([e]);
       this.addNode(a), (e.parent = a), (this.lastNode = e);
     }
@@ -2353,7 +2246,7 @@ ${a.stack}`
       this.lastNode = null;
     }
     onprocessinginstruction(e, a) {
-      let t = new eN(e, a);
+      let t = new eC(e, a);
       this.addNode(t);
     }
     handleCallback(e) {
@@ -2389,7 +2282,7 @@ ${a.stack}`
                 56320 +
                 65536
               : e.charCodeAt(a);
-  function eF(e) {
+  function eW(e) {
     let a,
       t = "",
       i = 0;
@@ -2404,7 +2297,7 @@ ${a.stack}`
     }
     return t + e.substr(i);
   }
-  function eW(e, a) {
+  function eF(e, a) {
     return function (t) {
       let i;
       let s = 0,
@@ -2416,8 +2309,8 @@ ${a.stack}`
       return o + t.substring(s);
     };
   }
-  eW(/[&<>'"]/g, eV);
-  let eG = eW(
+  eF(/[&<>'"]/g, eV);
+  let eG = eF(
       /["&\u00A0]/g,
       new Map([
         [34, "&quot;"],
@@ -2425,7 +2318,7 @@ ${a.stack}`
         [160, "&nbsp;"],
       ]),
     ),
-    eH = eW(
+    eH = eF(
       /[&<>\u00A0]/g,
       new Map([
         [38, "&amp;"],
@@ -2657,7 +2550,7 @@ ${a.stack}`
                       : a.decodeEntities) === !1
                       ? eK
                       : a.xmlMode || "utf8" !== a.encodeEntities
-                        ? eF
+                        ? eW
                         : eG;
                   return Object.keys(e)
                     .map((t) => {
@@ -2694,7 +2587,7 @@ ${a.stack}`
                   : a.decodeEntities) !== !1 &&
                   !(!a.xmlMode && e.parent && eY.has(e.parent.name)) &&
                   (i =
-                    a.xmlMode || "utf8" !== a.encodeEntities ? eF(i) : eH(i)),
+                    a.xmlMode || "utf8" !== a.encodeEntities ? eW(i) : eH(i)),
                 i
               );
             })(e, a);
@@ -2793,7 +2686,7 @@ ${a.stack}`
   }
   function ao(e, a, t, i = !1) {
     let s = new eO((e, a) => a),
-      o = new ek(s);
+      o = new ef(s);
     o.write(e),
       o.end(),
       (function e(a, t, i) {
@@ -2844,7 +2737,7 @@ ${a.stack}`
             a.attribs.content.includes("url")
           ) {
             let e = a.attribs.content.split("url=");
-            e[1] && (e[1] = F(e[1].trim(), i)),
+            e[1] && (e[1] = W(e[1].trim(), i)),
               (a.attribs.content = e.join("url="));
           }
         }
@@ -2884,7 +2777,7 @@ ${a.stack}`
   }
   let an = [
     {
-      fn: (e, a) => F(e, a),
+      fn: (e, a) => W(e, a),
       src: [
         "embed",
         "script",
@@ -2903,16 +2796,11 @@ ${a.stack}`
       "xlink:href": ["image"],
     },
     {
-      fn: (e, a) => (e.startsWith("blob:") ? P(e) : F(e, a)),
+      fn: (e, a) => (e.startsWith("blob:") ? P(e) : W(e, a)),
       src: ["video", "audio"],
     },
-    {
-      fn: () => null,
-      nonce: "*",
-      integrity: ["script", "link"],
-      csp: ["iframe"],
-      credentialless: ["iframe"],
-    },
+    { fn: () => "", integrity: ["script", "link"] },
+    { fn: () => null, nonce: "*", csp: ["iframe"], credentialless: ["iframe"] },
     {
       fn: (e, a) => ar(e, a),
       srcset: ["img", "source"],
@@ -2943,7 +2831,7 @@ ${a.stack}`
     return i
       ? t
           .map((e, t) => {
-            if (e && i[t]) return F(e, a) + i[t];
+            if (e && i[t]) return W(e, a) + i[t];
           })
           .join("")
       : "";
@@ -2969,7 +2857,7 @@ ${a.stack}`
     ],
     al = ["location", "content-location", "referer"];
   function au(e, a) {
-    return e.replace(/<(.*)>/gi, (e) => F(e, a));
+    return e.replace(/<(.*)>/gi, (e) => W(e, a));
   }
   var ad = v(1762).Z;
   let am = globalThis.fetch,
@@ -2977,14 +2865,14 @@ ${a.stack}`
     ag = globalThis.localStorage,
     ap = globalThis.navigator.serviceWorker,
     ab = MessagePort.prototype.postMessage,
-    af = {
+    ak = {
       prototype: { send: WebSocket.prototype.send },
       CLOSED: WebSocket.CLOSED,
       CLOSING: WebSocket.CLOSING,
       CONNECTING: WebSocket.CONNECTING,
       OPEN: WebSocket.OPEN,
     };
-  async function ak() {
+  async function af() {
     let e = Promise.race([
       Promise.any(
         (
@@ -3022,7 +2910,7 @@ ${a.stack}`
         console.warn(
           "bare-mux: failed to get a bare-mux SharedWorker MessagePort within 1s, retrying",
         ),
-        await ak()
+        await af()
       );
     }
   }
@@ -3062,9 +2950,9 @@ ${a.stack}`
     }
     createChannel(e, a) {
       if (self.clients)
-        (this.port = ak()),
+        (this.port = af()),
           (this.channel.onmessage = (e) => {
-            "refreshPort" === e.data.type && (this.port = ak());
+            "refreshPort" === e.data.type && (this.port = af());
           });
       else if (e && SharedWorker) {
         if (!e.startsWith("/") && !e.includes("://"))
@@ -3113,11 +3001,11 @@ ${a.stack}`
     constructor(e, a = [], t, i) {
       super(),
         (this.protocols = a),
-        (this.readyState = af.CONNECTING),
+        (this.readyState = ak.CONNECTING),
         (this.url = e.toString()),
         (this.protocols = a);
       let s = (e) => {
-          (this.protocols = e), (this.readyState = af.OPEN);
+          (this.protocols = e), (this.readyState = ak.OPEN);
           let a = new Event("open");
           this.dispatchEvent(a);
         },
@@ -3126,12 +3014,12 @@ ${a.stack}`
           this.dispatchEvent(a);
         },
         n = (e, a) => {
-          this.readyState = af.CLOSED;
+          this.readyState = ak.CLOSED;
           let t = new CloseEvent("close", { code: e, reason: a });
           this.dispatchEvent(t);
         },
         r = () => {
-          this.readyState = af.CLOSED;
+          this.readyState = ak.CLOSED;
           let e = new Event("error");
           this.dispatchEvent(e);
         };
@@ -3150,7 +3038,6 @@ ${a.stack}`
             type: "websocket",
             websocket: {
               url: e.toString(),
-              origin: origin,
               protocols: a,
               requestHeaders: i,
               channel: this.channel.port2,
@@ -3160,7 +3047,7 @@ ${a.stack}`
         );
     }
     send(...e) {
-      if (this.readyState === af.CONNECTING)
+      if (this.readyState === ak.CONNECTING)
         throw new DOMException(
           "Failed to execute 'send' on 'WebSocket': Still in CONNECTING state.",
         );
@@ -3188,7 +3075,7 @@ ${a.stack}`
   let aS = ["ws:", "wss:"],
     aq = [101, 204, 205, 304],
     aA = [301, 302, 303, 307, 308];
-  console.debug("bare-mux: running v2.1.3 (build 83330ed)");
+  console.debug("bare-mux: running v2.1.6 (build 4b7607b)");
   let aE = (e, a) => {
       let t = e.slice(),
         i = [],
@@ -3207,38 +3094,38 @@ ${a.stack}`
       }
       return i;
     },
-    a_ = "[a-fA-F\\d:]",
-    aT = (e) =>
+    aT = "[a-fA-F\\d:]",
+    aI = (e) =>
       e && e.includeBoundaries
-        ? `(?:(?<=\\s|^)(?=${a_})|(?<=${a_})(?=\\s|$))`
+        ? `(?:(?<=\\s|^)(?=${aT})|(?<=${aT})(?=\\s|$))`
         : "",
-    aI =
+    aN =
       "(?:25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]\\d|\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]\\d|\\d)){3}",
-    aN = "[a-fA-F\\d]{1,4}",
-    aC = `
+    aC = "[a-fA-F\\d]{1,4}",
+    a_ = `
 (?:
-(?:${aN}:){7}(?:${aN}|:)|                                    // 1:2:3:4:5:6:7::  1:2:3:4:5:6:7:8
-(?:${aN}:){6}(?:${aI}|:${aN}|:)|                             // 1:2:3:4:5:6::    1:2:3:4:5:6::8   1:2:3:4:5:6::8  1:2:3:4:5:6::1.2.3.4
-(?:${aN}:){5}(?::${aI}|(?::${aN}){1,2}|:)|                   // 1:2:3:4:5::      1:2:3:4:5::7:8   1:2:3:4:5::8    1:2:3:4:5::7:1.2.3.4
-(?:${aN}:){4}(?:(?::${aN}){0,1}:${aI}|(?::${aN}){1,3}|:)| // 1:2:3:4::        1:2:3:4::6:7:8   1:2:3:4::8      1:2:3:4::6:7:1.2.3.4
-(?:${aN}:){3}(?:(?::${aN}){0,2}:${aI}|(?::${aN}){1,4}|:)| // 1:2:3::          1:2:3::5:6:7:8   1:2:3::8        1:2:3::5:6:7:1.2.3.4
-(?:${aN}:){2}(?:(?::${aN}){0,3}:${aI}|(?::${aN}){1,5}|:)| // 1:2::            1:2::4:5:6:7:8   1:2::8          1:2::4:5:6:7:1.2.3.4
-(?:${aN}:){1}(?:(?::${aN}){0,4}:${aI}|(?::${aN}){1,6}|:)| // 1::              1::3:4:5:6:7:8   1::8            1::3:4:5:6:7:1.2.3.4
-(?::(?:(?::${aN}){0,5}:${aI}|(?::${aN}){1,7}|:))             // ::2:3:4:5:6:7:8  ::2:3:4:5:6:7:8  ::8             ::1.2.3.4
+(?:${aC}:){7}(?:${aC}|:)|                                    // 1:2:3:4:5:6:7::  1:2:3:4:5:6:7:8
+(?:${aC}:){6}(?:${aN}|:${aC}|:)|                             // 1:2:3:4:5:6::    1:2:3:4:5:6::8   1:2:3:4:5:6::8  1:2:3:4:5:6::1.2.3.4
+(?:${aC}:){5}(?::${aN}|(?::${aC}){1,2}|:)|                   // 1:2:3:4:5::      1:2:3:4:5::7:8   1:2:3:4:5::8    1:2:3:4:5::7:1.2.3.4
+(?:${aC}:){4}(?:(?::${aC}){0,1}:${aN}|(?::${aC}){1,3}|:)| // 1:2:3:4::        1:2:3:4::6:7:8   1:2:3:4::8      1:2:3:4::6:7:1.2.3.4
+(?:${aC}:){3}(?:(?::${aC}){0,2}:${aN}|(?::${aC}){1,4}|:)| // 1:2:3::          1:2:3::5:6:7:8   1:2:3::8        1:2:3::5:6:7:1.2.3.4
+(?:${aC}:){2}(?:(?::${aC}){0,3}:${aN}|(?::${aC}){1,5}|:)| // 1:2::            1:2::4:5:6:7:8   1:2::8          1:2::4:5:6:7:1.2.3.4
+(?:${aC}:){1}(?:(?::${aC}){0,4}:${aN}|(?::${aC}){1,6}|:)| // 1::              1::3:4:5:6:7:8   1::8            1::3:4:5:6:7:1.2.3.4
+(?::(?:(?::${aC}){0,5}:${aN}|(?::${aC}){1,7}|:))             // ::2:3:4:5:6:7:8  ::2:3:4:5:6:7:8  ::8             ::1.2.3.4
 )(?:%[0-9a-zA-Z]{1,})?                                             // %eth0            %1
 `
       .replace(/\s*\/\/.*$/gm, "")
       .replace(/\n/g, "")
       .trim(),
-    aL = RegExp(`(?:^${aI}$)|(?:^${aC}$)`),
-    aD = RegExp(`^${aI}$`),
-    aR = RegExp(`^${aC}$`),
+    aL = RegExp(`(?:^${aN}$)|(?:^${a_}$)`),
+    aD = RegExp(`^${aN}$`),
+    aR = RegExp(`^${a_}$`),
     aM = (e) =>
       e && e.exact
         ? aL
-        : RegExp(`(?:${aT(e)}${aI}${aT(e)})|(?:${aT(e)}${aC}${aT(e)})`, "g");
-  (aM.v4 = (e) => (e && e.exact ? aD : RegExp(`${aT(e)}${aI}${aT(e)}`, "g"))),
-    (aM.v6 = (e) => (e && e.exact ? aR : RegExp(`${aT(e)}${aC}${aT(e)}`, "g")));
+        : RegExp(`(?:${aI(e)}${aN}${aI(e)})|(?:${aI(e)}${a_}${aI(e)})`, "g");
+  (aM.v4 = (e) => (e && e.exact ? aD : RegExp(`${aI(e)}${aN}${aI(e)}`, "g"))),
+    (aM.v6 = (e) => (e && e.exact ? aR : RegExp(`${aI(e)}${a_}${aI(e)}`, "g")));
   let { toString: aB } = Object.prototype,
     a$ = {
       global: "g",
@@ -3307,13 +3194,13 @@ ${a.stack}`
       (e.ValidIp = "VALID_IP"),
         (e.ValidDomain = "VALID_DOMAIN"),
         (e.Error = "ERROR");
-    })(f || (f = {}));
-  let aF = (e) => ({
+    })(k || (k = {}));
+  let aW = (e) => ({
       type: b.NoHostname,
       message: `The given input ${String(e)} does not look like a hostname.`,
       column: 1,
     }),
-    aW = (e, a) => ({
+    aF = (e, a) => ({
       type: b.DomainMaxLength,
       message: `Domain "${e}" is too long. Domain is ${a} octets long but should not be longer than 253.`,
       column: a,
@@ -3345,8 +3232,8 @@ ${a.stack}`
       column: a,
     }),
     aJ = (e, a = {}) => {
-      if ("string" != typeof e) return { type: f.Error, errors: [aF(e)] };
-      if ("" === e) return { type: f.ValidDomain, domain: e, labels: [] };
+      if ("string" != typeof e) return { type: k.Error, errors: [aW(e)] };
+      if ("" === e) return { type: k.ValidDomain, domain: e, labels: [] };
       let t = e.replace(/^\[|]$/g, ""),
         i = (function (e) {
           var a, t;
@@ -3355,16 +3242,16 @@ ${a.stack}`
           if (!((t = e).length > 15) && aU(aM.v4({ exact: !0 }), t, aV))
             return 4;
         })(t);
-      if (void 0 !== i) return { type: f.ValidIp, ip: t, ipVersion: i };
+      if (void 0 !== i) return { type: k.ValidIp, ip: t, ipVersion: i };
       let s = "." === e.charAt(e.length - 1) ? e.slice(0, -1) : e,
         o = new TextEncoder().encode(s);
-      if (o.length > 253) return { type: f.Error, errors: [aW(e, o.length)] };
+      if (o.length > 253) return { type: k.Error, errors: [aF(e, o.length)] };
       let n = s.split("."),
         { validation: r = p.Strict } = a,
         c = aX[r](n);
       return c.length > 0
-        ? { type: f.Error, errors: c }
-        : { type: f.ValidDomain, domain: e, labels: n };
+        ? { type: k.Error, errors: c }
+        : { type: k.ValidDomain, domain: e, labels: n };
     },
     aX = {
       [p.Lax]: (e) => {
@@ -3450,26 +3337,26 @@ ${a.stack}`
       (e.Reserved = "RESERVED"),
       (e.NotListed = "NOT_LISTED"),
       (e.Listed = "LISTED");
-  })(k || (k = {}));
+  })(f || (f = {}));
   let a5 = (e, a) => (a >= 0 && a < e.length ? e[a] : void 0),
     a8 = (e, a) => ({
       subDomains: e.slice(0, Math.max(0, a)),
       domain: a5(e, a),
       topLevelDomains: e.slice(a + 1),
     });
-  var a4 = v("8213"),
+  var a4 = v("799"),
     a6 = v.n(a4);
   (x.shared = {
     util: {
       parseDomain: (e, i) => {
         let s = aJ(e, i);
-        if (s.type === f.Error)
-          return { type: k.Invalid, hostname: e, errors: s.errors };
-        if (s.type === f.ValidIp)
-          return { type: k.Ip, hostname: s.ip, ipVersion: s.ipVersion };
+        if (s.type === k.Error)
+          return { type: f.Invalid, hostname: e, errors: s.errors };
+        if (s.type === k.ValidIp)
+          return { type: f.Ip, hostname: s.ip, ipVersion: s.ipVersion };
         let { labels: o, domain: n } = s;
         if ("" === e || a2.includes(o[o.length - 1]))
-          return { type: k.Reserved, hostname: n, labels: o };
+          return { type: f.Reserved, hostname: n, labels: o };
         (a =
           null != a
             ? a
@@ -3485,11 +3372,11 @@ ${a.stack}`
         let r = aE(o, a),
           c = aE(o, t);
         if (0 === r.length && 0 === c.length)
-          return { type: k.NotListed, hostname: n, labels: o };
+          return { type: f.NotListed, hostname: n, labels: o };
         let l = o.length - Math.max(c.length, r.length) - 1,
           u = o.length - r.length - 1;
         return Object.assign(
-          { type: k.Listed, hostname: n, labels: o, icann: a8(o, u) },
+          { type: f.Listed, hostname: n, labels: o, icann: a8(o, u) },
           a8(o, l),
         );
       },
@@ -3545,7 +3432,6 @@ ${a.stack}`
             );
           }
           for (let e = 0; ; e++) {
-            "host" in s ? (s.host = n.host) : (s.Host = n.host);
             let i = (
                 await this.worker.sendMessage(
                   {
@@ -3565,9 +3451,7 @@ ${a.stack}`
                 status: i.status,
                 statusText: i.statusText,
               });
-            (r.rawHeaders = i.headers),
-              (r.rawResponse = new Response(i.body)),
-              (r.finalURL = n.toString());
+            (r.rawHeaders = i.headers), (r.finalURL = n.toString());
             let c = a?.redirect || t.redirect;
             if (!aA.includes(r.status)) return r;
             switch (c) {
@@ -3661,7 +3545,6 @@ ${a.stack}`
                   await (async function (e, a, t) {
                     let [i, s] = t.connect(
                       new URL(e.websocket.url),
-                      e.websocket.origin,
                       e.websocket.protocols,
                       e.websocket.requestHeaders,
                       (a) => {
@@ -3727,8 +3610,8 @@ ${a.stack}`
       },
     },
     url: {
-      rewriteUrl: F,
-      unrewriteUrl: W,
+      rewriteUrl: W,
+      unrewriteUrl: F,
       rewriteBlob: function (e, a) {
         let t = new URL(e.substring(5));
         return "blob:" + a.origin.origin + t.pathname;
@@ -3743,7 +3626,7 @@ ${a.stack}`
       rewriteHtml: ao,
       unrewriteHtml: function (e) {
         let a = new eO((e, a) => a),
-          t = new ek(a);
+          t = new ef(a);
         return (
           t.write(e),
           t.end(),
@@ -3775,7 +3658,7 @@ ${a.stack}`
             delete t[e];
           }),
           al.forEach((e) => {
-            t[e] && (t[e] = F(t[e]?.toString(), a));
+            t[e] && (t[e] = W(t[e]?.toString(), a));
           }),
           "string" == typeof t.link
             ? (t.link = au(t.link, a))

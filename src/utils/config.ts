@@ -13,7 +13,10 @@ function Settings(): void {
   request.onupgradeneeded = function (event: IDBVersionChangeEvent) {
     db = (event.target as IDBOpenDBRequest).result as IDBDatabase;
     if (!db.objectStoreNames.contains(LunarSettings)) {
-      db.createObjectStore(LunarSettings, { keyPath: "id", autoIncrement: true });
+      db.createObjectStore(LunarSettings, {
+        keyPath: "id",
+        autoIncrement: true,
+      });
     }
   };
 
@@ -23,13 +26,16 @@ function Settings(): void {
   };
 
   request.onerror = function (event: Event) {
-    console.error("Database error: " + (event.target as IDBRequest).error?.message);
+    console.error(
+      "Database error: " + (event.target as IDBRequest).error?.message,
+    );
   };
 }
 
 function ensureDefaultSettings(): void {
   const defaultSettings: Setting[] = [
     { cloak: "on" },
+    { backend: "/p/" },
     { "search-engine": "https://www.google.com/search?q=" },
   ];
 
@@ -57,10 +63,13 @@ function ensureDefaultSettings(): void {
     };
 
     cursorRequest.onerror = function (event: Event) {
-      console.error(`Error ensuring default for '${settingKey}':`, (event.target as IDBRequest).error);
+      console.error(
+        `Error ensuring default for '${settingKey}':`,
+        (event.target as IDBRequest).error,
+      );
     };
   });
-} 
+}
 
 Settings.add = function (setting: Setting): void {
   const transaction = db.transaction([LunarSettings], "readwrite");
@@ -69,7 +78,9 @@ Settings.add = function (setting: Setting): void {
   const getRequest: IDBRequest = store.get(setting.id!);
 
   getRequest.onsuccess = function (event: Event) {
-    const existingSetting = (event.target as IDBRequest).result as Setting | undefined;
+    const existingSetting = (event.target as IDBRequest).result as
+      | Setting
+      | undefined;
 
     if (existingSetting) {
       const updateRequest = store.put(setting);
@@ -77,7 +88,10 @@ Settings.add = function (setting: Setting): void {
         console.log("Setting updated successfully!");
       };
       updateRequest.onerror = function (event: Event) {
-        console.error("Error updating setting:", (event.target as IDBRequest).error);
+        console.error(
+          "Error updating setting:",
+          (event.target as IDBRequest).error,
+        );
       };
     } else {
       const addRequest = store.add(setting);
@@ -85,13 +99,19 @@ Settings.add = function (setting: Setting): void {
         console.log("Setting added successfully!");
       };
       addRequest.onerror = function (event: Event) {
-        console.error("Error adding setting:", (event.target as IDBRequest).error);
+        console.error(
+          "Error adding setting:",
+          (event.target as IDBRequest).error,
+        );
       };
     }
   };
 
   getRequest.onerror = function (event: Event) {
-    console.error("Error checking setting:", (event.target as IDBRequest).error);
+    console.error(
+      "Error checking setting:",
+      (event.target as IDBRequest).error,
+    );
   };
 };
 
@@ -122,7 +142,12 @@ Settings.get = function (settingName: string): Promise<any> {
     };
 
     cursorRequest.onerror = function (event: Event) {
-      reject(new Error("Error retrieving setting by name: " + (event.target as IDBRequest).error));
+      reject(
+        new Error(
+          "Error retrieving setting by name: " +
+            (event.target as IDBRequest).error,
+        ),
+      );
     };
   });
 };
