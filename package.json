@@ -34,7 +34,7 @@
     "vite-plugin-static-copy": "^2.1.0"
   },
   "engines": {
-    "node": ">=23.3.0"
+    "node": ">=20"
   },
   "devDependencies": {
     "@eslint/js": "^9.15.0",

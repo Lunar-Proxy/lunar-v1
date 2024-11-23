@@ -1,59 +1,81 @@
 ---
 import "@src/main.css";
-import { ArrowLeft, ArrowRight, LoaderCircle, Menu, RotateCw } from "lucide-astro";
+import {
+  ArrowLeft,
+  ArrowRight,
+  LoaderCircle,
+  Menu,
+  RotateCw,
+} from "lucide-astro";
 ---
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<meta name="viewport" content="width=device-width" />
-<meta name="generator" content={Astro.generator} />
-<head>
+  <meta name="viewport" content="width=device-width" />
+  <meta name="generator" content={Astro.generator} />
+
   <script is:inline src="/assets/v/config.js" defer></script>
   <script is:inline src="/assets/v/bundle.js" defer></script>
   <script src="../utils/main.ts"></script>
-</head>
-<body>
-  <div class="flex justify-between items-center bg-background-overlay p-4 rounded-lg space-x-4 z-30" id="navbar">
-    <div class="flex space-x-4">
+
+  <body>
+    <div
+      class="flex justify-between items-center bg-background-overlay p-4 rounded-lg space-x-4 z-30"
+      id="navbar"
+    >
+      <div class="flex space-x-4">
+        <a
+          title="Forward"
+          href="#"
+          class="text-[#a5adce] hover:text-white active:text-white transition duration-150 transform hover:translate-x-0.5"
+          ><ArrowLeft /></a
+        >
+        <a
+          title="Back"
+          href="#"
+          class="text-[#a5adce] hover:text-white active:text-white transition duration-150 transform hover:translate-x-0.5"
+          ><ArrowRight /></a
+        >
+        <a
+          title="Refresh"
+          href="#"
+          class="text-[#a5adce] hover:text-white active:text-white transition duration-150 transform hover:translate-x-0.5"
+          ><RotateCw /></a
+        >
+      </div>
+      <form method="post" class="flex-grow mx-4" id="form">
+        <input
+          id="input"
+          type="text"
+          placeholder="Search..."
+          class="w-full bg-transparent text-white p-2 rounded-full border border-[#a5adce] placeholder-white focus:outline-none focus:ring-2 focus:ring-[#a5adce]"
+        />
+      </form>
       <a
-        title="Forward"
+        title="Menu"
         href="#"
         class="text-[#a5adce] hover:text-white active:text-white transition duration-150 transform hover:translate-x-0.5"
-      ><ArrowLeft /></a>
-      <a
-        title="Back"
-        href="#"
-        class="text-[#a5adce] hover:text-white active:text-white transition duration-150 transform hover:translate-x-0.5"
-      ><ArrowRight /></a>
-      <a
-        title="Refresh"
-        href="#"
-        class="text-[#a5adce] hover:text-white active:text-white transition duration-150 transform hover:translate-x-0.5"
-      ><RotateCw /></a>
+        ><Menu /></a
+      >
     </div>
-    <form method="post" class="flex-grow mx-4" id="fm">
-      <input
-        id="inp"
-        type="text"
-        placeholder="Search..."
-        class="w-full bg-transparent text-white p-2 rounded-full border border-[#a5adce] placeholder-white focus:outline-none focus:ring-2 focus:ring-[#a5adce]"
+    <div
+      id="starting"
+      class="text-center mt-10 p-4 rounded-lg space-x-4 z-30 relative"
+    >
+      <h1 class="text-6xl mt-52 text-text-HEADER font-bold">Lunar.</h1>
+    </div>
+    <div id="loading" class="z-10 relative hidden">
+      <LoaderCircle
+        class="text-[#a5adce] w-16 h-12 mx-auto mt-[220px] animate-spin"
       />
-    </form>
-    <a
-      title="Menu"
-      href="#"
-      class="text-[#a5adce] hover:text-white active:text-white transition duration-150 transform hover:translate-x-0.5"
-    ><Menu /></a>
-  </div>
-  <div id="starting" class="text-center mt-10 p-4 rounded-lg space-x-4 z-30 relative">
-    <h1 class="text-6xl mt-52 text-text-HEADER font-bold">Lunar.</h1>
-  </div>
-  <div id="loading" class="z-10 relative hidden">
-    <LoaderCircle class="text-[#a5adce] w-16 h-12 mx-auto mt-[220px] animate-spin" />
-    <h1 class="text-center mt-10 text-4xl text-text-HEADER font-bold">
-      Please wait while lunar loads your content.
-    </h1>
-  </div>
-  <iframe id="frame" title="" class="absolute top-[64px] left-0 z-20 h-[calc(100vh-64px)] w-[100vw]"></iframe>
-</body>
+      <h1 class="text-center mt-10 text-4xl text-text-HEADER font-bold">
+        Please wait while lunar loads your content.
+      </h1>
+    </div>
+    <iframe
+      id="frame"
+      title=""
+      class="absolute top-[64px] left-0 z-20 h-[calc(100vh-64px)] w-[100vw]"
+    ></iframe>
+  </body>
 </html>
