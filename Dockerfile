@@ -1,4 +1,4 @@
-FROM node:20
+FROM node:20.18.0
 ENV NODE_ENV=production
 ENV HOST=0.0.0.0
 WORKDIR /app
