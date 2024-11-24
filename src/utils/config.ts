@@ -1,155 +1,123 @@
 const DBNAME = "SettingsDB";
 const LunarSettings = "Lunar-Settings";
-let db: IDBDatabase;
+let db: IDBDatabase | undefined;
+let dbReady: Promise<void>;
 
 interface Setting {
-  id?: number;
   [key: string]: any;
 }
 
-function Settings(): void {
-  const request: IDBOpenDBRequest = window.indexedDB.open(DBNAME, 1);
+const Settings = (function () {
+  dbReady = new Promise((resolve, reject) => {
+    const request: IDBOpenDBRequest = window.indexedDB.open(DBNAME, 1);
 
-  request.onupgradeneeded = function (event: IDBVersionChangeEvent) {
-    db = (event.target as IDBOpenDBRequest).result as IDBDatabase;
-    if (!db.objectStoreNames.contains(LunarSettings)) {
-      db.createObjectStore(LunarSettings, {
-        keyPath: "id",
-        autoIncrement: true,
-      });
-    }
-  };
-
-  request.onsuccess = function (event: Event) {
-    db = (event.target as IDBRequest).result as IDBDatabase;
-    ensureDefaultSettings();
-  };
-
-  request.onerror = function (event: Event) {
-    console.error(
-      "Database error: " + (event.target as IDBRequest).error?.message,
-    );
-  };
-}
-
-function ensureDefaultSettings(): void {
-  const defaultSettings: Setting[] = [
-    { cloak: "on" },
-    { backend: "/p/" },
-    { "search-engine": "https://www.google.com/search?q=" },
-  ];
-
-  const transaction = db.transaction([LunarSettings], "readwrite");
-  const store = transaction.objectStore(LunarSettings);
-
-  defaultSettings.forEach((setting) => {
-    const settingKey = Object.keys(setting)[0];
-    const cursorRequest: IDBRequest = store.openCursor();
-
-    let found = false;
-
-    cursorRequest.onsuccess = function (event: Event) {
-      const cursor: IDBCursorWithValue = (event.target as IDBRequest).result;
-
-      if (cursor) {
-        if (cursor.value[settingKey] !== undefined) {
-          found = true;
-        }
-        cursor.continue();
-      } else if (!found) {
-        store.add(setting);
-        console.log(`Default setting '${settingKey}' added.`);
+    request.onupgradeneeded = function (event: IDBVersionChangeEvent) {
+      const dbInstance = (event.target as IDBOpenDBRequest).result;
+      if (!dbInstance.objectStoreNames.contains(LunarSettings)) {
+        dbInstance.createObjectStore(LunarSettings, {
+          keyPath: "id",
+          autoIncrement: true,
+        });
       }
     };
 
-    cursorRequest.onerror = function (event: Event) {
-      console.error(
-        `Error ensuring default for '${settingKey}':`,
-        (event.target as IDBRequest).error,
-      );
+    request.onsuccess = function (event: Event) {
+      db = (event.target as IDBOpenDBRequest).result;
+      resolve();
+    };
+
+    request.onerror = function (event: Event) {
+      reject((event.target as IDBOpenDBRequest).error);
     };
   });
-}
 
-Settings.add = function (setting: Setting): void {
-  const transaction = db.transaction([LunarSettings], "readwrite");
-  const store = transaction.objectStore(LunarSettings);
-
-  const getRequest: IDBRequest = store.get(setting.id!);
-
-  getRequest.onsuccess = function (event: Event) {
-    const existingSetting = (event.target as IDBRequest).result as
-      | Setting
-      | undefined;
-
-    if (existingSetting) {
-      const updateRequest = store.put(setting);
-      updateRequest.onsuccess = function () {
-        console.log("Setting updated successfully!");
-      };
-      updateRequest.onerror = function (event: Event) {
-        console.error(
-          "Error updating setting:",
-          (event.target as IDBRequest).error,
-        );
-      };
-    } else {
-      const addRequest = store.add(setting);
-      addRequest.onsuccess = function () {
-        console.log("Setting added successfully!");
-      };
-      addRequest.onerror = function (event: Event) {
-        console.error(
-          "Error adding setting:",
-          (event.target as IDBRequest).error,
-        );
-      };
-    }
-  };
-
-  getRequest.onerror = function (event: Event) {
-    console.error(
-      "Error checking setting:",
-      (event.target as IDBRequest).error,
-    );
-  };
-};
-
-Settings.get = function (settingName: string): Promise<any> {
-  return new Promise((resolve, reject) => {
-    const transaction = db.transaction([LunarSettings], "readonly");
+  async function ensureDefaultSettings(): Promise<void> {
+    await dbReady;
+    const defaultSettings: Setting[] = [
+      { cloak: "on" },
+      { backend: "/p/" }, //  /p/: UV,  /scram/:  Scramjet
+      { "search-engine": "https://www.google.com/search?q=" },
+    ];
+    const transaction = db!.transaction([LunarSettings], "readwrite");
     const store = transaction.objectStore(LunarSettings);
 
-    const cursorRequest: IDBRequest = store.openCursor();
+    for (const setting of defaultSettings) {
+      const settingKey = Object.keys(setting)[0];
+      const cursorRequest: IDBRequest = store.openCursor();
+      let found = false;
 
-    let found = false;
+      cursorRequest.onsuccess = function (event: Event) {
+        const cursor: IDBCursorWithValue = (event.target as IDBRequest).result;
+        if (cursor) {
+          if (cursor.value[settingKey] !== undefined) {
+            found = true;
+          }
+          cursor.continue();
+        } else if (!found) {
+          store.add(setting);
+        }
+      };
 
-    cursorRequest.onsuccess = function (event: Event) {
-      const cursor: IDBCursorWithValue = (event.target as IDBRequest).result;
+      cursorRequest.onerror = function (event: Event) {};
+    }
+  }
 
+  async function add(settingName: string, value: any): Promise<void> {
+    await dbReady;
+    const transaction = db!.transaction([LunarSettings], "readwrite");
+    const store = transaction.objectStore(LunarSettings);
+    const cursorRequest = store.openCursor();
+    let updated = false;
+
+    cursorRequest.onsuccess = (event) => {
+      const cursor = (event.target as IDBRequest<IDBCursorWithValue>).result;
       if (cursor) {
         if (cursor.value[settingName] !== undefined) {
-          found = true;
-          resolve(cursor.value[settingName]);
-          return;
+          const updatedEntry = { ...cursor.value, [settingName]: value };
+          cursor.update(updatedEntry);
+          updated = true;
         }
         cursor.continue();
-      } else {
-        if (!found) {
-          resolve(undefined);
-        }
+      } else if (!updated) {
+        const newEntry: Setting = { [settingName]: value };
+        store.add(newEntry);
       }
     };
 
-    cursorRequest.onerror = function (event: Event) {
-      reject(
-        new Error(
-          "Error retrieving setting by name: " +
-            (event.target as IDBRequest).error,
-        ),
-      );
-    };
-  });
-};
+    cursorRequest.onerror = function (event: Event) {};
+  }
+
+  async function get(settingName: string): Promise<any> {
+    await dbReady;
+    return new Promise((resolve, reject) => {
+      const transaction = db!.transaction([LunarSettings], "readonly");
+      const store = transaction.objectStore(LunarSettings);
+      const cursorRequest: IDBRequest = store.openCursor();
+      let found = false;
+
+      cursorRequest.onsuccess = function (event: Event) {
+        const cursor: IDBCursorWithValue = (event.target as IDBRequest).result;
+        if (cursor) {
+          if (cursor.value[settingName] !== undefined) {
+            found = true;
+            resolve(cursor.value[settingName]);
+            return;
+          }
+          cursor.continue();
+        } else if (!found) {
+          resolve(undefined);
+        }
+      };
+
+      cursorRequest.onerror = function (event: Event) {
+        reject(new Error("Error retrieving setting by name."));
+      };
+    });
+  }
+
+  dbReady.then(() => ensureDefaultSettings());
+
+  return { add, get };
+})();
 
 export { Settings };

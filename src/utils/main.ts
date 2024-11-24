@@ -3,11 +3,12 @@ import { BareMuxConnection } from "@mercuryworkshop/bare-mux";
 
 await navigator.serviceWorker.register("/sw.js");
 
-const input = document.getElementById("input") as HTMLInputElement;
-const fm = document.getElementById("form") as HTMLFormElement;
+const input = document.getElementById("in") as HTMLInputElement;
+const fm = document.getElementById("fm") as HTMLFormElement;
 const frame = document.getElementById("frame") as HTMLIFrameElement;
 const loading = document.getElementById("loading") as HTMLDivElement;
 const welcome = document.getElementById("starting") as HTMLDivElement;
+
 
 async function launch(link: string, backend: string) {
   const connection = new BareMuxConnection("/bm/worker.js");
@@ -20,16 +21,15 @@ async function launch(link: string, backend: string) {
     await connection.setTransport("/ep/index.mjs", [{ wisp: wispurl }]);
   }
   const scram = new ScramjetController({
-    prefix: "/sj/",
+    prefix: "/scram/",
     files: {
-      wasm: "/assets/s/wasm.js",
-      worker: "/assets/s/worker.js",
-      client: "/assets/s/client.js",
-      shared: "/assets/s/shared.js",
-      sync: "/assets/s/sync.js",
+      wasm: "/assets/sj/wasm.js",
+      worker: "/assets/sj/worker.js",
+      client: "/assets/sj/client.js",
+      shared: "/assets/sj/shared.js",
+      sync: "/assets/sj/sync.js",
     },
   });
-
   window.sj = scram;
   scram.init("./sw.js");
   const url = backend + config.encodeUrl(link);
