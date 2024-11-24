@@ -1,7 +1,7 @@
 import { Settings } from "../utils/config";
 import { BareMuxConnection } from "@mercuryworkshop/bare-mux";
 
-await navigator.serviceWorker.register("/sw.js");
+await navigator.serviceWorker.register("sw.js");
 
 const input = document.getElementById("in") as HTMLInputElement;
 const fm = document.getElementById("fm") as HTMLFormElement;
@@ -31,7 +31,7 @@ async function launch(link: string, backend: string) {
     },
   });
   window.sj = scram;
-  scram.init("./sw.js");
+  scram.init("./sjsw.js");
   const url = backend + config.encodeUrl(link);
   frame.src = url;
 }

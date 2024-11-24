@@ -1,33 +1,17 @@
-importScripts(
-  "/assets/v/bundle.js",
-  "/assets/v/config.js",
-  "/assets/v/sw.js",
-  "/assets/sj/wasm.js",
-  "/assets/sj/shared.js",
-  "/assets/sj/worker.js"
-);
+importScripts("/assets/v/bundle.js");
+importScripts("/assets/v/config.js");
+importScripts("/assets/v/sw.js");
 
-const fonts = new UVServiceWorker();
-const scram = new ScramjetServiceWorker();
-let playgroundData;
+const uv = new UVServiceWorker();
 
 async function handleRequest(event) {
-  if (fonts.route(event)) {
-    return fonts.fetch(event);
+  if (uv.route(event)) {
+    return await uv.fetch(event);
   }
-  if (scram.route(event)) {
-    await scram.loadConfig();
-    return scram.fetch(event);
-  }
-  return fetch(event.request);
+
+  return await fetch(event.request);
 }
 
 self.addEventListener("fetch", (event) => {
   event.respondWith(handleRequest(event));
-});
-
-self.addEventListener("message", ({ data }) => {
-  if (data.type === "playgroundData") {
-    playgroundData = data;
-  }
 });
