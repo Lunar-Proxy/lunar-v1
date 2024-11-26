@@ -9,7 +9,6 @@ const frame = document.getElementById("frame") as HTMLIFrameElement;
 const loading = document.getElementById("loading") as HTMLDivElement;
 const welcome = document.getElementById("starting") as HTMLDivElement;
 
-
 async function launch(link: string, backend: string) {
   const connection = new BareMuxConnection("/bm/worker.js");
   const wispurl =

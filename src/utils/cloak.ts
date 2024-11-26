@@ -25,7 +25,7 @@ async function Cloak() {
         const doc = popup.document;
         const iframe = doc.createElement("iframe");
         const style = iframe.style;
-        
+
         iframe.src = location.href;
         style.position = "fixed";
         style.top = style.bottom = style.left = style.right = "0";
@@ -36,7 +36,7 @@ async function Cloak() {
         window.location.replace("https://google.com");
         // Todo: Make name & location random
       } catch (error) {
-       throw new Error("Cloaking failed with error:" + error);
+        throw new Error("Cloaking failed with error:" + error);
       }
     }
   }
