@@ -45,7 +45,9 @@ const build = async () => {
       console.log(chalk.green.bold("✅ Dist folder was successfully built."));
     } catch (error) {
       throw new Error(
-        `${chalk.red.bold("❌ Failed to build the dist folder:")} ${error instanceof Error ? error.message : error}`,
+        `${chalk.red.bold("❌ Failed to build the dist folder:")} ${
+          error instanceof Error ? error.message : error
+        }`,
       );
     }
   }
@@ -55,7 +57,7 @@ const app = Fastify({
   logger: false,
   serverFactory: (handler) =>
     createServer(handler).on("upgrade", (req, socket: Socket, head) => {
-      if (req.url?.startsWith("/goo")) {
+      if (req.url?.startsWith("/w")) {
         wisp.routeRequest(req, socket, head);
       } else {
         socket.destroy();
@@ -79,12 +81,12 @@ try {
   });
   app.register(fastifyStatic, {
     root: epoxyPath,
-    prefix: "/e/",
+    prefix: "/ep/",
     decorateReply: false,
   });
   app.register(fastifyStatic, {
     root: libcurlPath,
-    prefix: "/l/",
+    prefix: "/lb/",
     decorateReply: false,
   });
   app.register(fastifyStatic, {
@@ -106,9 +108,22 @@ try {
       console.log(chalk.blue(`🌐 Local: http://${host}:${port}`));
       console.log(chalk.blue(`🌍 Network: ${address}`));
     }
+
+    // https://expressjs.com/en/advanced/healthcheck-graceful-shutdown.html
+    process.on("SIGINT", shutdown);
+    process.on("SIGTERM", shutdown);
+
+    function shutdown() {
+      console.log("SIGTERM signal received: closing HTTP server");
+      app.server.close(() => {
+        process.exit(0);
+      });
+    }
   });
 } catch (error: unknown) {
   throw new Error(
-    `${chalk.red.bold("❌ An error happend while trying to start lunar:")} ${error instanceof Error ? error.message : error}`,
+    `${chalk.red.bold("An error happend while trying to start lunar:")} ${
+      error instanceof Error ? error.message : error
+    }`,
   );
 }
