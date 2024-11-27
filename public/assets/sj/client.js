@@ -155,7 +155,7 @@
             )
               throw (
                 (console.error(
-                  "attempted to initialize a scramjet client, but one is already loaded - this is very bad",
+                  "attempted to initialize a scramjet cl ient, but one is already loaded - this is very bad",
                 ),
                 Error())
               );
@@ -447,8 +447,8 @@
                     "symbol" == typeof r
                       ? Reflect.has(e, r)
                       : !(
-                          r.startsWith("data-scramjet-") ||
-                          t[r]?.name?.startsWith("data-scramjet-")
+                          r.startsWith("scramjet-data-") ||
+                          t[r]?.name?.startsWith("scramjet-data-")
                         ) && Reflect.has(e, r),
                 });
               return r;
@@ -608,9 +608,9 @@
           s = r(4471);
         function i(e, t) {
           t.Element.prototype.getAttribute;
-          let r = t.Element.prototype.setAttribute;
-          t.Element.prototype.hasAttribute;
-          let i = {
+          let r = t.Element.prototype.setAttribute,
+            i = t.Element.prototype.hasAttribute,
+            l = {
               nonce: [t.HTMLElement],
               integrity: [t.HTMLScriptElement, t.HTMLLinkElement],
               csp: [t.HTMLIFrameElement],
@@ -619,6 +619,7 @@
                 t.HTMLImageElement,
                 t.HTMLMediaElement,
                 t.HTMLIFrameElement,
+                t.HTMLFrameElement,
                 t.HTMLEmbedElement,
                 t.HTMLScriptElement,
                 t.HTMLSourceElement,
@@ -631,8 +632,8 @@
               srcset: [t.HTMLImageElement, t.HTMLSourceElement],
               imagesrcset: [t.HTMLLinkElement],
             },
-            l = [t.HTMLAnchorElement.prototype, t.HTMLAreaElement.prototype],
-            c = [
+            c = [t.HTMLAnchorElement.prototype, t.HTMLAreaElement.prototype],
+            u = [
               (0, a.nativeGetOwnPropertyDescriptor)(
                 t.HTMLAnchorElement.prototype,
                 "href",
@@ -642,8 +643,8 @@
                 "href",
               ),
             ];
-          for (let e of Object.keys(i))
-            for (let t of i[e]) {
+          for (let e of Object.keys(l))
+            for (let t of l[e]) {
               let r = (0, a.nativeGetOwnPropertyDescriptor)(t.prototype, e);
               Object.defineProperty(t.prototype, e, {
                 get() {
@@ -672,9 +673,9 @@
             "port",
             "search",
           ])
-            for (let r in l) {
-              let n = l[r],
-                o = c[r];
+            for (let r in c) {
+              let n = c[r],
+                o = u[r];
               e.RawTrap(n, t, {
                 get(e) {
                   let r = o.get.call(e.this);
@@ -703,7 +704,7 @@
                   });
                 o &&
                   ((t.args[1] = o.fn(n, e.meta, e.cookieStore)),
-                  t.fn.call(t.this, `data-scramjet-${t.args[0]}`, n));
+                  t.fn.call(t.this, `scramjet-data-${t.args[0]}`, n));
               },
             }),
             e.Proxy("Element.prototype.setAttributeNS", {
@@ -720,14 +721,17 @@
                   });
                 i &&
                   ((t.args[2] = i.fn(a, e.meta, e.cookieStore)),
-                  r.call(t.this, `data-scramjet-${t.args[1]}`, a));
+                  r.call(t.this, `scramjet-data-${t.args[1]}`, a));
               },
             }),
             e.Proxy("Element.prototype.getAttribute", {
               apply(e) {
                 let [t] = e.args;
-                e.fn.call(e.this, `data-scramjet-${t}`) &&
-                  e.return(e.fn.call(e.this, `data-scramjet-${t}`));
+                if (t.startsWith("scramjet-data")) return e.return(null);
+                if (i.call(e.this, `scramjet-data-${t}`)) {
+                  let r = e.fn.call(e.this, `scramjet-data-${t}`);
+                  return null === r ? e.return("") : e.return(r);
+                }
               },
             }),
             e.Trap("Element.prototype.innerHTML", {
@@ -749,7 +753,7 @@
                 if (r.this instanceof t.HTMLScriptElement) {
                   let t = e.natives["Element.prototype.getAttribute"].call(
                     r.this,
-                    "data-scramjet-script-source-src",
+                    "scramjet-data-script-source-src",
                   );
                   return t ? atob(t) : r.get();
                 }
@@ -776,12 +780,9 @@
               get(e) {
                 let t = e.get();
                 if (!t) return t;
-                if (n.a in t.self)
-                  return t.location.href.includes("accounts.google.com")
-                    ? null
-                    : t.self[n.a].globalProxy;
+                if (n.a in t) return t[n.a].globalProxy;
                 {
-                  let e = new o.ScramjetClient(t.self);
+                  let e = new o.ScramjetClient(t);
                   return e.hook(), e.globalProxy;
                 }
               },
@@ -792,9 +793,9 @@
                   "HTMLIFrameElement.prototype.contentWindow"
                 ].get.apply(t.this);
                 if (!r) return r;
-                if (n.a in r.self) return r.self[n.a].documentProxy;
+                if (n.a in r) return r[n.a].documentProxy;
                 {
-                  let e = new o.ScramjetClient(r.self);
+                  let e = new o.ScramjetClient(r);
                   return e.hook(), e.documentProxy;
                 }
               },
@@ -818,6 +819,9 @@
                 "Node.prototype.parentElement",
                 "Node.prototype.previousSibling",
                 "Node.prototype.nextSibling",
+                "Range.prototype.commonAncestorContainer",
+                "AbstractRange.prototype.endContainer",
+                "AbstractRange.prototype.startContainer",
               ],
               {
                 get(e) {
@@ -825,6 +829,18 @@
                   if (!(t instanceof Document)) return t;
                   let r = t[n.a];
                   return r ? r.documentProxy : t;
+                },
+              },
+            ),
+            e.Proxy(
+              [
+                "HTMLIFrameElement.prototype.getSVGDocument",
+                "HTMLObjectElement.prototype.getSVGDocument",
+                "HTMLEmbedElement.prototype.getSVGDocument",
+              ],
+              {
+                apply(e) {
+                  e.call() && e.return(e.this.contentDocument);
                 },
               },
             ),
@@ -942,10 +958,9 @@
                   (t.args[1] = "_self");
               let r = t.call();
               if (!r) return t.return(r);
-              if (a.a in r.self)
-                return t.return(r.self[a.a].globalProxy.window);
+              if (a.a in r) return t.return(r[a.a].globalProxy);
               {
-                let e = new o.ScramjetClient(r.self);
+                let e = new o.ScramjetClient(r);
                 return e.hook(), t.return(e.globalProxy);
               }
             },
@@ -953,7 +968,7 @@
             e.Trap("opener", {
               get(e) {
                 let t = e.get();
-                return t && a.a in t.self ? t.self[a.a].globalProxy : void 0;
+                return t && a.a in t ? t[a.a].globalProxy : void 0;
               },
             }),
             e.Trap("window.frameElement", {
@@ -1155,9 +1170,8 @@
                 t.setItem(e.url.host + "@" + r, n.value), !0
               ),
             },
-            n = t.localStorage;
-          t.sessionStorage;
-          let o = new Proxy(t.localStorage, r),
+            n = t.localStorage,
+            o = new Proxy(t.localStorage, r),
             a = new Proxy(t.sessionStorage, r);
           delete t.localStorage,
             delete t.sessionStorage,
@@ -1571,7 +1585,6 @@
         function a(e, t = []) {
           switch (typeof e) {
             case "string":
-              e.includes("localhost:1337/scramjet/") && e.includes("m3u8");
               break;
             case "object":
               if (
@@ -1841,7 +1854,7 @@
       7341: function (e, t, r) {
         "use strict";
         let n;
-        r.r(t), r.d(t, { default: () => S });
+        r.r(t), r.d(t, { default: () => T });
         var o = r("4471"),
           a = r("8810");
         let s =
@@ -2145,6 +2158,13 @@
           (Error.stackTraceLimit = 50);
         let _ = new TextDecoder();
         function S(e, t) {
+          try {
+            return new URL(e, t);
+          } catch {
+            return null;
+          }
+        }
+        function T(e, t) {
           let r = e.natives.Function;
           (t[o.vc.globals.importfn] = function (t) {
             return function (o) {
@@ -2182,11 +2202,8 @@
                         }
                         return (e = (function (e, t, r) {
                           let o;
-                          let {
-                            js: s,
-                            errors: i,
-                            duration: c,
-                          } = (o =
+                          let s = performance.now();
+                          o =
                             "string" == typeof e
                               ? (function (e, t, r, o) {
                                   let a = g(
@@ -2247,21 +2264,26 @@
                                   r.base.href,
                                   t || "(unknown)",
                                   a.h3,
-                                ));
-                          for (let e of i) console.error("oxc parse error", e);
-                          {
+                                );
+                          let i = performance.now(),
+                            { js: c, errors: f, duration: p } = o;
+                          if ((0, a.Sp)("rewriterLogs", r.base))
+                            for (let e of f)
+                              console.error("oxc parse error", e);
+                          if ((0, a.Sp)("rewriterLogs", r.base)) {
                             let e;
-                            (e =
-                              c < 1n
+                            e =
+                              p < 1n
                                 ? "BLAZINGLY FAST"
-                                : c < 500n
+                                : p < 500n
                                   ? "decent speed"
-                                  : "really slow"),
-                              console.log(
-                                `oxc rewrite for "${t || "(unknown)"}" was ${e} (${c}ms)`,
-                              );
+                                  : "really slow";
+                            let r = (i - s - Number(p)).toFixed(2);
+                            console.log(
+                              `oxc rewrite for "${t || "(unknown)"}" was ${e} (${p}ms; ${r}ms overhead)`,
+                            );
                           }
-                          return "string" == typeof e ? _.decode(s) : s;
+                          return "string" == typeof e ? _.decode(c) : c;
                         })(e, null, r));
                       })(e.slice(11), null, t)
                     );
@@ -2273,42 +2295,35 @@
                     if (e.startsWith("mailto:") || e.startsWith("about:"))
                       return e;
                     let r = t.base.href;
-                    return (
-                      r.startsWith("about:") &&
-                        (r = (function (e) {
-                          e instanceof URL && (e = e.href);
-                          let t = location.origin + a.h3.config.prefix;
-                          if (e.startsWith("javascript:")) return e;
-                          if (e.startsWith("blob:")) return e;
-                          if (e.startsWith(t + "blob:"))
-                            return e.substring(t.length);
-                          else if (e.startsWith(t + "data:"))
-                            return e.substring(t.length);
-                          else if (
-                            e.startsWith("mailto:") ||
-                            e.startsWith("about:")
-                          )
-                            return e;
-                          else if (
-                            (function (e, t) {
-                              try {
-                                return new URL(e, void 0);
-                              } catch {
-                                return null;
-                              }
-                            })(e)
-                          )
-                            return a.h3.codec.decode(
-                              e.slice(
-                                (location.origin + a.h3.config.prefix).length,
-                              ),
-                            );
-                          else return e;
-                        })(self.location.href)),
-                      location.origin +
-                        a.h3.config.prefix +
-                        a.h3.codec.encode(new URL(e, r).href)
-                    );
+                    r.startsWith("about:") &&
+                      (r = (function (e) {
+                        e instanceof URL && (e = e.href);
+                        let t = location.origin + a.h3.config.prefix;
+                        if (e.startsWith("javascript:")) return e;
+                        if (e.startsWith("blob:")) return e;
+                        if (e.startsWith(t + "blob:"))
+                          return e.substring(t.length);
+                        else if (e.startsWith(t + "data:"))
+                          return e.substring(t.length);
+                        else if (
+                          e.startsWith("mailto:") ||
+                          e.startsWith("about:")
+                        )
+                          return e;
+                        else if (S(e))
+                          return a.h3.codec.decode(
+                            e.slice(
+                              (location.origin + a.h3.config.prefix).length,
+                            ),
+                          );
+                        else return e;
+                      })(self.location.href));
+                    let n = S(e, r);
+                    return n
+                      ? location.origin +
+                          a.h3.config.prefix +
+                          a.h3.codec.encode(n.href)
+                      : e;
                   }
                 })(s, e.meta)}")`,
               )();
@@ -2326,7 +2341,7 @@
       },
       2930: function (e, t, r) {
         "use strict";
-        function n(e, t) {
+        function n(e) {
           e.Proxy("IDBFactory.prototype.open", {
             apply(t) {
               t.args[0] = `${e.url.origin}@${t.args[0]}`;
@@ -2492,8 +2507,7 @@
           e.Proxy("WebSocket", {
             construct(n) {
               let o = new EventTarget();
-              Object.setPrototypeOf(o, t.WebSocket.prototype),
-                (o.constructor = n.fn);
+              Object.setPrototypeOf(o, n.fn.prototype), (o.constructor = n.fn);
               let a = (e) =>
                   new Proxy(e, {
                     get: (e, t) => "isTrusted" === t || Reflect.get(e, t),
@@ -2676,6 +2690,7 @@
           e.Proxy("XMLHttpRequest.prototype.open", {
             apply(t) {
               t.args[1] && (t.args[1] = (0, o.dm)(t.args[1], e.meta)),
+                void 0 === t.args[2] && (t.args[2] = !0),
                 (t.this[a] = t.args);
             },
           }),
@@ -2847,6 +2862,7 @@
               t.MutationObserver.prototype,
               t.document,
               t.MouseEvent.prototype,
+              t.Range.prototype,
             ])
               for (let t in r)
                 try {
@@ -2978,18 +2994,18 @@
             if (r === eval) return s.indirectEval.bind(e);
             if (n.iswindow) {
               if (r === t.parent)
-                return o.a in t.parent.self
-                  ? t.parent.self[o.a].globalProxy
+                return o.a in t.parent
+                  ? t.parent[o.a].globalProxy
                   : e.globalProxy;
               if (r === t.document) return e.documentProxy;
               else if (r === t.top) {
-                let e = t.self;
+                let e = t;
                 for (;;) {
                   let t = e.parent.self;
                   if (t === e || !(o.a in t)) break;
                   e = t;
                 }
-                return e[o.a].globalProxy.window;
+                return e[o.a].globalProxy;
               }
             }
             return r;
@@ -3083,13 +3099,13 @@
         function s(e, t) {
           let r = this.recvport,
             a = t.scramjet$type,
-            s = t.scramjet$token;
+            s = t.scramjet$token,
+            i = e.eventcallbacks.get(self);
           if ("fetch" === a) {
             o.log("ee", t);
-            let a = e.eventcallbacks.get(self);
+            let a = i.filter((e) => "fetch" === e.event);
             if (!a) return;
             for (let i of a) {
-              if ("fetch" !== i.event) continue;
               let a = t.scramjet$request,
                 l = new e.natives.Request((0, n.Sd)(a.url), {
                   body: a.body,
@@ -3225,7 +3241,7 @@
         }),
           !("$scramjet" in self) &&
             (self.$scramjet = {
-              version: { build: "f561029", version: "1.0.2-dev" },
+              version: { build: "58fed66", version: "1.0.2-dev" },
               codec: {},
               flagEnabled: s,
             });

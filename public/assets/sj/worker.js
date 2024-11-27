@@ -4,12 +4,12 @@
       1762: function (e, t, r) {
         r.d(t, {
           Z: function () {
-            return s;
+            return o;
           },
         });
-        let s = {
+        let o = {
           fmt: function (e, t, ...r) {
-            let s = Error.prepareStackTrace;
+            let o = Error.prepareStackTrace;
             Error.prepareStackTrace = (e, t) => {
               t.shift(), t.shift(), t.shift();
               let r = "";
@@ -18,17 +18,17 @@
                   (r += `${t[e].getFunctionName()} -> ` + r);
               return (r += t[0].getFunctionName() || "Anonymous");
             };
-            let o = (function () {
+            let s = (function () {
               try {
                 throw Error();
               } catch (e) {
                 return e.stack;
               }
             })();
-            Error.prepareStackTrace = s;
+            Error.prepareStackTrace = o;
             let n = console[e] || console.log;
             n(
-              `%c${o}%c ${t}`,
+              `%c${s}%c ${t}`,
               `
 		background-color: ${{ log: "#000", warn: "#f80", error: "#f00", debug: "transparent" }[e]};
 		color: ${{ log: "#fff", warn: "#fff", error: "#fff", debug: "gray" }[e]};
@@ -57,22 +57,22 @@
       },
     },
     t = {};
-  function r(s) {
-    var o = t[s];
-    if (void 0 !== o) return o.exports;
-    var n = (t[s] = { exports: {} });
-    return e[s](n, n.exports, r), n.exports;
+  function r(o) {
+    var s = t[o];
+    if (void 0 !== s) return s.exports;
+    var n = (t[o] = { exports: {} });
+    return e[o](n, n.exports, r), n.exports;
   }
   (r.d = function (e, t) {
-    for (var s in t)
-      r.o(t, s) &&
-        !r.o(e, s) &&
-        Object.defineProperty(e, s, { enumerable: !0, get: t[s] });
+    for (var o in t)
+      r.o(t, o) &&
+        !r.o(e, o) &&
+        Object.defineProperty(e, o, { enumerable: !0, get: t[o] });
   }),
     (r.o = function (e, t) {
       return Object.prototype.hasOwnProperty.call(e, t);
     });
-  class s {
+  class o {
     handle;
     origin;
     syncToken;
@@ -116,43 +116,43 @@
             destinitation: e.destination,
           },
         },
-        s = e.body ? [e.body] : [];
-      this.handle.postMessage(r, s);
-      let { scramjet$response: o } = await new Promise((e) => {
+        o = e.body ? [e.body] : [];
+      this.handle.postMessage(r, o);
+      let { scramjet$response: s } = await new Promise((e) => {
         this.promises[t] = e;
       });
       return (
-        !!o &&
-        new Response(o.body, {
-          headers: o.headers,
-          status: o.status,
-          statusText: o.statusText,
+        !!s &&
+        new Response(s.body, {
+          headers: s.headers,
+          status: s.status,
+          statusText: s.statusText,
         })
       );
     }
   }
   !("$scramjet" in self) &&
     (self.$scramjet = {
-      version: { build: "f561029", version: "1.0.2-dev" },
+      version: { build: "58fed66", version: "1.0.2-dev" },
       codec: {},
       flagEnabled: function (e, t) {
-        let r = o.config.defaultFlags[e];
-        for (let r in o.config.siteFlags) {
-          let s = o.config.siteFlags[r];
-          if (new RegExp(r).test(t.href) && e in s) return s[e];
+        let r = s.config.defaultFlags[e];
+        for (let r in s.config.siteFlags) {
+          let o = s.config.siteFlags[r];
+          if (new RegExp(r).test(t.href) && e in o) return o[e];
         }
         return r;
       },
     });
-  let o = self.$scramjet,
+  let s = self.$scramjet,
     n = Function,
     {
       util: { BareClient: i, ScramjetHeaders: a, BareMuxConnection: c },
-      url: { rewriteUrl: l, unrewriteUrl: d, rewriteBlob: h, unrewriteBlob: u },
+      url: { rewriteUrl: l, unrewriteUrl: d, rewriteBlob: u, unrewriteBlob: h },
       rewrite: {
-        rewriteCss: f,
+        rewriteCss: p,
         unrewriteCss: m,
-        rewriteHtml: p,
+        rewriteHtml: f,
         unrewriteHtml: g,
         rewriteSrcset: y,
         rewriteJs: b,
@@ -161,7 +161,7 @@
         htmlRules: k,
       },
       CookieStore: x,
-    } = o.shared;
+    } = s.shared;
   function R(e) {
     return { origin: e, base: e };
   }
@@ -170,45 +170,47 @@
     if (r.has("url"))
       return Response.redirect(l(r.get("url"), R(new URL(r.get("url")))));
     try {
-      let s = new URL(e.url),
+      let o = new URL(e.url),
         n = "";
       if (
-        (s.searchParams.has("type") &&
-          ((n = s.searchParams.get("type")), s.searchParams.delete("type")),
-        s.searchParams.has("dest") && s.searchParams.delete("dest"),
-        s.pathname.startsWith(this.config.prefix + "blob:") ||
-          s.pathname.startsWith(this.config.prefix + "data:"))
+        (o.searchParams.has("type") &&
+          ((n = o.searchParams.get("type")), o.searchParams.delete("type")),
+        o.searchParams.has("dest") && o.searchParams.delete("dest"),
+        o.pathname.startsWith(this.config.prefix + "blob:") ||
+          o.pathname.startsWith(this.config.prefix + "data:"))
       ) {
         let r,
-          o = s.pathname.substring(this.config.prefix.length);
-        o.startsWith("blob:") && (o = u(o));
-        let i = await fetch(o, {});
-        i.body &&
-          (r = await j(
-            i,
-            t
-              ? {
-                  base: new URL(new URL(t.url).origin),
-                  origin: new URL(new URL(t.url).origin),
-                }
-              : R(new URL(d(e.referrer))),
-            e.destination,
-            n,
-            this.cookieStore,
-          ));
-        let a = Object.fromEntries(i.headers.entries());
+          s = o.pathname.substring(this.config.prefix.length);
+        s.startsWith("blob:") && (s = h(s));
+        let i = await fetch(s, {}),
+          a = s.startsWith("blob:") ? s : "(data url)";
+        (i.finalURL = a),
+          i.body &&
+            (r = await $(
+              i,
+              t
+                ? {
+                    base: new URL(new URL(t.url).origin),
+                    origin: new URL(new URL(t.url).origin),
+                  }
+                : R(new URL(d(e.referrer))),
+              e.destination,
+              n,
+              this.cookieStore,
+            ));
+        let c = Object.fromEntries(i.headers.entries());
         return (
           crossOriginIsolated &&
-            ((a["Cross-Origin-Opener-Policy"] = "same-origin"),
-            (a["Cross-Origin-Embedder-Policy"] = "require-corp")),
+            ((c["Cross-Origin-Opener-Policy"] = "same-origin"),
+            (c["Cross-Origin-Embedder-Policy"] = "require-corp")),
           new Response(r, {
             status: i.status,
             statusText: i.statusText,
-            headers: a,
+            headers: c,
           })
         );
       }
-      let i = new URL(d(s)),
+      let i = new URL(d(o)),
         c = this.serviceWorkers.find((e) => e.origin === i.origin);
       if (c && c.connected && "swruntime" !== r.get("from")) {
         let t = await c.fetch(e);
@@ -220,33 +222,41 @@
         );
       let l = new a();
       for (let [t, r] of e.headers.entries()) l.set(t, r);
-      if (t && new URL(t.url).pathname.startsWith(o.config.prefix)) {
+      if (t && new URL(t.url).pathname.startsWith(s.config.prefix)) {
         let e = new URL(d(t.url));
         e.toString().includes("youtube.com") ||
           (l.set("Referer", e.toString()), l.set("Origin", e.origin));
       }
-      let h = this.cookieStore.getCookies(i, !1);
-      h.length && l.set("Cookie", h),
+      let u = this.cookieStore.getCookies(i, !1);
+      u.length && l.set("Cookie", u),
         l.set("Sec-Fetch-Dest", e.destination),
+        l.set("Sec-Fetch-Site", "same-origin"),
         l.set("Sec-Fetch-Mode", "cors" === e.mode ? e.mode : "same-origin");
-      let f = new E(i, e.body, e.method, e.destination, t, l.headers);
-      this.dispatchEvent(f);
+      let p = new E(i, e.body, e.method, e.destination, t, l.headers);
+      this.dispatchEvent(p);
       let m =
-        f.response ||
-        (await this.client.fetch(f.url, {
-          method: f.method,
-          body: f.body,
-          headers: f.requestHeaders,
+        p.response ||
+        (await this.client.fetch(p.url, {
+          method: p.method,
+          body: p.body,
+          headers: p.requestHeaders,
           credentials: "omit",
           mode: "cors" === e.mode ? e.mode : "same-origin",
           cache: e.cache,
           redirect: "manual",
           duplex: "half",
         }));
-      return await $(i, n, e.destination, m, this.cookieStore, t, this);
-    } catch (t) {
+      return await C(i, n, e.destination, m, this.cookieStore, t, this);
+    } catch (r) {
+      let t = {
+        message: r.message,
+        url: e.url,
+        destination: e.destination,
+        timestamp: new Date().toISOString(),
+      };
       if (
-        (console.error("ERROR FROM SERVICE WORKER FETCH", t),
+        (r.stack && (t.stack = r.stack),
+        console.error("ERROR FROM SERVICE WORKER FETCH: ", t),
         !["document", "iframe"].includes(e.destination))
       )
         return new Response(void 0, { status: 500 });
@@ -262,8 +272,16 @@
                 fetchedURL.textContent = ${JSON.stringify(t)};
                 for (const node of document.querySelectorAll("#hostname")) node.textContent = ${JSON.stringify(location.hostname)};
                 reload.addEventListener("click", () => location.reload());
-                version.textContent = ${JSON.stringify(o.version.version)};
-                build.textContent = ${JSON.stringify(o.version.build)};
+                version.textContent = ${JSON.stringify(s.version.version)};
+                build.textContent = ${JSON.stringify(s.version.build)};
+                
+                document.getElementById('copy-button').addEventListener('click', async () => {
+                    const text = document.getElementById('errorTrace').value;
+                    await navigator.clipboard.writeText(text);
+                    const btn = document.getElementById('copy-button');
+                    btn.textContent = 'Copied!';
+                    setTimeout(() => btn.textContent = 'Copy', 2000);
+                });
         `;
               return `<!DOCTYPE html>
             <html>
@@ -348,10 +366,11 @@
                     }
 
                     #version-wrapper {
-                        width: 100%;
-                        text-align: center;
+                        width: auto;
+                        text-align: right;
                         position: absolute;
-                        bottom: 0.2rem;
+                        top: 0.5rem;
+                        right: 0.5rem;
                         font-size: 0.8rem;
                         color: var(--shore)!important;
                         i {
@@ -360,6 +379,26 @@
                             padding: 0.2em 0.5em;
                         }
                         z-index: 101;
+                    }
+
+                    #errorTrace-wrapper {
+                        position: relative;
+                        width: fit-content;
+                    }
+
+                    #copy-button {
+                        position: absolute;
+                        top: 0.5em;
+                        right: 0.5em;
+                        padding: 0.23em;
+                        cursor: pointer;
+                        opacity: 0;
+                        transition: opacity 0.4s;
+                        font-size: 0.9em;
+                    }
+
+                    #errorTrace-wrapper:hover #copy-button {
+                        opacity: 1;
                     }
                     </style>
                 </head>
@@ -371,8 +410,10 @@
                         <!-- <p id="errorMessage">Internal Server Error</p> -->
 
                         <div id="info">
-                            <textarea id="errorTrace" cols="40" rows="10" readonly>
-                            </textarea>
+                            <div id="errorTrace-wrapper">
+                                <textarea id="errorTrace" cols="40" rows="10" readonly></textarea>
+                                <button id="copy-button" class="primary">Copy</button>
+                            </div>
                             <div id="troubleshooting">
                                 <p>Try:</p>
                                 <ul>
@@ -402,25 +443,30 @@
             { status: 500, headers: r },
           )
         );
-      })(t, d(e.url));
+      })(
+        Object.entries(t)
+          .map(([e, t]) => `${e.charAt(0).toUpperCase() + e.slice(1)}: ${t}`)
+          .join("\n\n"),
+        d(e.url),
+      );
     }
   }
-  async function $(e, t, r, s, o, n, i) {
+  async function C(e, t, r, o, s, n, i) {
     let a;
-    let c = w(s.rawHeaders, R(e)),
+    let c = w(o.rawHeaders, R(e)),
       l = c["set-cookie"] || [];
     for (let t in l)
       n && n.postMessage({ scramjet$type: "cookie", cookie: t, url: e.href });
-    for (let t in (await o.setCookies(l instanceof Array ? l : [l], e), c))
+    for (let t in (await s.setCookies(l instanceof Array ? l : [l], e), c))
       Array.isArray(c[t]) && (c[t] = c[t][0]);
     if (
-      (s.body && (a = await j(s, R(e), r, t, o)),
+      (o.body && (a = await $(o, R(e), r, t, s)),
       ["document", "iframe"].includes(r))
     ) {
       let e = c["content-disposition"];
       if (!/\s*?((inline|attachment);\s*?)filename=/i.test(e)) {
         let t = /^\s*?attachment/i.test(e) ? "attachment" : "inline",
-          [r] = new URL(s.finalURL).pathname.split("/").slice(-1);
+          [r] = new URL(o.finalURL).pathname.split("/").slice(-1);
         c["content-disposition"] = `${t}; filename=${JSON.stringify(r)}`;
       }
     }
@@ -438,7 +484,7 @@
         ].includes(r) &&
         ((c["Cross-Origin-Embedder-Policy"] = "require-corp"),
         (c["Cross-Origin-Opener-Policy"] = "same-origin"));
-    let d = new C(a, c, s.status, s.statusText, r, e, s, n);
+    let d = new j(a, c, o.status, o.statusText, r, e, o, n);
     return (
       i.dispatchEvent(d),
       new Response(d.responseBody, {
@@ -448,26 +494,26 @@
       })
     );
   }
-  async function j(e, t, r, s, o) {
+  async function $(e, t, r, o, s) {
     switch (r) {
       case "iframe":
       case "document":
         if (e.headers.get("content-type")?.startsWith("text/html"))
-          return p(await e.text(), o, t, !0);
+          return f(await e.text(), s, t, !0);
         return e.body;
       case "script":
         return b(await e.arrayBuffer(), e.finalURL, t);
       case "style":
-        return f(await e.text(), t);
+        return p(await e.text(), t);
       case "sharedworker":
       case "worker":
-        return v(await e.arrayBuffer(), s, e.url, t);
+        return v(await e.arrayBuffer(), o, e.finalURL, t);
       default:
         return e.body;
     }
   }
-  o.config;
-  class C extends Event {
+  s.config;
+  class j extends Event {
     responseBody;
     responseHeaders;
     status;
@@ -476,13 +522,13 @@
     url;
     rawResponse;
     client;
-    constructor(e, t, r, s, o, n, i, a) {
+    constructor(e, t, r, o, s, n, i, a) {
       super("handleResponse"),
         (this.responseBody = e),
         (this.responseHeaders = t),
         (this.status = r),
-        (this.statusText = s),
-        (this.destination = o),
+        (this.statusText = o),
+        (this.destination = s),
         (this.url = n),
         (this.rawResponse = i),
         (this.client = a);
@@ -495,27 +541,27 @@
     destination;
     client;
     requestHeaders;
-    constructor(e, t, r, s, o, n) {
+    constructor(e, t, r, o, s, n) {
       super("request"),
         (this.url = e),
         (this.body = t),
         (this.method = r),
-        (this.destination = s),
-        (this.client = o),
+        (this.destination = o),
+        (this.client = s),
         (this.requestHeaders = n);
     }
     response;
   }
-  var O = r(1762).Z;
-  class L extends EventTarget {
+  var T = r(1762).Z;
+  class O extends EventTarget {
     client;
     config;
     syncPool = {};
     synctoken = 0;
-    cookieStore = new o.shared.CookieStore();
+    cookieStore = new s.shared.CookieStore();
     serviceWorkers = [];
     constructor() {
-      super(), (this.client = new o.shared.util.BareClient());
+      super(), (this.client = new s.shared.util.BareClient());
       let e = indexedDB.open("$scramjet", 1);
       (e.onsuccess = () => {
         let t = e.result
@@ -525,13 +571,13 @@
         t.onsuccess = () => {
           t.result &&
             (this.cookieStore.load(t.result),
-            O.log("Loaded cookies from IDB!"));
+            T.log("Loaded cookies from IDB!"));
         };
       }),
         addEventListener("message", async ({ data: t }) => {
           if ("scramjet$type" in t) {
             if ("registerServiceWorker" === t.scramjet$type) {
-              this.serviceWorkers.push(new s(t.port, t.origin));
+              this.serviceWorkers.push(new o(t.port, t.origin));
               return;
             }
             "cookie" === t.scramjet$type &&
@@ -548,18 +594,18 @@
       let e = indexedDB.open("$scramjet", 1);
       return new Promise((t, r) => {
         (e.onsuccess = async () => {
-          let s = e.result
+          let o = e.result
             .transaction("config", "readonly")
             .objectStore("config")
             .get("config");
-          (s.onsuccess = () => {
-            (this.config = s.result),
-              (o.config = s.result),
-              (o.codec.encode = n("url", o.config.codec.encode)),
-              (o.codec.decode = n("url", o.config.codec.decode)),
+          (o.onsuccess = () => {
+            (this.config = o.result),
+              (s.config = o.result),
+              (s.codec.encode = n("url", s.config.codec.encode)),
+              (s.codec.decode = n("url", s.config.codec.decode)),
               t();
           }),
-            (s.onerror = () => r(s.error));
+            (o.onerror = () => r(o.error));
         }),
           (e.onerror = () => r(e.error));
       });
@@ -572,6 +618,6 @@
       return S.call(this, e, r);
     }
   }
-  self.ScramjetServiceWorker = L;
+  self.ScramjetServiceWorker = O;
 })();
 //# sourceMappingURL=scramjet.worker.js.map

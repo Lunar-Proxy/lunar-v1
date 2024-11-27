@@ -6,7 +6,7 @@ await navigator.serviceWorker.register("sw.js");
 const input = document.getElementById("in") as HTMLInputElement;
 const fm = document.getElementById("fm") as HTMLFormElement;
 const frame = document.getElementById("frame") as HTMLIFrameElement;
-const loading = document.getElementById("loading") as HTMLDivElement;
+const loading = document.getElementById("load") as HTMLDivElement;
 const welcome = document.getElementById("starting") as HTMLDivElement;
 
 async function launch(link: string, backend: string) {
