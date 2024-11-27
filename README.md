@@ -4,7 +4,7 @@
 
 ## What is Lunar?
 
-> **Note**  
+> [!NOTE]
 > Lunar is currently in beta, so some bugs may be present before the final release.
 
 Lunar is a web proxy designed to bypass censorship and provide an exceptional user experience.
@@ -25,12 +25,12 @@ Lunar is a web proxy designed to bypass censorship and provide an exceptional us
 
 [![Deploy to Koyeb](https://binbashbanana.github.io/deploy-buttons/buttons/remade/koyeb.svg)](https://app.koyeb.com/deploy?type=git&repository=github.com/lunar-proxy/lunar)
 
-> **Note**  
+> [!NOTE] 
 > Lunar cannot be deployed to Netlify, Vercel, GitHub Pages, or any static hosting platform.
 
 ## Deployment via Terminal
 
-> **Note**  
+> [!NOTE]
 > Make sure to install [Git](https://git-scm.com/downloads), [Node.js](https://nodejs.org/en/download/prebuilt-installer), and `pnpm` by running:
 >
 > ```bash
@@ -64,7 +64,6 @@ pnpm install && pnpm dev
 To enable extra features, updating Lunar & more click [here](https://github.com/Lunar-proxy/Lunar/wiki)
 
 # Support
-
 To get help with any issues, bugs or give suggestions, you can join [our discord community](https://dsc.gg/golunar)
 
 # Credits
