@@ -73,4 +73,3 @@ Thanks to everyone who made lunar possible.
 <a href="https://github.com/lunar-proxy/lunar/graphs/contributors">
 <img src="https://contrib.rocks/image?repo=lunar-proxy/lunar"/>
 </a>
-```
