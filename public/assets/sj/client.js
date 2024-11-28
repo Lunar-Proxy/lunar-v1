@@ -1510,7 +1510,7 @@
             e.Proxy("CacheStorage.prototype.match", {
               apply(t) {
                 ("string" == typeof t.args[0] || t.args[0] instanceof URL) &&
-                  (t.args[0] = (0, n.dm)(t.args[0].toString(), e.meta));
+                  (t.args[0] = (0, n.dm)(t.args[0], e.meta));
               },
             }),
             e.Proxy("CacheStorage.prototype.delete", {
@@ -1521,7 +1521,7 @@
             e.Proxy("Cache.prototype.add", {
               apply(t) {
                 ("string" == typeof t.args[0] || t.args[0] instanceof URL) &&
-                  (t.args[0] = (0, n.dm)(t.args[0].toString(), e.meta));
+                  (t.args[0] = (0, n.dm)(t.args[0], e.meta));
               },
             }),
             e.Proxy("Cache.prototype.addAll", {
@@ -1529,39 +1529,39 @@
                 for (let r = 0; r < t.args[0].length; r++)
                   ("string" == typeof t.args[0][r] ||
                     t.args[0][r] instanceof URL) &&
-                    (t.args[0][r] = (0, n.dm)(t.args[0][r].toString(), e.meta));
+                    (t.args[0][r] = (0, n.dm)(t.args[0][r], e.meta));
               },
             }),
             e.Proxy("Cache.prototype.put", {
               apply(t) {
                 ("string" == typeof t.args[0] || t.args[0] instanceof URL) &&
-                  (t.args[0] = (0, n.dm)(t.args[0].toString(), e.meta));
+                  (t.args[0] = (0, n.dm)(t.args[0], e.meta));
               },
             }),
             e.Proxy("Cache.prototype.match", {
               apply(t) {
                 ("string" == typeof t.args[0] || t.args[0] instanceof URL) &&
-                  (t.args[0] = (0, n.dm)(t.args[0].toString(), e.meta));
+                  (t.args[0] = (0, n.dm)(t.args[0], e.meta));
               },
             }),
             e.Proxy("Cache.prototype.matchAll", {
               apply(t) {
                 ((t.args[0] && "string" == typeof t.args[0]) ||
                   (t.args[0] && t.args[0] instanceof URL)) &&
-                  (t.args[0] = (0, n.dm)(t.args[0].toString(), e.meta));
+                  (t.args[0] = (0, n.dm)(t.args[0], e.meta));
               },
             }),
             e.Proxy("Cache.prototype.keys", {
               apply(t) {
                 ((t.args[0] && "string" == typeof t.args[0]) ||
                   (t.args[0] && t.args[0] instanceof URL)) &&
-                  (t.args[0] = (0, n.dm)(t.args[0].toString(), e.meta));
+                  (t.args[0] = (0, n.dm)(t.args[0], e.meta));
               },
             }),
             e.Proxy("Cache.prototype.delete", {
               apply(t) {
                 ("string" == typeof t.args[0] || t.args[0] instanceof URL) &&
-                  (t.args[0] = (0, n.dm)(t.args[0].toString(), e.meta));
+                  (t.args[0] = (0, n.dm)(t.args[0], e.meta));
               },
             });
         }
@@ -1854,7 +1854,7 @@
       7341: function (e, t, r) {
         "use strict";
         let n;
-        r.r(t), r.d(t, { default: () => T });
+        r.r(t), r.d(t, { default: () => S });
         var o = r("4471"),
           a = r("8810");
         let s =
@@ -2157,14 +2157,14 @@
         }),
           (Error.stackTraceLimit = 50);
         let _ = new TextDecoder();
-        function S(e, t) {
+        function T(e, t) {
           try {
             return new URL(e, t);
           } catch {
             return null;
           }
         }
-        function T(e, t) {
+        function S(e, t) {
           let r = e.natives.Function;
           (t[o.vc.globals.importfn] = function (t) {
             return function (o) {
@@ -2172,7 +2172,7 @@
               return r(
                 `return import("${(function (e, t) {
                   if (
-                    (e instanceof URL && (e = e.href),
+                    (e instanceof URL && (e = e.toString()),
                     e.startsWith("javascript:"))
                   )
                     return (
@@ -2297,7 +2297,7 @@
                     let r = t.base.href;
                     r.startsWith("about:") &&
                       (r = (function (e) {
-                        e instanceof URL && (e = e.href);
+                        e instanceof URL && (e = e.toString());
                         let t = location.origin + a.h3.config.prefix;
                         if (e.startsWith("javascript:")) return e;
                         if (e.startsWith("blob:")) return e;
@@ -2310,7 +2310,7 @@
                           e.startsWith("about:")
                         )
                           return e;
-                        else if (S(e))
+                        else if (T(e))
                           return a.h3.codec.decode(
                             e.slice(
                               (location.origin + a.h3.config.prefix).length,
@@ -2318,7 +2318,7 @@
                           );
                         else return e;
                       })(self.location.href));
-                    let n = S(e, r);
+                    let n = T(e, r);
                     return n
                       ? location.origin +
                           a.h3.config.prefix +
@@ -2384,7 +2384,8 @@
                       ? e.args[0]
                       : "object" == typeof e.args[2] && null !== e.args[2]
                         ? e.args[2]
-                        : a.POLLUTANT in e.this &&
+                        : e.this &&
+                            a.POLLUTANT in e.this &&
                             "object" == typeof e.this[a.POLLUTANT] &&
                             null !== e.this[a.POLLUTANT]
                           ? e.this[a.POLLUTANT]
@@ -2483,14 +2484,14 @@
           e.Proxy("fetch", {
             apply(t) {
               ("string" == typeof t.args[0] || t.args[0] instanceof URL) &&
-                ((t.args[0] = (0, o.dm)(t.args[0].toString(), e.meta)),
+                ((t.args[0] = (0, o.dm)(t.args[0], e.meta)),
                 n.isemulatedsw && (t.args[0] += "?from=swruntime"));
             },
           }),
             e.Proxy("Request", {
               construct(t) {
                 ("string" == typeof t.args[0] || t.args[0] instanceof URL) &&
-                  ((t.args[0] = (0, o.dm)(t.args[0].toString(), e.meta)),
+                  ((t.args[0] = (0, o.dm)(t.args[0], e.meta)),
                   n.isemulatedsw && (t.args[0] += "?from=swruntime"));
               },
             }),
@@ -2522,6 +2523,10 @@
                   url: n.args[0],
                   binaryType: "blob",
                   barews: s,
+                  onclose: null,
+                  onerror: null,
+                  onmessage: null,
+                  onopen: null,
                   captureListeners: {},
                   listeners: {},
                 };
@@ -3241,7 +3246,7 @@
         }),
           !("$scramjet" in self) &&
             (self.$scramjet = {
-              version: { build: "58fed66", version: "1.0.2-dev" },
+              version: { build: "ca3e09a", version: "1.0.2-dev" },
               codec: {},
               flagEnabled: s,
             });

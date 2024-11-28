@@ -101,7 +101,7 @@
   }
   !("$scramjet" in self) &&
     (self.$scramjet = {
-      version: { build: "58fed66", version: "1.0.2-dev" },
+      version: { build: "ca3e09a", version: "1.0.2-dev" },
       codec: {},
       flagEnabled: function (e, r) {
         let t = a.config.defaultFlags[e];

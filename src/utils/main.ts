@@ -9,15 +9,23 @@ const frame = document.getElementById("frame") as HTMLIFrameElement;
 const loading = document.getElementById("load") as HTMLDivElement;
 const welcome = document.getElementById("starting") as HTMLDivElement;
 
-async function launch(link: string, backend: string) {
+async function launch(link: string, backend: string, transport: string) {
   const connection = new BareMuxConnection("/bm/worker.js");
   const wispurl =
     (location.protocol === "https:" ? "wss" : "ws") +
     "://" +
     location.host +
     "/w/";
-  if ((await connection.getTransport()) !== "/ep/index.mjs") {
-    await connection.setTransport("/ep/index.mjs", [{ wisp: wispurl }]);
+  if (transport == "ep") {
+    if ((await connection.getTransport()) !== "/ep/index.mjs") {
+      await connection.setTransport("/ep/index.mjs", [{ wisp: wispurl }]);
+      console.debug("Transport is set to Epoxy");
+    }
+  } else {
+    if ((await connection.getTransport()) !== "/lb/index.mjs") {
+      await connection.setTransport("/lb/index.mjs", [{ wisp: wispurl }]);
+      console.debug("Transport is set to Libcurl");
+    }
   }
   const scram = new ScramjetController({
     prefix: "/scram/",
@@ -54,7 +62,7 @@ fm.addEventListener("submit", async (event) => {
     value = engine + value;
   }
 
-  launch(value, await Settings.get("backend"));
+  launch(value, await Settings.get("backend"), await Settings.get("transport"));
 });
 
 frame.onload = () => {

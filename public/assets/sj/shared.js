@@ -170,7 +170,7 @@
     }),
     !("$scramjet" in self) &&
       (self.$scramjet = {
-        version: { build: "58fed66", version: "1.0.2-dev" },
+        version: { build: "ca3e09a", version: "1.0.2-dev" },
         codec: {},
         flagEnabled: z,
       });
@@ -555,7 +555,7 @@
     return "blob:" + location.origin + a.pathname;
   }
   function F(e, a) {
-    if ((e instanceof URL && (e = e.href), e.startsWith("javascript:")))
+    if ((e instanceof URL && (e = e.toString()), e.startsWith("javascript:")))
       return "javascript:" + V(e.slice(11), null, a);
     if (e.startsWith("blob:")) return location.origin + x.config.prefix + e;
     if (e.startsWith("data:")) return location.origin + x.config.prefix + e;
@@ -568,7 +568,7 @@
     }
   }
   function G(e) {
-    e instanceof URL && (e = e.href);
+    e instanceof URL && (e = e.toString());
     let a = location.origin + x.config.prefix;
     if (e.startsWith("javascript:")) return e;
     if (e.startsWith("blob:")) return e;

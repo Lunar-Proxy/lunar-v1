@@ -37,6 +37,7 @@ const Settings = (function () {
       { cloak: "on" },
       { backend: "/p/" }, //  /p/: UV,  /scram/:  Scramjet
       { "search-engine": "https://www.google.com/search?q=" },
+      { transport: "ep" }, // ep: Epoxy, lb: Libcurl
     ];
     const transaction = db!.transaction([LunarSettings], "readwrite");
     const store = transaction.objectStore(LunarSettings);
