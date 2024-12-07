@@ -36,7 +36,7 @@
     "vite-plugin-static-copy": "^2.2.0"
   },
   "engines": {
-    "node": ">=20.0.0"
+    "node": ">=18.x"
  },
   "devDependencies": {
     "prettier": "^3.4.2",
