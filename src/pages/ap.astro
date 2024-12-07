@@ -1,0 +1,78 @@
+---
+import "@src/main.css";
+import Card from "@src/components/card.astro";
+import { Maximize, LogOut, RotateCw } from "lucide-astro";
+import fs from "fs/promises";
+import path from "path";
+const JsonPath = path.resolve("./public/assets/json/a.json");
+async function readJson() {
+  try {
+    const data = await fs.readFile(JsonPath, "utf8");
+    const games = JSON.parse(data);
+    return games;
+  } catch (err) {
+    console.error("Error reading the file:", err);
+    return [];
+  }
+}
+const games = await readJson();
+---
+
+<!doctype html>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width" />
+<meta name="generator" content={Astro.generator} />
+<link
+  href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap"
+  rel="stylesheet"
+/>
+<title>Home</title>
+<script src="@src/utils/frame"></script>
+<input id="input" />
+
+<body>
+  <p class="text-text-HEADER uppercase text-center mt-10 text-4xl font-bold">
+    Apps
+  </p>
+
+  <div class="mt-5 flex justify-center items-center min-h-screen" id="section">
+    <Card games={games} />
+  </div>
+
+  <div
+    class="hidden fixed inset-0 bg-background-overlay shadow-lg p-5 z-50"
+    id="game-frame"
+  >
+    <div class="flex justify-end items-center gap-4 mb-4">
+      <button
+        class="text-[#a5adce] hover:text-white px-4 py-2 rounded transition duration-150 transform hover:scale-110"
+        id="rotate"
+      >
+        <RotateCw class="w-6 h-6" />
+      </button>
+      <button
+        class="text-[#a5adce] hover:text-white px-4 py-2 rounded transition duration-150 transform hover:scale-110"
+        id="maximize"
+      >
+        <Maximize class="w-6 h-6" />
+      </button>
+      <button
+        class="text-[#a5adce] hover:text-white px-4 py-2 rounded transition duration-150 transform hover:scale-110"
+        id="return"
+      >
+        <LogOut class="w-6 h-6" />
+      </button>
+    </div>
+    <iframe
+      id="display"
+      class="w-full h-[calc(100%-64px)] bg-gray-100 rounded-lg"></iframe>
+  </div>
+</body>
+
+<script src="@src/utils/as"></script>
+<script is:inline src="/assets/v/config.js" defer></script>
+<script is:inline src="/assets/v/bundle.js" defer></script>
+<link rel="prefetch" href="/assets/sj/worker.js" />
+<link rel="prefetch" href="/assets/sj/shared.js" />
+<script is:inline src="/assets/sj/controller.js" defer></script>
+<script src="@src/utils/global"></script>

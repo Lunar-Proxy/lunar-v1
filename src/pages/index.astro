@@ -18,7 +18,7 @@ import {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
-    <title>Lunar</title>
+    <title>Home</title>
     <script is:inline src="/assets/v/config.js" defer></script>
     <script is:inline src="/assets/v/bundle.js" defer></script>
     <link rel="prefetch" href="/assets/sj/worker.js" />
@@ -26,6 +26,7 @@ import {
   </head>
 
   <body id="side" class="relative">
+
     <div
       class="absolute border-r-[3px] border-black border-solid top-0 bg-background-overlay left-0 h-[100vh] w-[62px] z-50 flex flex-col items-center pt-4"
     >
@@ -36,16 +37,21 @@ import {
       <div
         class="mb-[240px] flex-grow flex flex-col items-center justify-center space-y-4"
       >
-        <Gamepad
-          class="text-[#a5adce] hover:text-white w-8 h-8 transition duration-150 transform hover:scale-110"
-        />
-        <Grid2X2Plus
-          class="text-[#a5adce] hover:text-white w-8 h-8 transition duration-150 transform hover:scale-110"
-        />
-
-        <Settings
-          class="text-[#a5adce] hover:text-white w-8 h-8 transition duration-150 transform hover:scale-110"
-        />
+        <div id="game">
+          <Gamepad
+            class="text-[#a5adce] hover:text-white w-8 h-8 transition duration-150 transform hover:scale-110"
+          />
+        </div>
+        <div id="app">
+          <Grid2X2Plus
+            class="text-[#a5adce] hover:text-white w-8 h-8 transition duration-150 transform hover:scale-110"
+          />
+        </div>
+        <div id="set">
+          <Settings
+            class="text-[#a5adce] hover:text-white w-8 h-8 transition duration-150 transform hover:scale-110"
+          />
+        </div>
       </div>
     </div>
 
@@ -57,21 +63,44 @@ import {
         <a
           title="Forward"
           id="forward"
-          class="text-[#a5adce] hover:text-white active:text-white transition duration-150 transform hover:translate-x-0.5"
-          ><ArrowLeft /></a
+          class="relative group w-8 h-8 flex items-center justify-center"
         >
+          <ArrowLeft
+            class="text-[#a5adce] group-hover:text-white w-6 h-6 z-10 transition-transform duration-200 ease-in-out"
+          />
+          <div
+            class="absolute inset-0 rounded-full bg-transparent group-hover:bg-white/20 transition-colors duration-200"
+          >
+          </div>
+        </a>
+
         <a
           title="Back"
           id="back"
-          class="text-[#a5adce] hover:text-white active:text-white transition duration-150 transform hover:translate-x-0.5"
-          ><ArrowRight /></a
+          class="relative group w-8 h-8 flex items-center justify-center"
         >
+          <ArrowRight
+            class="text-[#a5adce] group-hover:text-white w-6 h-6 z-10 transition-transform duration-200 ease-in-out"
+          />
+          <div
+            class="absolute inset-0 rounded-full bg-transparent group-hover:bg-white/20 transition-colors duration-200"
+          >
+          </div>
+        </a>
+
         <a
           title="Refresh"
           id="reload"
-          class="text-[#a5adce] hover:text-white active:text-white transition duration-150 transform hover:translate-x-0.5"
-          ><RotateCw /></a
+          class="relative group w-8 h-8 flex items-center justify-center"
         >
+          <RotateCw
+            class="text-[#a5adce] group-hover:text-white w-6 h-6 z-10 transition-transform duration-200 ease-in-out"
+          />
+          <div
+            class="absolute inset-0 rounded-full bg-transparent group-hover:bg-white/20 transition-colors duration-200"
+          >
+          </div>
+        </a>
       </div>
 
       <form method="post" class="flex-grow mx-4" id="fm">
@@ -103,12 +132,12 @@ import {
     <iframe
       id="frame"
       title=""
-      class="absolute top-[64px] left-[62px] z-20 h-[calc(100vh-64px)] w-[calc(100vw-62px)]"
+      class="fixed top-[64px] left-[62px] z-20 h-[calc(100vh-64px)] w-[calc(100%-62px)]"
     ></iframe>
 
-    <script src="../utils/cloak.ts"></script>
+    <script src="@src/utils/cloak.ts"></script>
     <script is:inline src="/assets/sj/controller.js" defer></script>
-    <script src="../utils/main.ts"></script>
-    <script src="../utils/browse.ts"></script>
+    <script src="@src/utils/main.ts"></script>
+    <script src="@src/utils/browse.ts"></script>
   </body>
 </html>

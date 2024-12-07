@@ -4,13 +4,13 @@ const LAST_UPDATED: string;
 const VERSION: string;
 const __uv$location: Location;
 
-interface Config {
+interface UltraConfig {
   prefix: string;
   encodeUrl: (str: string) => string | null;
   decodeUrl: (str: string) => string | null;
 }
 
-declare const config: Config;
+declare const UltraConfig: UltraConfig;
 declare const ScramjetController: any;
 interface Window {
   sj: any;

@@ -10,14 +10,14 @@ import chalk from "chalk";
 import { createServer } from "http";
 import { Socket } from "net";
 import { server as wisp } from "@mercuryworkshop/wisp-js/server";
-import config from "./config";
+import configuration from "./config";
 
-const port: number = config.server.port || 8080;
+const port: number = configuration.server.port || 8080;
 const host: string = process.env.HOST || "localhost";
 
 const build = async () => {
   if (!fs.existsSync("dist")) {
-    console.log(chalk.yellow.bold("🚧 Lunar is not built. building..."));
+    console.log(chalk.yellow.bold("🚧 Lunar is not built. Building Lunar now..."));
     try {
       execSync("pnpm build", { stdio: "inherit" });
       console.log(
@@ -54,12 +54,12 @@ const app = Fastify({
 
 await app.register(fastifyCompress, { encodings: ["deflate", "gzip", "br"] });
 
-if (config.protect.challenge) {
+if (configuration.protect.challenge) {
   console.log(chalk.magenta.bold("🔒 Password Protection is enabled."));
   await app.register(basicAuth, {
     authenticate: true,
     validate(username, password, _req, _reply, done) {
-      if (config.protect.users[username] === password) {
+      if (configuration.protect.users[username] === password) {
         console.log(chalk.green(`✅ User "${username}" authenticated.`));
         return done();
       }

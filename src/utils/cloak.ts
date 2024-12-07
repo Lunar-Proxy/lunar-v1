@@ -1,4 +1,4 @@
-import { Settings } from "../utils/config";
+import { Settings } from "@src/utils/config";
 
 const cloak = [
   {
@@ -20,7 +20,7 @@ const cloak = [
 ];
 
 if (await Settings.get("cloak")) {
-  Cloak();
+ // Cloak();
 } else {
   console.debug("Cloaking is off. Enable in settings.");
 }

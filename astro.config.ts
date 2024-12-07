@@ -12,6 +12,7 @@ import { execSync } from "child_process";
 import fs from "fs";
 import path from "path";
 
+
 function LU() {
   const git = path.join(process.cwd(), ".git");
   if (fs.existsSync(git)) {
@@ -26,7 +27,7 @@ function LU() {
 }
 
 export default defineConfig({
-  output: "hybrid",
+  output: "server",
   adapter: node({
     mode: "middleware",
   }),

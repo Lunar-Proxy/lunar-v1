@@ -1,4 +1,4 @@
-const config = {
+const UltraConfig = {
   prefix: "/p/",
   encodeUrl: (str) => {
     if (!str) return str;
@@ -39,4 +39,4 @@ const config = {
     },
   ],
 };
-self.__uv$config = config;
+self.__uv$config = UltraConfig;

@@ -1,4 +1,4 @@
-import { Settings } from "../utils/config";
+import { Settings } from "@src/utils/config";
 import { BareMuxConnection } from "@mercuryworkshop/bare-mux";
 
 await navigator.serviceWorker.register("sw.js");
@@ -9,24 +9,7 @@ const frame = document.getElementById("frame") as HTMLIFrameElement;
 const loading = document.getElementById("load") as HTMLDivElement;
 const welcome = document.getElementById("starting") as HTMLDivElement;
 
-async function launch(link: string, backend: string, transport: string) {
-  const connection = new BareMuxConnection("/bm/worker.js");
-  const wispurl =
-    (location.protocol === "https:" ? "wss" : "ws") +
-    "://" +
-    location.host +
-    "/w/";
-  if (transport == "ep") {
-    if ((await connection.getTransport()) !== "/ep/index.mjs") {
-      await connection.setTransport("/ep/index.mjs", [{ wisp: wispurl }]);
-      console.debug("Transport is set to Epoxy");
-    }
-  } else {
-    if ((await connection.getTransport()) !== "/lb/index.mjs") {
-      await connection.setTransport("/lb/index.mjs", [{ wisp: wispurl }]);
-      console.debug("Transport is set to Libcurl");
-    }
-  }
+async function launch(link: string) {
   const scram = new ScramjetController({
     prefix: "/scram/",
     files: {
@@ -39,7 +22,30 @@ async function launch(link: string, backend: string, transport: string) {
   });
   window.sj = scram;
   scram.init("./sjsw.js");
-  const url = backend + config.encodeUrl(link);
+  const connection = new BareMuxConnection("/bm/worker.js");
+  const wispurl =
+    (location.protocol === "https:" ? "wss" : "ws") +
+    "://" +
+    location.host +
+    "/w/";
+    const transport = await Settings.get("transport");
+    const backend = await Settings.get("backend");
+  if (transport == "ep") {
+    if ((await connection.getTransport()) !== "/ep/index.mjs") {
+      await connection.setTransport("/ep/index.mjs", [{ wisp: wispurl }]);
+      console.debug("Transport is set to Epoxy");
+    }
+  } else {
+    if ((await connection.getTransport()) !== "/lb/index.mjs") {
+      await connection.setTransport("/lb/index.mjs", [{ wisp: wispurl }]);
+      console.debug("Transport is set to Libcurl");
+    }
+  }
+  
+  const url = backend === '/p/' 
+  ? backend + UltraConfig.encodeUrl(link) 
+  : scram.encodeUrl(link);
+
   frame.src = url;
 }
 
@@ -62,7 +68,7 @@ fm.addEventListener("submit", async (event) => {
     value = engine + value;
   }
 
-  launch(value, await Settings.get("backend"), await Settings.get("transport"));
+  launch(value);
 });
 
 frame.onload = () => {

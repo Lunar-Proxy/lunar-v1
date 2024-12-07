@@ -1,7 +1,7 @@
-import type { Settings } from "@src/types/settings";
+import type { config } from "@src/types/settings";
 
-const settings: Settings = {
-  // Cutomization for the server.
+const configuration: config = {
+  // Cutomization for the server. 
   server: {
     port: 8080, // This is what port lunar runs on. (Default: 8080)
   },
@@ -20,4 +20,4 @@ const settings: Settings = {
   },
 };
 
-export default settings;
+export default configuration;
