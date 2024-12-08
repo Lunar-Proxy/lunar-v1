@@ -1,21 +1,21 @@
 ---
+export const prerender = false;
 import "@src/main.css";
 import Card from "@src/components/card.astro";
 import { Maximize, LogOut, RotateCw } from "lucide-astro";
 import fs from "fs/promises";
 import path from "path";
-const JsonPath = path.resolve("./public/assets/json/g.json");
-async function readJson() {
-  try {
-    const data = await fs.readFile(JsonPath, "utf8");
-    const assets = JSON.parse(data);
-    return assets;
-  } catch (err) {
-    console.error("Error reading the file:", err);
-    return [];
-  }
+import type { Asset } from "@src/utils/as";
+const jsonPath = path.resolve("./public/assets/json/g.json");
+let games: Asset[];
+
+try {
+  const data = await fs.readFile(jsonPath, "utf8");
+  games = JSON.parse(data);
+} catch (err) {
+  console.error("Error reading the file:", err);
+  games = [];
 }
-const assets = await readJson();
 ---
 
 <!doctype html>
@@ -33,7 +33,7 @@ const assets = await readJson();
   </p>
   <input id="input" />
   <div class="mt-5 flex justify-center items-center min-h-screen" id="section">
-    <Card games={assets} />
+    <Card games={games} />
   </div>
 
   <div

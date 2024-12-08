@@ -2,20 +2,19 @@
 import "@src/main.css";
 import Card from "@src/components/card.astro";
 import { Maximize, LogOut, RotateCw } from "lucide-astro";
+import type { Asset } from "@src/utils/as";
 import fs from "fs/promises";
 import path from "path";
 const JsonPath = path.resolve("./public/assets/json/a.json");
-async function readJson() {
-  try {
-    const data = await fs.readFile(JsonPath, "utf8");
-    const games = JSON.parse(data);
-    return games;
-  } catch (err) {
-    console.error("Error reading the file:", err);
-    return [];
-  }
+let apps: Asset[];
+
+try {
+  const data = await fs.readFile(JsonPath, "utf8");
+  apps = JSON.parse(data);
+} catch (err) {
+  console.error("Error reading the json file:", err);
+  apps = [];
 }
-const games = await readJson();
 ---
 
 <!doctype html>
@@ -36,7 +35,7 @@ const games = await readJson();
   </p>
 
   <div class="mt-5 flex justify-center items-center min-h-screen" id="section">
-    <Card games={games} />
+    <Card games={apps} />
   </div>
 
   <div

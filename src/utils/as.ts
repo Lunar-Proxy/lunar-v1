@@ -1,6 +1,6 @@
 import { launch2 } from "@src/utils/frame.ts";
 
-type Asset = {
+export type Asset = {
   name: string;
   link: { name: string; url: string }[]; 
   image: string;
@@ -53,11 +53,9 @@ button.forEach((button) => {
               launch2(asset.link[index].url);
             } else {
               alert("Invalid choice. Please try again.");
-              return;
             }
           } else {
-            alert("No choice made.");
-            return;
+            console.log("No choice made, doing nothing.");
           }
         } else {
           launch2(asset.link);
@@ -70,3 +68,4 @@ button.forEach((button) => {
     }
   });
 });
+

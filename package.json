@@ -1,7 +1,7 @@
 {
   "name": "lunar",
   "type": "module",
-  "version": "0.0.7",
+  "version": "1.0.0",
   "scripts": {
     "dev": "npx astro dev",
     "start": "tsx index.ts",

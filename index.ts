@@ -4,18 +4,18 @@ import fastifyStatic from "@fastify/static";
 import fastifyCompress from "@fastify/compress";
 import basicAuth from "@fastify/basic-auth";
 import fs from "node:fs";
-import { fileURLToPath } from "node:url";
 import { execSync } from "child_process";
 import chalk from "chalk";
 import { createServer } from "http";
 import { Socket } from "net";
 import { server as wisp } from "@mercuryworkshop/wisp-js/server";
 import configuration from "./config";
+import path from "path";
 
 const port: number = configuration.server.port || 8080;
 const host: string = process.env.HOST || "localhost";
 
-const build = async () => {
+async function build() {
   if (!fs.existsSync("dist")) {
     console.log(chalk.yellow.bold("🚧 Lunar is not built. Building Lunar now..."));
     try {
@@ -111,15 +111,16 @@ app.setErrorHandler((error, _request, reply) => {
     reply.send(error);
   }
 });
+await build()
 
+// @ts-ignore
+  const { handler } = await import("./dist/server/entry.mjs");
 app.register(fastifyStatic, {
-  root: fileURLToPath(new URL("./dist/client", import.meta.url)),
+  root: path.join(import.meta.dirname, "dist", "client"),
 });
-
 await app.register(fastifyMiddie);
+app.use(handler);
 
-try {
-  await build();
   app.listen({ host, port }, (err, address) => {
     if (err) {
       console.error(chalk.red.bold(`❌ Failed to start Lunar: ${err.message}`));
@@ -129,19 +130,5 @@ try {
       console.log(chalk.blue.bold(`🌐 Local: http://${host}:${port}`));
       console.log(chalk.blue.bold(`🌍 Network: ${address}`));
     }
-
-    process.on("SIGINT", shutdown);
-    process.on("SIGTERM", shutdown);
-
-    function shutdown() {
-      console.log(chalk.yellow.bold("⚠️ Shutting down Lunar gracefully..."));
-      process.exit(0);
-    }
   });
-} catch (error: unknown) {
-  console.error(
-    chalk.red.bold("🚨 Error during startup:"),
-    error instanceof Error ? error.message : String(error),
-  );
-  process.exit(1);
-}
+

@@ -9,6 +9,11 @@ const frame = document.getElementById("frame") as HTMLIFrameElement;
 const loading = document.getElementById("load") as HTMLDivElement;
 const welcome = document.getElementById("starting") as HTMLDivElement;
 
+function validate(url: string): boolean {
+  const rgex = /^(https?:\/\/)?([a-zA-Z0-9.-]+\.[a-zA-Z]{2,})(\/[^\s]*)?$/;
+  return rgex.test(url);
+}
+
 async function launch(link: string) {
   const scram = new ScramjetController({
     prefix: "/scram/",
@@ -28,8 +33,8 @@ async function launch(link: string) {
     "://" +
     location.host +
     "/w/";
-    const transport = await Settings.get("transport");
-    const backend = await Settings.get("backend");
+  const transport = await Settings.get("transport");
+  const backend = await Settings.get("backend");
   if (transport == "ep") {
     if ((await connection.getTransport()) !== "/ep/index.mjs") {
       await connection.setTransport("/ep/index.mjs", [{ wisp: wispurl }]);
@@ -41,17 +46,11 @@ async function launch(link: string) {
       console.debug("Transport is set to Libcurl");
     }
   }
-  
-  const url = backend === '/p/' 
-  ? backend + UltraConfig.encodeUrl(link) 
-  : scram.encodeUrl(link);
-
+  const url =
+    backend === "/p/"
+      ? backend + UltraConfig.encodeUrl(link)
+      : scram.encodeUrl(link);
   frame.src = url;
-}
-
-function validate(url: string): boolean {
-  const rgex = /^[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-  return rgex.test(url);
 }
 
 fm.addEventListener("submit", async (event) => {
@@ -67,7 +66,6 @@ fm.addEventListener("submit", async (event) => {
   } else {
     value = engine + value;
   }
-
   launch(value);
 });
 
