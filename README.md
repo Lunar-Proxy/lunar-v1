@@ -14,7 +14,7 @@ Lunar is a web proxy designed to bypass censorship and provide an exceptional us
 - 🚫 **No Ads**
 - 🚀 **High-Speed Performance**
 - 🪞 **Automatic Tab Cloaking**
-- 🎨 **Extensive Customization Options**
+- 🎨 **Many Customization Options**
 - ➕ **And More!**
 
 ## Deployment Options
@@ -42,7 +42,7 @@ Lunar is a web proxy designed to bypass censorship and provide an exceptional us
 1. Clone the Lunar repository:
 
    ```bash
-   git clone https://github.com/Lunar-Proxy/Lunar.git
+   git clone https://github.com/Lunar-Proxy/Lunar-v1.git
    cd Lunar
    ```
 

@@ -1,7 +1,6 @@
 export interface config {
   server: {
     port: number;
-    assets: string;
   };
   protect: {
     challenge: boolean;

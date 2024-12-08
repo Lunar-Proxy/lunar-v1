@@ -4,7 +4,6 @@ const configuration: config = {
   // Cutomization for the server. 
   server: {
     port: 8080, // This is what port lunar runs on. (Default: 8080)
-    assets: "local", // This is where your assets are stored. (Default: "local")
   },
 
   // Protect your lunar link with a password. (Optional Feature)
