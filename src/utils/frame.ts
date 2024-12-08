@@ -8,6 +8,8 @@ const full = document.getElementById("maximize") as HTMLButtonElement;
 const launch = document.getElementById("game-frame") as HTMLDivElement;
 
 export async function launch2(link: string) {
+  await navigator.serviceWorker.register("sw.js");
+  launch.classList.remove("hidden");
   const scram = new ScramjetController({
     prefix: "/scram/",
     files: {

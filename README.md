@@ -1,6 +1,6 @@
 # Lunar
 
-[![Join our Discord](https://skillicons.dev/icons?i=discord)](https://discord.gg/fuPtWjYuf8) [![View on GitHub](https://skillicons.dev/icons?i=github)](https://github.com/Lunar-proxy/Lunar)
+[![Join our Discord](https://skillicons.dev/icons?i=discord)](https://discord.gg/fuPtWjYuf8) [![View on GitHub](https://skillicons.dev/icons?i=github)](https://github.com/Lunar-proxy/Lunar-v1)
 
 ## What is Lunar?
 
@@ -19,11 +19,11 @@ Lunar is a web proxy designed to bypass censorship and provide an exceptional us
 
 ## Deployment Options
 
-<a href="https://render.com/deploy?repo=https://github.com/lunar-proxy/lunar">
+<a href="https://render.com/deploy?repo=https://github.com/lunar-proxy/lunar-v1">
     <img src="https://raw.githubusercontent.com/BinBashBanana/deploy-buttons/main/buttons/remade/render.svg" alt="Deploy to Render">
 </a>
 
-[![Deploy to Koyeb](https://binbashbanana.github.io/deploy-buttons/buttons/remade/koyeb.svg)](https://app.koyeb.com/deploy?type=git&repository=github.com/lunar-proxy/lunar)
+[![Deploy to Koyeb](https://binbashbanana.github.io/deploy-buttons/buttons/remade/koyeb.svg)](https://app.koyeb.com/deploy?type=git&repository=github.com/lunar-proxy/lunar-v1)
 
 > [!NOTE]
 > Lunar cannot be deployed to Netlify, Vercel, GitHub Pages, or any static hosting platform.
@@ -58,10 +58,6 @@ If you’re making changes to Lunar, use the development setup to avoid rebuildi
 ```bash
 pnpm install && pnpm dev
 ```
-
-# Guides
-
-To enable extra features, updating Lunar & more click [here](https://github.com/Lunar-proxy/Lunar/wiki)
 
 # Support
 

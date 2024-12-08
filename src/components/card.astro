@@ -14,31 +14,30 @@ type Asset = {
 <div class="flex flex-row gap-6 p-4 overflow-x-auto">
   {
     games.length === 0 ? (
-      <p class="text-center text-gray-500">No games found</p>
+      <p class="text-center text-gray-500">No Assets found</p>
     ) : (
       games.map((game: Asset) => (
         <button
           id="data-2"
           data-json={JSON.stringify(game)}
-          class="flex flex-col items-center shadow-lg rounded-lg p-4 transition-transform transform hover:scale-105 hover:shadow-xl"
+          class="relative flex flex-col items-start shadow-lg rounded-lg p-4 transition-transform transform hover:scale-105 hover:shadow-xl group"
         >
-          <div class="relative game-card group">
+          <div class="relative w-36 h-36">
             <Image
               src={game.image}
               alt={game.name}
               width={140}
               height={140}
               loading="lazy"
-              class="rounded-lg transition-transform duration-300 group-hover:blur-sm"
+              class="rounded-lg w-full h-full object-contain transition-transform duration-300 group-hover:blur-sm"
             />
-            <div class="absolute bottom-2 left-2 text-white opacity-0 transition-opacity duration-300 group-hover:opacity-100 text-lg font-semibold font-poppins tracking-wide drop-shadow-md p-1">
-              {game.name}
-            </div>
+            <div class="absolute inset-0 bg-black opacity-0 group-hover:opacity-30 rounded-lg transition-opacity duration-300" />
+          </div>
+          <div class="absolute bottom-2 left-2 text-white opacity-0 group-hover:opacity-100 text-lg font-semibold font-poppins tracking-wide drop-shadow-md p-1 transition-opacity duration-300">
+            {game.name}
           </div>
         </button>
       ))
     )
   }
 </div>
-
-<script src="@src/utils/as"></script>
