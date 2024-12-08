@@ -54,8 +54,8 @@ importers:
         specifier: ^5.1.0
         version: 5.1.0
       lucide-astro:
-        specifier: ^0.465.0
-        version: 0.465.0(astro@5.0.3(@types/node@22.10.1)(jiti@1.21.6)(lightningcss@1.27.0)(rollup@4.28.0)(terser@5.36.0)(tsx@4.19.2)(typescript@5.7.2)(yaml@2.6.1))
+        specifier: ^0.468.0
+        version: 0.468.0(astro@5.0.3(@types/node@22.10.1)(jiti@1.21.6)(lightningcss@1.27.0)(rollup@4.28.0)(terser@5.36.0)(tsx@4.19.2)(typescript@5.7.2)(yaml@2.6.1))
       tailwindcss:
         specifier: ^3.4.16
         version: 3.4.16
@@ -1736,8 +1736,8 @@ packages:
     resolution: {integrity: sha512-123qHRfJBmo2jXDbo/a5YOQrJoHF/GNQTLzQ5+IdK5pWpceK17yRc6ozlWd25FxvGKQbIUs91fDFkXmDHTKcyA==}
     engines: {node: 20 || >=22}
 
-  lucide-astro@0.465.0:
-    resolution: {integrity: sha512-068J6UCUAkhZ5IgcP4UulY3r74RnfBHbo+1oE4XsOqN8BJVqsXwZPn0FISFvHhy/65Y52TKdbkokeUNLuQBHwA==}
+  lucide-astro@0.468.0:
+    resolution: {integrity: sha512-jl4jmNX9KUje4sDYvdwZ6EjYQ200s+5+JZsNu/vQqINxqVO/Kn8GvPlFu2T7dvfDW6pP63J8hRwspnXF6RiGVA==}
     peerDependencies:
       astro: '>=2.7.1'
 
@@ -4450,7 +4450,7 @@ snapshots:
 
   lru-cache@11.0.2: {}
 
-  lucide-astro@0.465.0(astro@5.0.3(@types/node@22.10.1)(jiti@1.21.6)(lightningcss@1.27.0)(rollup@4.28.0)(terser@5.36.0)(tsx@4.19.2)(typescript@5.7.2)(yaml@2.6.1)):
+  lucide-astro@0.468.0(astro@5.0.3(@types/node@22.10.1)(jiti@1.21.6)(lightningcss@1.27.0)(rollup@4.28.0)(terser@5.36.0)(tsx@4.19.2)(typescript@5.7.2)(yaml@2.6.1)):
     dependencies:
       astro: 5.0.3(@types/node@22.10.1)(jiti@1.21.6)(lightningcss@1.27.0)(rollup@4.28.0)(terser@5.36.0)(tsx@4.19.2)(typescript@5.7.2)(yaml@2.6.1)
 
