@@ -1,54 +1,97 @@
 /** @type {import("prettier").Config} */
 export default {
-  plugins: ["prettier-plugin-astro"],
+  plugins: ['prettier-plugin-astro'],
+  printWidth: 80,
+  tabWidth: 2,
+  useTabs: false,
+  semi: true,
+  singleQuote: true,
+  trailingComma: 'es5',
+  bracketSpacing: true,
+  arrowParens: 'always',
   overrides: [
     {
-      files: "*.astro",
+      files: '*.astro',
       options: {
-        parser: "astro",
+        parser: 'astro',
       },
     },
     {
-      files: "*.ts",
+      files: '*.ts',
       options: {
-        parser: "typescript",
+        parser: 'typescript',
       },
     },
     {
-      files: "*.tsx",
+      files: '*.tsx',
       options: {
-        parser: "typescript",
+        parser: 'typescript',
       },
     },
     {
-      files: "*.md",
+      files: '*.js',
       options: {
-        parser: "markdown",
+        parser: 'babel',
       },
     },
     {
-      files: "*.json",
+      files: '*.jsx',
       options: {
-        parser: "json",
+        parser: 'babel',
       },
     },
     {
-      files: "*.yaml",
+      files: '*.md',
       options: {
-        parser: "yaml",
+        parser: 'markdown',
       },
     },
     {
-      files: "*.css",
+      files: '*.json',
       options: {
-        parser: "css",
+        parser: 'json',
       },
     },
-
     {
-      files: "README.md",
+      files: '*.yaml',
       options: {
-        parser: "markdown",
+        parser: 'yaml',
+      },
+    },
+    {
+      files: '*.css',
+      options: {
+        parser: 'css',
+      },
+    },
+    {
+      files: '*.scss',
+      options: {
+        parser: 'scss',
+      },
+    },
+    {
+      files: '*.less',
+      options: {
+        parser: 'less',
+      },
+    },
+    {
+      files: '*.html',
+      options: {
+        parser: 'html',
+      },
+    },
+    {
+      files: '*.svg',
+      options: {
+        parser: 'html',
+      },
+    },
+    {
+      files: 'README.md',
+      options: {
+        parser: 'markdown',
       },
     },
   ],

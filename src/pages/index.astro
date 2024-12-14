@@ -1,5 +1,5 @@
 ---
-import "@src/main.css";
+import '@src/main.css';
 import {
   ArrowLeft,
   ArrowRight,
@@ -9,7 +9,10 @@ import {
   Gamepad,
   Grid2X2Plus,
   Settings,
-} from "lucide-astro";
+  Maximize,
+  SquareChevronRight,
+  Star,
+} from 'lucide-astro';
 ---
 
 <!doctype html>
@@ -27,7 +30,7 @@ import {
     >
       <a href="./" id="moonStar">
         <MoonStar
-          class="text-[#a5adce] hover:text-white w-8 h-8 mt-[6px] transition duration-150 transform hover:scale-110"
+          class="text-[#a5adce] hover:text-blue-400 w-8 h-8 mt-[6px] transition duration-150 transform hover:scale-110"
         />
       </a>
       <hr class="w-8 border-t-[2px] border-[#a5adce] my-4" />
@@ -84,14 +87,13 @@ import {
           >
           </div>
         </a>
-
         <a
           title="Refresh"
           id="reload"
           class="relative group w-8 h-8 flex items-center justify-center"
         >
           <RotateCw
-            class="text-[#a5adce] group-hover:text-white w-6 h-6 z-10 transition-transform duration-200 ease-in-out"
+            class="text-[#a5adce] group-hover:animate-spin group-hover:text-white w-6 h-6 z-10 transition-transform duration-200 ease-in-out"
           />
           <div
             class="absolute inset-0 rounded-full bg-transparent group-hover:bg-white/20 transition-colors duration-200"
@@ -100,14 +102,50 @@ import {
         </a>
       </div>
 
-      <form method="post" class="flex-grow mx-4" id="fm">
+      <form method="post" class="flex-grow mx-4" id="form">
         <input
-          id="in"
+          id="input"
           type="text"
           placeholder="Search..."
           class="text-center w-full bg-transparent text-white p-2 rounded-full border border-[#a5adce] placeholder-white focus:outline-none focus:ring-2 focus:ring-[#a5adce]"
         />
       </form>
+      <button
+        id="fav"
+        class="relative group w-8 h-8 flex items-center justify-center"
+      >
+        <Star
+          class="text-[#a5adce] group-hover:text-yellow-400 w-6 h-6 z-10 transition-transform duration-200 ease-in-out"
+        />
+        <div
+          class="absolute inset-0 rounded-full bg-transparent group-hover:bg-white/20 transition-colors duration-200"
+        >
+        </div>
+      </button>
+      <button
+        id="console"
+        class="relative group w-8 h-8 flex items-center justify-center"
+      >
+        <SquareChevronRight
+          class="text-[#a5adce] group-hover:text-white w-6 h-6 z-10 transition-transform duration-200 ease-in-out"
+        />
+        <div
+          class="absolute inset-0 rounded-full bg-transparent group-hover:bg-white/20 transition-colors duration-200"
+        >
+        </div>
+      </button>
+      <button
+        id="full-screen"
+        class="relative group w-8 h-8 flex items-center justify-center"
+      >
+        <Maximize
+          class="text-[#a5adce] group-hover:text-white w-6 h-6 z-10 transition-transform duration-200 ease-in-out"
+        />
+        <div
+          class="absolute inset-0 rounded-full bg-transparent group-hover:bg-white/20 transition-colors duration-200"
+        >
+        </div>
+      </button>
     </div>
 
     <div
@@ -128,7 +166,6 @@ import {
 
     <iframe
       id="frame"
-      src="about:blank"
       title=""
       class="fixed top-[64px] left-[62px] z-20 h-[calc(100vh-64px)] w-[calc(100%-62px)]"
     ></iframe>

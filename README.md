@@ -18,14 +18,15 @@ Lunar is a web proxy designed to bypass censorship and provide an exceptional us
 - ➕ **And More!**
 
 ## Deployment Options
-<div align="left">
+
+<div >
     <a href="https://render.com/deploy?repo=https://github.com/lunar-proxy/lunar-v1">
         <img src="https://raw.githubusercontent.com/BinBashBanana/deploy-buttons/main/buttons/remade/render.svg" alt="Deploy to Render">
     </a>
 
 [![Deploy to Koyeb](https://binbashbanana.github.io/deploy-buttons/buttons/remade/koyeb.svg)](https://app.koyeb.com/deploy?type=git&repository=github.com/lunar-proxy/lunar-v1)
-</div>
 
+</div>
 
 > [!NOTE]
 > Lunar cannot be deployed to Netlify, Vercel, GitHub Pages, or any static hosting platform.

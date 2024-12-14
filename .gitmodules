@@ -1,0 +1,8 @@
+[submodule "public/assets/images/icons"]
+	path = public/assets/images/icons
+	url = https://github.com/Lunar-Proxy/assets
+	branch = images
+[submodule "public/assets/json"]
+	path = public/assets/json
+	url = https://github.com/Lunar-Proxy/assets
+	branch = json

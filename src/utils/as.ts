@@ -1,4 +1,4 @@
-import { launch2 } from "@src/utils/frame.ts";
+import { launch2 } from '@src/utils/frame';
 
 export type Asset = {
   name: string;
@@ -7,24 +7,26 @@ export type Asset = {
   error: boolean | string;
 };
 
-const input = document.getElementById("input") as HTMLInputElement;
-const button = document.querySelectorAll("[id='data-2']") as NodeListOf<HTMLButtonElement>;
+const input = document.getElementById('input') as HTMLInputElement;
+const button = document.querySelectorAll(
+  "[id='data-2']"
+) as NodeListOf<HTMLButtonElement>;
 
 if (input) {
-  input.addEventListener("input", () => {
+  input.addEventListener('input', () => {
     const term = input.value.toLowerCase();
     button.forEach((button) => {
-      const json = button.getAttribute("data-json");
+      const json = button.getAttribute('data-json');
       if (json) {
         try {
           const asset: Asset = JSON.parse(json);
           if (asset.name.toLowerCase().includes(term)) {
-            button.classList.remove("hidden");
+            button.classList.remove('hidden');
           } else {
-            button.classList.add("hidden");
+            button.classList.add('hidden');
           }
         } catch (error) {
-          console.error("Failed to parse JSON:", error);
+          console.error('Failed to parse JSON:', error);
         }
       }
     });
@@ -32,8 +34,8 @@ if (input) {
 }
 
 button.forEach((button) => {
-  button.addEventListener("click", async () => {
-    const json = button.getAttribute("data-json");
+  button.addEventListener('click', async () => {
+    const json = button.getAttribute('data-json');
     if (json) {
       try {
         const asset: Asset = JSON.parse(json);
@@ -46,7 +48,7 @@ button.forEach((button) => {
           const choice = prompt(
             `Please choose a link by entering a number:\n${asset.link
               .map((item, index) => `${index + 1}. ${item.name}`)
-              .join("\n")}`
+              .join('\n')}`
           );
 
           if (choice) {
@@ -54,16 +56,16 @@ button.forEach((button) => {
             if (index >= 0 && index < asset.link.length) {
               launch2(asset.link[index].url);
             } else {
-              alert("Invalid choice. ");
+              alert('Invalid choice. ');
             }
           } else {
-            alert("No choice made.");
+            alert('No choice made.');
           }
         } else {
           launch2(asset.link as string);
         }
       } catch (error) {
-        console.error("Failed to parse JSON:", error);
+        console.error('Failed to parse JSON:', error);
       }
     }
   });

@@ -1,5 +1,5 @@
-const DBNAME = "SettingsDB";
-const LunarSettings = "Lunar-Settings";
+const DBNAME = 'SettingsDB';
+const LunarSettings = 'Lunar-Settings';
 let db: IDBDatabase | undefined;
 let dbReady: Promise<void>;
 
@@ -15,7 +15,7 @@ const Settings = (function () {
       const dbInstance = (event.target as IDBOpenDBRequest).result;
       if (!dbInstance.objectStoreNames.contains(LunarSettings)) {
         dbInstance.createObjectStore(LunarSettings, {
-          keyPath: "id",
+          keyPath: 'id',
           autoIncrement: true,
         });
       }
@@ -34,12 +34,12 @@ const Settings = (function () {
   async function ensureDefaultSettings(): Promise<void> {
     await dbReady;
     const defaultSettings: Setting[] = [
-      { cloak: "on" },
-      { backend: "/p/" }, //  /p/: UV,  /scram/:  Scramjet
-      { "search-engine": "https://www.google.com/search?q=" },
-      { transport: "ep" }, // ep: Epoxy, lb: Libcurl
+      { cloak: 'on' },
+      { backend: '/p/' }, //  /p/: UV,  /scram/:  Scramjet
+      { 'search-engine': 'https://www.google.com/search?q=' },
+      { transport: 'ep' }, // ep: Epoxy, lb: Libcurl
     ];
-    const transaction = db!.transaction([LunarSettings], "readwrite");
+    const transaction = db!.transaction([LunarSettings], 'readwrite');
     const store = transaction.objectStore(LunarSettings);
 
     for (const setting of defaultSettings) {
@@ -59,13 +59,13 @@ const Settings = (function () {
         }
       };
 
-      cursorRequest.onerror = function (event: Event) {};
+      cursorRequest.onerror = function () {};
     }
   }
 
   async function add(settingName: string, value: any): Promise<void> {
     await dbReady;
-    const transaction = db!.transaction([LunarSettings], "readwrite");
+    const transaction = db!.transaction([LunarSettings], 'readwrite');
     const store = transaction.objectStore(LunarSettings);
     const cursorRequest = store.openCursor();
     let updated = false;
@@ -85,13 +85,13 @@ const Settings = (function () {
       }
     };
 
-    cursorRequest.onerror = function (event: Event) {};
+    cursorRequest.onerror = function () {};
   }
 
   async function get(settingName: string): Promise<any> {
     await dbReady;
     return new Promise((resolve, reject) => {
-      const transaction = db!.transaction([LunarSettings], "readonly");
+      const transaction = db!.transaction([LunarSettings], 'readonly');
       const store = transaction.objectStore(LunarSettings);
       const cursorRequest: IDBRequest = store.openCursor();
       let found = false;
@@ -110,15 +110,39 @@ const Settings = (function () {
         }
       };
 
-      cursorRequest.onerror = function (event: Event) {
-        reject(new Error("Error retrieving setting by name."));
+      cursorRequest.onerror = function () {
+        reject(new Error('Error retrieving setting by name.'));
+      };
+    });
+  }
+
+  async function getConfig(): Promise<Setting> {
+    await dbReady;
+    return new Promise((resolve, reject) => {
+      const transaction = db!.transaction([LunarSettings], 'readonly');
+      const store = transaction.objectStore(LunarSettings);
+      const cursorRequest: IDBRequest = store.openCursor();
+      const config: Setting = {};
+
+      cursorRequest.onsuccess = function (event: Event) {
+        const cursor: IDBCursorWithValue = (event.target as IDBRequest).result;
+        if (cursor) {
+          Object.assign(config, cursor.value);
+          cursor.continue();
+        } else {
+          resolve(config);
+        }
+      };
+
+      cursorRequest.onerror = function () {
+        reject(new Error('Error retrieving configuration.'));
       };
     });
   }
 
   dbReady.then(() => ensureDefaultSettings());
 
-  return { add, get };
+  return { add, get, getConfig };
 })();
 
 export { Settings };

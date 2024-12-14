@@ -1,18 +1,18 @@
 ---
-import "@src/main.css";
-import Card from "@src/components/card.astro";
-import { Maximize, LogOut, RotateCw } from "lucide-astro";
-import type { Asset } from "@src/utils/as";
-import fs from "fs/promises";
-import path from "path";
-const JsonPath = path.resolve("./public/assets/json/a.json");
+import '@src/main.css';
+import Card from '@src/components/card.astro';
+import { Maximize, LogOut, RotateCw } from 'lucide-astro';
+import type { Asset } from '@src/utils/as';
+import fs from 'fs/promises';
+import path from 'path';
+const JsonPath = path.resolve('./public/assets/json/a.json');
 let apps: Asset[];
 
 try {
-  const data = await fs.readFile(JsonPath, "utf8");
+  const data = await fs.readFile(JsonPath, 'utf8');
   apps = JSON.parse(data);
 } catch (err) {
-  console.error("Error reading the json file:", err);
+  console.error('Error reading the json file:', err);
   apps = [];
 }
 ---

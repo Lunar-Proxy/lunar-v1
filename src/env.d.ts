@@ -2,7 +2,6 @@
 
 const LAST_UPDATED: string;
 const VERSION: string;
-const __uv$location: Location;
 
 interface UltraConfig {
   prefix: string;
@@ -10,8 +9,9 @@ interface UltraConfig {
   decodeUrl: (str: string) => string | null;
 }
 
-declare const UltraConfig: UltraConfig;
-declare const ScramjetController: any;
+const UltraConfig: UltraConfig;
+const ScramjetController: any;
+
 interface Window {
   sj: any;
   __uv$location?: {
@@ -20,7 +20,7 @@ interface Window {
   };
 }
 
-declare module "@mercuryworkshop/epoxy-transport";
-declare module "@mercuryworkshop/wisp-js/server";
-declare module "@mercuryworkshop/bare-mux/node";
-declare module "@mercuryworkshop/libcurl-transport";
+declare module '@mercuryworkshop/epoxy-transport';
+declare module '@mercuryworkshop/wisp-js/server';
+declare module '@mercuryworkshop/bare-mux/node';
+declare module '@mercuryworkshop/libcurl-transport';
