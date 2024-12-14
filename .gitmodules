@@ -5,4 +5,4 @@
 [submodule "public/assets/json"]
 	path = public/assets/json
 	url = https://github.com/Lunar-Proxy/assets
-	branch = json
+	branch = JSON
