@@ -8,7 +8,7 @@ const launch = document.getElementById('game-frame') as HTMLDivElement;
 
 export async function launch2(link: string) {
   const config = await Settings.getConfig();
-  await navigator.serviceWorker.register('sw.js');
+  await navigator.serviceWorker.register('./sw.js');
   launch.classList.remove('hidden');
   const scram = new ScramjetController({
     prefix: '/scram/',
@@ -21,7 +21,7 @@ export async function launch2(link: string) {
     },
   });
   window.sj = scram;
-  scram.init('./sjsw.js');
+  scram.init('./sw.js');
   const connection = new BareMuxConnection('/bm/worker.js');
   const wispurl =
     (location.protocol === 'https:' ? 'wss' : 'ws') +

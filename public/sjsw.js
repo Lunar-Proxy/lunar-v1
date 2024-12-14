@@ -3,15 +3,12 @@ importScripts(
   '/assets/sj/shared.js',
   '/assets/sj/worker.js'
 );
+
 const scramjet = new ScramjetServiceWorker();
 
 async function handleRequest(event) {
   await scramjet.loadConfig();
-  if (scramjet.route(event)) {
-    return scramjet.fetch(event);
-  }
-
-  return fetch(event.request);
+  return scramjet.route(event) ? scramjet.fetch(event) : fetch(event.request);
 }
 
 self.addEventListener('fetch', (event) => {
@@ -19,8 +16,9 @@ self.addEventListener('fetch', (event) => {
 });
 
 let playgroundData;
-self.addEventListener('message', ({ data }) => {
-  if (data.type === 'playgroundData') {
-    playgroundData = data;
+
+self.addEventListener('message', ({ data: { type, ...restData } }) => {
+  if (type === 'playgroundData') {
+    playgroundData = restData;
   }
 });

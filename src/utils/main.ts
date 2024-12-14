@@ -28,7 +28,6 @@ async function launch(link: string) {
     },
   });
   window.sj = scram;
-  const scramFrame = scram.createFrame();
   scram.init('./sjsw.js');
   const connection = new BareMuxConnection('/bm/worker.js');
   const wispurl =
@@ -48,7 +47,6 @@ async function launch(link: string) {
     }
   }
   if (config.backend === 'sj') {
-    scramFrame.frame.name = 'scram';
     url = scram.encodeUrl(link);
   } else {
     url = '/p/' + UltraConfig.encodeUrl(link);
