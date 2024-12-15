@@ -1,0 +1,4 @@
+User-agent: * 
+Disallow: /assets/
+Disallow: /sw.js
+Disallow: /sjsw.js

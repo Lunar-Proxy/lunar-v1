@@ -13,7 +13,12 @@ function validate(url: string): boolean {
 }
 
 async function launch(link: string) {
+  try {
   await navigator.serviceWorker.register('./sw.js');
+  console.debug('Service Worker registered');
+  } catch (error) {
+  throw new Error('Service Worker registration failed');
+  }
   const scram = new ScramjetController({
     prefix: '/scram/',
     files: {
@@ -54,27 +59,28 @@ async function launch(link: string) {
     console.debug('Using Scramjet to unblock');
   }
   frame.src = url;
-
   frame.addEventListener('load', () => {
     console.debug('Loaded Iframe successfully');
-    const links =
-      frame.contentWindow?.document.querySelectorAll<HTMLAnchorElement>('a');
+    const links = frame.contentWindow?.document.querySelectorAll<HTMLAnchorElement>('a');
     if (links) {
       links.forEach((element) => {
         element.addEventListener('click', (event) => {
           const target = event.target as HTMLAnchorElement | null;
-
           if (target?.target === '_top') {
-            event.preventDefault();
-            console.debug('New URL:', target.href);
+            if (target.href == null) {
+             console.log("link was null, not attempting.")
+            
+            } else {
+            event.preventDefault()
+            console.debug('Redirected URL:', target.href);
             launch(target.href);
           }
+        }
         });
       });
     }
   });
 }
-
 fm.addEventListener('submit', async (event) => {
   event.preventDefault();
   welcome.classList.add('hidden');
