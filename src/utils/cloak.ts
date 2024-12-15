@@ -1,28 +1,20 @@
 import { Settings } from '@src/utils/config';
+let cloak: any;
 
-const cloak = [
-  {
-    name: 'Google Drive',
-    url: 'https://drive.google.com',
-    favicon:
-      'https://ssl.gstatic.com/docs/doclist/images/infinite_arrow_favicon_5.ico',
-  },
-  {
-    name: 'Google',
-    url: 'https://www.google.com',
-    favicon: 'https://www.google.com/favicon.ico',
-  },
-  {
-    name: 'Google Docs',
-    url: 'https://docs.google.com',
-    favicon: 'https://ssl.gstatic.com/docs/documents/images/kix-favicon7.ico',
-  },
-];
-
-if (await Settings.get('cloak')) {
-  Cloak();
-} else {
-  console.debug('Cloaking is off. Enable in settings.');
+async function fetchData(): Promise<void> {
+  try {
+    const response = await fetch('/assets/json/tab.json');
+    if (!response.ok) {
+      throw new Error(`HTTP error, status: ${response.status}`);
+    }
+    cloak = await response.json();
+  } catch (error) {
+    if (error instanceof Error) {
+      throw new Error('Error reading JSON file: ' + error.message);
+    } else {
+      throw new Error('Error reading JSON file');
+    }
+  }
 }
 
 async function Cloak() {
@@ -38,30 +30,54 @@ async function Cloak() {
     const popup = window.open('about:blank');
 
     if (!popup || popup.closed) {
-      alert('Allow popups/redirects to avoid the website going to history.');
+      alert('Allow popups/redirects to avoid the website going into history.');
     } else {
       try {
         const item = cloak[Math.floor(Math.random() * cloak.length)];
         const doc = popup.document;
         const iframe = doc.createElement('iframe');
-        const style = iframe.style;
+        Object.assign(iframe.style, {
+          position: 'fixed',
+          top: '0',
+          bottom: '0',
+          left: '0',
+          right: '0',
+          border: 'none',
+          outline: 'none',
+          width: '100%',
+          height: '100%',
+        });
         const link =
           (document.querySelector("link[rel='icon']") as HTMLLinkElement) ||
           (document.createElement('link') as HTMLLinkElement);
-        doc.title = item.name;
         link.rel = 'icon';
         link.href = item.favicon;
-        iframe.src = location.href;
-        style.position = 'fixed';
-        style.top = style.bottom = style.left = style.right = '0';
-        style.border = style.outline = 'none';
-        style.width = style.height = '100%';
+        doc.title = item.name;
         doc.body.appendChild(iframe);
         doc.head.appendChild(link);
+        iframe.src = location.href;
         window.location.replace(item.url);
       } catch (error) {
-        throw new Error('Cloaking failed with error:' + error);
+        if (error instanceof Error) {
+          throw new Error('Cloaking failed with error: ' + error.message);
+        } else {
+          throw new Error('Cloaking failed with an unknown error');
+        }
       }
     }
   }
 }
+
+(async () => {
+  try {
+    await fetchData();
+
+    if (await Settings.get('cloak')) {
+      Cloak();
+    } else {
+      console.debug('Cloaking is off. Enable in settings.');
+    }
+  } catch (error) {
+    console.error('Initialization failed:', error);
+  }
+})();

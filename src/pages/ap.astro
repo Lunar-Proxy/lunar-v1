@@ -12,8 +12,8 @@ try {
   const data = await fs.readFile(JsonPath, 'utf8');
   apps = JSON.parse(data);
 } catch (err) {
-  console.error('Error reading the json file:', err);
   apps = [];
+  throw new Error('Error reading the json file:' + err);
 }
 ---
 

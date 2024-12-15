@@ -13,8 +13,8 @@ try {
   const data = await fs.readFile(JsonPath, 'utf8');
   games = JSON.parse(data);
 } catch (err) {
-  console.error('Error reading the file:', err);
   games = [];
+  throw new Error('Error reading the file:' + err);
 }
 ---
 
