@@ -5,7 +5,7 @@ import { Maximize, LogOut, RotateCw } from 'lucide-astro';
 import type { Asset } from '@src/utils/as';
 import fs from 'fs/promises';
 import path from 'path';
-const JsonPath = path.resolve('./public/assets/json/a.json');
+const JsonPath = path.resolve('./public/assets/json/ap.json');
 let apps: Asset[];
 
 try {
@@ -74,4 +74,3 @@ try {
 <link rel="prefetch" href="/assets/sj/worker.js" />
 <link rel="prefetch" href="/assets/sj/shared.js" />
 <script is:inline src="/assets/sj/controller.js" defer></script>
-<script src="@src/utils/global"></script>

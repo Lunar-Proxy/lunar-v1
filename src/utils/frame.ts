@@ -1,15 +1,15 @@
 import { BareMuxConnection } from '@mercuryworkshop/bare-mux';
 import { Settings } from '@src/utils/config';
+
 const exit = document.getElementById('return') as HTMLButtonElement;
 const refresh = document.getElementById('rotate') as HTMLButtonElement;
 const frame = document.getElementById('display') as HTMLIFrameElement;
 const full = document.getElementById('maximize') as HTMLButtonElement;
 const launch = document.getElementById('game-frame') as HTMLDivElement;
+let url: string;
 
 export async function launch2(link: string) {
-  const config = await Settings.getConfig();
   await navigator.serviceWorker.register('./sw.js');
-  launch.classList.remove('hidden');
   const scram = new ScramjetController({
     prefix: '/scram/',
     files: {
@@ -21,16 +21,16 @@ export async function launch2(link: string) {
     },
   });
   window.sj = scram;
-  scram.init('./sw.js');
+  scram.init('./sjsw.js');
   const connection = new BareMuxConnection('/bm/worker.js');
   const wispurl =
     (location.protocol === 'https:' ? 'wss' : 'ws') +
     '://' +
     location.host +
     '/w/';
-
-  let url;
-  if (config.transport == 'ep') {
+  const transport = await Settings.get('transport');
+  const backend = await Settings.get('backend');
+  if (transport == 'ep') {
     if ((await connection.getTransport()) !== '/ep/index.mjs') {
       await connection.setTransport('/ep/index.mjs', [{ wisp: wispurl }]);
       console.debug('Transport is set to Epoxy');
@@ -42,14 +42,33 @@ export async function launch2(link: string) {
     }
   }
 
-  if (config.backend === 'sj') {
-    const frame = scramjet.createFrame();
-    frame.frame.name = 'scramjet';
-    url = scram.encodeUrl(link);
+  if (backend == '/p/') {
+    url = backend + UltraConfig.encodeUrl(link);
+    console.debug('Using UV to unblock');
   } else {
-    url = '/p/' + UltraConfig.encodeUrl(link);
+    url = scram.encodeUrl(link);
+    console.debug('Using Scramjet to unblock');
   }
   frame.src = url;
+  launch.classList.remove('hidden');
+  frame.addEventListener('load', () => {
+    console.debug('Loaded Iframe successfully');
+    const links =
+      frame.contentWindow?.document.querySelectorAll<HTMLAnchorElement>('a');
+    if (links) {
+      links.forEach((element) => {
+        element.addEventListener('click', (event) => {
+          const target = event.target as HTMLAnchorElement | null;
+
+          if (target?.target === '_top') {
+            event.preventDefault();
+            console.debug('New URL:', target.href);
+            launch2(target.href);
+          }
+        });
+      });
+    }
+  });
 }
 
 exit.addEventListener('click', () => {

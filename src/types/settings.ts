@@ -1,7 +1,6 @@
 export interface config {
   server: {
     port: number;
-    hosting: 'local' | 'external';
   };
   protect: {
     challenge: boolean;

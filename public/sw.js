@@ -1,9 +1,15 @@
-importScripts('/assets/v/bundle.js', '/assets/v/config.js', '/assets/v/sw.js');
+importScripts('/assets/v/bundle.js');
+importScripts('/assets/v/config.js');
+importScripts('/assets/v/sw.js');
 
 const uv = new UVServiceWorker();
 
 async function handleRequest(event) {
-  return uv.route(event) ? uv.fetch(event) : fetch(event.request);
+  if (uv.route(event)) {
+    return await uv.fetch(event);
+  }
+
+  return await fetch(event.request);
 }
 
 self.addEventListener('fetch', (event) => {

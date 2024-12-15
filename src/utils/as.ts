@@ -1,4 +1,4 @@
-import { launch2 } from '@src/utils/frame';
+import { launch2 } from '@src/utils/frame.ts';
 
 export type Asset = {
   name: string;

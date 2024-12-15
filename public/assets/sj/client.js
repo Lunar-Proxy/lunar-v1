@@ -65,8 +65,8 @@
           './shared/event.ts': '8231',
           './shared/function': '7636',
           './shared/function.ts': '7636',
-          './shared/import': '7341',
-          './shared/import.ts': '7341',
+          './shared/import': '4306',
+          './shared/import.ts': '4306',
           './shared/indexeddb': '2930',
           './shared/indexeddb.ts': '2930',
           './shared/postmessage': '2625',
@@ -129,8 +129,8 @@
           l = r(8971),
           c = r(3498),
           u = r(4471),
-          f = r(7706),
-          p = r(5008);
+          p = r(7706),
+          f = r(5008);
         class g {
           global;
           documentProxy;
@@ -163,7 +163,7 @@
                 (e.document[o.a] = this)),
               (this.locationProxy = (0, l.createLocationProxy)(this, e)),
               (this.globalProxy = (0, s.createGlobalProxy)(this, e)),
-              (this.wrapfn = (0, f.createWrapFn)(this, e)),
+              (this.wrapfn = (0, p.createWrapFn)(this, e)),
               n.iswindow
                 ? (this.bare = new u.dg())
                 : (this.bare = new u.dg(
@@ -292,7 +292,7 @@
           }
           set url(e) {
             e instanceof URL && (e = e.toString());
-            let t = new p.NavigateEvent(e);
+            let t = new f.NavigateEvent(e);
             this.frame && this.frame.dispatchEvent(t),
               !t.defaultPrevented &&
                 (this.global.location.href = (0, u.dm)(t.url, this.meta));
@@ -546,13 +546,17 @@
             e.Trap('Document.prototype.cookie', {
               get: () => e.cookieStore.getCookies(e.url, !0),
               set(t, r) {
-                e.cookieStore.setCookies([r], e.url),
-                  e.serviceWorker.controller &&
-                    e.serviceWorker.controller.postMessage({
-                      scramjet$type: 'cookie',
-                      cookie: r,
-                      url: e.url.href,
-                    });
+                e.cookieStore.setCookies([r], e.url);
+                let n = e.descriptors.get(
+                  'ServiceWorkerContainer.prototype.controller',
+                  e.serviceWorker
+                );
+                n &&
+                  e.natives.call('ServiceWorker.prototype.postMessage', n, {
+                    scramjet$type: 'cookie',
+                    cookie: r,
+                    url: e.url.href,
+                  });
               },
             }),
             delete t.cookieStore;
@@ -1184,93 +1188,89 @@
       },
       5707: function (e, t, r) {
         'use strict';
-        let n;
         r.r(t),
           r.d(t, {
             default: function () {
-              return u;
-            },
-            disabled: function () {
-              return c;
-            },
-            enabled: function () {
               return l;
             },
-            order: function () {
+            disabled: function () {
               return i;
             },
+            enabled: function () {
+              return s;
+            },
+            order: function () {
+              return a;
+            },
           });
-        var o = r(4471),
-          a = r(7932),
-          s = r(8810);
-        let i = 2,
-          l = (e) => (0, s.Sp)('serviceworkers', e.url);
-        function c(e, t) {
+        var n = r(4471),
+          o = r(8810);
+        let a = 2,
+          s = (e) => (0, o.Sp)('serviceworkers', e.url);
+        function i(e, t) {
           Reflect.deleteProperty(Navigator.prototype, 'serviceWorker');
         }
-        function u(e, t) {
-          let r;
+        function l(e, t) {
+          let r = new WeakMap();
           e.Proxy('EventTarget.prototype.addEventListener', {
             apply(e) {
-              r === e.this && e.return(void 0);
+              r.get(e.this) && e.return(void 0);
             },
           }),
             e.Proxy('EventTarget.prototype.removeEventListener', {
               apply(e) {
-                r === e.this && e.return(void 0);
+                r.get(e.this) && e.return(void 0);
               },
             }),
-            e.Proxy('navigator.serviceWorker.getRegistration', {
+            e.Proxy('ServiceWorkerContainer.prototype.getRegistration', {
               apply(e) {
-                e.return(new Promise((e) => e(r)));
+                e.return(new Promise((e) => e(registration)));
               },
             }),
-            e.Proxy('navigator.serviceWorker.getRegistrations', {
+            e.Proxy('ServiceWorkerContainer.prototype.getRegistrations', {
               apply(e) {
-                e.return(new Promise((e) => e([r])));
+                e.return(new Promise((e) => e([registration])));
               },
             }),
-            e.Trap('navigator.serviceWorker.ready', {
-              get: (e) => (console.log(r), new Promise((e) => e(r))),
+            e.Trap('ServiceWorkerContainer.prototype.ready', {
+              get: (e) => new Promise((e) => e(registration)),
             }),
-            e.Proxy('navigator.serviceWorker.register', {
+            e.Trap('ServiceWorkerContainer.prototype.controller', {
+              get: (e) => registration?.active,
+            }),
+            e.Proxy('ServiceWorkerContainer.prototype.register', {
               apply(t) {
-                t.args[0] instanceof URL && (t.args[0] = t.args[0].href);
-                let s = (0, o.dm)(t.args[0], e.meta) + '?dest=serviceworker';
+                let o = new EventTarget();
+                Object.setPrototypeOf(
+                  o,
+                  self.ServiceWorkerRegistration.prototype
+                ),
+                  (o.constructor = t.fn);
+                let a = (0, n.dm)(t.args[0], e.meta) + '?dest=serviceworker';
                 t.args[1] &&
                   'module' === t.args[1].type &&
-                  (s += '&type=module');
-                let i = e.natives.construct('SharedWorker', s).port;
-                n.call(
-                  e.serviceWorker.controller,
+                  (a += '&type=module');
+                let s = e.natives.construct('SharedWorker', a).port,
+                  i = { scope: t.args[0], active: s },
+                  l = e.descriptors.get(
+                    'ServiceWorkerContainer.prototype.controller',
+                    e.serviceWorker
+                  );
+                e.natives.call(
+                  'ServiceWorker.prototype.postMessage',
+                  l,
                   {
                     scramjet$type: 'registerServiceWorker',
-                    port: i,
+                    port: s,
                     origin: e.url.origin,
                   },
-                  [i]
-                );
-                let l = new Proxy(
-                  { __proto__: ServiceWorkerRegistration.prototype },
-                  {
-                    get: (e, r) =>
-                      'installing' === r || 'waiting' === r
-                        ? null
-                        : 'active' === r
-                          ? i
-                          : 'scope' === r
-                            ? t.args[0]
-                            : 'unregister' === r || 'addEventListener' === r
-                              ? () => {}
-                              : Reflect.get(e, r),
-                    getOwnPropertyDescriptor: a.getOwnPropertyDescriptorHandler,
-                  }
-                );
-                (r = l), t.return(new Promise((e) => e(l)));
+                  [s]
+                ),
+                  r.set(o, i),
+                  t.return(new Promise((e) => e(o)));
               },
             });
         }
-        self.ServiceWorker && (n = ServiceWorker.prototype.postMessage);
       },
       9227: function (e, t, r) {
         'use strict';
@@ -1466,7 +1466,7 @@
         r.r(t),
           r.d(t, {
             isdedicated: function () {
-              return p;
+              return f;
             },
             isemulatedsw: function () {
               return d;
@@ -1475,7 +1475,7 @@
               return g;
             },
             issw: function () {
-              return f;
+              return p;
             },
             iswindow: function () {
               return c;
@@ -1492,8 +1492,8 @@
           l = r(1762).Z;
         let c = 'window' in self,
           u = 'WorkerGlobalScope' in self,
-          f = 'ServiceWorkerGlobalScope' in self,
-          p = 'DedicatedWorkerGlobalScope' in self,
+          p = 'ServiceWorkerGlobalScope' in self,
+          f = 'DedicatedWorkerGlobalScope' in self,
           g = 'SharedWorkerGlobalScope' in self,
           d =
             'serviceworker' ===
@@ -1832,7 +1832,9 @@
         function o(e, t) {
           Object.defineProperty(t, n.vc.globals.rewritefn, {
             value: function (t) {
-              return 'string' != typeof t ? t : (0, n.Zs)(t, null, e.meta);
+              return 'string' != typeof t
+                ? t
+                : (0, n.Zs)(t, '(direct eval proxy)', e.meta);
             },
             writable: !1,
             configurable: !1,
@@ -1841,7 +1843,9 @@
         function a(e) {
           return 'string' != typeof e
             ? e
-            : (0, this.global.eval)((0, n.Zs)(e, null, this.meta));
+            : (0, this.global.eval)(
+                (0, n.Zs)(e, '(indirect eval proxy)', this.meta)
+              );
         }
       },
       8231: function (e, t, r) {
@@ -1988,7 +1992,7 @@
         var n = r(4471);
         function o(e, t) {
           let r = e.call().toString(),
-            o = (0, n.Zs)(`return ${r}`, null, t.meta);
+            o = (0, n.Zs)(`return ${r}`, '(function proxy)', t.meta);
           e.return(e.fn(o)());
         }
         function a(e, t) {
@@ -2002,13 +2006,25 @@
           });
         }
       },
-      7341: function (e, t, r) {
+      4306: function (e, t, r) {
         'use strict';
         let n;
-        r.r(t), r.d(t, { default: () => S });
+        r.r(t), r.d(t, { default: () => k });
         var o = r('4471'),
           a = r('8810');
-        let s =
+        function s(e) {
+          let t = n.__externref_table_alloc();
+          return n.__wbindgen_export_2.set(t, e), t;
+        }
+        function i(e, t) {
+          try {
+            return e.apply(this, t);
+          } catch (t) {
+            let e = s(t);
+            n.__wbindgen_exn_store(e);
+          }
+        }
+        let l =
           'undefined' != typeof TextDecoder
             ? new TextDecoder('utf-8', { ignoreBOM: !0, fatal: !0 })
             : {
@@ -2016,20 +2032,20 @@
                   throw Error('TextDecoder not available');
                 },
               };
-        'undefined' != typeof TextDecoder && s.decode();
-        let i = null;
-        function l() {
+        'undefined' != typeof TextDecoder && l.decode();
+        let c = null;
+        function u() {
           return (
-            (null === i || i.buffer !== n.memory.buffer) &&
-              (i = new Uint8Array(n.memory.buffer)),
-            i
+            (null === c || c.buffer !== n.memory.buffer) &&
+              (c = new Uint8Array(n.memory.buffer)),
+            c
           );
         }
-        function c(e, t) {
-          return (e >>>= 0), s.decode(l().slice(e, e + t));
+        function p(e, t) {
+          return (e >>>= 0), l.decode(u().slice(e, e + t));
         }
-        let u = 0,
-          f =
+        let f = 0,
+          g =
             'undefined' != typeof TextEncoder
               ? new TextEncoder('utf-8')
               : {
@@ -2037,25 +2053,25 @@
                     throw Error('TextEncoder not available');
                   },
                 },
-          p = function (e, t) {
-            let r = f.encode(e);
+          d = function (e, t) {
+            let r = g.encode(e);
             return t.set(r), { read: e.length, written: r.length };
           };
-        function g(e, t, r) {
+        function y(e, t, r) {
           if (void 0 === r) {
-            let r = f.encode(e),
+            let r = g.encode(e),
               n = t(r.length, 1) >>> 0;
             return (
-              l()
+              u()
                 .subarray(n, n + r.length)
                 .set(r),
-              (u = r.length),
+              (f = r.length),
               n
             );
           }
           let n = e.length,
             o = t(n, 1) >>> 0,
-            a = l(),
+            a = u(),
             s = 0;
           for (; s < n; s++) {
             let t = e.charCodeAt(s);
@@ -2065,35 +2081,27 @@
           if (s !== n) {
             0 !== s && (e = e.slice(s)),
               (o = r(o, n, (n = s + 3 * e.length), 1) >>> 0);
-            let t = p(e, l().subarray(o + s, o + n));
+            let t = d(e, u().subarray(o + s, o + n));
             (s += t.written), (o = r(o, n, s, 1) >>> 0);
           }
-          return (u = s), o;
+          return (f = s), o;
         }
-        let d = null;
-        function y() {
+        let m = null;
+        function h() {
           return (
-            (null === d || d.buffer !== n.memory.buffer) &&
-              (d = new DataView(n.memory.buffer)),
-            d
+            (null === m || m.buffer !== n.memory.buffer) &&
+              (m = new DataView(n.memory.buffer)),
+            m
           );
         }
-        function m(e) {
-          let t = n.__wbindgen_export_4.get(e);
+        function b(e) {
+          return null == e;
+        }
+        function w(e) {
+          let t = n.__wbindgen_export_2.get(e);
           return n.__externref_table_dealloc(e), t;
         }
-        function h(e, t) {
-          try {
-            return e.apply(this, t);
-          } catch (t) {
-            let e = (function (e) {
-              let t = n.__externref_table_alloc();
-              return n.__wbindgen_export_4.set(t, e), t;
-            })(t);
-            n.__wbindgen_exn_store(e);
-          }
-        }
-        async function b(e, t) {
+        async function v(e, t) {
           if ('function' == typeof Response && e instanceof Response) {
             if ('function' == typeof WebAssembly.instantiateStreaming)
               try {
@@ -2116,80 +2124,54 @@
               : r;
           }
         }
-        function w() {
+        function x() {
           let e = {};
           return (
             (e.wbg = {}),
-            (e.wbg.__wbindgen_error_new = function (e, t) {
-              return Error(c(e, t));
-            }),
-            (e.wbg.__wbindgen_string_new = function (e, t) {
-              return c(e, t);
-            }),
-            (e.wbg.__wbg_call_3bfa248576352471 = function () {
-              return h(function (e, t, r) {
-                return e.call(t, r);
-              }, arguments);
-            }),
-            (e.wbg.__wbindgen_string_get = function (e, t) {
-              let r = 'string' == typeof t ? t : void 0;
-              var o,
-                a =
-                  null == (o = r)
-                    ? 0
-                    : g(r, n.__wbindgen_malloc, n.__wbindgen_realloc),
-                s = u;
-              y().setInt32(e + 4, s, !0), y().setInt32(e + 0, a, !0);
-            }),
-            (e.wbg.__wbg_get_ef828680c64da212 = function () {
-              return h(function (e, t) {
-                return Reflect.get(e, t);
-              }, arguments);
-            }),
-            (e.wbg.__wbg_toString_4b677455b9167e31 = function (e) {
-              return e.toString();
-            }),
-            (e.wbg.__wbg_set_e864d25d9b399c9f = function () {
-              return h(function (e, t, r) {
-                return Reflect.set(e, t, r);
-              }, arguments);
-            }),
-            (e.wbg.__wbindgen_is_function = function (e) {
-              return 'function' == typeof e;
-            }),
-            (e.wbg.__wbg_new_1cabf49927794f50 = function () {
-              return h(function (e, t) {
-                return new URL(c(e, t));
-              }, arguments);
-            }),
-            (e.wbg.__wbg_call_5fb7c8066a4a4825 = function () {
-              return h(function (e, t, r, n) {
+            (e.wbg.__wbg_call_3b770f0d6eb4720e = function () {
+              return i(function (e, t, r, n) {
                 return e.call(t, r, n);
               }, arguments);
             }),
-            (e.wbg.__wbindgen_boolean_get = function (e) {
-              return 'boolean' == typeof e ? (e ? 1 : 0) : 2;
+            (e.wbg.__wbg_call_500db948e69c7330 = function () {
+              return i(function (e, t, r) {
+                return e.call(t, r);
+              }, arguments);
             }),
-            (e.wbg.__wbg_new_e69b5f66fda8f13c = function () {
-              return {};
+            (e.wbg.__wbg_call_b0d8e36992d9900d = function () {
+              return i(function (e, t) {
+                return e.call(t);
+              }, arguments);
             }),
-            (e.wbg.__wbindgen_uint8_array_new = function (e, t) {
-              var r,
-                o,
-                a = ((r = e),
-                (o = t),
-                (r >>>= 0),
-                l().subarray(r / 1, r / 1 + o)).slice();
-              return n.__wbindgen_free(e, 1 * t, 1), a;
+            (e.wbg.__wbg_get_bbccf8970793c087 = function () {
+              return i(function (e, t) {
+                return Reflect.get(e, t);
+              }, arguments);
             }),
-            (e.wbg.__wbg_new_034f913e7636e987 = function () {
+            (e.wbg.__wbg_new_17f755666e48d1d8 = function () {
+              return i(function (e, t) {
+                return new URL(p(e, t));
+              }, arguments);
+            }),
+            (e.wbg.__wbg_new_254fa9eac11932ae = function () {
               return [];
             }),
-            (e.wbg.__wbindgen_number_new = function (e) {
-              return e;
+            (e.wbg.__wbg_new_688846f374351c92 = function () {
+              return {};
             }),
-            (e.wbg.__wbg_scramtag_51d94caa8a743d31 = function (e) {
-              let t = g(
+            (e.wbg.__wbg_newnoargs_fd9e4bf8be2bc16d = function (e, t) {
+              return Function(p(e, t));
+            }),
+            (e.wbg.__wbg_newwithbase_aa2c471fe3eacc2b = function () {
+              return i(function (e, t, r, n) {
+                return new URL(p(e, t), p(r, n));
+              }, arguments);
+            }),
+            (e.wbg.__wbg_now_62a101fe35b60230 = function (e) {
+              return e.now();
+            }),
+            (e.wbg.__wbg_scramtag_bd98edaa0eaec45e = function (e) {
+              let t = y(
                   '10000000000'.replace(/[018]/g, (e) =>
                     (
                       e ^
@@ -2200,48 +2182,45 @@
                   n.__wbindgen_malloc,
                   n.__wbindgen_realloc
                 ),
-                r = u;
-              y().setInt32(e + 4, r, !0), y().setInt32(e + 0, t, !0);
+                r = f;
+              h().setInt32(e + 4, r, !0), h().setInt32(e + 0, t, !0);
             }),
-            (e.wbg.__wbg_now_d3cbc9581625f686 = function (e) {
-              return e.now();
-            }),
-            (e.wbg.__wbg_self_bf91bf94d9e04084 = function () {
-              return h(function () {
-                return self.self;
+            (e.wbg.__wbg_set_4e647025551483bd = function () {
+              return i(function (e, t, r) {
+                return Reflect.set(e, t, r);
               }, arguments);
             }),
-            (e.wbg.__wbg_window_52dd9f07d03fd5f8 = function () {
-              return h(function () {
-                return window.window;
-              }, arguments);
+            (e.wbg.__wbg_static_accessor_GLOBAL_0be7472e492ad3e3 = function () {
+              let e = 'undefined' == typeof global ? null : global;
+              return b(e) ? 0 : s(e);
             }),
-            (e.wbg.__wbg_globalThis_05c129bf37fcf1be = function () {
-              return h(function () {
-                return globalThis.globalThis;
-              }, arguments);
+            (e.wbg.__wbg_static_accessor_GLOBAL_THIS_1a6eb482d12c9bfb =
+              function () {
+                let e = 'undefined' == typeof globalThis ? null : globalThis;
+                return b(e) ? 0 : s(e);
+              }),
+            (e.wbg.__wbg_static_accessor_SELF_1dc398a895c82351 = function () {
+              let e = 'undefined' == typeof self ? null : self;
+              return b(e) ? 0 : s(e);
             }),
-            (e.wbg.__wbg_global_3eca19bb09e9c484 = function () {
-              return h(function () {
-                return global.global;
-              }, arguments);
+            (e.wbg.__wbg_static_accessor_WINDOW_ae1c80c7eea8d64a = function () {
+              let e = 'undefined' == typeof window ? null : window;
+              return b(e) ? 0 : s(e);
             }),
-            (e.wbg.__wbindgen_is_undefined = function (e) {
-              return void 0 === e;
+            (e.wbg.__wbg_toString_a491ccf7be1ca5c9 = function (e) {
+              return e.toString();
             }),
-            (e.wbg.__wbg_newnoargs_1ede4bf2ebbaaf43 = function (e, t) {
-              return Function(c(e, t));
+            (e.wbg.__wbg_toString_cbcf95f260c441ae = function (e) {
+              return e.toString();
             }),
-            (e.wbg.__wbg_call_a9ef466721e824f2 = function () {
-              return h(function (e, t) {
-                return e.call(t);
-              }, arguments);
+            (e.wbg.__wbindgen_boolean_get = function (e) {
+              return 'boolean' == typeof e ? (e ? 1 : 0) : 2;
             }),
-            (e.wbg.__wbindgen_throw = function (e, t) {
-              throw Error(c(e, t));
+            (e.wbg.__wbindgen_error_new = function (e, t) {
+              return Error(p(e, t));
             }),
             (e.wbg.__wbindgen_init_externref_table = function () {
-              let e = n.__wbindgen_export_4,
+              let e = n.__wbindgen_export_2,
                 t = e.grow(4);
               e.set(0, void 0),
                 e.set(t + 0, void 0),
@@ -2249,26 +2228,58 @@
                 e.set(t + 2, !0),
                 e.set(t + 3, !1);
             }),
+            (e.wbg.__wbindgen_is_function = function (e) {
+              return 'function' == typeof e;
+            }),
+            (e.wbg.__wbindgen_is_undefined = function (e) {
+              return void 0 === e;
+            }),
+            (e.wbg.__wbindgen_number_new = function (e) {
+              return e;
+            }),
+            (e.wbg.__wbindgen_string_get = function (e, t) {
+              let r = 'string' == typeof t ? t : void 0;
+              var o = b(r)
+                  ? 0
+                  : y(r, n.__wbindgen_malloc, n.__wbindgen_realloc),
+                a = f;
+              h().setInt32(e + 4, a, !0), h().setInt32(e + 0, o, !0);
+            }),
+            (e.wbg.__wbindgen_string_new = function (e, t) {
+              return p(e, t);
+            }),
+            (e.wbg.__wbindgen_throw = function (e, t) {
+              throw Error(p(e, t));
+            }),
+            (e.wbg.__wbindgen_uint8_array_new = function (e, t) {
+              var r,
+                o,
+                a = ((r = e),
+                (o = t),
+                (r >>>= 0),
+                u().subarray(r / 1, r / 1 + o)).slice();
+              return n.__wbindgen_free(e, 1 * t, 1), a;
+            }),
             e
           );
         }
-        function v(e, t) {
+        function _(e, t) {
           e.wbg.memory =
             t ||
-            new WebAssembly.Memory({ initial: 21, maximum: 16384, shared: !0 });
+            new WebAssembly.Memory({ initial: 18, maximum: 16384, shared: !0 });
         }
-        function x(e, t, r) {
+        function P(e, t, r) {
           if (
             ((n = e.exports),
-            (P.__wbindgen_wasm_module = t),
-            (d = null),
-            (i = null),
+            (T.__wbindgen_wasm_module = t),
+            (m = null),
+            (c = null),
             void 0 !== r && ('number' != typeof r || 0 === r || r % 65536 != 0))
           )
             throw 'invalid stack size';
           return n.__wbindgen_start(r), n;
         }
-        async function P(e, t) {
+        async function T(e, t) {
           let r;
           if (void 0 !== n) return n;
           void 0 !== e &&
@@ -2277,15 +2288,15 @@
               : console.warn(
                   'using deprecated parameters for the initialization function; pass a single object instead'
                 )),
-            void 0 === e && (e = new URL('rewriter_bg.wasm', ''));
-          let o = w();
+            void 0 === e && (e = new URL('wasm_bg.wasm', ''));
+          let o = x();
           ('string' == typeof e ||
             ('function' == typeof Request && e instanceof Request) ||
             ('function' == typeof URL && e instanceof URL)) &&
             (e = fetch(e)),
-            v(o, t);
-          let { instance: a, module: s } = await b(await e, o);
-          return x(a, s, r);
+            _(o, t);
+          let { instance: a, module: s } = await v(await e, o);
+          return P(a, s, r);
         }
         !(function (e, t) {
           let r;
@@ -2296,26 +2307,26 @@
               : console.warn(
                   'using deprecated parameters for `initSync()`; pass a single object instead'
                 ));
-          let o = w();
-          v(o, t),
+          let o = x();
+          _(o, t),
             !(e instanceof WebAssembly.Module) &&
               (e = new WebAssembly.Module(e)),
-            x(new WebAssembly.Instance(e, o), e, r);
+            P(new WebAssembly.Instance(e, o), e, r);
         })({
           module: new WebAssembly.Module(
             Uint8Array.from(atob(self.WASM), (e) => e.charCodeAt(0))
           ),
         }),
           (Error.stackTraceLimit = 50);
-        let _ = new TextDecoder();
-        function T(e, t) {
+        let S = new TextDecoder();
+        function E(e, t) {
           try {
             return new URL(e, t);
           } catch {
             return null;
           }
         }
-        function S(e, t) {
+        function k(e, t) {
           let r = e.natives.store.Function;
           (t[o.vc.globals.importfn] = function (t) {
             return function (o) {
@@ -2354,72 +2365,85 @@
                         return (e = (function (e, t, r) {
                           let o;
                           let s = performance.now();
-                          o =
-                            'string' == typeof e
-                              ? (function (e, t, r, o) {
-                                  let a = g(
-                                      e,
-                                      n.__wbindgen_malloc,
-                                      n.__wbindgen_realloc
-                                    ),
-                                    s = u,
-                                    i = g(
-                                      t,
-                                      n.__wbindgen_malloc,
-                                      n.__wbindgen_realloc
-                                    ),
-                                    l = u,
-                                    c = g(
-                                      r,
-                                      n.__wbindgen_malloc,
-                                      n.__wbindgen_realloc
-                                    ),
-                                    f = u,
-                                    p = n.rewrite_js(a, s, i, l, c, f, o);
-                                  if (p[2]) throw m(p[1]);
-                                  return m(p[0]);
-                                })(e, r.base.href, t || '(unknown)', a.h3)
-                              : (function (e, t, r, o) {
-                                  let a = (function (e, t) {
-                                      let r = t(1 * e.length, 1) >>> 0;
-                                      return (
-                                        l().set(e, r / 1), (u = e.length), r
+                          try {
+                            o =
+                              'string' == typeof e
+                                ? (function (e, t, r, o) {
+                                    let a = y(
+                                        e,
+                                        n.__wbindgen_malloc,
+                                        n.__wbindgen_realloc
+                                      ),
+                                      s = f,
+                                      i = y(
+                                        t,
+                                        n.__wbindgen_malloc,
+                                        n.__wbindgen_realloc
+                                      ),
+                                      l = f,
+                                      c = y(
+                                        r,
+                                        n.__wbindgen_malloc,
+                                        n.__wbindgen_realloc
+                                      ),
+                                      u = f,
+                                      p = n.rewrite_js(a, s, i, l, c, u, o);
+                                    if (p[2]) throw w(p[1]);
+                                    return w(p[0]);
+                                  })(e, r.base.href, t || '(unknown)', a.h3)
+                                : (function (e, t, r, o) {
+                                    let a = (function (e, t) {
+                                        let r = t(1 * e.length, 1) >>> 0;
+                                        return (
+                                          u().set(e, r / 1), (f = e.length), r
+                                        );
+                                      })(e, n.__wbindgen_malloc),
+                                      s = f,
+                                      i = y(
+                                        t,
+                                        n.__wbindgen_malloc,
+                                        n.__wbindgen_realloc
+                                      ),
+                                      l = f,
+                                      c = y(
+                                        r,
+                                        n.__wbindgen_malloc,
+                                        n.__wbindgen_realloc
+                                      ),
+                                      p = f,
+                                      g = n.rewrite_js_from_arraybuffer(
+                                        a,
+                                        s,
+                                        i,
+                                        l,
+                                        c,
+                                        p,
+                                        o
                                       );
-                                    })(e, n.__wbindgen_malloc),
-                                    s = u,
-                                    i = g(
-                                      t,
-                                      n.__wbindgen_malloc,
-                                      n.__wbindgen_realloc
-                                    ),
-                                    c = u,
-                                    f = g(
-                                      r,
-                                      n.__wbindgen_malloc,
-                                      n.__wbindgen_realloc
-                                    ),
-                                    p = u,
-                                    d = n.rewrite_js_from_arraybuffer(
-                                      a,
-                                      s,
-                                      i,
-                                      c,
-                                      f,
-                                      p,
-                                      o
-                                    );
-                                  if (d[2]) throw m(d[1]);
-                                  return m(d[0]);
-                                })(
-                                  new Uint8Array(e),
-                                  r.base.href,
-                                  t || '(unknown)',
-                                  a.h3
-                                );
+                                    if (g[2]) throw w(g[1]);
+                                    return w(g[0]);
+                                  })(
+                                    new Uint8Array(e),
+                                    r.base.href,
+                                    t || '(unknown)',
+                                    a.h3
+                                  );
+                          } catch (r) {
+                            throw (
+                              (console.error(
+                                'failed rewriting js for',
+                                t,
+                                r,
+                                e
+                              ),
+                              (r.message = `failed rewriting js for "${t}": ${r.message}`),
+                              r)
+                            );
+                          }
                           let i = performance.now(),
-                            { js: c, errors: f, duration: p } = o;
+                            { js: l, errors: c, duration: p } = o;
                           if ((0, a.Sp)('rewriterLogs', r.base))
-                            for (let e of f)
+                            for (let e of c)
                               console.error('oxc parse error', e);
                           if ((0, a.Sp)('rewriterLogs', r.base)) {
                             let e;
@@ -2434,9 +2458,9 @@
                               `oxc rewrite for "${t || '(unknown)'}" was ${e} (${p}ms; ${r}ms overhead)`
                             );
                           }
-                          return 'string' == typeof e ? _.decode(c) : c;
-                        })(e, null, r));
-                      })(e.slice(11), null, t)
+                          return 'string' == typeof e ? S.decode(l) : l;
+                        })(e, t, r));
+                      })(e.slice(11), '(javascript: url)', t)
                     );
                   if (e.startsWith('blob:'))
                     return location.origin + a.h3.config.prefix + e;
@@ -2461,7 +2485,7 @@
                           e.startsWith('about:')
                         )
                           return e;
-                        else if (T(e))
+                        else if (E(e))
                           return a.h3.codec.decode(
                             e.slice(
                               (location.origin + a.h3.config.prefix).length
@@ -2469,7 +2493,7 @@
                           );
                         else return e;
                       })(self.location.href));
-                    let n = T(e, r);
+                    let n = E(e, r);
                     return n
                       ? location.origin +
                           a.h3.config.prefix +
@@ -2838,13 +2862,13 @@
                 for (; 0 === l.getUint8(0); )
                   if (performance.now() - c > 1e3) throw Error('xhr timeout');
                 let u = l.getUint16(1),
-                  f = l.getUint32(3),
-                  p = new Uint8Array(f);
-                p.set(new Uint8Array(i.slice(7, 7 + f)));
-                let g = new TextDecoder().decode(p),
-                  d = l.getUint32(7 + f),
+                  p = l.getUint32(3),
+                  f = new Uint8Array(p);
+                f.set(new Uint8Array(i.slice(7, 7 + p)));
+                let g = new TextDecoder().decode(f),
+                  d = l.getUint32(7 + p),
                   y = new Uint8Array(d);
-                y.set(new Uint8Array(i.slice(11 + f, 11 + f + d)));
+                y.set(new Uint8Array(i.slice(11 + p, 11 + p + d)));
                 let m = new TextDecoder().decode(y);
                 e.RawTrap(t.this, 'status', { get: () => u }),
                   e.RawTrap(t.this, 'responseText', { get: () => m }),
@@ -2908,8 +2932,8 @@
                 c = t.substring(s + 1, l);
               t = t.replace(/\/\*scramtag.*?\*\//g, '');
               let u = o[c],
-                f = 0,
                 p = 0,
+                f = 0,
                 g = 0;
               for (; g < u.length; ) {
                 let [e, r, o] = u[g];
@@ -2917,14 +2941,14 @@
                   g++;
                   continue;
                 }
-                if (r - i + p > t.length) break;
-                (n += t.slice(f, r - i + p)),
+                if (r - i + f > t.length) break;
+                (n += t.slice(p, r - i + f)),
                   (n += e),
-                  (p += o - r - e.length),
-                  (f = r - i + p + e.length),
+                  (f += o - r - e.length),
+                  (p = r - i + f + e.length),
                   g++;
               }
-              return (n += t.slice(f)), e.return(n);
+              return (n += t.slice(p)), e.return(n);
             },
           });
         }
@@ -3142,6 +3166,7 @@
               return (
                 'string' == typeof e && e.includes('scramjet'),
                 'string' == typeof e && e.includes(location.origin),
+                e === t && e.$scramjet,
                 n.iswindow && e instanceof Document && e.defaultView.$scramjet,
                 e
               );
@@ -3354,7 +3379,7 @@
         }),
           !('$scramjet' in self) &&
             (self.$scramjet = {
-              version: { build: '00de00e', version: '1.0.2-dev' },
+              version: { build: '519c4e3', version: '1.0.2-dev' },
               codec: {},
               flagEnabled: s,
             });
@@ -3383,13 +3408,13 @@
             return w;
           },
           Od: function () {
-            return p;
+            return f;
           },
           Sd: function () {
             return l;
           },
           U5: function () {
-            return f;
+            return p;
           },
           WT: function () {
             return d;
@@ -3429,8 +3454,8 @@
               unrewriteBlob: u,
             },
             rewrite: {
-              rewriteCss: f,
-              unrewriteCss: p,
+              rewriteCss: p,
+              unrewriteCss: f,
               rewriteHtml: g,
               unrewriteHtml: d,
               rewriteSrcset: y,

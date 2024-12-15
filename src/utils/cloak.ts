@@ -20,7 +20,7 @@ const cloak = [
 ];
 
 if (await Settings.get('cloak')) {
-  // Cloak();
+  Cloak();
 } else {
   console.debug('Cloaking is off. Enable in settings.');
 }

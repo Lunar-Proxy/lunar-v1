@@ -6,13 +6,11 @@ import { Maximize, LogOut, RotateCw } from 'lucide-astro';
 import fs from 'fs/promises';
 import path from 'path';
 import type { Asset } from '@src/utils/as';
-import configuration from 'config';
-const local = path.resolve('./public/assets/json/g.json');
-const external = '';
+const JsonPath = path.resolve('./public/assets/json/gm.json');
 let games: Asset[];
 
 try {
-  const data = await fs.readFile(local, 'utf8');
+  const data = await fs.readFile(JsonPath, 'utf8');
   games = JSON.parse(data);
 } catch (err) {
   console.error('Error reading the file:', err);
@@ -74,4 +72,3 @@ try {
 <link rel="prefetch" href="/assets/sj/worker.js" />
 <link rel="prefetch" href="/assets/sj/shared.js" />
 <script is:inline src="/assets/sj/controller.js" defer></script>
-<script src="@src/utils/global"></script>

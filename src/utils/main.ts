@@ -1,22 +1,19 @@
 import { Settings } from '@src/utils/config';
 import { BareMuxConnection } from '@mercuryworkshop/bare-mux';
-const config = await Settings.getConfig();
-
-await navigator.serviceWorker.register('sw.js');
 
 const input = document.getElementById('input') as HTMLInputElement;
 const fm = document.getElementById('form') as HTMLFormElement;
-const frame1 = document.getElementById('frame') as HTMLIFrameElement;
+const frame = document.getElementById('frame') as HTMLIFrameElement;
 const loading = document.getElementById('load') as HTMLDivElement;
 const welcome = document.getElementById('starting') as HTMLDivElement;
-
+let url: string;
 function validate(url: string): boolean {
   const rgex = /^(https?:\/\/)?([a-zA-Z0-9.-]+\.[a-zA-Z]{2,})(\/[^\s]*)?$/;
   return rgex.test(url);
 }
 
 async function launch(link: string) {
-  let url;
+  await navigator.serviceWorker.register('./sw.js');
   const scram = new ScramjetController({
     prefix: '/scram/',
     files: {
@@ -35,7 +32,9 @@ async function launch(link: string) {
     '://' +
     location.host +
     '/w/';
-  if (config.transport == 'ep') {
+  const transport = await Settings.get('transport');
+  const backend = await Settings.get('backend');
+  if (transport == 'ep') {
     if ((await connection.getTransport()) !== '/ep/index.mjs') {
       await connection.setTransport('/ep/index.mjs', [{ wisp: wispurl }]);
       console.debug('Transport is set to Epoxy');
@@ -46,12 +45,34 @@ async function launch(link: string) {
       console.debug('Transport is set to Libcurl');
     }
   }
-  if (config.backend === 'sj') {
-    url = scram.encodeUrl(link);
+
+  if (backend == '/p/') {
+    url = backend + UltraConfig.encodeUrl(link);
+    console.debug('Using UV to unblock');
   } else {
-    url = '/p/' + UltraConfig.encodeUrl(link);
+    url = scram.encodeUrl(link);
+    console.debug('Using Scramjet to unblock');
   }
-  frame1.src = url;
+  frame.src = url;
+
+  frame.addEventListener('load', () => {
+    console.debug('Loaded Iframe successfully');
+    const links =
+      frame.contentWindow?.document.querySelectorAll<HTMLAnchorElement>('a');
+    if (links) {
+      links.forEach((element) => {
+        element.addEventListener('click', (event) => {
+          const target = event.target as HTMLAnchorElement | null;
+
+          if (target?.target === '_top') {
+            event.preventDefault();
+            console.debug('New URL:', target.href);
+            launch(target.href);
+          }
+        });
+      });
+    }
+  });
 }
 
 fm.addEventListener('submit', async (event) => {
@@ -59,18 +80,15 @@ fm.addEventListener('submit', async (event) => {
   welcome.classList.add('hidden');
   loading.classList.remove('hidden');
   let value = input.value;
+  const engine = await Settings.get('search-engine');
   if (validate(value)) {
     if (!/^https?:\/\//i.test(value)) {
       value = 'https://' + value;
     }
   } else {
-    value = config['search-engine'] + value;
+    value = engine + value;
   }
   launch(value);
 });
-
-frame.onload = () => {
-  loading.classList.add('hidden');
-};
 
 window.history.replaceState?.('', '', window.location.href);
