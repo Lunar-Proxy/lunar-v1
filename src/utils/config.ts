@@ -4,6 +4,7 @@ let db: IDBDatabase | undefined;
 let dbReady: Promise<void>;
 
 interface Setting {
+  id?: number;
   [key: string]: any;
 }
 
@@ -35,31 +36,23 @@ const Settings = (function () {
     await dbReady;
     const defaultSettings: Setting[] = [
       { "cloak": "on" },
-      { "backend": "/p/" }, //  UV: /p/ | Scramjet; /sj/
+      { "backend": "/p/" },// UV: /p/ | SJ: /scram/
       { "search-engine": "https://www.google.com/search?q=" },
-      { "transport": "ep" }, // epoxy: ep | libcurl: lc
+      { "transport": "ep" }, // Epoxy: ep | libcurl: lb
     ];
     const transaction = db!.transaction([LunarSettings], 'readwrite');
     const store = transaction.objectStore(LunarSettings);
+    const existingSettings: Setting[] = await new Promise((resolve, reject) => {
+      const request = store.getAll();
+      request.onsuccess = () => resolve(request.result);
+      request.onerror = () => reject(request.error);
+    });
 
     for (const setting of defaultSettings) {
-      const settingKey = Object.keys(setting)[0];
-      const cursorRequest: IDBRequest = store.openCursor();
-      let found = false;
-
-      cursorRequest.onsuccess = function () {
-        const cursor: IDBCursorWithValue = cursorRequest.result;
-        if (cursor) {
-          if (cursor.value[settingKey] !== undefined) {
-            found = true;
-          }
-          cursor.continue();
-        } else if (!found) {
-          store.add(setting);
-        }
-      };
-
-      cursorRequest.onerror = function () {};
+      const key = Object.keys(setting)[0];
+      if (!existingSettings.some(s => key in s)) {
+        store.add(setting);
+      }
     }
   }
 
@@ -67,25 +60,20 @@ const Settings = (function () {
     await dbReady;
     const transaction = db!.transaction([LunarSettings], 'readwrite');
     const store = transaction.objectStore(LunarSettings);
-    const cursorRequest = store.openCursor();
-    let updated = false;
+    const existingSettings: Setting[] = await new Promise((resolve, reject) => {
+      const request = store.getAll();
+      request.onsuccess = () => resolve(request.result);
+      request.onerror = () => reject(request.error);
+    });
 
-    cursorRequest.onsuccess = () => {
-      const cursor = cursorRequest.result;
-      if (cursor) {
-        if (cursor.value[settingName] !== undefined) {
-          const updatedEntry = { ...cursor.value, [settingName]: value };
-          cursor.update(updatedEntry);
-          updated = true;
-        }
-        cursor.continue();
-      } else if (!updated) {
-        const newEntry: Setting = { [settingName]: value };
-        store.add(newEntry);
-      }
-    };
-
-    cursorRequest.onerror = function () {};
+    const existingSetting = existingSettings.find(s => settingName in s);
+    if (existingSetting) {
+      existingSetting[settingName] = value;
+      store.put(existingSetting);
+    } else {
+      const newEntry: Setting = { [settingName]: value };
+      store.add(newEntry);
+    }
   }
 
   async function get(settingName: string): Promise<any> {
@@ -94,22 +82,18 @@ const Settings = (function () {
       const transaction = db!.transaction([LunarSettings], 'readonly');
       const store = transaction.objectStore(LunarSettings);
       const cursorRequest: IDBRequest = store.openCursor();
-      let found = false;
-
       cursorRequest.onsuccess = function () {
         const cursor: IDBCursorWithValue = cursorRequest.result;
         if (cursor) {
           if (cursor.value[settingName] !== undefined) {
-            found = true;
             resolve(cursor.value[settingName]);
             return;
           }
           cursor.continue();
-        } else if (!found) {
+        } else {
           resolve(undefined);
         }
       };
-
       cursorRequest.onerror = function () {
         reject(new Error('Error retrieving setting by name.'));
       };
