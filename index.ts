@@ -25,11 +25,6 @@ async function build() {
         chalk.green.bold('✅ Building Lunar was completed successfully!')
       );
     } catch (error) {
-      console.error(
-        chalk.red.bold(
-          '❌ Failed to build Lunar. Please check your build configuration.'
-        )
-      );
       throw new Error(
         `Build Error: ${error instanceof Error ? error.message : String(error)}`
       );
@@ -131,8 +126,7 @@ app.listen({ port }, (err) => {
   console.log(chalk.blue.bold(`🌍 Network: http://${address}:${port}`));
 
   if (err) {
-    console.error(chalk.red.bold(`❌ Failed to start Lunar: ${err.message}`));
-    process.exit(1);
+    throw new Error(`❌ Failed to start Lunar: ${err.message}`);
   } 
 
 });
