@@ -34,7 +34,7 @@ Lunar is a web proxy designed to bypass censorship and provide an exceptional us
 ## Deployment via Terminal
 
 > [!NOTE]
-> Make sure to install [Git](https://git-scm.com/downloads), [Node.js](https://nodejs.org/en/download/prebuilt-installer).
+> Before deploying, install [Git](https://git-scm.com/downloads) and [Node.js](https://nodejs.org/en/download/prebuilt-installer).
 
 ### Production
 
@@ -62,11 +62,11 @@ If you are doing a change to lunar, please read [this guide](CONTRIBUTING.md)
 
 # Support
 
-To get help with any issues, bugs or give suggestions, you can join [our discord community](https://dsc.gg/golunar)
+For help, Make a [Github Issue](https://github.com/Lunar-Proxy/lunar-v1/issues) or [join our discord community](https://dsc.gg/golunar).
 
 # Credits
 
-Thanks to everyone below who contribuated to Lunar ❤️.
+Thanks to everyone below who contribuated to Lunar ❤️
 
 <a href="https://github.com/lunar-proxy/lunar/graphs/contributors">
 <img src="https://contrib.rocks/image?repo=lunar-proxy/lunar"/>
