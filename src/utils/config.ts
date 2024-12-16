@@ -34,10 +34,10 @@ const Settings = (function () {
   async function ensureDefaultSettings(): Promise<void> {
     await dbReady;
     const defaultSettings: Setting[] = [
-      { cloak: 'on' },
-      { backend: '/p/' }, //  /p/: UV,  /scram/:  Scramjet
-      { 'search-engine': 'https://www.google.com/search?q=' },
-      { transport: 'ep' }, // ep: Epoxy, lb: Libcurl
+      { "cloak": "on" },
+      { "backend": "/p/" }, //  UV: /p/ | Scramjet; /sj/
+      { "search-engine": "https://www.google.com/search?q=" },
+      { "transport": "ep" }, // epoxy: ep | libcurl: lc
     ];
     const transaction = db!.transaction([LunarSettings], 'readwrite');
     const store = transaction.objectStore(LunarSettings);

@@ -12,13 +12,14 @@ function validate(url: string): boolean {
   return rgex.test(url);
 }
 
-async function launch(link: string) {
-  try {
+try {
   await navigator.serviceWorker.register('./sw.js');
   console.debug('Service Worker registered');
   } catch (error) {
   throw new Error('Service Worker registration failed');
   }
+
+async function launch(link: string) {
   const scram = new ScramjetController({
     prefix: '/scram/',
     files: {
@@ -38,7 +39,9 @@ async function launch(link: string) {
     location.host +
     '/w/';
   const transport = await Settings.get('transport');
+  console.log(transport)
   const backend = await Settings.get('backend');
+  console.log(backend)
   if (transport == 'ep') {
     if ((await connection.getTransport()) !== '/ep/index.mjs') {
       await connection.setTransport('/ep/index.mjs', [{ wisp: wispurl }]);
@@ -86,7 +89,7 @@ fm.addEventListener('submit', async (event) => {
   welcome.classList.add('hidden');
   loading.classList.remove('hidden');
   let value = input.value;
-  const engine = await Settings.get('search-engine');
+  const engine = Settings.get('search-engine');
   if (validate(value)) {
     if (!/^https?:\/\//i.test(value)) {
       value = 'https://' + value;
