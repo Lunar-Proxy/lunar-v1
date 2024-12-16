@@ -34,11 +34,7 @@ Lunar is a web proxy designed to bypass censorship and provide an exceptional us
 ## Deployment via Terminal
 
 > [!NOTE]
-> Make sure to install [Git](https://git-scm.com/downloads), [Node.js](https://nodejs.org/en/download/prebuilt-installer), and `pnpm` by running:
->
-> ```bash
-> npm i -g pnpm
-> ```
+> Make sure to install [Git](https://git-scm.com/downloads), [Node.js](https://nodejs.org/en/download/prebuilt-installer)`.
 
 ### Production
 
