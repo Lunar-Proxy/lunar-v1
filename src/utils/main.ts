@@ -15,9 +15,9 @@ function validate(url: string): boolean {
 try {
   await navigator.serviceWorker.register('./sw.js');
   console.debug('Service Worker registered');
-  } catch (error) {
+} catch (error) {
   throw new Error('Service Worker registration failed');
-  }
+}
 
 async function launch(link: string) {
   const scram = new ScramjetController({
@@ -39,9 +39,7 @@ async function launch(link: string) {
     location.host +
     '/w/';
   const transport = await Settings.get('transport');
-  console.log(transport)
   const backend = await Settings.get('backend');
-  console.log(backend)
   if (transport == 'ep') {
     if ((await connection.getTransport()) !== '/ep/index.mjs') {
       await connection.setTransport('/ep/index.mjs', [{ wisp: wispurl }]);
@@ -64,21 +62,21 @@ async function launch(link: string) {
   frame.src = url;
   frame.addEventListener('load', () => {
     console.debug('Loaded Iframe successfully');
-    const links = frame.contentWindow?.document.querySelectorAll<HTMLAnchorElement>('a');
+    const links =
+      frame.contentWindow?.document.querySelectorAll<HTMLAnchorElement>('a');
     if (links) {
       links.forEach((element) => {
         element.addEventListener('click', (event) => {
           const target = event.target as HTMLAnchorElement | null;
           if (target?.target === '_top') {
             if (target.href == null) {
-             console.log("link was null, not attempting.")
-            
+              console.log('link was null, not attempting.');
             } else {
-            event.preventDefault()
-            console.debug('Redirected URL:', target.href);
-            launch(target.href);
+              event.preventDefault();
+              console.debug('Redirected URL:', target.href);
+              launch(target.href);
+            }
           }
-        }
         });
       });
     }
@@ -89,7 +87,7 @@ fm.addEventListener('submit', async (event) => {
   welcome.classList.add('hidden');
   loading.classList.remove('hidden');
   let value = input.value;
-  const engine = Settings.get('search-engine');
+  const engine = await Settings.get('search-engine');
   if (validate(value)) {
     if (!/^https?:\/\//i.test(value)) {
       value = 'https://' + value;

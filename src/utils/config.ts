@@ -11,8 +11,8 @@ const Settings = (function () {
   dbReady = new Promise((resolve, reject) => {
     const request: IDBOpenDBRequest = window.indexedDB.open(DBNAME, 1);
 
-    request.onupgradeneeded = function (event: IDBVersionChangeEvent) {
-      const dbInstance = (event.target as IDBOpenDBRequest).result;
+    request.onupgradeneeded = function () {
+      const dbInstance = request.result;
       if (!dbInstance.objectStoreNames.contains(LunarSettings)) {
         dbInstance.createObjectStore(LunarSettings, {
           keyPath: 'id',
@@ -21,13 +21,13 @@ const Settings = (function () {
       }
     };
 
-    request.onsuccess = function (event: Event) {
-      db = (event.target as IDBOpenDBRequest).result;
+    request.onsuccess = function () {
+      db = request.result;
       resolve();
     };
 
-    request.onerror = function (event: Event) {
-      reject((event.target as IDBOpenDBRequest).error);
+    request.onerror = function () {
+      reject(request.error);
     };
   });
 
@@ -47,8 +47,8 @@ const Settings = (function () {
       const cursorRequest: IDBRequest = store.openCursor();
       let found = false;
 
-      cursorRequest.onsuccess = function (event: Event) {
-        const cursor: IDBCursorWithValue = (event.target as IDBRequest).result;
+      cursorRequest.onsuccess = function () {
+        const cursor: IDBCursorWithValue = cursorRequest.result;
         if (cursor) {
           if (cursor.value[settingKey] !== undefined) {
             found = true;
@@ -59,7 +59,7 @@ const Settings = (function () {
         }
       };
 
-      cursorRequest.onerror = function (event: Event) {};
+      cursorRequest.onerror = function () {};
     }
   }
 
@@ -70,8 +70,8 @@ const Settings = (function () {
     const cursorRequest = store.openCursor();
     let updated = false;
 
-    cursorRequest.onsuccess = (event) => {
-      const cursor = (event.target as IDBRequest<IDBCursorWithValue>).result;
+    cursorRequest.onsuccess = () => {
+      const cursor = cursorRequest.result;
       if (cursor) {
         if (cursor.value[settingName] !== undefined) {
           const updatedEntry = { ...cursor.value, [settingName]: value };
@@ -85,7 +85,7 @@ const Settings = (function () {
       }
     };
 
-    cursorRequest.onerror = function (event: Event) {};
+    cursorRequest.onerror = function () {};
   }
 
   async function get(settingName: string): Promise<any> {
@@ -96,8 +96,8 @@ const Settings = (function () {
       const cursorRequest: IDBRequest = store.openCursor();
       let found = false;
 
-      cursorRequest.onsuccess = function (event: Event) {
-        const cursor: IDBCursorWithValue = (event.target as IDBRequest).result;
+      cursorRequest.onsuccess = function () {
+        const cursor: IDBCursorWithValue = cursorRequest.result;
         if (cursor) {
           if (cursor.value[settingName] !== undefined) {
             found = true;
@@ -110,7 +110,7 @@ const Settings = (function () {
         }
       };
 
-      cursorRequest.onerror = function (event: Event) {
+      cursorRequest.onerror = function () {
         reject(new Error('Error retrieving setting by name.'));
       };
     });
