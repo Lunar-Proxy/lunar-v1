@@ -58,13 +58,15 @@ If you’re making changes to Lunar, use the development setup to avoid rebuildi
 pnpm install && pnpm dev
 ```
 
+If you are doing a change to lunar, please read [this guide](CONTRIBUTING.md)
+
 # Support
 
 To get help with any issues, bugs or give suggestions, you can join [our discord community](https://dsc.gg/golunar)
 
 # Credits
 
-Thanks to everyone who made lunar possible.
+Thanks to everyone below who contribuated to Lunar ❤️.
 
 <a href="https://github.com/lunar-proxy/lunar/graphs/contributors">
 <img src="https://contrib.rocks/image?repo=lunar-proxy/lunar"/>
