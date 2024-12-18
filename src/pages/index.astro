@@ -172,15 +172,63 @@ import {
       title=""
       class="fixed top-[64px] left-[62px] z-20 h-[calc(100vh-64px)] w-[calc(100%-62px)]"
     >
-    </iframe>
-    <script is:inline src="/bm/index.js"></script>
-    <script is:inline src="/assets/v/config.js" defer></script>
-    <script is:inline src="/assets/v/bundle.js" defer></script>
-    <link rel="prefetch" href="/assets/sj/worker.js" />
-    <link rel="prefetch" href="/assets/sj/shared.js" />
-    <script is:inline src="/assets/sj/controller.js" defer></script>
-    <script src="@src/utils/main.ts"></script>
-    <script src="@src/utils/browse.ts"></script>
-    <script src="@src/utils/cloak.ts"></script>
+   </iframe>
+<script is:inline src="/bm/index.js"></script>
+<script is:inline src="/assets/v/config.js" defer></script>
+<script is:inline src="/assets/v/bundle.js" defer></script>
+<link rel="prefetch" href="/assets/sj/worker.js" />
+<link rel="prefetch" href="/assets/sj/shared.js" />
+<script is:inline src="/assets/sj/controller.js" defer></script>
+<script src="@src/utils/main.ts"></script>
+<script src="@src/utils/browse.ts"></script>
+<script src="@src/utils/cloak.ts"></script>
+
+<!-- fetch and display messages (hi) -->
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const lunarHeader = document.querySelector(".text-6xl.ml-35.mt-52"); // Lunar header
+    const messagesUrl = "/messages.json"; // Ensure the correct relative path
+
+   
+    const messagesContainer = document.createElement("div");
+    messagesContainer.className = "text-white text-sm mt-4 px-4";
+    lunarHeader.insertAdjacentElement("afterend", messagesContainer);
+
+    // Fetch and display messages
+    fetch(messagesUrl)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Failed to fetch messages");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        messagesContainer.innerHTML = data.messages
+          .map(
+            (message) =>
+              `<p class="${getClassForMessageType(message.type)}">${message.text}</p>`
+          )
+          .join("");
+      })
+      .catch((error) => {
+        console.error("Error loading messages:", error);
+        messagesContainer.textContent = "Failed to load messages.";
+      });
+
+   
+    function getClassForMessageType(type) {
+      switch (type) {
+        case "info":
+          return "text-blue-400";
+        case "warning":
+          return "text-yellow-400";
+        case "joke":
+          return "text-green-400";
+        default:
+          return "text-white";
+      }
+    }
+  });
+</script>
   </body>
 </html>
