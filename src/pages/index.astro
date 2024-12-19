@@ -182,36 +182,5 @@ import {
 <script src="@src/utils/main.ts"></script>
 <script src="@src/utils/browse.ts"></script>
 <script src="@src/utils/cloak.ts"></script>
-
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const lunarHeader = document.querySelector(".text-6xl.ml-35.mt-52");
-    const messagesUrl = "/public/messages.json";
-
-    const messagesContainer = document.createElement("div");
-    messagesContainer.className = "text-white text-sm mt-4 px-4";
-    lunarHeader.insertAdjacentElement("afterend", messagesContainer);
-
-    fetch(messagesUrl)
-      .then((response) => response.ok ? response.json() : Promise.reject("Failed to fetch messages"))
-      .then((data) => {
-        messagesContainer.innerHTML = data.messages
-          .map((message) => `<p class="${getClass(message.type)}">${message.text}</p>`)
-          .join("");
-      })
-      .catch((error) => {
-        console.error("Error loading messages:", error);
-        messagesContainer.textContent = "Failed to load messages.";
-      });
-
-    function getClass(type) {
-      return {
-        info: "text-blue-400",
-        warning: "text-yellow-400",
-        joke: "text-green-400"
-      }[type] || "text-white";
-    }
-  });
-</script>
   </body>
 </html>
