@@ -19,10 +19,18 @@ try {
 ---
 
 <!doctype html>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width" />
-<meta name="generator" content={Astro.generator} />
-<title>Home</title>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width" />
+  <meta name="generator" content={Astro.generator} />
+  <title>Home</title>
+  <script is:inline src="/bm/index.js"></script>
+  <script is:inline src="/assets/v/config.js" defer></script>
+  <script is:inline src="/assets/v/bundle.js" defer></script>
+  <link rel="prefetch" href="/assets/sj/worker.js" />
+  <link rel="prefetch" href="/assets/sj/shared.js" />
+  <script is:inline src="/assets/sj/controller.js" defer></script>
+</head>
 <link
   href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap"
   rel="stylesheet"
@@ -65,11 +73,5 @@ try {
       class="w-full h-[calc(100%-64px)] bg-gray-100 rounded-lg"></iframe>
   </div>
 </body>
-<script is:inline src="/bm/index.js"></script>
 <script src="@src/utils/frame.ts"></script>
 <script src="@src/utils/as"></script>
-<script is:inline src="/assets/v/config.js" defer></script>
-<script is:inline src="/assets/v/bundle.js" defer></script>
-<link rel="prefetch" href="/assets/sj/worker.js" />
-<link rel="prefetch" href="/assets/sj/shared.js" />
-<script is:inline src="/assets/sj/controller.js" defer></script>

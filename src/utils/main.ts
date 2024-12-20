@@ -2,21 +2,17 @@ import { Settings } from '@src/utils/config';
 import { BareMuxConnection } from '@mercuryworkshop/bare-mux';
 
 const input = document.getElementById('input') as HTMLInputElement;
+const si = document.getElementById('startSearch') as HTMLInputElement
 const fm = document.getElementById('form') as HTMLFormElement;
+const sf = document.getElementById('startForm') as HTMLFormElement;
 const frame = document.getElementById('frame') as HTMLIFrameElement;
 const loading = document.getElementById('load') as HTMLDivElement;
 const welcome = document.getElementById('starting') as HTMLDivElement;
 let url: string;
+
 function validate(url: string): boolean {
   const rgex = /^(https?:\/\/)?([a-zA-Z0-9.-]+\.[a-zA-Z]{2,})(\/[^\s]*)?$/;
   return rgex.test(url);
-}
-
-try {
-  await navigator.serviceWorker.register('./sw.js');
-  console.debug('Service Worker registered');
-} catch (error) {
-  throw new Error('Service Worker registration failed');
 }
 
 async function launch(link: string) {
@@ -29,59 +25,55 @@ async function launch(link: string) {
       shared: '/assets/sj/shared.js',
       sync: '/assets/sj/sync.js',
     },
+    defaultFlags: {
+      serviceworkers: true,
+    },
   });
   window.sj = scram;
-  scram.init('./sjsw.js');
+  scram.init('/sjsw.js');
+
   const connection = new BareMuxConnection('/bm/worker.js');
   const wispurl =
     (location.protocol === 'https:' ? 'wss' : 'ws') +
     '://' +
     location.host +
-    '/w/';
+    '/wsp/';
   const transport = await Settings.get('transport');
   const backend = await Settings.get('backend');
   if (transport == 'ep') {
     if ((await connection.getTransport()) !== '/ep/index.mjs') {
       await connection.setTransport('/ep/index.mjs', [{ wisp: wispurl }]);
-      console.debug('Transport is set to Epoxy');
     }
   } else {
     if ((await connection.getTransport()) !== '/lb/index.mjs') {
       await connection.setTransport('/lb/index.mjs', [{ wisp: wispurl }]);
-      console.debug('Transport is set to Libcurl');
     }
+    console.debug("Using", transport, "as transport")
+  }
+  try {
+    await navigator.serviceWorker.register('/sw.js');
+    console.debug('UV Service Worker registered');
+  } catch (error) {
+    throw new Error('UV Service Worker registration failed');
   }
 
-  if (backend == '/p/') {
-    url = backend + UltraConfig.encodeUrl(link);
+  if (backend == 'uv') {
+    url =  `/p/${UltraConfig.encodeUrl(link)}`;
     console.debug('Using UV to unblock');
-  } else {
+  } else if (backend == 'scramjet') {
     url = scram.encodeUrl(link);
+    console.debug(url)
     console.debug('Using Scramjet to unblock');
   }
+
   frame.src = url;
+
   frame.addEventListener('load', () => {
-    console.debug('Loaded Iframe successfully');
-    const links =
-      frame.contentWindow?.document.querySelectorAll<HTMLAnchorElement>('a');
-    if (links) {
-      links.forEach((element) => {
-        element.addEventListener('click', (event) => {
-          const target = event.target as HTMLAnchorElement | null;
-          if (target?.target === '_top') {
-            if (target.href == null) {
-              console.log('link was null, not attempting.');
-            } else {
-              event.preventDefault();
-              console.debug('Redirected URL:', target.href);
-              launch(target.href);
-            }
-          }
-        });
-      });
-    }
+    loading.classList.add('hidden');
+    InterceptLinks()
   });
 }
+
 fm.addEventListener('submit', async (event) => {
   event.preventDefault();
   welcome.classList.add('hidden');
@@ -98,4 +90,47 @@ fm.addEventListener('submit', async (event) => {
   launch(value);
 });
 
-window.history.replaceState?.('', '', window.location.href);
+sf.addEventListener('submit', async (event) => {
+  event.preventDefault();
+  input.value = si.value
+  fm.dispatchEvent(new Event("submit"));
+});
+async function InterceptLinks() {
+  console.debug('Intercepting links is running...');
+  const clickableElements = frame.contentWindow?.document.querySelectorAll<HTMLElement>(
+    'a, button, [role="button"], [onclick], [data-href], span'
+  );
+
+  if (clickableElements) {
+    clickableElements.forEach((element) => {
+      element.addEventListener('click', (event) => {
+        const target = event.currentTarget as HTMLElement;
+
+        let href: string | null = null;
+
+        if (target instanceof HTMLAnchorElement) {
+          href = target.href;
+        } else if (target.dataset.href) {
+          href = target.dataset.href;
+        } else if (target.hasAttribute('onclick')) {
+          const onclickContent = target.getAttribute('onclick');
+          const match = onclickContent?.match(/(?:location\.href\s*=\s*['"])([^'"]+)(['"])/);
+          href = match?.[1] || null;
+        } else if (target.closest('a')) {
+          href = target.closest('a')?.href || null;
+        }
+
+        if (href) {
+          event.preventDefault();
+          console.debug('Redirected URL:', href);
+          launch(href);
+        }
+      });
+    });
+  }
+}
+
+
+
+window.history.replaceState?.('', '', window.location.href); // This prevents the are you sure you want to reload prompt 
+

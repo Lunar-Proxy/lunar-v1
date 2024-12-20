@@ -22,6 +22,13 @@ import {
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
     <title>Home</title>
+    <script is:inline src="/bm/index.js"></script>
+    <script is:inline src="/assets/v/config.js" defer></script>
+    <script is:inline src="/assets/v/bundle.js" defer></script>
+    <link rel="prefetch" href="/assets/sj/worker.js" />
+    <link rel="prefetch" href="/assets/sj/shared.js" />
+    <script is:inline src="/assets/sj/controller.js" defer></script>
+    <script src="@src/utils/main.ts"></script>
   </head>
 
   <body id="side" class="relative h-screen overflow-hidden">
@@ -153,12 +160,24 @@ import {
 
     <div
       id="starting"
-      class="text-center mt-10 p-4 rounded-lg space-x-4 z-30 relative ml-[150px]"
+      class="text-center mt-10 p-4 rounded-lg space-x-4 z-30 relative ml-[56px]"
     >
       <h1 class="text-6xl ml-35 mt-52 text-text-HEADER font-bold">Lunar</h1>
+      <p id="quote" class="text-mm mt-4 text-text-SECONDARY">
+        Loading quote...
+      </p>
+      <form method="post" id="startForm">
+        <input
+          type="text"
+          id="startSearch"
+          class="text-center w-1/2 mt-10 bg-[#303446] text-text-SECONDARY p-2 rounded-full border border-[#a5adce] placeholder-white"
+          placeholder="Search..."
+        />
+      </form>
+      <div class="mt-16" id="Favorites"></div>
     </div>
 
-    <div id="load" class="z-10 ml-60 relative hidden">
+    <div id="load" class="z-10 ml-16 relative hidden">
       <LoaderCircle
         class="text-[#a5adce] w-16 h-12 mx-auto mt-[220px] animate-spin"
       />
@@ -167,20 +186,20 @@ import {
       </h1>
     </div>
 
-   <iframe
-  id="frame"
-  title=""
-  class="fixed top-[64px] left-[62px] z-20 h-[calc(100vh-64px)] w-[calc(100%-62px)]"
->
-</iframe>
-<script is:inline src="/bm/index.js"></script>
-<script is:inline src="/assets/v/config.js" defer></script>
-<script is:inline src="/assets/v/bundle.js" defer></script>
-<link rel="prefetch" href="/assets/sj/worker.js" />
-<link rel="prefetch" href="/assets/sj/shared.js" />
-<script is:inline src="/assets/sj/controller.js" defer></script>
-<script src="@src/utils/main.ts"></script>
-<script src="@src/utils/browse.ts"></script>
-<script src="@src/utils/cloak.ts"></script>
+    <iframe
+      id="frame"
+      title=""
+      class="fixed top-[64px] left-[62px] z-20 h-[calc(100vh-64px)] w-[calc(100%-62px)]"
+    >
+    </iframe>
+    <script is:inline src="/bm/index.js"></script>
+    <script is:inline src="/assets/v/config.js" defer></script>
+    <script is:inline src="/assets/v/bundle.js" defer></script>
+    <link rel="prefetch" href="/assets/sj/worker.js" />
+    <link rel="prefetch" href="/assets/sj/shared.js" />
+    <script is:inline src="/assets/sj/controller.js" defer></script>
+    <script src="@src/utils/main.ts"></script>
+    <script src="@src/utils/browse.ts"></script>
+    <script src="@src/utils/cloak.ts"></script>
   </body>
 </html>

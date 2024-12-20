@@ -42,8 +42,6 @@ const app = Fastify({
     createServer(handler).on('upgrade', (req, socket: Socket, head) => {
       if (req.url?.startsWith('/w')) {
         wisp.routeRequest(req, socket, head);
-      } else {
-        socket.destroy();
       }
     }),
 });

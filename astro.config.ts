@@ -55,11 +55,9 @@ export default defineConfig({
         name: 'viteserver',
         configureServer(server) {
           server.httpServer?.on('upgrade', (req, socket, head) => {
-            if (req.url?.startsWith('/w/')) {
+            if (req.url?.startsWith('/wsp/')) {
               wisp.routeRequest(req, socket, head);
-            } else {
-              undefined;
-            }
+            } 
           });
         },
       },

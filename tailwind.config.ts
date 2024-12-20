@@ -4,12 +4,14 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+      
         background: {
           DEFAULT: 'var(--background)',
           overlay: 'var(--background-overlay)',
         },
         text: {
           HEADER: 'var(--text-header)',
+          SECONDARY: 'var(--text-secondary)',
         },
       },
       keyframes: {

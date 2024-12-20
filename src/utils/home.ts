@@ -1,3 +1,12 @@
+interface Message {
+  type: string;
+  text: string;
+}
+
+interface Data {
+  messages: Message[];
+}
+
 import { Settings } from '@src/utils/config';
 let cloak: any;
 
@@ -73,7 +82,7 @@ async function Cloak() {
     await fetchData();
     const status = await Settings.get('cloak');
     if (status === 'on') {
-      Cloak();
+   //   Cloak();
     } else {
       console.debug('Cloaking is off. Enable in settings.');
     }
@@ -81,3 +90,27 @@ async function Cloak() {
     console.error('Initialization failed:', error);
   }
 })();
+
+
+fetch("/assets/json/quotes.json")
+.then((response) => {
+  if (!response.ok) {
+    throw new Error(`HTTP error! status: ${response.status}`);
+  }
+  return response.json();
+})
+.then((data: Data) => {
+  const messages = data.messages;
+  if (!messages || messages.length === 0) {
+    throw new Error("No messages found in JSON.");
+  }
+  const random = Math.floor(Math.random() * messages.length);
+  const message = messages[random];
+  const quote = document.getElementById('quote') as HTMLDivElement;
+  if (quote && message && message.text) {
+    quote.textContent = message.text;
+  }
+})
+.catch((error) => {
+  console.error("Error:", error);
+});

@@ -17,22 +17,28 @@ try {
 }
 ---
 
-<!doctype html>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width" />
-<meta name="generator" content={Astro.generator} />
-<link
-  href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap"
-  rel="stylesheet"
-/>
-<title>Home</title>
-<script src="@src/utils/frame"></script>
-<input id="input" />
-
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width" />
+  <meta name="generator" content={Astro.generator} />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap"
+    rel="stylesheet"
+  />
+  <title>Home</title>
+  <script is:inline src="/bm/index.js"></script>
+  <script is:inline src="/assets/v/config.js" defer></script>
+  <script is:inline src="/assets/v/bundle.js" defer></script>
+  <link rel="prefetch" href="/assets/sj/worker.js" />
+  <link rel="prefetch" href="/assets/sj/shared.js" />
+  <script is:inline src="/assets/sj/controller.js" defer></script>
+</head>
 <body>
   <p class="text-text-HEADER uppercase text-center mt-10 text-4xl font-bold">
     Apps
   </p>
+
+  <input id="input" />
 
   <div class="mt-5 flex h-45" id="section">
     <Card games={apps} />
