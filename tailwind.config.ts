@@ -4,7 +4,6 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-      
         background: {
           DEFAULT: 'var(--background)',
           overlay: 'var(--background-overlay)',

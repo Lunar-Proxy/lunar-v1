@@ -1,5 +1,3 @@
-import { isJsxFragment } from "typescript";
-
 interface Window {
   eruda: any;
 }
@@ -18,7 +16,6 @@ const cnsl = document.getElementById('console') as HTMLDivElement;
 const star = document.getElementById('fav') as HTMLDivElement;
 
 if (cnsl) {
-
 }
 
 if (ff) {
@@ -69,22 +66,23 @@ if (refresh) {
   });
 }
 
-  if (star) {
-    star.addEventListener('click', () => {
-      if (frame && frame.src) {
-        const nickname = prompt('Enter a nickname for this favorite:');
-        if (nickname) {
-          const favorites = JSON.parse(localStorage.getItem('@lunar/favorites') || '[]');
-          const newFav = { nickname, url: frame.src };
-          favorites.push(newFav);
-          localStorage.setItem('@lunar/favorites', JSON.stringify(favorites));
-          console.log(`Favorite "${nickname}" added successfully!`);
-        } else {
-          alert('Favorite not saved. Nickname is required.');
-        }
+if (star) {
+  star.addEventListener('click', () => {
+    if (frame && frame.src) {
+      const nickname = prompt('Enter a nickname for this favorite:');
+      if (nickname) {
+        const favorites = JSON.parse(
+          localStorage.getItem('@lunar/favorites') || '[]'
+        );
+        const newFav = { nickname, url: frame.src };
+        favorites.push(newFav);
+        localStorage.setItem('@lunar/favorites', JSON.stringify(favorites));
+        console.log(`Favorite "${nickname}" added successfully!`);
       } else {
-        console.debug('Cannot favorite an invalid page');
+        alert('Favorite not saved. Nickname is required.');
       }
-    });
-  }
-
+    } else {
+      console.debug('Cannot favorite an invalid page');
+    }
+  });
+}

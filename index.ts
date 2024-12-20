@@ -13,6 +13,7 @@ import configuration from './config';
 import path from 'path';
 
 const port: number = configuration.server.port || 8080;
+const host: string = process.env.HOST || 'localhost';
 
 async function build() {
   if (!fs.existsSync('dist')) {
@@ -25,6 +26,11 @@ async function build() {
         chalk.green.bold('✅ Building Lunar was completed successfully!')
       );
     } catch (error) {
+      console.error(
+        chalk.red.bold(
+          '❌ Failed to build Lunar. Please check your build configuration.'
+        )
+      );
       throw new Error(
         `Build Error: ${error instanceof Error ? error.message : String(error)}`
       );
@@ -40,7 +46,7 @@ const app = Fastify({
   logger: false,
   serverFactory: (handler) =>
     createServer(handler).on('upgrade', (req, socket: Socket, head) => {
-      if (req.url?.startsWith('/w')) {
+      if (req.url?.startsWith('/wsp')) {
         wisp.routeRequest(req, socket, head);
       }
     }),
@@ -109,7 +115,7 @@ app.setErrorHandler((error, _request, reply) => {
 });
 await build();
 
-// @ts-ignore might be false if they havent built the project
+// @ts-ignore may not exist
 const { handler } = await import('./dist/server/entry.mjs');
 app.register(fastifyStatic, {
   root: path.join(import.meta.dirname, 'dist', 'client'),
@@ -117,14 +123,13 @@ app.register(fastifyStatic, {
 await app.register(fastifyMiddie);
 app.use(handler);
 
-app.listen({ port }, (err) => {
-  const { address, port } = app.server.address() as { address: string; port: number };
-  console.log(chalk.green.bold(`🌙 Lunar is running at:`));
-  console.log(chalk.blue.bold(`🌐 Local: http://localhost:${port}`));
-  console.log(chalk.blue.bold(`🌍 Network: http://${address}:${port}`));
-
+app.listen({ host, port }, (err, address) => {
   if (err) {
-    throw new Error(`❌ Failed to start Lunar: ${err.message}`);
-  } 
-
+    console.error(chalk.red.bold(`❌ Failed to start Lunar: ${err.message}`));
+    process.exit(1);
+  } else {
+    console.log(chalk.green.bold(`🌙 Lunar is running at:`));
+    console.log(chalk.blue.bold(`🌐 Local: http://${host}:${port}`));
+    console.log(chalk.blue.bold(`🌍 Network: ${address}`));
+  }
 });

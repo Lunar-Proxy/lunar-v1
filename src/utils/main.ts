@@ -2,7 +2,7 @@ import { Settings } from '@src/utils/config';
 import { BareMuxConnection } from '@mercuryworkshop/bare-mux';
 
 const input = document.getElementById('input') as HTMLInputElement;
-const si = document.getElementById('startSearch') as HTMLInputElement
+const si = document.getElementById('startSearch') as HTMLInputElement;
 const fm = document.getElementById('form') as HTMLFormElement;
 const sf = document.getElementById('startForm') as HTMLFormElement;
 const frame = document.getElementById('frame') as HTMLIFrameElement;
@@ -30,7 +30,7 @@ async function launch(link: string) {
     },
   });
   window.sj = scram;
-  scram.init('/sjsw.js');
+  scram.init('/sw.js');
 
   const connection = new BareMuxConnection('/bm/worker.js');
   const wispurl =
@@ -48,7 +48,7 @@ async function launch(link: string) {
     if ((await connection.getTransport()) !== '/lb/index.mjs') {
       await connection.setTransport('/lb/index.mjs', [{ wisp: wispurl }]);
     }
-    console.debug("Using", transport, "as transport")
+    console.debug('Using', transport, 'as transport');
   }
   try {
     await navigator.serviceWorker.register('/sw.js');
@@ -58,11 +58,11 @@ async function launch(link: string) {
   }
 
   if (backend == 'uv') {
-    url =  `/p/${UltraConfig.encodeUrl(link)}`;
+    url = `/p/${UltraConfig.encodeUrl(link)}`;
     console.debug('Using UV to unblock');
   } else if (backend == 'scramjet') {
     url = scram.encodeUrl(link);
-    console.debug(url)
+    console.debug(url);
     console.debug('Using Scramjet to unblock');
   }
 
@@ -70,7 +70,7 @@ async function launch(link: string) {
 
   frame.addEventListener('load', () => {
     loading.classList.add('hidden');
-    InterceptLinks()
+    InterceptLinks();
   });
 }
 
@@ -92,14 +92,15 @@ fm.addEventListener('submit', async (event) => {
 
 sf.addEventListener('submit', async (event) => {
   event.preventDefault();
-  input.value = si.value
-  fm.dispatchEvent(new Event("submit"));
+  input.value = si.value;
+  fm.dispatchEvent(new Event('submit'));
 });
 async function InterceptLinks() {
   console.debug('Intercepting links is running...');
-  const clickableElements = frame.contentWindow?.document.querySelectorAll<HTMLElement>(
-    'a, button, [role="button"], [onclick], [data-href], span'
-  );
+  const clickableElements =
+    frame.contentWindow?.document.querySelectorAll<HTMLElement>(
+      'a, button, [role="button"], [onclick], [data-href], span'
+    );
 
   if (clickableElements) {
     clickableElements.forEach((element) => {
@@ -114,7 +115,9 @@ async function InterceptLinks() {
           href = target.dataset.href;
         } else if (target.hasAttribute('onclick')) {
           const onclickContent = target.getAttribute('onclick');
-          const match = onclickContent?.match(/(?:location\.href\s*=\s*['"])([^'"]+)(['"])/);
+          const match = onclickContent?.match(
+            /(?:location\.href\s*=\s*['"])([^'"]+)(['"])/
+          );
           href = match?.[1] || null;
         } else if (target.closest('a')) {
           href = target.closest('a')?.href || null;
@@ -130,7 +133,4 @@ async function InterceptLinks() {
   }
 }
 
-
-
-window.history.replaceState?.('', '', window.location.href); // This prevents the are you sure you want to reload prompt 
-
+window.history.replaceState?.('', '', window.location.href); // This prevents the are you sure you want to reload prompt

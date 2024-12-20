@@ -14,10 +14,6 @@ const ScramjetController: any;
 
 interface Window {
   sj: any;
-  __uv$location?: {
-    href: string;
-    origin: string;
-  };
 }
 
 declare module '@mercuryworkshop/epoxy-transport';

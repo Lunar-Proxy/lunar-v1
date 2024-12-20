@@ -8,7 +8,8 @@ const full = document.getElementById('maximize') as HTMLButtonElement;
 const launch = document.getElementById('game-frame') as HTMLDivElement;
 let url: string;
 
-export async function launch2(link: string) {const scram = new ScramjetController({
+export async function launch2(link: string) {
+  const scram = new ScramjetController({
     prefix: '/scram/',
     files: {
       wasm: '/assets/sj/wasm.js',
@@ -18,12 +19,12 @@ export async function launch2(link: string) {const scram = new ScramjetControlle
       sync: '/assets/sj/sync.js',
     },
     defaultFlags: {
-    serviceworkers: true,
+      serviceworkers: true,
     },
   });
   window.sj = scram;
   scram.init('/sjsw.js');
-  
+
   const connection = new BareMuxConnection('/bm/worker.js');
   const wispurl =
     (location.protocol === 'https:' ? 'wss' : 'ws') +
@@ -40,7 +41,7 @@ export async function launch2(link: string) {const scram = new ScramjetControlle
     if ((await connection.getTransport()) !== '/lb/index.mjs') {
       await connection.setTransport('/lb/index.mjs', [{ wisp: wispurl }]);
     }
-    console.debug("Using", transport, "as transport")
+    console.debug('Using', transport, 'as transport');
   }
   try {
     await navigator.serviceWorker.register('/sw.js');
@@ -50,17 +51,18 @@ export async function launch2(link: string) {const scram = new ScramjetControlle
   }
 
   if (backend == 'uv') {
-    url =  `/p/${UltraConfig.encodeUrl(link)}`;
+    url = `/p/${UltraConfig.encodeUrl(link)}`;
     console.debug('Using Ultraviolet to unblock.');
   } else if (backend == 'scramjet') {
     url = scram.encodeUrl(link);
-    console.debug('Using Scramjet (BETA) to unblock.')
+    console.debug('Using Scramjet (BETA) to unblock.');
   }
 
   frame.src = url;
 
-  frame.addEventListener('load', () => {0
-    InterceptLinks()
+  frame.addEventListener('load', () => {
+    0;
+    InterceptLinks();
   });
 }
 
@@ -79,34 +81,37 @@ full.addEventListener('click', () => {
 
 async function InterceptLinks() {
   console.debug('Intercepting links is running...');
-  const clickableElements = frame.contentWindow?.document.querySelectorAll<HTMLElement>(
-    'a, button, [role="button"], [onclick], [data-href], span'
-  );
-  
+  const clickableElements =
+    frame.contentWindow?.document.querySelectorAll<HTMLElement>(
+      'a, button, [role="button"], [onclick], [data-href], span'
+    );
+
   if (clickableElements) {
     clickableElements.forEach((element) => {
       element.addEventListener('click', (event) => {
         const target = event.currentTarget as HTMLElement;
-  
+
         let href: string | null = null;
-  
+
         if (target instanceof HTMLAnchorElement) {
           href = target.href;
         } else if (target.dataset.href) {
           href = target.dataset.href;
         } else if (target.hasAttribute('onclick')) {
           const onclickContent = target.getAttribute('onclick');
-          const match = onclickContent?.match(/(?:location\.href\s*=\s*['"])([^'"]+)(['"])/);
+          const match = onclickContent?.match(
+            /(?:location\.href\s*=\s*['"])([^'"]+)(['"])/
+          );
           href = match?.[1] || null;
         } else if (target.closest('a')) {
           href = target.closest('a')?.href || null;
         }
-  
+
         if (href) {
           event.preventDefault();
           console.debug('Redirected URL:', href);
           launch2(href);
-        } 
+        }
       });
     });
   }

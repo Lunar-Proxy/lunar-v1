@@ -35,10 +35,10 @@ const Settings = (function () {
   async function ensureDefaultSettings(): Promise<void> {
     await dbReady;
     const defaultSettings: Setting[] = [
-      { "cloak": "on" },
-      { "backend": "uv" },// UV: uv | SJ: scramjet
-      { "search-engine": "https://www.google.com/search?q=" },
-      { "transport": "ep" }, // Epoxy: ep | libcurl: lb
+      { cloak: 'on' },
+      { backend: 'uv' }, // UV: uv | SJ: scramjet
+      { 'search-engine': 'https://www.google.com/search?q=' },
+      { transport: 'ep' }, // Epoxy: ep | libcurl: lb
     ];
     const transaction = db!.transaction([LunarSettings], 'readwrite');
     const store = transaction.objectStore(LunarSettings);
@@ -50,7 +50,7 @@ const Settings = (function () {
 
     for (const setting of defaultSettings) {
       const key = Object.keys(setting)[0];
-      if (!existingSettings.some(s => key in s)) {
+      if (!existingSettings.some((s) => key in s)) {
         store.add(setting);
       }
     }
@@ -66,7 +66,7 @@ const Settings = (function () {
       request.onerror = () => reject(request.error);
     });
 
-    const existingSetting = existingSettings.find(s => settingName in s);
+    const existingSetting = existingSettings.find((s) => settingName in s);
     if (existingSetting) {
       existingSetting[settingName] = value;
       store.put(existingSetting);
