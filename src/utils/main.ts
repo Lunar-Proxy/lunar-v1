@@ -59,18 +59,19 @@ async function launch(link: string) {
 
   if (backend == 'uv') {
     url = `/p/${UltraConfig.encodeUrl(link)}`;
-    console.debug('Using UV to unblock');
-  } else if (backend == 'scramjet') {
+    console.debug('Using UV as the proxy.');
+  } else if (backend == 'sj') {
     url = scram.encodeUrl(link);
-    console.debug(url);
-    console.debug('Using Scramjet to unblock');
+    console.debug('Using Scramjet (BETA) as the proxy.');
   }
 
   frame.src = url;
 
   frame.addEventListener('load', () => {
     loading.classList.add('hidden');
+    if (backend == 'uv') {
     InterceptLinks();
+    }
   });
 }
 

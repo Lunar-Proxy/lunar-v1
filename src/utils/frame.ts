@@ -52,17 +52,18 @@ export async function launch2(link: string) {
 
   if (backend == 'uv') {
     url = `/p/${UltraConfig.encodeUrl(link)}`;
-    console.debug('Using Ultraviolet to unblock.');
-  } else if (backend == 'scramjet') {
+    console.debug('Using Ultraviolet as the proxy.');
+  } else if (backend == 'sj') {
     url = scram.encodeUrl(link);
-    console.debug('Using Scramjet (BETA) to unblock.');
+    console.debug('Using Scramjet (BETA) as the proxy.');
   }
 
   frame.src = url;
 
   frame.addEventListener('load', () => {
-    0;
+    if (backend == 'uv') {
     InterceptLinks();
+    }
   });
 }
 
