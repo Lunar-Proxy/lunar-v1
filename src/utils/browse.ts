@@ -30,28 +30,34 @@ window.sj = scram;
 
 if (copy) {
   copy.addEventListener('click', async () => {
-    const FrameUrl = new URL(frame.src);
+    const FrameUrl = new URL(frame.contentWindow!.location.href);
     const pathname = FrameUrl.pathname;
-    
+
     try {
       if (!frame || !frame.src || frame.src === 'about:blank') {
         console.log('Cannot copy URL without a valid source.');
         return;
       }
-     
+
       if (!pathname.startsWith('/p/') && !pathname.startsWith('/scram/')) {
-          await navigator.clipboard.writeText(frame.src);
-          alert('URL copied to clipboard!');
-          return;
+        await navigator.clipboard.writeText(frame.contentWindow!.location.href);
+        alert('URL copied to clipboard!');
+        return;
       }
-      
+
       const backend = await Settings.get('backend');
       let url;
 
       if (backend === 'uv') {
-        url = UltraConfig.decodeUrl(frame.src.split('/p/')[1] || frame.src);
+        url = UltraConfig.decodeUrl(
+          frame.contentWindow!.location.href.split('/p/')[1] ||
+            frame.contentWindow!.location.href
+        );
       } else {
-        url = scram.decodeUrl(frame.src.split('/scram/')[1] || frame.src);
+        url = scram.decodeUrl(
+          frame.contentWindow!.location.href.split('/scram/')[1] ||
+            frame.contentWindow!.location.href
+        );
       }
 
       url = url || frame.src;
@@ -153,7 +159,7 @@ if (star) {
         const favorites = JSON.parse(
           localStorage.getItem('@lunar/favorites') || '[]'
         );
-        const newFav = { nickname, url: frame.src };
+        const newFav = { nickname, url: frame.contentWindow!.location.href };
         favorites.push(newFav);
         localStorage.setItem('@lunar/favorites', JSON.stringify(favorites));
         console.log(`Favorite "${nickname}" added successfully!`);

@@ -1,5 +1,6 @@
 ---
 import '@src/main.css';
+import { Image } from 'astro:assets';
 import {
   ArrowLeft,
   ArrowRight,
@@ -113,7 +114,6 @@ import {
           </div>
         </a>
       </div>
-
       <form method="post" class="flex-grow mx-4 relative" id="form">
         <div class="relative">
           <input
@@ -121,12 +121,14 @@ import {
             id="input"
             type="text"
             placeholder="Search..."
-            class="pl-10 py-2 pr-4 w-full rounded-full border border-[#a5adce] text-text-SECONDARY bg-transparent focus:outline-none focus:ring-2 focus:ring-[#a5adce]"
+            class="pl-14 py-2 pr-4 w-full rounded-full border border-[#a5adce] text-text-SECONDARY bg-transparent focus:outline-none focus:ring-2 focus:ring-[#a5adce]"
           />
-          <img
+          <Image
             src="/assets/images/engines/google.png"
             alt="Search Engine"
-            class="rounded-full absolute left-3 top-1/2 transform -translate-y-1/2 w-6 h-6"
+            width={25}
+            height={26}
+            class="rounded-full absolute left-3 top-1/2 transform -translate-y-1/2"
           />
         </div>
         <button
@@ -186,10 +188,8 @@ import {
       id="starting"
       class="text-center mt-10 p-4 rounded-lg space-x-4 z-30 relative ml-[56px]"
     >
-      <h1 class="text-6xl ml-35 mb-12 mt-52 text-text-HEADER font-bold">
-        Lunar
-      </h1>
-      <p id="quote" class="mb-6 text-mm mt-4 text-text-SECONDARY">
+      <h1 class="text-6xl ml-35 mt-52 text-text-HEADER font-bold">Lunar</h1>
+      <p id="quote" class="text-mm mt-4 text-text-SECONDARY">
         Loading quote...
       </p>
       <form method="post" id="startForm">

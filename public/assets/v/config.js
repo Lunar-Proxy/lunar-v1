@@ -25,18 +25,6 @@ const UltraConfig = {
   bundle: '/assets/v/bundle.js',
   config: '/assets/v/config.js',
   sw: '/assets/v/sw.js',
-  inject: [
-    {
-      host: /./g,
-      injectTo: 'head',
-      html: `
-     <script>
-      window.urlchange = () => {
-        console.log('urlchange');
-        };
-            </script>
-      `,
-    },
-  ],
 };
+
 self.__uv$config = UltraConfig;

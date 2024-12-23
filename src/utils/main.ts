@@ -36,7 +36,9 @@ async function launch(link: string) {
     await navigator.serviceWorker.register('/sw.js');
     console.debug('UV Service Worker registered');
   } catch (error) {
-    throw new Error('UV Service Worker registration failed');
+    throw new Error(
+      'UV Service Worker registration failed with error: ' + error
+    );
   }
 
   const connection = new BareMuxConnection('/bm/worker.js');

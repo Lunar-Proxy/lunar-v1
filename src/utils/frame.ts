@@ -29,7 +29,9 @@ export async function launch2(link: string) {
     await navigator.serviceWorker.register('/sw.js');
     console.debug('UV Service Worker registered');
   } catch (error) {
-    throw new Error('UV Service Worker registration failed');
+    throw new Error(
+      'UV Service Worker registration failed with error: ' + error
+    );
   }
 
   const connection = new BareMuxConnection('/bm/worker.js');
@@ -51,7 +53,7 @@ export async function launch2(link: string) {
     console.debug('Using', transport, 'as transport');
   }
 
-  launch.classList.remove("hidden")
+  launch.classList.remove('hidden');
 
   if (backend == 'uv') {
     url = `/p/${UltraConfig.encodeUrl(link)}`;
