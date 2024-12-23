@@ -5,7 +5,7 @@ const fwd = document.getElementById('forward') as HTMLButtonElement;
 const refresh = document.getElementById('reload') as HTMLButtonElement;
 const starting = document.getElementById('starting') as HTMLDivElement;
 const frame = document.getElementById('frame') as HTMLIFrameElement;
-const setting = document.getElementById('set') as HTMLDivElement;
+// it isnt ready | const setting = document.getElementById('set') as HTMLDivElement;
 const app = document.getElementById('app') as HTMLDivElement;
 const gam = document.getElementById('game') as HTMLDivElement;
 const home = document.getElementById('home') as HTMLDivElement;
@@ -30,16 +30,21 @@ window.sj = scram;
 
 if (copy) {
   copy.addEventListener('click', async () => {
+    const FrameUrl = new URL(frame.src);
+    const pathname = FrameUrl.pathname;
+    
     try {
       if (!frame || !frame.src || frame.src === 'about:blank') {
         console.log('Cannot copy URL without a valid source.');
         return;
       }
-      if (!frame.src.startsWith('/p/') || !frame.src.startsWith('/scram/')) {
-        await navigator.clipboard.writeText(frame.src);
-        alert('URL copied to clipboard!');
-        return;
+     
+      if (!pathname.startsWith('/p/') && !pathname.startsWith('/scram/')) {
+          await navigator.clipboard.writeText(frame.src);
+          alert('URL copied to clipboard!');
+          return;
       }
+      
       const backend = await Settings.get('backend');
       let url;
 

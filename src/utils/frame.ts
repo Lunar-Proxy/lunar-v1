@@ -25,6 +25,13 @@ export async function launch2(link: string) {
   window.sj = scram;
   scram.init('/sjsw.js');
 
+  try {
+    await navigator.serviceWorker.register('/sw.js');
+    console.debug('UV Service Worker registered');
+  } catch (error) {
+    throw new Error('UV Service Worker registration failed');
+  }
+
   const connection = new BareMuxConnection('/bm/worker.js');
   const wispurl =
     (location.protocol === 'https:' ? 'wss' : 'ws') +
@@ -42,12 +49,6 @@ export async function launch2(link: string) {
       await connection.setTransport('/lb/index.mjs', [{ wisp: wispurl }]);
     }
     console.debug('Using', transport, 'as transport');
-  }
-  try {
-    await navigator.serviceWorker.register('/sw.js');
-    console.debug('UV Service Worker registered');
-  } catch (error) {
-    throw new Error('UV Service Worker registration failed');
   }
 
   if (backend == 'uv') {
