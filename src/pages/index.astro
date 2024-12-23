@@ -12,6 +12,7 @@ import {
   Maximize,
   SquareChevronRight,
   Star,
+  Link2,
 } from 'lucide-astro';
 ---
 
@@ -22,6 +23,7 @@ import {
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
     <title>Home</title>
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <script is:inline src="/bm/index.js"></script>
     <script is:inline src="/assets/v/config.js" defer></script>
     <script is:inline src="/assets/v/bundle.js" defer></script>
@@ -112,14 +114,36 @@ import {
         </a>
       </div>
 
-      <form method="post" class="flex-grow mx-4" id="form">
-        <input
-          id="input"
-          type="text"
-          placeholder="Search..."
-          class="text-center w-full bg-transparent text-text-SECONDARY p-2 rounded-full border border-[#a5adce] placeholder-white focus:outline-none focus:ring-2 focus:ring-[#a5adce]"
-        />
+      <form method="post" class="flex-grow mx-4 relative" id="form">
+        <div class="relative">
+          <input
+            autocomplete="off"
+            id="input"
+            type="text"
+            placeholder="Search..."
+            class="pl-10 py-2 pr-4 w-full rounded-full border border-[#a5adce] text-text-SECONDARY bg-transparent focus:outline-none focus:ring-2 focus:ring-[#a5adce]"
+          />
+          <img
+            src="/assets/images/engines/google.png"
+            alt="Search Engine"
+            class="rounded-full absolute left-3 top-1/2 transform -translate-y-1/2 w-6 h-6"
+          />
+        </div>
+        <button
+          type="button"
+          id="link"
+          class="absolute right-2 top-1/2 transform -translate-y-1/2 group w-8 h-8 flex items-center justify-center"
+        >
+          <Link2
+            class="text-[#a5adce] group-hover:text-white w-6 h-6 z-10 transition-transform duration-200 ease-in-out"
+          />
+          <div
+            class="absolute inset-0 rounded-full bg-transparent group-hover:bg-white/20 transition-colors duration-200"
+          >
+          </div>
+        </button>
       </form>
+
       <button
         id="fav"
         class="relative group w-8 h-8 flex items-center justify-center"
@@ -167,12 +191,15 @@ import {
         Loading quote...
       </p>
       <form method="post" id="startForm">
-        <input
-          type="text"
-          id="startSearch"
-          class="text-center w-1/2 mt-10 bg-[#303446] text-text-SECONDARY p-2 rounded-full border border-[#a5adce] placeholder-white"
-          placeholder="Search..."
-        />
+        <div class="relative">
+          <input
+            type="text"
+            id="startSearch"
+            autocomplete="off"
+            class="pl-10 text-center w-1/2 mt-10 bg-[#303446] text-text-SECONDARY p-2 rounded-full border border-[#a5adce] placeholder-white"
+            placeholder="Search..."
+          />
+        </div>
       </form>
       <div class="mt-16" id="Favorites"></div>
     </div>
@@ -190,8 +217,7 @@ import {
       id="frame"
       title=""
       class="fixed top-[64px] left-[62px] z-20 h-[calc(100vh-64px)] w-[calc(100%-62px)]"
-    >
-    </iframe>
+    ></iframe>
     <script src="@src/utils/browse.ts"></script>
     <script src="@src/utils/home.ts"></script>
   </body>

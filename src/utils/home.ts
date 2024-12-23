@@ -82,7 +82,7 @@ async function Cloak() {
     await fetchData();
     const status = await Settings.get('cloak');
     if (status === 'on') {
-       Cloak();
+      Cloak();
     } else {
       console.debug('Cloaking is off. Enable in settings.');
     }

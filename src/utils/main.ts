@@ -70,7 +70,7 @@ async function launch(link: string) {
   frame.addEventListener('load', () => {
     loading.classList.add('hidden');
     if (backend == 'uv') {
-    InterceptLinks();
+      InterceptLinks();
     }
   });
 }
@@ -79,7 +79,7 @@ fm.addEventListener('submit', async (event) => {
   event.preventDefault();
   welcome.classList.add('hidden');
   loading.classList.remove('hidden');
-  let value = input.value;
+  let value = input.value.trim();
   const engine = await Settings.get('search-engine');
   if (validate(value)) {
     if (!/^https?:\/\//i.test(value)) {

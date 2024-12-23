@@ -1,10 +1,8 @@
-interface Window {
-  eruda: any;
-}
+import { Settings } from '@src/utils/config';
 
-const bak = document.getElementById('back');
-const fwd = document.getElementById('forward');
-const refresh = document.getElementById('reload');
+const bak = document.getElementById('back') as HTMLButtonElement;
+const fwd = document.getElementById('forward') as HTMLButtonElement;
+const refresh = document.getElementById('reload') as HTMLButtonElement;
 const starting = document.getElementById('starting') as HTMLDivElement;
 const frame = document.getElementById('frame') as HTMLIFrameElement;
 const setting = document.getElementById('set') as HTMLDivElement;
@@ -14,8 +12,84 @@ const home = document.getElementById('home') as HTMLDivElement;
 const ff = document.getElementById('full-screen') as HTMLDivElement;
 const cnsl = document.getElementById('console') as HTMLDivElement;
 const star = document.getElementById('fav') as HTMLDivElement;
+const copy = document.getElementById('link') as HTMLButtonElement;
+const scram = new ScramjetController({
+  prefix: '/scram/',
+  files: {
+    wasm: '/assets/sj/wasm.js',
+    worker: '/assets/sj/worker.js',
+    client: '/assets/sj/client.js',
+    shared: '/assets/sj/shared.js',
+    sync: '/assets/sj/sync.js',
+  },
+  defaultFlags: {
+    serviceworkers: true,
+  },
+});
+window.sj = scram;
+
+if (copy) {
+  copy.addEventListener('click', async () => {
+    try {
+      if (!frame || !frame.src || frame.src === 'about:blank') {
+        console.log('Cannot copy URL without a valid source.');
+        return;
+      }
+      if (!frame.src.startsWith('/p/') || !frame.src.startsWith('/scram/')) {
+        await navigator.clipboard.writeText(frame.src);
+        alert('URL copied to clipboard!');
+        return;
+      }
+      const backend = await Settings.get('backend');
+      let url;
+
+      if (backend === 'uv') {
+        url = UltraConfig.decodeUrl(frame.src.split('/p/')[1] || frame.src);
+      } else {
+        url = scram.decodeUrl(frame.src.split('/scram/')[1] || frame.src);
+      }
+
+      url = url || frame.src;
+
+      await navigator.clipboard.writeText(url);
+      alert('URL copied to clipboard!');
+    } catch (error) {
+      console.error('Error copying URL:', error);
+    }
+  });
+}
 
 if (cnsl) {
+  cnsl.addEventListener('click', () => {
+    const eruda = frame.contentWindow?.eruda;
+
+    if (eruda) {
+      if (eruda._isInit) {
+        eruda.destroy();
+        console.debug('Eruda console destroyed.');
+        return;
+      } else {
+        console.debug('Eruda console is not initialized.');
+      }
+    } else {
+      console.debug('Eruda console not loaded yet.');
+    }
+
+    if (!eruda || !eruda._isInit) {
+      if (frame.contentDocument) {
+        var script = frame.contentDocument.createElement('script');
+        script.src = 'https://cdn.jsdelivr.net/npm/eruda';
+        script.onload = function () {
+          frame.contentWindow?.eruda.init();
+          frame.contentWindow?.eruda.show();
+          console.debug('Eruda console initialized.');
+        };
+        frame.contentDocument.head.appendChild(script);
+      } else {
+        console.error('Cannot inject script, frame content document is null.');
+      }
+    }
+  });
 }
 
 if (ff) {

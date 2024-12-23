@@ -62,7 +62,7 @@ export async function launch2(link: string) {
 
   frame.addEventListener('load', () => {
     if (backend == 'uv') {
-    InterceptLinks();
+      InterceptLinks();
     }
   });
 }
@@ -77,7 +77,7 @@ refresh.addEventListener('click', () => {
 });
 
 full.addEventListener('click', () => {
-  launch.requestFullscreen();
+  frame.requestFullscreen();
 });
 
 async function InterceptLinks() {

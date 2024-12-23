@@ -14,6 +14,7 @@ const ScramjetController: any;
 
 interface Window {
   sj: any;
+  eruda: any;
 }
 
 declare module '@mercuryworkshop/epoxy-transport';
