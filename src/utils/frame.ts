@@ -23,7 +23,7 @@ export async function launch2(link: string) {
     },
   });
   window.sj = scram;
-  scram.init('/sjsw.js');
+  scram.init('/sw.js');
 
   try {
     await navigator.serviceWorker.register('/sw.js');
@@ -51,9 +51,11 @@ export async function launch2(link: string) {
     console.debug('Using', transport, 'as transport');
   }
 
+  launch.classList.remove("hidden")
+
   if (backend == 'uv') {
     url = `/p/${UltraConfig.encodeUrl(link)}`;
-    console.debug('Using Ultraviolet as the proxy.');
+    console.debug('Using UV as the proxy.');
   } else if (backend == 'sj') {
     url = scram.encodeUrl(link);
     console.debug('Using Scramjet (BETA) as the proxy.');

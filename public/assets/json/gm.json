@@ -1,1 +1,33 @@
-[]
+[
+    {
+        "name": "EaglerCraft",
+        "image": "/assets/images/icons/mc.png",
+        "link": "https://eaglercraft.me/",
+        "error": false
+      },
+      {
+        "name": "Coolmathgames",
+        "image": "/assets/images/icons/cmg.png",
+        "link": "https://coolmathgames.com/",
+        "error": false
+      },
+      {
+        "name": "digdigIo",
+        "image": "/assets/images/icons/dig.png",
+        "link": "https://digdig.io/",
+        "error": false
+      },
+      {
+        "name": "2048",
+        "image": "/assets/images/icons/2048.png",
+        "link": "https://play2048.co/",
+        "error": false
+      },
+
+      {
+        "name": "Subway Surfers",
+        "image": "/assets/images/icons/subway.png",
+        "link": "https://ubg77.github.io/updatefaqs/subway-surfers-winter-holiday/",
+        "error": false      
+      }
+]
