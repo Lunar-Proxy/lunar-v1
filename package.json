@@ -25,7 +25,7 @@
     "@mercuryworkshop/wisp-js": "^0.3.3",
     "@playform/compress": "^0.1.6",
     "@types/node": "^22.10.2",
-    "astro": "5.0.9",
+    "astro": "5.1.1",
     "chalk": "^5.4.1",
     "fastify": "^5.2.0",
     "lucide-astro": "^0.469.0",
