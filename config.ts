@@ -3,7 +3,7 @@ interface ConfigTypes {
   auth: {
     protect: boolean;
     log: boolean;
-    users: { [username: string]: string }[]; // Users are still an array of objects
+    users: { [username: string]: string }[]; 
   };
 }
 
