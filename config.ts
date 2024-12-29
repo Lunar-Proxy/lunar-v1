@@ -1,24 +1,25 @@
-import type { config } from '@src/types/settings';
+interface ConfigTypes {
+  port: number;
+  auth: {
+    protect: boolean;
+    log: boolean;
+    users: { [username: string]: string }[]; // Users are still an array of objects
+  };
+}
 
-const configuration: config = {
-  // Cutomization for the server.
-  server: {
-    port: 8080, // This is what port lunar runs on. (Default: 8080)
-  },
-
-  // Protect your lunar link with a password. (Optional Feature)
-  protect: {
-    // This is if you want it to ask for a username and password for your link.
-    // Set challenge to true to enable this feature. (Default: false)
-    challenge: false,
-    // This is only needed if challenge is set to true.
-    logging: false, // If you want to say when a user logins. (default: false)
-    // This is the username & password for the password protection
-    users: {
-      // Format: "username": "password"
-      lunar: '123',
-    },
+const config: ConfigTypes = {
+  port: 8080, // The port lunar runs on (Default: 8080)
+  auth: {
+    protect: true, // Enable or disable authentication (Default: true)
+    log: true, // Logs when a user logs in (Default: true)
+    users: [ 
+      {
+        lunar: "lunariscool", // Replace to whatever you want format is username: "password"
+      },
+      // To add more users, follow this format:
+      // { username: "password" },
+    ],
   },
 };
 
-export default configuration;
+export default config;

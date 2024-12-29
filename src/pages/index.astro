@@ -26,12 +26,13 @@ import {
     <title>Home</title>
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <script is:inline src="/bm/index.js"></script>
-    <script is:inline src="/assets/v/config.js" defer></script>
-    <script is:inline src="/assets/v/bundle.js" defer></script>
-    <link rel="prefetch" href="/assets/sj/worker.js" />
-    <link rel="prefetch" href="/assets/sj/shared.js" />
-    <script is:inline src="/assets/sj/controller.js" defer></script>
+    <script is:inline src="/assets/packaged/v/config.js" defer></script>
+    <script is:inline src="/assets/packaged/v/bundle.js" defer></script>
+    <link rel="prefetch" href="/assets/packaged/scram/worker.js" />
+    <link rel="prefetch" href="/assets/packaged/scram/shared.js" />
+    <script is:inline src="/assets/packaged/scram/controller.js" defer></script>
     <script src="@src/utils/main.ts"></script>
+    <script src="@src/utils/search.ts"></script>
   </head>
 
   <body id="side" class="relative h-screen overflow-hidden">
@@ -203,7 +204,6 @@ import {
           />
         </div>
       </form>
-      <div class="mt-16" id="Favorites"></div>
     </div>
 
     <div id="load" class="z-10 ml-16 relative hidden">

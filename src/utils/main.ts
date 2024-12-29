@@ -1,5 +1,6 @@
 import { Settings } from '@src/utils/config';
 import { BareMuxConnection } from '@mercuryworkshop/bare-mux';
+import { search } from './search';
 
 const input = document.getElementById('input') as HTMLInputElement;
 const si = document.getElementById('startSearch') as HTMLInputElement;
@@ -8,67 +9,22 @@ const sf = document.getElementById('startForm') as HTMLFormElement;
 const frame = document.getElementById('frame') as HTMLIFrameElement;
 const loading = document.getElementById('load') as HTMLDivElement;
 const welcome = document.getElementById('starting') as HTMLDivElement;
-let url: string;
-
-function validate(url: string): boolean {
-  const rgex = /^(https?:\/\/)?([a-zA-Z0-9.-]+\.[a-zA-Z]{2,})(\/[^\s]*)?$/;
-  return rgex.test(url);
-}
 
 async function launch(link: string) {
-  const scram = new ScramjetController({
-    prefix: '/scram/',
-    files: {
-      wasm: '/assets/sj/wasm.js',
-      worker: '/assets/sj/worker.js',
-      client: '/assets/sj/client.js',
-      shared: '/assets/sj/shared.js',
-      sync: '/assets/sj/sync.js',
-    },
-    defaultFlags: {
-      serviceworkers: true,
-    },
-  });
-  window.sj = scram;
-  scram.init('/sw.js');
-
-  try {
-    await navigator.serviceWorker.register('/sw.js');
-    console.debug('UV Service Worker registered');
-  } catch (error) {
-    throw new Error(
-      'UV Service Worker registration failed with error: ' + error
-    );
-  }
-
   const connection = new BareMuxConnection('/bm/worker.js');
   const wispurl =
     (location.protocol === 'https:' ? 'wss' : 'ws') +
     '://' +
     location.host +
     '/wsp/';
-  const transport = await Settings.get('transport');
   const backend = await Settings.get('backend');
-  if (transport == 'ep') {
+
     if ((await connection.getTransport()) !== '/ep/index.mjs') {
       await connection.setTransport('/ep/index.mjs', [{ wisp: wispurl }]);
     }
-  } else {
-    if ((await connection.getTransport()) !== '/lb/index.mjs') {
-      await connection.setTransport('/lb/index.mjs', [{ wisp: wispurl }]);
-    }
-    console.debug('Using', transport, 'as transport');
-  }
-  if (backend == 'uv') {
-    url = `/p/${UltraConfig.encodeUrl(link)}`;
-    console.debug('Using UV as the proxy.');
-  } else if (backend == 'sj') {
-    url = scram.encodeUrl(link);
-    console.debug('Using Scramjet (BETA) as the proxy.');
-  }
-
-  frame.src = url;
-
+    console.log("Transport set to Epoxy")
+   let url = await search(link, backend, "https://www.google.com/search?q=%s");
+    frame.src = url;
   frame.addEventListener('load', () => {
     loading.classList.add('hidden');
     if (backend == 'uv') {
@@ -82,14 +38,6 @@ fm.addEventListener('submit', async (event) => {
   welcome.classList.add('hidden');
   loading.classList.remove('hidden');
   let value = input.value.trim();
-  const engine = await Settings.get('search-engine');
-  if (validate(value)) {
-    if (!/^https?:\/\//i.test(value)) {
-      value = 'https://' + value;
-    }
-  } else {
-    value = engine + value;
-  }
   launch(value);
 });
 

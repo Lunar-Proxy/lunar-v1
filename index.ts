@@ -9,16 +9,16 @@ import chalk from 'chalk';
 import { createServer } from 'http';
 import { Socket } from 'net';
 import { server as wisp } from '@mercuryworkshop/wisp-js/server';
-import configuration from './config';
 import path from 'path';
+import config from './config';
 
-const port: number = configuration.server.port || 8080;
-const host: string = process.env.HOST || 'localhost';
+const port: number = config.port;
+const host: string = "0.0.0.0";
 
 async function build() {
   if (!fs.existsSync('dist')) {
     console.log(
-      chalk.yellow.bold('🚧 Lunar is not built. Building Lunar now...')
+      chalk.yellow.bold('Lunar is not built. Building Lunar now...')
     );
     try {
       execSync('pnpm build', { stdio: 'inherit' });
@@ -26,11 +26,6 @@ async function build() {
         chalk.green.bold('✅ Building Lunar was completed successfully!')
       );
     } catch (error) {
-      console.error(
-        chalk.red.bold(
-          '❌ Failed to build Lunar. Please check your build configuration.'
-        )
-      );
       throw new Error(
         `Build Error: ${error instanceof Error ? error.message : String(error)}`
       );
@@ -46,21 +41,19 @@ const app = Fastify({
   logger: false,
   serverFactory: (handler) =>
     createServer(handler).on('upgrade', (req, socket: Socket, head) => {
-      if (req.url?.startsWith('/wsp')) {
         wisp.routeRequest(req, socket, head);
-      }
     }),
 });
 
 await app.register(fastifyCompress, { encodings: ['deflate', 'gzip', 'br'] });
-
-if (configuration.protect.challenge) {
+if (config.auth.protect) {
   console.log(chalk.magenta.bold('🔒 Password Protection is enabled.'));
   await app.register(basicAuth, {
     authenticate: true,
     validate(username, password, _req, _reply, done) {
-      if (configuration.protect.users[username] === password) {
-        if (configuration.protect.logging) {
+      const user = config.auth.users.find(user => user[username]);
+      if (user && user[username] === password) {
+        if (config.auth.log) {
           console.log(chalk.green(`✅ User "${username}" authenticated.`));
         }
         return done();
@@ -70,6 +63,7 @@ if (configuration.protect.challenge) {
   });
   app.addHook('onRequest', app.basicAuth);
 }
+
 
 app.setErrorHandler((error, _request, reply) => {
   if (error.statusCode === 401) {
@@ -115,7 +109,7 @@ app.setErrorHandler((error, _request, reply) => {
 });
 await build();
 
-// @ts-ignore may not exist
+// @ts-ignore dir may not exist
 const { handler } = await import('./dist/server/entry.mjs');
 app.register(fastifyStatic, {
   root: path.join(import.meta.dirname, 'dist', 'client'),
@@ -125,8 +119,7 @@ app.use(handler);
 
 app.listen({ host, port }, (err, address) => {
   if (err) {
-    console.error(chalk.red.bold(`❌ Failed to start Lunar: ${err.message}`));
-    process.exit(1);
+    throw new Error(`❌ Failed to start Lunar: ${err.message}`);
   } else {
     console.log(chalk.green.bold(`🌙 Lunar is running at:`));
     console.log(chalk.blue.bold(`🌐 Local: http://${host}:${port}`));

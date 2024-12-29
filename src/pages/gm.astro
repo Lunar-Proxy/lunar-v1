@@ -1,21 +1,12 @@
 ---
 export const prerender = false;
 import '@src/main.css';
-import Card from '@src/components/card.astro';
+import Card from '@src/components/asset.astro';
 import { Maximize, LogOut, RotateCw } from 'lucide-astro';
-import fs from 'fs/promises';
-import path from 'path';
 import type { Asset } from '@src/utils/as';
-const JsonPath = path.resolve('./public/assets/json/gm.json');
-let games: Asset[];
+import data from "../../public/assets/json/ap.json"
+let games = data as Asset[];
 
-try {
-  const data = await fs.readFile(JsonPath, 'utf8');
-  games = JSON.parse(data);
-} catch (err) {
-  games = [];
-  throw new Error('Error reading the file:' + err);
-}
 ---
 
 <!doctype html>
@@ -26,11 +17,12 @@ try {
   <title>Home</title>
   <link rel="icon" type="image/x-icon" href="/favicon.ico" />
   <script is:inline src="/bm/index.js"></script>
-  <script is:inline src="/assets/v/config.js" defer></script>
-  <script is:inline src="/assets/v/bundle.js" defer></script>
-  <link rel="prefetch" href="/assets/sj/worker.js" />
-  <link rel="prefetch" href="/assets/sj/shared.js" />
-  <script is:inline src="/assets/sj/controller.js" defer></script>
+  <script is:inline src="/assets/packaged/v/config.js" defer></script>
+  <script is:inline src="/assets/packaged/v/bundle.js" defer></script>
+  <link rel="prefetch" href="/assets/packaged/scram/worker.js" />
+  <link rel="prefetch" href="/assets/packaged/scram/shared.js" />
+  <script is:inline src="/assets/packaged/scram/controller.js" defer></script>
+  <script src="@src/utils/search.ts"></script>
 </head>
 <link
   href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap"

@@ -1,20 +1,12 @@
 ---
 import '@src/main.css';
-import Card from '@src/components/card.astro';
+import path from 'path';
+import Card from '@src/components/asset.astro';
+import data from "../../public/assets/json/ap.json"
 import { Maximize, LogOut, RotateCw } from 'lucide-astro';
 import type { Asset } from '@src/utils/as';
-import fs from 'fs/promises';
-import path from 'path';
-const JsonPath = path.resolve('./public/assets/json/ap.json');
-let apps: Asset[];
+let apps = data as Asset[];
 
-try {
-  const data = await fs.readFile(JsonPath, 'utf8');
-  apps = JSON.parse(data);
-} catch (err) {
-  apps = [];
-  throw new Error('Error reading the json file:' + err);
-}
 ---
 
 <head>
@@ -28,11 +20,12 @@ try {
   <title>Home</title>
   <link rel="icon" type="image/x-icon" href="/favicon.ico" />
   <script is:inline src="/bm/index.js"></script>
-  <script is:inline src="/assets/v/config.js" defer></script>
-  <script is:inline src="/assets/v/bundle.js" defer></script>
-  <link rel="prefetch" href="/assets/sj/worker.js" />
-  <link rel="prefetch" href="/assets/sj/shared.js" />
-  <script is:inline src="/assets/sj/controller.js" defer></script>
+  <script is:inline src="/assets/packaged/v/config.js" defer></script>
+  <script is:inline src="/assets/packaged/v/bundle.js" defer></script>
+  <link rel="prefetch" href="/assets/packaged/scram/worker.js" />
+  <link rel="prefetch" href="/assets/packaged/scram/shared.js" />
+  <script is:inline src="/assets/packaged/scram/controller.js" defer></script>
+  <script src="@src/utils/search.ts"></script>
 </head>
 <body>
   <p class="text-text-HEADER uppercase text-center mt-10 text-4xl font-bold">

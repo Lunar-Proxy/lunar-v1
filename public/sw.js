@@ -6,12 +6,12 @@ if (navigator.userAgent.includes('Firefox')) {
 }
 
 importScripts(
-  '/assets/v/bundle.js',
-  '/assets/v/config.js',
-  '/assets/v/sw.js',
-  '/assets/sj/wasm.js',
-  '/assets/sj/shared.js',
-  '/assets/sj/worker.js'
+  '/assets/packaged/v/bundle.js',
+  '/assets/packaged/v/config.js',
+  '/assets/packaged/v/sw.js',
+  '/assets/packaged/scram/wasm.js',
+  '/assets/packaged/scram/shared.js',
+  '/assets/packaged/scram/worker.js'
 );
 
 const uv = new UVServiceWorker();

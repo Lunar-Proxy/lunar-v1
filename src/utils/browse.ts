@@ -73,7 +73,6 @@ if (copy) {
 if (cnsl) {
   cnsl.addEventListener('click', () => {
     const eruda = frame.contentWindow?.eruda;
-
     if (eruda) {
       if (eruda._isInit) {
         eruda.destroy();
@@ -97,7 +96,9 @@ if (cnsl) {
         };
         frame.contentDocument.head.appendChild(script);
       } else {
-        console.error('Cannot inject script, frame content document is null.');
+        throw new Error(
+          'Cannot inject script, frame content document is null.'
+        );
       }
     }
   });
@@ -152,22 +153,28 @@ if (refresh) {
 }
 
 if (star) {
-  star.addEventListener('click', () => {
+  star.addEventListener('click', async () => {
+    let oringalUrl;
     if (frame && frame.src) {
       const nickname = prompt('Enter a nickname for this favorite:');
       if (nickname) {
         const favorites = JSON.parse(
           localStorage.getItem('@lunar/favorites') || '[]'
         );
-        const newFav = { nickname, url: frame.contentWindow!.location.href };
+        if ((await Settings.get('backend')) == 'sj') {
+          let oringalUrl = `${scram.decodeUrl(frame.contentWindow!.location.href.split('/scram/')[1] || frame.contentWindow!.location.href)}`;
+        } else {
+          let oringalUrl = `${UltraConfig.decodeUrl(frame.contentWindow!.location.href.split('/p/')[1] || frame.contentWindow!.location.href)}`;
+        }
+        const newFav = { nickname, url: oringalUrl };
         favorites.push(newFav);
         localStorage.setItem('@lunar/favorites', JSON.stringify(favorites));
-        console.log(`Favorite "${nickname}" added successfully!`);
+        console.debug(`Favorite "${nickname}" added successfully!`);
       } else {
         alert('Favorite not saved. Nickname is required.');
       }
     } else {
-      console.debug('Cannot favorite an invalid page');
+      throw new Error('Cannot favorite an invalid page');
     }
   });
 }
