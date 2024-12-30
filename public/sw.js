@@ -7,7 +7,7 @@ if (navigator.userAgent.includes('Firefox')) {
 importScripts(
      '/packaged/v/bundle.js',
     '/packaged/v/config.js',
-    '/packaged/sw.js',
+    '/packaged/v/sw.js',
     '/packaged/scram/wasm.js',
     '/packaged/scram/shared.js',
     '/packaged/scram/worker.js'
