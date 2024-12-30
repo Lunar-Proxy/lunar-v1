@@ -5,7 +5,6 @@ import { server as wisp } from '@mercuryworkshop/wisp-js/server';
 import { baremuxPath } from '@mercuryworkshop/bare-mux/node';
 import { epoxyPath } from '@mercuryworkshop/epoxy-transport';
 import tailwind from '@astrojs/tailwind';
-import { libcurlPath } from '@mercuryworkshop/libcurl-transport';
 import { version } from './package.json';
 import { normalizePath } from 'vite';
 import { execSync } from 'child_process';
