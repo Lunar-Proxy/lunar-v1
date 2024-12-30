@@ -3,7 +3,7 @@ interface ConfigTypes {
   auth: {
     protect: boolean;
     log: boolean;
-    users: { [username: string]: string }[]; 
+    users: { [username: string]: string }[];
   };
 }
 
@@ -12,9 +12,9 @@ const config: ConfigTypes = {
   auth: {
     protect: false, // Enable or disable authentication (Default: false)
     log: true, // Logs when a user logs in (Default: true)
-    users: [ 
+    users: [
       {
-        lunar: "lunariscool", // Replace to whatever you want format is username: "password"
+        lunar: 'lunariscool', // Replace to whatever you want format is username: "password"
       },
       // To add more users, follow this format:
       // { username: "password" },

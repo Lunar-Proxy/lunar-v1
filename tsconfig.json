@@ -6,9 +6,5 @@
       "@src/*": ["src/*"]
     }
   },
-  "exclude": [
-    "node_modules",
-    "dist",
-    "public/assets/packaged/**",
-  ]
+  "exclude": ["node_modules", "dist", "public/assets/packaged/**"]
 }

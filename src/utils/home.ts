@@ -82,7 +82,7 @@ async function Cloak() {
     await fetchData();
     const status = await Settings.get('cloak');
     if (status === 'on') {
-     // redoing soon Cloak();
+      // redoing soon Cloak();
     } else {
       console.debug('Cloaking is off. Enable in settings.');
     }
@@ -113,6 +113,3 @@ fetch('/assets/json/quotes.json')
   .catch((error) => {
     console.error('Error:', error);
   });
-
-  
-

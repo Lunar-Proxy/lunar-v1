@@ -1,5 +1,4 @@
 import { Settings } from '@src/utils/config';
-
 const bak = document.getElementById('back') as HTMLButtonElement;
 const fwd = document.getElementById('forward') as HTMLButtonElement;
 const refresh = document.getElementById('reload') as HTMLButtonElement;
@@ -162,9 +161,9 @@ if (star) {
           localStorage.getItem('@lunar/favorites') || '[]'
         );
         if ((await Settings.get('backend')) == 'sj') {
-          let oringalUrl = `${scram.decodeUrl(frame.contentWindow!.location.href.split('/scram/')[1] || frame.contentWindow!.location.href)}`;
+          oringalUrl = `${scram.decodeUrl(frame.contentWindow!.location.href.split('/scram/')[1] || frame.contentWindow!.location.href)}`;
         } else {
-          let oringalUrl = `${UltraConfig.decodeUrl(frame.contentWindow!.location.href.split('/p/')[1] || frame.contentWindow!.location.href)}`;
+          oringalUrl = `${UltraConfig.decodeUrl(frame.contentWindow!.location.href.split('/p/')[1] || frame.contentWindow!.location.href)}`;
         }
         const newFav = { nickname, url: oringalUrl };
         favorites.push(newFav);

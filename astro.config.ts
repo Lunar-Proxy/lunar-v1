@@ -56,6 +56,8 @@ export default defineConfig({
           server.httpServer?.on('upgrade', (req, socket, head) => {
             if (req.url?.startsWith('/wsp')) {
               wisp.routeRequest(req, socket, head);
+            } else {
+              undefined;
             }
           });
         },

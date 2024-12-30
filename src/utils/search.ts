@@ -21,23 +21,23 @@ export async function search(input: string, backend: string, template: string) {
 
   let ValidUrl;
   const protocol = input.includes('://');
-  
+
   if (protocol) {
     const url = new URL(input);
-    if (url.hostname.includes(".")) {
+    if (url.hostname.includes('.')) {
       ValidUrl = url.toString();
     }
   } else {
     const url = new URL(`http://${input}`);
-    if (url.hostname.includes(".")) {
+    if (url.hostname.includes('.')) {
       ValidUrl = url.toString();
     }
   }
 
-  if (!ValidUrl) ValidUrl = template.replace("%s", encodeURIComponent(input));
+  if (!ValidUrl) ValidUrl = template.replace('%s', encodeURIComponent(input));
 
   if (backend === 'uv') return `/p/${UltraConfig.encodeUrl(ValidUrl)}`;
   if (backend === 'sj') return scram.encodeUrl(ValidUrl);
-  
+
   return ValidUrl;
 }

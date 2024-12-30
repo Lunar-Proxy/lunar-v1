@@ -17,12 +17,12 @@ export async function launch2(link: string) {
     '/wsp/';
   const backend = await Settings.get('backend');
 
-    if ((await connection.getTransport()) !== '/ep/index.mjs') {
-      await connection.setTransport('/ep/index.mjs', [{ wisp: wispurl }]);
-    }
-    console.log("Transport set to Epoxy")
+  if ((await connection.getTransport()) !== '/ep/index.mjs') {
+    await connection.setTransport('/ep/index.mjs', [{ wisp: wispurl }]);
+  }
+  console.log('Transport set to Epoxy');
   launch.classList.remove('hidden');
-  let url = await search(link, backend, "https://www.google.com/search?q=%s");
+  let url = await search(link, backend, 'https://www.google.com/search?q=%s');
   frame.src = url;
 
   frame.addEventListener('load', () => {

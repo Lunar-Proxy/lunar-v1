@@ -1,12 +1,10 @@
 ---
 import '@src/main.css';
-import path from 'path';
 import Card from '@src/components/asset.astro';
-import data from "../../public/assets/json/ap.json"
+import data from '../../public/assets/json/ap.json';
 import { Maximize, LogOut, RotateCw } from 'lucide-astro';
 import type { Asset } from '@src/utils/as';
 let apps = data as Asset[];
-
 ---
 
 <head>

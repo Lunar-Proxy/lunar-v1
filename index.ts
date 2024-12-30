@@ -13,13 +13,11 @@ import path from 'path';
 import config from './config';
 
 const port: number = config.port;
-const host: string = "0.0.0.0";
+const host: string = '0.0.0.0';
 
 async function build() {
   if (!fs.existsSync('dist')) {
-    console.log(
-      chalk.yellow.bold('Lunar is not built. Building Lunar now...')
-    );
+    console.log(chalk.yellow.bold('Lunar is not built. Building Lunar now...'));
     try {
       execSync('pnpm build', { stdio: 'inherit' });
       console.log(
@@ -41,7 +39,7 @@ const app = Fastify({
   logger: false,
   serverFactory: (handler) =>
     createServer(handler).on('upgrade', (req, socket: Socket, head) => {
-        wisp.routeRequest(req, socket, head);
+      wisp.routeRequest(req, socket, head);
     }),
 });
 
@@ -51,7 +49,7 @@ if (config.auth.protect) {
   await app.register(basicAuth, {
     authenticate: true,
     validate(username, password, _req, _reply, done) {
-      const user = config.auth.users.find(user => user[username]);
+      const user = config.auth.users.find((user) => user[username]);
       if (user && user[username] === password) {
         if (config.auth.log) {
           console.log(chalk.green(`✅ User "${username}" authenticated.`));
@@ -63,7 +61,6 @@ if (config.auth.protect) {
   });
   app.addHook('onRequest', app.basicAuth);
 }
-
 
 app.setErrorHandler((error, _request, reply) => {
   if (error.statusCode === 401) {
