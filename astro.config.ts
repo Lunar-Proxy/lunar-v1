@@ -73,11 +73,6 @@ export default defineConfig({
             dest: 'bm',
             overwrite: false,
           },
-          {
-            src: normalizePath(libcurlPath + '/**/*.mjs'),
-            dest: 'lb',
-            overwrite: false,
-          },
         ],
       }),
     ],
