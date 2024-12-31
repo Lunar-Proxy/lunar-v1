@@ -11,13 +11,7 @@ export async function search(input: string, backend: string, template: string) {
     defaultFlags: { serviceworkers: true },
   });
   window.sj = scram;
-  scram.init('/sw.js');
-
-  try {
-    await navigator.serviceWorker.register('/sw.js');
-  } catch (error) {
-    throw new Error('UV Service Worker registration failed');
-  }
+  scram.init();
 
   let ValidUrl;
   const protocol = input.includes('://');

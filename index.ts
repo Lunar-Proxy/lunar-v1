@@ -17,21 +17,17 @@ const host: string = '0.0.0.0';
 
 async function build() {
   if (!fs.existsSync('dist')) {
-    console.log(chalk.yellow.bold('Lunar is not built. Building Lunar now...'));
+    console.log(chalk.yellow.bold('Lunar is not built, building now...'));
     try {
       execSync('pnpm build', { stdio: 'inherit' });
-      console.log(
-        chalk.green.bold('✅ Building Lunar was completed successfully!')
-      );
+      console.log(chalk.green.bold('✅ Lunar was built successfully!'));
     } catch (error) {
       throw new Error(
         `Build Error: ${error instanceof Error ? error.message : String(error)}`
       );
     }
   } else {
-    console.log(
-      chalk.blue.bold('📂 Lunar was already built. Skipping build process.')
-    );
+    console.log(chalk.blue.bold('📂 Lunar is already built. Skipping build.'));
   }
 }
 
@@ -44,8 +40,18 @@ const app = Fastify({
 });
 
 await app.register(fastifyCompress, { encodings: ['deflate', 'gzip', 'br'] });
+
 if (config.auth.protect) {
   console.log(chalk.magenta.bold('🔒 Password Protection is enabled.'));
+  config.auth.users.forEach((user) => {
+    Object.entries(user).forEach(([username, password]) => {
+      console.log(
+        chalk.yellow('🔑 Listing usernames and passwords for authentication')
+      );
+      console.log(chalk.cyan(`Username: ${username}, Password: ${password}`));
+    });
+  });
+
   await app.register(basicAuth, {
     authenticate: true,
     validate(username, password, _req, _reply, done) {
@@ -118,7 +124,7 @@ app.listen({ host, port }, (err, address) => {
   if (err) {
     throw new Error(`❌ Failed to start Lunar: ${err.message}`);
   } else {
-    console.log(chalk.green.bold(`🌙 Lunar is running at:`));
+    console.log(chalk.green.bold(`\n🌙 Lunar is running at:`));
     console.log(chalk.blue.bold(`🌐 Local: http://${host}:${port}`));
     console.log(chalk.blue.bold(`🌍 Network: ${address}`));
   }

@@ -7,6 +7,25 @@ const refresh = document.getElementById('rotate') as HTMLButtonElement;
 const frame = document.getElementById('display') as HTMLIFrameElement;
 const full = document.getElementById('maximize') as HTMLButtonElement;
 const launch = document.getElementById('game-frame') as HTMLDivElement;
+const scram = new ScramjetController({
+  prefix: '/scram/',
+  files: {
+    wasm: '/assets/packaged/scram/wasm.js',
+    worker: '/assets/packaged/scram/worker.js',
+    client: '/assets/packaged/scram/client.js',
+    shared: '/assets/packaged/scram/shared.js',
+    sync: '/assets/packaged/scram/sync.js',
+  },
+  defaultFlags: { serviceworkers: true },
+});
+window.sj = scram;
+scram.init();
+
+try {
+  await navigator.serviceWorker.register('/sw.js');
+} catch (error) {
+  throw new Error('Service Worker registration failed with error:' + error);
+}
 
 export async function launch2(link: string) {
   const connection = new BareMuxConnection('/bm/worker.js');
@@ -46,7 +65,7 @@ full.addEventListener('click', () => {
 });
 
 async function InterceptLinks() {
-  console.debug('Intercepting links is running...');
+  console.debug('Intercepting links....');
   const clickableElements =
     frame.contentWindow?.document.querySelectorAll<HTMLElement>(
       'a, button, [role="button"], [onclick], [data-href], span'

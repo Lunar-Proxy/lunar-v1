@@ -9,6 +9,25 @@ const sf = document.getElementById('startForm') as HTMLFormElement;
 const frame = document.getElementById('frame') as HTMLIFrameElement;
 const loading = document.getElementById('load') as HTMLDivElement;
 const welcome = document.getElementById('starting') as HTMLDivElement;
+const scram = new ScramjetController({
+  prefix: '/scram/',
+  files: {
+    wasm: '/assets/packaged/scram/wasm.js',
+    worker: '/assets/packaged/scram/worker.js',
+    client: '/assets/packaged/scram/client.js',
+    shared: '/assets/packaged/scram/shared.js',
+    sync: '/assets/packaged/scram/sync.js',
+  },
+  defaultFlags: { serviceworkers: true },
+});
+window.sj = scram;
+scram.init();
+
+try {
+  await navigator.serviceWorker.register('/sw.js');
+} catch (error) {
+  throw new Error('Service Worker registration failed with error:' + error);
+}
 
 async function launch(link: string) {
   const connection = new BareMuxConnection('/bm/worker.js');

@@ -37,40 +37,48 @@ if (copy) {
         console.log('Cannot copy URL without a valid source.');
         return;
       }
-
-      if (!pathname.startsWith('/p/') && !pathname.startsWith('/scram/')) {
-        await navigator.clipboard.writeText(frame.contentWindow!.location.href);
-        alert('URL copied to clipboard!');
-        return;
-      }
-
-      const backend = await Settings.get('backend');
-      let url;
-
-      if (backend === 'uv') {
-        url = UltraConfig.decodeUrl(
-          frame.contentWindow!.location.href.split('/p/')[1] ||
-            frame.contentWindow!.location.href
-        );
-      } else {
-        url = scram.decodeUrl(
-          frame.contentWindow!.location.href.split('/scram/')[1] ||
-            frame.contentWindow!.location.href
-        );
-      }
-
-      url = url || frame.src;
-
-      await navigator.clipboard.writeText(url);
-      alert('URL copied to clipboard!');
-    } catch (error) {
-      console.error('Error copying URL:', error);
+    } catch (e) {
+      console.error('Error copying URL:', e);
     }
+
+    if (!pathname.startsWith('/p/') && !pathname.startsWith('/scram/')) {
+      await navigator.clipboard.writeText(frame.contentWindow!.location.href);
+      alert('URL copied to clipboard!');
+      return;
+    }
+
+    const backend = await Settings.get('backend');
+    let url;
+
+    if (backend === 'uv') {
+      url = UltraConfig.decodeUrl(
+        frame.contentWindow!.location.href.split('/p/')[1] ||
+          frame.contentWindow!.location.href
+      );
+    } else {
+      url = scram.decodeUrl(
+        frame.contentWindow!.location.href.split('/scram/')[1] ||
+          frame.contentWindow!.location.href
+      );
+    }
+
+    url = url || frame.src;
+
+    await navigator.clipboard.writeText(url);
+    alert('URL copied to clipboard!');
   });
 }
 
 if (cnsl) {
   cnsl.addEventListener('click', () => {
+    try {
+      if (!frame || !frame.src || frame.src === 'about:blank') {
+        console.log('Cannot copy URL without a valid source.');
+        return;
+      }
+    } catch (e) {
+      console.error('Error copying URL:', e);
+    }
     const eruda = frame.contentWindow?.eruda;
     if (eruda) {
       if (eruda._isInit) {
