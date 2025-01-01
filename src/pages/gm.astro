@@ -4,7 +4,7 @@ import '@src/main.css';
 import Card from '@src/components/asset.astro';
 import { Maximize, LogOut, RotateCw } from 'lucide-astro';
 import type { Asset } from '@src/utils/as';
-import data from '../../public/assets/json/ap.json';
+import data from '../../public/assets/json/gm.json';
 let games = data as Asset[];
 ---
 
@@ -31,7 +31,11 @@ let games = data as Asset[];
   <p class="text-text-HEADER uppercase text-center mt-10 text-4xl font-bold">
     Games
   </p>
-  <input id="input" />
+
+  <div class="flex justify-center items-center mt-9">
+    <input id="input" class="mt-9" />
+  </div>
+
   <div class="mt-5 flex h-45" id="section">
     <Card games={games} />
   </div>
@@ -66,4 +70,4 @@ let games = data as Asset[];
   </div>
 </body>
 <script src="@src/utils/frame.ts"></script>
-<script src="@src/utils/as"></script>
+<script src="@src/utils/as.ts"></script>

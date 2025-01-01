@@ -17,5 +17,11 @@
     "image": "/assets/images/icons/w3.png",
     "link": "https://www.w3schools.com/",
     "error": false
+  },
+  {
+    "name": "VS Code",
+    "image": "/assets/images/icons/vs.jpeg",
+    "link": "https://code.visualstudio.com/",
+    "error": false
   }
 ]

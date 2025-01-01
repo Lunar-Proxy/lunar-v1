@@ -11,7 +11,6 @@ export async function search(input: string, backend: string, template: string) {
     defaultFlags: { serviceworkers: true },
   });
   window.sj = scram;
-  scram.init();
 
   let ValidUrl;
   const protocol = input.includes('://');

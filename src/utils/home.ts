@@ -107,7 +107,7 @@ fetch('/assets/json/quotes.json')
     const message = messages[random];
     const quote = document.getElementById('quote') as HTMLDivElement;
     if (quote && message && message.text) {
-      quote.textContent = message.text;
+      quote.innerHTML = message.text;
     }
   })
   .catch((error) => {

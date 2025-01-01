@@ -22,7 +22,9 @@ window.sj = scram;
 scram.init();
 
 try {
-  await navigator.serviceWorker.register('/sw.js');
+  await navigator.serviceWorker.register('/sw.js').then(() => {
+    console.log('Service Workers are registered.');
+  });
 } catch (error) {
   throw new Error('Service Worker registration failed with error:' + error);
 }

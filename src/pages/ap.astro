@@ -1,4 +1,5 @@
 ---
+export const prerender = false;
 import '@src/main.css';
 import Card from '@src/components/asset.astro';
 import data from '../../public/assets/json/ap.json';
@@ -30,7 +31,9 @@ let apps = data as Asset[];
     Apps
   </p>
 
-  <input id="input" />
+  <div class="flex justify-center items-center mt-9">
+    <input id="input" class="mt-9" />
+  </div>
 
   <div class="mt-5 flex h-45" id="section">
     <Card games={apps} />
@@ -65,4 +68,5 @@ let apps = data as Asset[];
       class="w-full h-[calc(100%-64px)] bg-gray-100 rounded-lg"></iframe>
   </div>
 </body>
-<script src="@src/utils/as"></script>
+<script src="@src/utils/frame.ts"></script>
+<script src="@src/utils/as.ts"></script>

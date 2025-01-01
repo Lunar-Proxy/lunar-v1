@@ -24,7 +24,9 @@ window.sj = scram;
 scram.init();
 
 try {
-  await navigator.serviceWorker.register('/sw.js');
+  await navigator.serviceWorker.register('/sw.js').then(() => {
+    console.log('Service Workers are registered.');
+  });
 } catch (error) {
   throw new Error('Service Worker registration failed with error:' + error);
 }
@@ -49,6 +51,25 @@ async function launch(link: string) {
     if (backend == 'uv') {
       InterceptLinks();
     }
+    if (backend == 'uv') {
+      input.value =
+        UltraConfig.decodeUrl(
+          frame.contentWindow!.location.href.split('/p/')[1] ||
+            frame.contentWindow!.location.href
+        ) || '';
+
+      if (input.value === 'about:blank') {
+        input.value = '';
+      }
+    } else {
+      input.value = scram.decodeUrl(
+        frame.contentWindow!.location.href.split('/scram/')[1] ||
+          frame.contentWindow!.location.href
+      );
+      if (input.value === 'about:blank') {
+        input.value = '';
+      }
+    }
   });
 }
 
@@ -65,6 +86,7 @@ sf.addEventListener('submit', async (event) => {
   input.value = si.value;
   fm.dispatchEvent(new Event('submit'));
 });
+
 async function InterceptLinks() {
   console.debug('Intercepting links is running...');
   const clickableElements =
