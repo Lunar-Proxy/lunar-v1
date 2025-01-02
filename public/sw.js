@@ -1,10 +1,9 @@
-if (navigator.userAgent.includes('Firefox')) {
+ifif (navigator.userAgent.includes('Firefox')) {
   Object.defineProperty(globalThis, 'crossOriginIsolated', {
     value: true,
     writable: false,
   });
 }
-
 importScripts(
   '/assets/packaged/v/bundle.js',
   '/assets/packaged/v/config.js',
@@ -16,6 +15,7 @@ importScripts(
 
 const uv = new UVServiceWorker();
 const scramjet = new ScramjetServiceWorker();
+
 let playgroundData;
 
 self.addEventListener('message', ({ data }) => {
@@ -26,13 +26,14 @@ self.addEventListener('message', ({ data }) => {
 
 async function handleRequest(event) {
   if (uv.route(event)) {
-    return uv.fetch(event);
+    return await uv.fetch(event);
   }
+
   await scramjet.loadConfig();
   if (scramjet.route(event)) {
-    return scramjet.fetch(event);
+    return await scramjet.fetch(event);
   }
-  return fetch(event.request);
+  return await fetch(event.request);
 }
 
 self.addEventListener('fetch', (event) => {
