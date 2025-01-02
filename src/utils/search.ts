@@ -12,25 +12,25 @@ export async function search(input: string, backend: string, template: string) {
   });
   window.sj = scram;
 
-  let ValidUrl;
-  const protocol = input.includes('://');
+  let finalUrl = '';
 
-  if (protocol) {
-    const url = new URL(input);
-    if (url.hostname.includes('.')) {
-      ValidUrl = url.toString();
-    }
-  } else {
-    const url = new URL(`http://${input}`);
-    if (url.hostname.includes('.')) {
-      ValidUrl = url.toString();
-    }
+  try {
+    finalUrl = new URL(input).toString();
+  } catch (err) {}
+
+  if (!finalUrl) {
+    try {
+      const url = new URL(`http://${input}`);
+      if (url.hostname.includes('.')) {
+        finalUrl = url.toString();
+      }
+    } catch (err) {}
   }
 
-  if (!ValidUrl) ValidUrl = template.replace('%s', encodeURIComponent(input));
+  if (!finalUrl) {
+    finalUrl = template.replace('%s', encodeURIComponent(input));
+  }
 
-  if (backend === 'uv') return `/p/${UltraConfig.encodeUrl(ValidUrl)}`;
-  if (backend === 'sj') return scram.encodeUrl(ValidUrl);
-
-  return ValidUrl;
+  if (backend === 'uv') return `/p/${UltraConfig.encodeUrl(finalUrl)}`;
+  if (backend === 'sj') return scram.encodeUrl(finalUrl);
 }

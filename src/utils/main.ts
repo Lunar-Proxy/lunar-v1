@@ -5,6 +5,7 @@ import { search } from './search';
 const input = document.getElementById('input') as HTMLInputElement;
 const si = document.getElementById('startSearch') as HTMLInputElement;
 const fm = document.getElementById('form') as HTMLFormElement;
+const favicon = document.getElementById('favicon') as HTMLImageElement;
 const sf = document.getElementById('startForm') as HTMLFormElement;
 const frame = document.getElementById('frame') as HTMLIFrameElement;
 const loading = document.getElementById('load') as HTMLDivElement;
@@ -48,31 +49,32 @@ async function launch(link: string) {
   frame.src = url;
   frame.addEventListener('load', () => {
     loading.classList.add('hidden');
-    if (backend == 'uv') {
+    if (backend === 'uv') {
       InterceptLinks();
-    }
-    if (backend == 'uv') {
-      input.value =
-        UltraConfig.decodeUrl(
-          frame.contentWindow!.location.href.split('/p/')[1] ||
-            frame.contentWindow!.location.href
-        ) || '';
-
+      input.value = '';
       if (input.value === 'about:blank') {
         input.value = '';
       }
+      let url =
+        frame.contentWindow?.location.href.split('/p/')[1] ||
+        frame.contentWindow?.location.href;
+      url = UltraConfig.decodeUrl(url || '') || '';
+      input.value = url || '';
+      favicon.src = `https://www.google.com/s2/favicons?domain=${url}`;
     } else {
-      input.value = scram.decodeUrl(
-        frame.contentWindow!.location.href.split('/scram/')[1] ||
-          frame.contentWindow!.location.href
-      );
+      input.value = '';
       if (input.value === 'about:blank') {
         input.value = '';
       }
+      let url =
+        frame.contentWindow?.location.href.split('/scram/')[1] ||
+        frame.contentWindow?.location.href;
+      url = scram.decodeUrl(url || '');
+      input.value = url || '';
+      favicon.src = `https://www.google.com/s2/favicons?domain=${url}`;
     }
   });
 }
-
 fm.addEventListener('submit', async (event) => {
   event.preventDefault();
   welcome.classList.add('hidden');

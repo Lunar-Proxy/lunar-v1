@@ -4,7 +4,6 @@ import { Image } from 'astro:assets';
 import {
   ArrowLeft,
   ArrowRight,
-  LoaderCircle,
   MoonStar,
   RotateCw,
   Gamepad,
@@ -128,6 +127,7 @@ import {
             src="/assets/images/engines/google.png"
             alt="Search Engine"
             width={25}
+            id="favicon"
             height={26}
             class="rounded-full absolute left-3 top-1/2 transform -translate-y-1/2"
           />
@@ -190,7 +190,7 @@ import {
       class="text-center mt-10 p-4 rounded-lg space-x-4 z-30 relative ml-[56px]"
     >
       <h1 class="text-6xl ml-35 mt-52 text-text-HEADER font-bold">Lunar</h1>
-      <p id="quote" class="text-mm mt-4 text-text-SECONDARY">
+      <p id="quote" class="text-mm mt-6 text-text-SECONDARY">
         Loading quote...
       </p>
       <form method="post" id="startForm">
@@ -199,7 +199,7 @@ import {
             type="text"
             id="startSearch"
             autocomplete="off"
-            class="pl-10 text-center w-1/2 mt-10 bg-[#303446] text-text-SECONDARY p-2 rounded-full border border-[#a5adce] placeholder-white"
+            class="pl-10 text-center w-1/2 mt-10 bg-background-overlay text-text-SECONDARY p-2 rounded-full border border-[#a5adce] placeholder-white"
             placeholder="Search..."
           />
         </div>
@@ -207,11 +207,22 @@ import {
     </div>
 
     <div id="load" class="z-10 ml-16 relative hidden">
-      <LoaderCircle
-        class="text-[#a5adce] w-16 h-12 mx-auto mt-[220px] animate-spin"
-      />
-      <h1 class="text-center mt-10 text-4xl text-text-HEADER font-bold">
-        Please wait while Lunar loads your content.
+      <div class="flex justify-center items-center space-x-4 mt-[220px] mb-6">
+        <div
+          class="dot w-4 h-4 bg-[#a5adce] rounded-full animate-bounce delay-150"
+        >
+        </div>
+        <div
+          class="dot w-4 h-4 bg-[#a5adce] rounded-full animate-bounce delay-200"
+        >
+        </div>
+        <div
+          class="dot w-4 h-4 bg-[#a5adce] rounded-full animate-bounce delay-250"
+        >
+        </div>
+      </div>
+      <h1 class="text-center text-4xl font-bold mt-14 text-text-HEADER">
+        Please wait while Lunar loads your content...
       </h1>
     </div>
 

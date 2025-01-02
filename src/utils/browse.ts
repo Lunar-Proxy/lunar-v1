@@ -12,6 +12,7 @@ const ff = document.getElementById('full-screen') as HTMLDivElement;
 const cnsl = document.getElementById('console') as HTMLDivElement;
 const star = document.getElementById('fav') as HTMLDivElement;
 const copy = document.getElementById('link') as HTMLButtonElement;
+
 const scram = new ScramjetController({
   prefix: '/scram/',
   files: {
