@@ -125,7 +125,7 @@ app.listen({ host, port }, (err, address) => {
     throw new Error(`❌ Failed to start Lunar: ${err.message}`);
   } else {
     console.log(chalk.green.bold(`\n🌙 Lunar is running at:`));
-    console.log(chalk.blue.bold(`🌐 Local: http://${host}:${port}`));
+    console.log(chalk.blue.bold(`🌐 Local: http://localhost:${port}`));
     console.log(chalk.blue.bold(`🌍 Network: ${address}`));
   }
 });
