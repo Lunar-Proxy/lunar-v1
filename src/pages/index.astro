@@ -25,7 +25,7 @@ import {
     <meta name="generator" content={Astro.generator} />
     <title>Home</title>
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-    <script is:inline src="/bm/index.js"></script>
+    <script is:inline src="/bm/index.js" defer></script>
     <script is:inline src="/assets/packaged/v/config.js" defer></script>
     <script is:inline src="/assets/packaged/v/bundle.js" defer></script>
     <link rel="prefetch" href="/assets/packaged/scram/worker.js" />
@@ -218,6 +218,7 @@ import {
 
     <iframe
       id="frame"
+      loading="lazy"
       title=""
       class="fixed top-[64px] left-[62px] z-20 h-[calc(100vh-64px)] w-[calc(100%-62px)]"
     ></iframe>

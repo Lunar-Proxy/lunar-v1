@@ -11,33 +11,34 @@ type Asset = {
 };
 ---
 
-<div class="flex flex-row gap-6 p-4 overflow-x-auto">
+<div class="flex flex-wrap gap-6 p-4 overflow-x-auto sm:overflow-x-hidden">
   {
     games.length === 0 ? (
-      <p class="text-center text-gray-500">No Assets found</p>
+      <p class="text-center text-gray-500">No Assets found...</p>
     ) : (
       games.map((game: Asset) => (
         <button
           id="data-2"
           data-json={JSON.stringify(game)}
-          class="relative flex flex-col items-start shadow-lg rounded-lg p-4 transition-transform transform hover:scale-105 hover:shadow-xl group"
+          class="mt-16 relative group cursor-pointer transition-all w-36 transform overflow-visible"
         >
-          <div class="relative w-36 h-36">
+          <div class="relative">
             <Image
+              loading="lazy"
               src={game.image}
               alt={game.name}
               width={140}
               height={140}
-              loading="lazy"
-              class="rounded-lg w-full h-full object-contain transition-transform duration-300 group-hover:blur-sm"
+              class="h-36 aspect-square object-cover rounded-md transition-all duration-150 group-hover:scale-105 group-hover:blur-sm"
             />
-            <div class="absolute inset-0 bg-black opacity-0 group-hover:opacity-30 rounded-lg transition-opacity duration-300" />
+            <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 rounded-md transition-opacity duration-150" />
           </div>
-          <div class="absolute bottom-2 left-2 text-white opacity-0 group-hover:opacity-100 text-lg font-semibold font-poppins tracking-wide drop-shadow-md p-1 transition-opacity duration-300">
-            {game.name}
+          <div class="absolute bottom-0 left-0 w-full p-2 text-white text-center opacity-0 group-hover:opacity-100 text-lg font-semibold font-poppins tracking-wide drop-shadow-md overflow-visible">
+            <div class="text-center font-semibold text-base">{game.name}</div>
           </div>
         </button>
       ))
     )
   }
 </div>
+

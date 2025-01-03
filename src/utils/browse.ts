@@ -1,4 +1,10 @@
 import { Settings } from '@src/utils/config';
+
+interface PageElement {
+  app?: string;
+  gam?: string;
+}
+
 const bak = document.getElementById('back') as HTMLButtonElement;
 const fwd = document.getElementById('forward') as HTMLButtonElement;
 const refresh = document.getElementById('reload') as HTMLButtonElement;
@@ -7,7 +13,6 @@ const frame = document.getElementById('frame') as HTMLIFrameElement;
 // it isnt ready | const setting = document.getElementById('set') as HTMLDivElement;
 const app = document.getElementById('app') as HTMLDivElement;
 const gam = document.getElementById('game') as HTMLDivElement;
-const home = document.getElementById('home') as HTMLDivElement;
 const ff = document.getElementById('full-screen') as HTMLDivElement;
 const cnsl = document.getElementById('console') as HTMLDivElement;
 const star = document.getElementById('fav') as HTMLDivElement;
@@ -27,6 +32,23 @@ const scram = new ScramjetController({
   },
 });
 window.sj = scram;
+
+const elements: PageElement = {
+  app: './ap',
+  gam: './gm'
+};
+
+Object.keys(elements).forEach((key) => {
+  const element = document.getElementById(key);
+  if (element) {
+    element.addEventListener('click', () => {
+      const starting = document.getElementById('starting'); 
+      if (starting) starting.classList.add('hidden');
+      if (frame) frame.src = elements[key as keyof PageElement]!;
+    });
+  }
+});
+
 
 if (copy) {
   copy.addEventListener('click', async () => {
@@ -122,11 +144,6 @@ if (ff) {
   });
 }
 
-if (home) {
-  home.addEventListener('click', () => {
-    frame.src = './';
-  });
-}
 
 if (app) {
   app.addEventListener('click', () => {
