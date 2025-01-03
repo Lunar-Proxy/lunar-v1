@@ -6,6 +6,7 @@ import {
   ArrowRight,
   MoonStar,
   RotateCw,
+  Ellipsis,
   Gamepad,
   Grid2X2Plus,
   Settings,
@@ -207,19 +208,8 @@ import {
     </div>
 
     <div id="load" class="z-10 ml-16 relative hidden">
-      <div class="flex justify-center items-center space-x-4 mt-[220px] mb-6">
-        <div
-          class="dot w-4 h-4 bg-[#a5adce] rounded-full animate-bounce delay-150"
-        >
-        </div>
-        <div
-          class="dot w-4 h-4 bg-[#a5adce] rounded-full animate-bounce delay-200"
-        >
-        </div>
-        <div
-          class="dot w-4 h-4 bg-[#a5adce] rounded-full animate-bounce delay-250"
-        >
-        </div>
+      <div class="flex justify-center items-center space-x-4 mt-[210px] mb-6">
+        <Ellipsis class="w-24 h-24 text-[#a5adce] animate-bounce delay-150" />
       </div>
       <h1 class="text-center text-4xl font-bold mt-14 text-text-HEADER">
         Please wait while Lunar loads your content...
