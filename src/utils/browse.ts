@@ -1,17 +1,11 @@
 import { Settings } from '@src/utils/config';
 
-interface PageElement {
-  app?: string;
-  gam?: string;
-  dings?: string;
-}
-
-const dings = document.getElementById('Gear') as HTMLButtonElement;
 const bak = document.getElementById('back') as HTMLButtonElement;
 const fwd = document.getElementById('forward') as HTMLButtonElement;
 const refresh = document.getElementById('reload') as HTMLButtonElement;
 const starting = document.getElementById('starting') as HTMLDivElement;
 const frame = document.getElementById('frame') as HTMLIFrameElement;
+const Gear = document.getElementById('Gear') as HTMLButtonElement;
 const app = document.getElementById('app') as HTMLButtonElement;
 const gam = document.getElementById('game') as HTMLButtonElement;
 const ff = document.getElementById('full-screen') as HTMLButtonElement;
@@ -33,10 +27,16 @@ const scram = new ScramjetController({
 });
 window.sj = scram;
 
+interface PageElement {
+  app: string;
+  gam: string;
+  Gear: string;
+}
+
 const elements: PageElement = {
-  app: './ap',
-  gam: './gm',
-  dings: './st',
+  app: '/ap',
+  gam: '/gm',
+  Gear: '/st',
 };
 
 Object.keys(elements).forEach((key) => {
@@ -45,7 +45,7 @@ Object.keys(elements).forEach((key) => {
     element.addEventListener('click', async () => {
       const starting = document.getElementById('starting');
       if (starting) starting.classList.add('hidden');
-      if (frame) frame.src = elements[key as keyof PageElement]!;
+      frame.src = elements[key as keyof PageElement]!;
     });
   }
 });

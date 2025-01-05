@@ -58,7 +58,7 @@ import {
             class="text-[#a5adce] hover:text-white w-8 h-8 transition duration-150 transform hover:scale-110"
           />
         </div>
-        <div id="Gear">
+        <div id="set">
           <Settings
             class="text-[#a5adce] hover:text-white w-8 h-8 transition duration-150 transform hover:scale-110"
           />
@@ -185,45 +185,43 @@ import {
         </div>
       </button>
     </div>
-
     <div
-    id="starting"
-    class="text-center mt-10 p-4 rounded-lg space-x-4 z-30 relative ml-[74px] flex flex-col justify-center items-center"
-  >
-    <h1 class="text-6xl mt-52 text-text-HEADER  font-bold">Lunar</h1>
-    <p id="quote" class="text-mm mt-6 text-text-SECONDARY">
-      Loading quote...
-    </p>
-    <form method="post" id="startForm" class="mt-6 flex justify-center w-full">
-      <div class="relative w-full max-w-md">
-        <input
-          type="text"
-          id="startSearch"
-          autocomplete="off"
-          class="pl-10 text-center w-full bg-background-overlay text-text-SECONDARY p-2 rounded-full border border-[#a5adce] placeholder-white"
-          placeholder="Search..."
-        />
-      </div>
-    </form>
-  </div>
-  
-    <div id="load" class="z-10 ml-16 relative hidden">
-      <div class="flex justify-center items-center space-x-4 mt-[210px] mb-6">
-        <Ellipsis class="w-24 h-24 text-[#a5adce] animate-bounce delay-150" />
-      </div>
-      <h1 class="text-center text-4xl font-bold mt-14 text-text-HEADER">
-        Please wait while Lunar loads your content...
-      </h1>
+      id="starting"
+      class="flex flex-col items-center justify-center mt-10 p-4 rounded-lg space-x-4 z-30 relative ml-[56px] h-screen"
+    >
+      <h1 class="text-7xl ml-8 text-text-HEADER font-bold">Lunar</h1>
+      <p id="quote" class="text-lg mt-8 text-text-SECONDARY">
+        Loading quote...
+      </p>
+      <form method="post" id="startForm" class="w-full flex justify-center">
+        <div class="relative w-full max-w-[400px]">
+          <input
+            type="text"
+            id="startSearch"
+            autocomplete="off"
+            class="pl-10 text-center w-full mt-8 bg-background-overlay text-text-SECONDARY p-2 rounded-full border border-[#a5adce] placeholder-white"
+            placeholder="Search..."
+          />
+        </div>
+      </form>
     </div>
-
-    <iframe
-      id="frame"
-      loading="lazy"
-      title=""
-      class="fixed top-[64px] left-[62px] z-20 h-[calc(100vh-64px)] w-[calc(100%-62px)]"
-    ></iframe>
-    <script src="@src/utils/browse.ts"></script>
-    <script src="@src/utils/home.ts"></script>
   </body>
+
+  <div id="load" class="z-10 ml-16 relative hidden">
+    <div class="flex justify-center items-center space-x-4 mt-[210px] mb-6">
+      <Ellipsis class="w-24 h-24 text-[#a5adce] animate-bounce delay-150" />
+    </div>
+    <h1 class="text-center text-4xl font-bold mt-14 text-text-HEADER">
+      Please wait while Lunar loads your content...
+    </h1>
+  </div>
+
+  <iframe
+    id="frame"
+    loading="lazy"
+    title=""
+    class="fixed top-[64px] left-[62px] z-20 h-[calc(100vh-64px)] w-[calc(100%-62px)]"
+  ></iframe>
+  <script src="@src/utils/browse.ts"></script>
+  <script src="@src/utils/home.ts"></script>
 </html>
-z

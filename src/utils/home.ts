@@ -114,23 +114,23 @@ fetch('/assets/json/quotes.json')
     console.error('Error:', error);
   });
 
-  try {
-    const trackingId = "G-DQZPCVEF89";
-    const gt1 = document.createElement("script");
-    gt1.src = `https://www.googletagmanager.com/gtag/js?id=${trackingId}`;
-    gt1.async = true;
-    document.head.appendChild(gt1);
-    const gt2 = document.createElement("script");
-    gt2.innerHTML = `
+try {
+  const trackingId = 'G-DQZPCVEF89';
+  const gt1 = document.createElement('script');
+  gt1.src = `https://www.googletagmanager.com/gtag/js?id=${trackingId}`;
+  gt1.async = true;
+  document.head.appendChild(gt1);
+  const gt2 = document.createElement('script');
+  gt2.innerHTML = `
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
     gtag('config', '${trackingId}');
     `;
-    document.head.appendChild(gt2);
+  document.head.appendChild(gt2);
 } catch (e) {
-    console.error(`Error loading Google Analytics: ${e}`);
-    throw new Error(`Error loading Google Analytics: ${e}`);
+  console.error(`Error loading Google Analytics: ${e}`);
+  throw new Error(`Error loading Google Analytics: ${e}`);
 }
 
-console.debug("Google Analytics loaded.");
+console.debug('Google Analytics loaded.');

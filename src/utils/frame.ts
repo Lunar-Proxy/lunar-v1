@@ -1,7 +1,6 @@
 import { BareMuxConnection } from '@mercuryworkshop/bare-mux';
 import { Settings } from '@src/utils/config';
 
-
 const exit = document.getElementById('return') as HTMLButtonElement;
 const refresh = document.getElementById('rotate') as HTMLButtonElement;
 const frame = document.getElementById('display') as HTMLIFrameElement;
@@ -45,7 +44,7 @@ export async function launch2(link: string) {
   launch.classList.remove('hidden');
   let url;
   if (backend === 'uv') url = `/p/${UltraConfig.encodeUrl(link)}`;
-  if (backend === 'sj') url = scram.encodeUrl(link)
+  if (backend === 'sj') url = scram.encodeUrl(link);
   frame.src = url; // it will always be a URL
 
   frame.addEventListener('load', () => {
