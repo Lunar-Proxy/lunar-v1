@@ -3,21 +3,21 @@ import { Settings } from '@src/utils/config';
 interface PageElement {
   app?: string;
   gam?: string;
+  dings?: string;
 }
 
+const dings = document.getElementById('Gear') as HTMLButtonElement;
 const bak = document.getElementById('back') as HTMLButtonElement;
 const fwd = document.getElementById('forward') as HTMLButtonElement;
 const refresh = document.getElementById('reload') as HTMLButtonElement;
 const starting = document.getElementById('starting') as HTMLDivElement;
 const frame = document.getElementById('frame') as HTMLIFrameElement;
-// it isnt ready | const setting = document.getElementById('set') as HTMLDivElement;
-const app = document.getElementById('app') as HTMLDivElement;
-const gam = document.getElementById('game') as HTMLDivElement;
-const ff = document.getElementById('full-screen') as HTMLDivElement;
-const cnsl = document.getElementById('console') as HTMLDivElement;
-const star = document.getElementById('fav') as HTMLDivElement;
+const app = document.getElementById('app') as HTMLButtonElement;
+const gam = document.getElementById('game') as HTMLButtonElement;
+const ff = document.getElementById('full-screen') as HTMLButtonElement;
+const cnsl = document.getElementById('console') as HTMLButtonElement;
+const star = document.getElementById('fav') as HTMLButtonElement;
 const copy = document.getElementById('link') as HTMLButtonElement;
-
 const scram = new ScramjetController({
   prefix: '/scram/',
   files: {
@@ -35,20 +35,20 @@ window.sj = scram;
 
 const elements: PageElement = {
   app: './ap',
-  gam: './gm'
+  gam: './gm',
+  dings: './st',
 };
 
 Object.keys(elements).forEach((key) => {
   const element = document.getElementById(key);
   if (element) {
-    element.addEventListener('click', () => {
-      const starting = document.getElementById('starting'); 
+    element.addEventListener('click', async () => {
+      const starting = document.getElementById('starting');
       if (starting) starting.classList.add('hidden');
       if (frame) frame.src = elements[key as keyof PageElement]!;
     });
   }
 });
-
 
 if (copy) {
   copy.addEventListener('click', async () => {
@@ -70,25 +70,29 @@ if (copy) {
       return;
     }
 
-    const backend = await Settings.get('backend');
-    let url;
+    try {
+      const backend = await Settings.get('backend');
+      let url;
 
-    if (backend === 'uv') {
-      url = UltraConfig.decodeUrl(
-        frame.contentWindow!.location.href.split('/p/')[1] ||
-          frame.contentWindow!.location.href
-      );
-    } else {
-      url = scram.decodeUrl(
-        frame.contentWindow!.location.href.split('/scram/')[1] ||
-          frame.contentWindow!.location.href
-      );
+      if (backend === 'uv') {
+        url = UltraConfig.decodeUrl(
+          frame.contentWindow!.location.href.split('/p/')[1] ||
+            frame.contentWindow!.location.href
+        );
+      } else {
+        url = scram.decodeUrl(
+          frame.contentWindow!.location.href.split('/scram/')[1] ||
+            frame.contentWindow!.location.href
+        );
+      }
+
+      url = url || frame.src;
+
+      await navigator.clipboard.writeText(url);
+      alert('URL copied to clipboard!');
+    } catch (error) {
+      console.error('Error fetching backend from settings:', error);
     }
-
-    url = url || frame.src;
-
-    await navigator.clipboard.writeText(url);
-    alert('URL copied to clipboard!');
   });
 }
 
@@ -144,7 +148,6 @@ if (ff) {
   });
 }
 
-
 if (app) {
   app.addEventListener('click', () => {
     starting.classList.add('hidden');
@@ -179,22 +182,26 @@ if (refresh) {
 
 if (star) {
   star.addEventListener('click', async () => {
-    let oringalUrl;
+    let originalUrl;
     if (frame && frame.src) {
       const nickname = prompt('Enter a nickname for this favorite:');
       if (nickname) {
         const favorites = JSON.parse(
           localStorage.getItem('@lunar/favorites') || '[]'
         );
-        if ((await Settings.get('backend')) == 'sj') {
-          oringalUrl = `${scram.decodeUrl(frame.contentWindow!.location.href.split('/scram/')[1] || frame.contentWindow!.location.href)}`;
-        } else {
-          oringalUrl = `${UltraConfig.decodeUrl(frame.contentWindow!.location.href.split('/p/')[1] || frame.contentWindow!.location.href)}`;
+        try {
+          if ((await Settings.get('backend')) == 'sj') {
+            originalUrl = `${scram.decodeUrl(frame.contentWindow!.location.href.split('/scram/')[1] || frame.contentWindow!.location.href)}`;
+          } else {
+            originalUrl = `${UltraConfig.decodeUrl(frame.contentWindow!.location.href.split('/p/')[1] || frame.contentWindow!.location.href)}`;
+          }
+          const newFav = { nickname, url: originalUrl };
+          favorites.push(newFav);
+          localStorage.setItem('@lunar/favorites', JSON.stringify(favorites));
+          console.debug(`Favorite "${nickname}" added successfully!`);
+        } catch (error) {
+          console.error('Error adding favorite:', error);
         }
-        const newFav = { nickname, url: oringalUrl };
-        favorites.push(newFav);
-        localStorage.setItem('@lunar/favorites', JSON.stringify(favorites));
-        console.debug(`Favorite "${nickname}" added successfully!`);
       } else {
         alert('Favorite not saved. Nickname is required.');
       }

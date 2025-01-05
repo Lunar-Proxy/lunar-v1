@@ -11,7 +11,7 @@ type Asset = {
 };
 ---
 
-<div class="flex flex-wrap gap-6 p-4 overflow-x-auto sm:overflow-x-hidden">
+<div class="flex mt-16 flex-wrap gap-6 p-4 overflow-x-auto sm:overflow-x-hidden">
   {
     games.length === 0 ? (
       <p class="text-center text-gray-500">No Assets found...</p>
@@ -20,7 +20,7 @@ type Asset = {
         <button
           id="data-2"
           data-json={JSON.stringify(game)}
-          class="mt-16 relative group cursor-pointer transition-all w-36 transform overflow-visible"
+          class="relative group cursor-pointer transition-all w-36 transform overflow-visible"
         >
           <div class="relative">
             <Image

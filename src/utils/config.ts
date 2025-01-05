@@ -35,7 +35,7 @@ const Settings = (function () {
   async function ensureDefaultSettings(): Promise<void> {
     await dbReady;
     const defaultSettings: Setting[] = [
-      { cloak: 'on' },
+      { cloak: 'off' }, // redoing soon (default for now is off)
       { backend: 'sj' }, // Ultraviolet: uv (default) | Scramjet: sj
       { 'search-engine': 'https://www.google.com/search?q=' },
       { transport: 'ep' }, // Epoxy: ep (default & only option)

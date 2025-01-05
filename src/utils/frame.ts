@@ -1,6 +1,6 @@
 import { BareMuxConnection } from '@mercuryworkshop/bare-mux';
 import { Settings } from '@src/utils/config';
-import { search } from './search';
+
 
 const exit = document.getElementById('return') as HTMLButtonElement;
 const refresh = document.getElementById('rotate') as HTMLButtonElement;
@@ -43,8 +43,10 @@ export async function launch2(link: string) {
   }
   console.log('Transport set to Epoxy');
   launch.classList.remove('hidden');
-  let url = await search(link, backend, 'https://www.google.com/search?q=%s');
-  frame.src = url;
+  let url;
+  if (backend === 'uv') url = `/p/${UltraConfig.encodeUrl(link)}`;
+  if (backend === 'sj') url = scram.encodeUrl(link)
+  frame.src = url; // it will always be a URL
 
   frame.addEventListener('load', () => {
     if (backend == 'uv') {
