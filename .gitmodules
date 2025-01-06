@@ -1,9 +1,0 @@
-
-[submodule "public/assets/json"]
-	path = public/assets/json
-	url = https://github.com/Lunar-Proxy/cdn.git
-	branch = JSON
-[submodule "public/assets/images"]
-	path = public/assets/images
-	url = https://github.com/Lunar-Proxy/cdn.git
-	branch = Images
