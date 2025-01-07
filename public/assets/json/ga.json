@@ -5,13 +5,13 @@
     "link": "https://client.eaglercraft.win/eagler-files/modded/1.8/EaglyMC/index.html",
     "error": false
   },
-   {
+  {
     "name": "Wordle",
     "image": "/assets/images/icons/word.png",
     "link": "https://www.nytimes.com/games/wordle/index.html",
     "error": false
   },
-     {
+  {
     "name": "Cookie Clicker",
     "image": "/assets/images/icons/cc.png",
     "link": "https://orteil.dashnet.org/cookieclicker/",
@@ -23,7 +23,7 @@
     "link": "https://smashkarts.io/",
     "error": false
   },
-   {
+  {
     "name": "BlockBlast",
     "image": "/assets/images/icons/bb.webp",
     "link": "https://reunbozdo.github.io/",
@@ -53,13 +53,13 @@
     "link": "https://2048game.com/",
     "error": false
   },
-   {
+  {
     "name": "Stickman Hook",
     "image": "/assets/images/icons/sh.avif",
     "link": "https://stickman-hook-game.github.io/file/",
     "error": false
   },
-     {
+  {
     "name": "EmulatorJs",
     "image": "/assets/images/icons/emjs.png",
     "link": "https://demo.emulatorjs.org/",
@@ -126,8 +126,4 @@
     "link": "https://ubg77.github.io/edit/merge-round-racers/",
     "error": false
   }
-
-
-  
 ]
-

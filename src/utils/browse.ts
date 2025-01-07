@@ -5,9 +5,6 @@ const fwd = document.getElementById('forward') as HTMLButtonElement;
 const refresh = document.getElementById('reload') as HTMLButtonElement;
 const starting = document.getElementById('starting') as HTMLDivElement;
 const frame = document.getElementById('frame') as HTMLIFrameElement;
-const Gear = document.getElementById('Gear') as HTMLButtonElement;
-const app = document.getElementById('app') as HTMLButtonElement;
-const gam = document.getElementById('game') as HTMLButtonElement;
 const ff = document.getElementById('full-screen') as HTMLButtonElement;
 const cnsl = document.getElementById('console') as HTMLButtonElement;
 const star = document.getElementById('fav') as HTMLButtonElement;
@@ -27,25 +24,23 @@ const scram = new ScramjetController({
 });
 window.sj = scram;
 
-interface PageElement {
-  app: string;
-  gam: string;
-  Gear: string;
-}
-
-const elements: PageElement = {
-  app: '/ap',
-  gam: '/gm',
-  Gear: '/st',
+type PageElement = {
+  [key: string]: string;
 };
 
-Object.keys(elements).forEach((key) => {
+const elements: PageElement = {
+  ap: './ap',
+  gam: './gm',
+  gear: './st',
+};
+
+Object.entries(elements).forEach(([key, path]) => {
   const element = document.getElementById(key);
   if (element) {
-    element.addEventListener('click', async () => {
-      const starting = document.getElementById('starting');
-      if (starting) starting.classList.add('hidden');
-      frame.src = elements[key as keyof PageElement]!;
+    element.addEventListener('click', () => {
+      starting.classList.add('hidden');
+      console.debug('Navigating to ' + path);
+      if (frame) frame.src = path as string;
     });
   }
 });
@@ -145,20 +140,6 @@ if (ff) {
     } else {
       console.log('Cannot go fullscreen without a valid source.');
     }
-  });
-}
-
-if (app) {
-  app.addEventListener('click', () => {
-    starting.classList.add('hidden');
-    frame.src = './ap';
-  });
-}
-
-if (gam) {
-  gam.addEventListener('click', () => {
-    starting.classList.add('hidden');
-    frame.src = './gm';
   });
 }
 

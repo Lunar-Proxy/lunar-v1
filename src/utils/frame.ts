@@ -45,7 +45,7 @@ export async function launch2(link: string) {
   let url;
   if (backend === 'uv') url = `/p/${UltraConfig.encodeUrl(link)}`;
   if (backend === 'sj') url = scram.encodeUrl(link);
-  frame.src = url; // it will always be a URL
+  frame.src = url;
 
   frame.addEventListener('load', () => {
     if (backend == 'uv') {

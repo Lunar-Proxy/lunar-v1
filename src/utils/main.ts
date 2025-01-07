@@ -48,30 +48,29 @@ async function launch(link: string) {
   let url = await search(link, backend, 'https://www.google.com/search?q=%s');
   frame.src = url;
   frame.addEventListener('load', () => {
-    loading.classList.add('hidden');
     if (backend === 'uv') {
       InterceptLinks();
       input.value = '';
       if (input.value === 'about:blank') {
         input.value = '';
       }
-      let url =
+      let url = UltraConfig.decodeUrl(
         frame.contentWindow?.location.href.split('/p/')[1] ||
-        frame.contentWindow?.location.href;
-      url = UltraConfig.decodeUrl(url || '') || '';
+          frame.contentWindow?.location.href!
+      );
       input.value = url || '';
-      favicon.src = `https://www.google.com/s2/favicons?domain=${url}`;
+      favicon.src = `https://s2.googleusercontent.com/s2/favicons?sz=64&domain_url=${url}`;
     } else {
       input.value = '';
       if (input.value === 'about:blank') {
         input.value = '';
       }
-      let url =
+      let url = scram.decodeUrl(
         frame.contentWindow?.location.href.split('/scram/')[1] ||
-        frame.contentWindow?.location.href;
-      url = scram.decodeUrl(url || '');
+          frame.contentWindow?.location.href
+      );
       input.value = url || '';
-      favicon.src = `https://www.google.com/s2/favicons?domain=${url}`;
+      favicon.src = `https://s2.googleusercontent.com/s2/favicons?sz=64&domain_url=${url}`;
     }
   });
 }
