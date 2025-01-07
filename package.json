@@ -22,7 +22,7 @@
     "@mercuryworkshop/bare-mux": "^2.1.7",
     "@mercuryworkshop/epoxy-transport": "^2.1.27",
     "@mercuryworkshop/wisp-js": "^0.3.3",
-    "@playform/compress": "^0.1.6",
+    "@playform/compress": "^0.1.7",
     "@types/node": "^22.10.5",
     "astro": "5.1.3",
     "chalk": "^5.4.1",
