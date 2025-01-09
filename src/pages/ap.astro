@@ -4,8 +4,7 @@ import '@src/main.css';
 import Card from '@src/components/asset.astro';
 import data from '../../public/assets/json/ap.json';
 import { Maximize, LogOut, RotateCw } from 'lucide-astro';
-import type { Asset } from '@src/utils/as';
-let apps = data as Asset[];
+let apps = data;
 ---
 
 <head>
@@ -41,7 +40,7 @@ let apps = data as Asset[];
   </div>
 
   <div class="flex flex-wrap justify-center gap-4 flex-row" id="section">
-    <Card games={apps} />
+    <Card AssetList={apps} />
   </div>
 
   <div

@@ -3,9 +3,8 @@ export const prerender = false;
 import '@src/main.css';
 import Card from '@src/components/asset.astro';
 import { Maximize, LogOut, RotateCw } from 'lucide-astro';
-import type { Asset } from '@src/utils/as';
 import data from '../../public/assets/json/ga.json';
-let games = data as Asset[];
+let games = data;
 ---
 
 <!doctype html>
@@ -42,7 +41,7 @@ let games = data as Asset[];
   </div>
 
   <div class="flex flex-wrap justify-center gap-4 flex-row" id="section">
-    <Card games={games} />
+    <Card AssetList={games} />
   </div>
 
   <div

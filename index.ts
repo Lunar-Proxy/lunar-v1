@@ -6,10 +6,10 @@ import basicAuth from '@fastify/basic-auth';
 import fs from 'node:fs';
 import { execSync } from 'child_process';
 import chalk from 'chalk';
-import { createServer } from 'http';
-import { Socket } from 'net';
+import { createServer } from 'node:http';
+import { Socket } from 'node:net';
 import { server as wisp } from '@mercuryworkshop/wisp-js/server';
-import path from 'path';
+import path from 'node:path';
 import config from './config';
 
 const port: number = config.port;
