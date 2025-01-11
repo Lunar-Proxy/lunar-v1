@@ -31,7 +31,7 @@ type PageElement = {
 const elements: PageElement = {
   ap: './ap',
   gam: './gm',
-  gear: './st',
+  gear: './s',
 };
 
 Object.entries(elements).forEach(([key, path]) => {
@@ -125,9 +125,7 @@ if (cnsl) {
         };
         frame.contentDocument.head.appendChild(script);
       } else {
-        throw new Error(
-          'Cannot inject script, frame content document is null.'
-        );
+        throw new Error('Cannot inject script.');
       }
     }
   });

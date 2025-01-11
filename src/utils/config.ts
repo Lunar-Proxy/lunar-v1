@@ -35,10 +35,10 @@ const Settings = (function () {
   async function ensureDefaultSettings(): Promise<void> {
     await dbReady;
     const defaultSettings: Setting[] = [
-      { cloak: 'off' }, // redoing soon (default for now is off)
-      { backend: 'sj' }, // Ultraviolet: uv (default) | Scramjet: sj
-      { 'search-engine': 'https://www.google.com/search?q=' },
-      { transport: 'ep' }, // Epoxy: ep (default & only option)
+      { cloak: 'off' }, // Cloak: on | off (default)
+      { backend: 'sj' }, // Ultraviolet: uv | Scramjet: sj (default)
+      { 'search-engine': 'https://www.google.com/search?q=%s' },
+      { transport: 'ep' },
     ];
     const transaction = db!.transaction([LunarSettings], 'readwrite');
     const store = transaction.objectStore(LunarSettings);

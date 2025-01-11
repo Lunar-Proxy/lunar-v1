@@ -36,7 +36,6 @@ export async function launch2(link: string) {
     location.host +
     '/wsp/';
   const backend = await Settings.get('backend');
-
   if ((await connection.getTransport()) !== '/ep/index.mjs') {
     await connection.setTransport('/ep/index.mjs', [{ wisp: wispurl }]);
   }

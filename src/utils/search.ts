@@ -13,22 +13,19 @@ export async function search(input: string, backend: string, template: string) {
   window.sj = scram;
 
   let finalUrl = '';
-
-  try {
-    finalUrl = new URL(input).toString();
-  } catch (err) {}
-
-  if (!finalUrl) {
-    try {
-      const url = new URL(`http://${input}`);
-      if (url.hostname.includes('.')) {
-        finalUrl = url.toString();
-      }
-    } catch (err) {}
-  }
-
-  if (!finalUrl) {
+  if (!input.includes('.')) {
     finalUrl = template.replace('%s', encodeURIComponent(input));
+  } else {
+    try {
+      finalUrl = new URL(input).toString();
+    } catch {
+      try {
+        const url = new URL(`https://${input}`);
+        if (url.hostname.includes('.')) finalUrl = url.toString();
+      } catch {
+        finalUrl = template.replace('%s', encodeURIComponent(input));
+      }
+    }
   }
 
   if (backend === 'uv') return `/p/${UltraConfig.encodeUrl(finalUrl)}`;

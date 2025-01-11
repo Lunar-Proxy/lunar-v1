@@ -8,7 +8,14 @@ interface Data {
 }
 
 import { Settings } from '@src/utils/config';
-let cloak: any;
+
+interface CloakDetails {
+  name: string;
+  url: string;
+  favicon: string;
+}
+
+let cloak: CloakDetails[] = [];
 
 async function fetchData(): Promise<void> {
   try {
@@ -17,17 +24,16 @@ async function fetchData(): Promise<void> {
       throw new Error(`HTTP error, status: ${response.status}`);
     }
     cloak = await response.json();
-  } catch (error) {
-    if (error instanceof Error) {
-      throw new Error('Error reading JSON file: ' + error.message);
-    } else {
-      throw new Error('Error reading JSON file');
+    if (!Array.isArray(cloak)) {
+      throw new Error('Invalid JSON structure: Expected an array');
     }
+  } catch (error) {
+    throw new Error(`Error reading JSON file: ${error}`);
   }
 }
 
-async function Cloak() {
-  let inFrame;
+async function Cloak(): Promise<void> {
+  let inFrame: boolean;
 
   try {
     inFrame = window !== top;
@@ -39,55 +45,52 @@ async function Cloak() {
     const popup = window.open('about:blank');
 
     if (!popup || popup.closed) {
-      alert('Allow popups/redirects to avoid the website going into history.');
-    } else {
-      try {
-        const item = cloak[Math.floor(Math.random() * cloak.length)];
-        const doc = popup.document;
-        const iframe = doc.createElement('iframe');
-        Object.assign(iframe.style, {
-          position: 'fixed',
-          top: '0',
-          bottom: '0',
-          left: '0',
-          right: '0',
-          border: 'none',
-          outline: 'none',
-          width: '100%',
-          height: '100%',
-        });
-        const link =
-          (document.querySelector("link[rel='icon']") as HTMLLinkElement) ||
-          (document.createElement('link') as HTMLLinkElement);
-        link.rel = 'icon';
-        link.href = item.favicon;
-        doc.title = item.name;
-        doc.body.appendChild(iframe);
-        doc.head.appendChild(link);
-        iframe.src = location.href;
-        window.location.replace(item.url);
-      } catch (error) {
-        if (error instanceof Error) {
-          throw new Error('Cloaking failed with error: ' + error.message);
-        } else {
-          throw new Error('Cloaking failed with an unknown error');
-        }
-      }
+      alert('Allow popups/redirects to avoid the website showing in history.');
+      return;
+    }
+
+    try {
+      const item = cloak[Math.floor(Math.random() * cloak.length)];
+      const doc = popup.document;
+      const iframe = doc.createElement('iframe');
+      Object.assign(iframe.style, {
+        position: 'fixed',
+        top: '0',
+        bottom: '0',
+        left: '0',
+        right: '0',
+        border: 'none',
+        outline: 'none',
+        width: '100%',
+        height: '100%',
+      });
+      const link =
+        (document.querySelector("link[rel='icon']") as HTMLLinkElement) ||
+        document.createElement('link');
+      link.rel = 'icon';
+      link.href = item.favicon;
+      doc.head.appendChild(link);
+      doc.title = item.name;
+      doc.body.appendChild(iframe);
+      iframe.src = location.href;
+      window.location.replace(item.url);
+    } catch (error) {
+      alert(`Error: ${error}`);
     }
   }
 }
 
-(async () => {
+(async function initialize() {
   try {
     await fetchData();
     const status = await Settings.get('cloak');
     if (status === 'on') {
-      Cloak();
+      await Cloak();
     } else {
-      console.debug('Cloaking is off. Enable in settings.');
+      console.debug('Cloaking is off. Enable cloaking in settings.');
     }
   } catch (error) {
-    console.error('Initialization failed:', error);
+    throw new Error(`Initialization failed: ${error}`);
   }
 })();
 
@@ -111,7 +114,7 @@ fetch('/assets/json/quotes.json')
     }
   })
   .catch((error) => {
-    console.error('Error:', error);
+    throw new Error(`error: ${error}`);
   });
 
 try {

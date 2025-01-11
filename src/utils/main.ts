@@ -40,12 +40,12 @@ async function launch(link: string) {
     location.host +
     '/wsp/';
   const backend = await Settings.get('backend');
-
+  const engine = await Settings.get('search-engine');
   if ((await connection.getTransport()) !== '/ep/index.mjs') {
     await connection.setTransport('/ep/index.mjs', [{ wisp: wispurl }]);
   }
   console.log('Transport set to Epoxy');
-  let url = await search(link, backend, 'https://www.google.com/search?q=%s');
+  let url = await search(link, backend, engine);
   frame.src = url;
   frame.addEventListener('load', () => {
     if (backend === 'uv') {

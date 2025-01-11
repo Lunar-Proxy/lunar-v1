@@ -125,5 +125,82 @@
     "image": "/assets/images/icons/mrr.avif",
     "link": "https://ubg77.github.io/edit/merge-round-racers/",
     "error": false
+  },
+  {
+    "name": "Merge Round Racers",
+    "image": "/assets/images/icons/mrr.avif",
+    "link": "https://ubg77.github.io/edit/merge-round-racers/",
+    "error": false
+  },
+  {
+    "name": "Geometry Dash",
+    "image": "/assets/images/icons/gd.png",
+    "link": "https://assets.3kh0.net/geodash/",
+    "error": false
+  },
+  {
+    "name": "Flappy Bird",
+    "image": "/assets/images/icons/fb.jpg",
+    "link": "https://ellisonleao.github.io/clumsy-bird/",
+    "error": false
+  },
+  {
+    "name": "Idle Dice",
+    "image": "/assets/images/icons/id.jpeg",
+    "link": "https://ubg77.github.io/game131022/idle-dice/",
+    "error": false
+  },
+  {
+    "name": "Idle Miner",
+    "image": "/assets/images/icons/im.png",
+    "link": "https://ubg77.github.io/game131022/idle-miner/",
+    "error": false
+  },
+
+  {
+    "name": "Idle Mining Empire",
+    "image": "/assets/images/icons/ime.webp",
+    "link": "https://ubg77.github.io/fix/idle-mining-empire/",
+    "error": false
+  },
+  {
+    "name": "Idle Startup Tycoon",
+    "image": "/assets/images/icons/ist.webp",
+    "link": "https://ubg77.github.io/game131022/idle-startup-tycoon/",
+    "error": false
+  },
+
+  {
+    "name": "Awesome Tanks 2",
+    "image": "/assets/images/icons/at2.png",
+    "link": "https://ubg98.github.io/AwesomeTanks2/",
+    "error": false
+  },
+
+  {
+    "name": "BasketBall Random",
+    "image": "/assets/images/icons/bbr.png",
+    "link": "https://tylerpalko.github.io/gamehub/basketrandom/",
+    "error": false
+  },
+
+  {
+    "name": "Basketbros",
+    "image": "/assets/images/icons/bbs.jpeg",
+    "link": "https://basketbros.io/",
+    "error": false
+  },
+
+  {
+    "name": "Adventure Drivers",
+    "image": "/assets/images/icons/ad.jpg",
+    "link": "https://ubg77.github.io/game131022/adventure-drivers/",
+    "error": false
+  },
+  {
+    "name": "Parking Fury",
+    "image": "/assets/images/icons/pf.png",
+    "link": "https://webglmath.github.io/parking-fury/",
+    "error": false
   }
 ]
