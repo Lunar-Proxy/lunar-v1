@@ -55,7 +55,7 @@
   },
   {
     "name": "Stickman Hook",
-    "image": "/assets/images/icons/sh.avif",
+    "image": "/assets/images/icons/sh.png",
     "link": "https://stickman-hook-game.github.io/file/",
     "error": false
   },
@@ -118,12 +118,6 @@
     "name": "DriftBoss",
     "image": "/assets/images/icons/db.png",
     "link": "https://driftbossunblocked.github.io/",
-    "error": false
-  },
-  {
-    "name": "Merge Round Racers",
-    "image": "/assets/images/icons/mrr.avif",
-    "link": "https://ubg77.github.io/edit/merge-round-racers/",
     "error": false
   },
   {

@@ -17,6 +17,13 @@ interface CloakDetails {
 
 let cloak: CloakDetails[] = [];
 
+if (await Settings.get('PreventClosing')) {
+  window.addEventListener('beforeunload', function (event) {
+    event.preventDefault();
+    return (event.returnValue = '');
+  });
+}
+
 async function fetchData(): Promise<void> {
   try {
     const response = await fetch('/assets/json/tab.json');

@@ -23,7 +23,9 @@ import type { Asset } from '@src/utils/as';
                 alt={asset.name}
                 width={140}
                 height={140}
-                class="h-36 aspect-square object-cover rounded-md transition-all duration-150 group-hover:scale-105 group-hover:blur-sm"
+                class="h-36 w-36 object-cover rounded-md transition-all duration-150 group-hover:scale-105 group-hover:blur-sm"
+                srcset={`${asset.image}?w=70 70w, ${asset.image}?w=140 140w, ${asset.image}?w=280 280w`}
+                sizes="(max-width: 640px) 70px, 140px"
               />
               <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 rounded-md transition-opacity duration-150" />
             </div>

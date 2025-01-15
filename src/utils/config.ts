@@ -34,11 +34,19 @@ const Settings = (function () {
 
   async function ensureDefaultSettings(): Promise<void> {
     await dbReady;
+    type Setting =
+      | { cloak: string }
+      | { backend: string }
+      | { 'search-engine': string }
+      | { transport: string }
+      | { PreventClosing: boolean };
+
     const defaultSettings: Setting[] = [
-      { cloak: 'off' }, // Cloak: on | off (default)
-      { backend: 'sj' }, // Ultraviolet: uv | Scramjet: sj (default)
+      { cloak: 'off' },
+      { backend: 'sj' },
       { 'search-engine': 'https://www.google.com/search?q=%s' },
       { transport: 'ep' },
+      { PreventClosing: false },
     ];
     const transaction = db!.transaction([LunarSettings], 'readwrite');
     const store = transaction.objectStore(LunarSettings);
@@ -76,6 +84,25 @@ const Settings = (function () {
     }
   }
 
+  async function edit(settingName: string, value: any): Promise<void> {
+    await dbReady;
+    const transaction = db!.transaction([LunarSettings], 'readwrite');
+    const store = transaction.objectStore(LunarSettings);
+    const existingSettings: Setting[] = await new Promise((resolve, reject) => {
+      const request = store.getAll();
+      request.onsuccess = () => resolve(request.result);
+      request.onerror = () => reject(request.error);
+    });
+
+    const existingSetting = existingSettings.find((s) => settingName in s);
+    if (existingSetting) {
+      existingSetting[settingName] = value;
+      store.put(existingSetting);
+    } else {
+      console.warn(`Setting "${settingName}" does not exist.`);
+    }
+  }
+
   async function get(settingName: string): Promise<any> {
     await dbReady;
     return new Promise((resolve, reject) => {
@@ -102,7 +129,7 @@ const Settings = (function () {
 
   dbReady.then(() => ensureDefaultSettings());
 
-  return { add, get };
+  return { add, get, edit };
 })();
 
 export { Settings };

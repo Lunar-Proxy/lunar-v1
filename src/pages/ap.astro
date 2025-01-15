@@ -2,9 +2,9 @@
 export const prerender = false;
 import '@src/main.css';
 import Card from '@src/components/asset.astro';
-import data from '../../public/assets/json/ap.json';
 import { Maximize, LogOut, RotateCw } from 'lucide-astro';
-let apps = data;
+import data from '../../public/assets/json/ap.json';
+const apps = data;
 ---
 
 <head>

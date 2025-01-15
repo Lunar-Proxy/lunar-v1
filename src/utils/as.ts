@@ -7,20 +7,18 @@ export type Asset = {
   error: boolean | string;
 };
 
-const input = document.getElementById('input') as HTMLInputElement;
-const button = document.querySelectorAll(
-  "[id='data-2']"
-) as NodeListOf<HTMLButtonElement>;
+const input = document.getElementById('input') as HTMLInputElement | null;
+const buttons = document.querySelectorAll<HTMLButtonElement>("[id='data-2']");
 
 if (input) {
   input.addEventListener('input', () => {
-    const term = input.value.toLowerCase();
-    button.forEach((button) => {
+    const searchTerm = input.value.toLowerCase();
+    buttons.forEach((button) => {
       const json = button.getAttribute('data-json');
       if (json) {
         try {
           const asset: Asset = JSON.parse(json);
-          if (asset.name.toLowerCase().includes(term)) {
+          if (asset.name.toLowerCase().includes(searchTerm)) {
             button.classList.remove('hidden');
           } else {
             button.classList.add('hidden');
@@ -32,8 +30,7 @@ if (input) {
     });
   });
 }
-
-button.forEach((button) => {
+buttons.forEach((button) => {
   button.addEventListener('click', async () => {
     const json = button.getAttribute('data-json');
     if (json) {
@@ -43,7 +40,6 @@ button.forEach((button) => {
           alert(asset.error);
           return;
         }
-
         if (Array.isArray(asset.link)) {
           const choice = prompt(
             `Please choose a link by entering a number:\n${asset.link
@@ -56,7 +52,7 @@ button.forEach((button) => {
             if (index >= 0 && index < asset.link.length) {
               launch2(asset.link[index].url);
             } else {
-              alert('Invalid choice. ');
+              alert('Invalid choice.');
             }
           } else {
             alert('No choice made.');
