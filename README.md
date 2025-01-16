@@ -23,7 +23,7 @@ Lunar is a web proxy designed to bypass censorship and provide an exceptional us
     <a href="https://render.com/deploy?repo=https://github.com/lunar-proxy/lunar-v1">
         <img src="https://raw.githubusercontent.com/BinBashBanana/deploy-buttons/main/buttons/remade/render.svg" alt="Deploy to Render">
     </a>
-    <a href="https://app.koyeb.com/deploy?type=git&repository=github.com/lunar-proxy/lunar-v1">
+    <a href="https://app.koyeb.com/services/deploy?type=git&repository=github.com/lunar-proxy/lunar-v1&builder=dockerfile&instance_type=free&regions=was&ports=8080%3Bhttp%3B%2F&hc_protocol%5B808">
         <img src="https://binbashbanana.github.io/deploy-buttons/buttons/remade/koyeb.svg" alt="Deploy to Koyeb" style="float: left; margin-right: 10px;">
     </a>
 </div>
