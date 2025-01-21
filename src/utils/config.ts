@@ -44,7 +44,7 @@ const Settings = (function () {
     const defaultSettings: Setting[] = [
       { cloak: 'off' },
       { backend: 'sj' },
-      { 'search-engine': 'https://www.google.com/search?q=%s' },
+      { 'search-engine': 'https://duckduckgo.com/?q=%s' },
       { transport: 'ep' },
       { PreventClosing: false },
     ];
