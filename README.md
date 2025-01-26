@@ -42,7 +42,7 @@ Lunar is a web proxy designed to bypass censorship and provide an exceptional us
 
    ```bash
    git clone https://github.com/Lunar-Proxy/Lunar-v1.git
-   cd Lunar
+   cd Lunar-v1
    ```
 
 2. Install dependencies and start Lunar:
