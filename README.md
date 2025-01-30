@@ -62,12 +62,12 @@ If you are doing a change to lunar, please read [this guide](CONTRIBUTING.md)
 
 # Support
 
-For help, Make a [Github Issue](https://github.com/Lunar-Proxy/lunar-v1/issues) or [join our discord community](https://dsc.gg/golunar).
+For help, Make a [Github Issue](https://github.com/Lunar-Proxy/lunar-v1/issues) or [join our discord community](https://discord.gg/fuPtWjYuf8).
 
 # Credits
 
 Thanks to everyone below who contribuated to Lunar ❤️
 
-<a href="https://github.com/lunar-proxy/lunar/graphs/contributors">
-<img src="https://contrib.rocks/image?repo=lunar-proxy/lunar"/>
+<a href="https://github.com/lunar-proxy/lunar-v1/graphs/contributors">
+<img src="https://contrib.rocks/image?repo=lunar-proxy/lunar-v1"/>
 </a>
