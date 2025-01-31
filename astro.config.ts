@@ -7,25 +7,9 @@ import { baremuxPath } from '@mercuryworkshop/bare-mux/node';
 import { epoxyPath } from '@mercuryworkshop/epoxy-transport';
 import { version } from './package.json';
 import { execSync } from 'child_process';
-import fs from 'fs';
-import path from 'path';
 import playformCompress from '@playform/compress';
 import { normalizePath } from 'vite';
-
-function LU() {
-  const gitPath = path.join(process.cwd(), '.git');
-  if (fs.existsSync(gitPath)) {
-    try {
-      const commitDate = execSync('git log -1 --format=%cd --date=iso')
-        .toString()
-        .trim();
-      return new Date(commitDate).toISOString();
-    } catch {
-      return new Date().toISOString();
-    }
-  }
-  return new Date().toISOString();
-}
+import { scramjetPath } from '@mercuryworkshop/scramjet';
 
 export default defineConfig({
   output: 'static',
@@ -47,7 +31,8 @@ export default defineConfig({
   vite: {
     define: {
       VERSION: JSON.stringify(version),
-      LAST_UPDATED: JSON.stringify(LU()),
+      LAST_UPDATED: JSON.stringify(execSync('git log -1 --format=%cd').toString().trim() ||
+      'Failed to fetch.'),
     },
     plugins: [
       {
@@ -64,14 +49,20 @@ export default defineConfig({
         targets: [
           {
             src: normalizePath(epoxyPath + '/**/*.mjs'),
-            dest: 'ep',
+            dest: 'assets/packaged/ep',
             overwrite: false,
           },
           {
             src: normalizePath(baremuxPath + '/**/*.js'),
-            dest: 'bm',
+            dest: 'assets/packaged/bm',
             overwrite: false,
           },
+          {
+            src: `${scramjetPath}/**/*.js`.replace(/\\/g, '/'),
+            dest: 'assets/packaged/scram',
+            overwrite: false,
+            rename: (name) => `${name.replace('scramjet.', '')}.js`,
+          }
         ],
       }),
     ],

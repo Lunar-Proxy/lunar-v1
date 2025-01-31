@@ -29,15 +29,15 @@ try {
 }
 
 export async function launch2(link: string) {
-  const connection = new BareMuxConnection('/bm/worker.js');
+  const connection = new BareMuxConnection('/assets/packaged/bm/worker.js');
   const wispurl =
     (location.protocol === 'https:' ? 'wss' : 'ws') +
     '://' +
     location.host +
     '/wsp/';
   const backend = await Settings.get('backend');
-  if ((await connection.getTransport()) !== '/ep/index.mjs') {
-    await connection.setTransport('/ep/index.mjs', [{ wisp: wispurl }]);
+  if ((await connection.getTransport()) !== '/assets/packaged/ep/index.mjs') {
+    await connection.setTransport('/assets/packaged/ep/index.mjs', [{ wisp: wispurl }]);
   }
   console.log('Transport set to Epoxy');
   launch.classList.remove('hidden');

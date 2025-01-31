@@ -37,14 +37,14 @@ const Settings = (function () {
     type Setting =
       | { cloak: string }
       | { backend: string }
-      | { 'search-engine': string }
+      | { engine: string }
       | { transport: string }
       | { PreventClosing: boolean };
 
     const defaultSettings: Setting[] = [
       { cloak: 'off' },
       { backend: 'sj' },
-      { 'search-engine': 'https://duckduckgo.com/?q=%s' },
+      { engine: 'https://duckduckgo.com/?q=' },
       { transport: 'ep' },
       { PreventClosing: false },
     ];

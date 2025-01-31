@@ -1,6 +1,6 @@
 import { Settings } from '@src/utils/config';
 import { BareMuxConnection } from '@mercuryworkshop/bare-mux';
-import { search } from './search';
+import { Search } from './search';
 
 const input = document.getElementById('input') as HTMLInputElement;
 const si = document.getElementById('startSearch') as HTMLInputElement;
@@ -33,35 +33,33 @@ try {
 }
 
 async function launch(link: string) {
-  const connection = new BareMuxConnection('/bm/worker.js');
+  const connection = new BareMuxConnection('/assets/packaged/bm/worker.js');
   const wispurl =
     (location.protocol === 'https:' ? 'wss' : 'ws') +
     '://' +
     location.host +
     '/wsp/';
   const backend = await Settings.get('backend');
-  const engine = await Settings.get('search-engine');
-  if ((await connection.getTransport()) !== '/ep/index.mjs') {
-    await connection.setTransport('/ep/index.mjs', [{ wisp: wispurl }]);
+  if ((await connection.getTransport()) !== '/assets/packaged/ep/index.mjs') {
+    await connection.setTransport('/assets/packaged/ep/index.mjs', [{ wisp: wispurl }]);
   }
   console.log('Transport set to Epoxy');
-  let url = await search(link, backend, engine);
-  frame.src = url;
+  let url = await Search(link) || "d";
+  if (backend == 'uv') {
+      frame.src = UltraConfig.encodeUrl(url) ?? 'ERROR';
+  } else {
+    frame.src = scram.encodeUrl(url);
+  }
   frame.addEventListener('load', () => {
     if (backend === 'uv') {
       InterceptLinks();
       input.value = '';
-      if (input.value === 'about:blank') {
-        input.value = '';
-      }
       let url = UltraConfig.decodeUrl(
         frame.contentWindow?.location.href.split('/p/')[1] ||
           frame.contentWindow?.location.href!
       );
-      input.value = url || '';
       favicon.src = `https://s2.googleusercontent.com/s2/favicons?sz=64&domain_url=${url}`;
     } else {
-      input.value = '';
       if (input.value === 'about:blank') {
         input.value = '';
       }
