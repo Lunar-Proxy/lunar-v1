@@ -12,11 +12,11 @@ import { normalizePath } from 'vite';
 import { scramjetPath } from '@mercuryworkshop/scramjet';
 
 function check() {
-    try {
-      return execSync('git log -1 --format=%cd').toString().trim();
-    } catch {
-      return new Date().toISOString();
-    }
+  try {
+    return execSync('git log -1 --format=%cd', { stdio: 'pipe' }).toString().trim();
+  } catch {
+    return new Date().toISOString();
+  }
   }
 export default defineConfig({
   output: 'static',

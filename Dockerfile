@@ -1,5 +1,6 @@
 FROM node:20
 ENV NODE_ENV=production
+ENV PORT=8080
 WORKDIR /app
 COPY ["package.json", "pnpm-lock.yaml*", "./"]
 COPY . .
