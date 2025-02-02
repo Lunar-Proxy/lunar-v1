@@ -46,7 +46,7 @@ async function launch(link: string) {
   console.log('Transport set to Epoxy');
   let url = await Search(link) || "d";
   if (backend == 'uv') {
-      frame.src = UltraConfig.encodeUrl(url) ?? 'ERROR';
+      frame.src = `/p/${UltraConfig.encodeUrl(url) ?? 'ERROR'}`;
   } else {
     frame.src = scram.encodeUrl(url);
   }

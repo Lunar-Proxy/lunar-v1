@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
       currentSetting =
         settingMapping.ptype[currentSetting] || settingMapping.ptype.default;
     } else if (dropdown.id === 'engine') {
-      currentSetting = await Settings.get('search-engine');
+      currentSetting = await Settings.get('engine');
       currentSetting =
         settingMapping.engine[currentSetting] || 'Unknown Engine';
     }
@@ -67,7 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (dropdown.id === 'ptype') {
           await Settings.edit('backend', option.id);
         } else if (dropdown.id === 'engine') {
-          await Settings.edit('search-engine', option.id);
+          await Settings.edit('engine', option.id);
         }
         text!.textContent = selectedOption;
         dropdown.classList.add('hidden');
