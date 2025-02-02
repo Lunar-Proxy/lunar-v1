@@ -41,12 +41,14 @@ async function launch(link: string) {
     '/wsp/';
   const backend = await Settings.get('backend');
   if ((await connection.getTransport()) !== '/assets/packaged/ep/index.mjs') {
-    await connection.setTransport('/assets/packaged/ep/index.mjs', [{ wisp: wispurl }]);
+    await connection.setTransport('/assets/packaged/ep/index.mjs', [
+      { wisp: wispurl },
+    ]);
   }
   console.log('Transport set to Epoxy');
-  let url = await Search(link) || "d";
+  let url = (await Search(link)) || 'd';
   if (backend == 'uv') {
-      frame.src = `/p/${UltraConfig.encodeUrl(url) ?? 'ERROR'}`;
+    frame.src = `/p/${UltraConfig.encodeUrl(url) ?? 'ERROR'}`;
   } else {
     frame.src = scram.encodeUrl(url);
   }

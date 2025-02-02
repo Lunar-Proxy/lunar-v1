@@ -31,25 +31,23 @@ const Settings = (function () {
       reject(request.error);
     };
   });
+  const defaultSettings: Setting[] = [
+    { cloak: 'off' },
+    { backend: 'sj' },
+    { engine: 'https://duckduckgo.com/?q=' },
+    { transport: 'ep' },
+    { PreventClosing: false },
+  ];
 
   async function ensureDefaultSettings(): Promise<void> {
     await dbReady;
-    type Setting =
-      | { cloak: string }
-      | { backend: string }
-      | { engine: string }
-      | { transport: string }
-      | { PreventClosing: boolean };
+    if (!db) {
+      throw new Error("Database is not initialized.");
+    }
 
-    const defaultSettings: Setting[] = [
-      { cloak: 'off' },
-      { backend: 'sj' },
-      { engine: 'https://duckduckgo.com/?q=' },
-      { transport: 'ep' },
-      { PreventClosing: false },
-    ];
-    const transaction = db!.transaction([LunarSettings], 'readwrite');
+    const transaction = db.transaction([LunarSettings], 'readwrite');
     const store = transaction.objectStore(LunarSettings);
+
     const existingSettings: Setting[] = await new Promise((resolve, reject) => {
       const request = store.getAll();
       request.onsuccess = () => resolve(request.result);
@@ -66,8 +64,11 @@ const Settings = (function () {
 
   async function add(settingName: string, value: any): Promise<void> {
     await dbReady;
-    const transaction = db!.transaction([LunarSettings], 'readwrite');
+    if (!db) throw new Error("Database not ready.");
+    
+    const transaction = db.transaction([LunarSettings], 'readwrite');
     const store = transaction.objectStore(LunarSettings);
+
     const existingSettings: Setting[] = await new Promise((resolve, reject) => {
       const request = store.getAll();
       request.onsuccess = () => resolve(request.result);
@@ -86,8 +87,11 @@ const Settings = (function () {
 
   async function edit(settingName: string, value: any): Promise<void> {
     await dbReady;
-    const transaction = db!.transaction([LunarSettings], 'readwrite');
+    if (!db) throw new Error("Database not ready.");
+    
+    const transaction = db.transaction([LunarSettings], 'readwrite');
     const store = transaction.objectStore(LunarSettings);
+
     const existingSettings: Setting[] = await new Promise((resolve, reject) => {
       const request = store.getAll();
       request.onsuccess = () => resolve(request.result);
@@ -105,10 +109,14 @@ const Settings = (function () {
 
   async function get(settingName: string): Promise<any> {
     await dbReady;
+    if (!db) throw new Error("Database not ready.");
+    
     return new Promise((resolve, reject) => {
-      const transaction = db!.transaction([LunarSettings], 'readonly');
+      if (!db) throw new Error("Database not ready.");
+      const transaction = db.transaction([LunarSettings], 'readonly');
       const store = transaction.objectStore(LunarSettings);
       const cursorRequest: IDBRequest = store.openCursor();
+      
       cursorRequest.onsuccess = function () {
         const cursor: IDBCursorWithValue = cursorRequest.result;
         if (cursor) {
@@ -121,6 +129,7 @@ const Settings = (function () {
           resolve(undefined);
         }
       };
+      
       cursorRequest.onerror = function () {
         reject(new Error('Error retrieving setting by name.'));
       };

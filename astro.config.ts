@@ -11,6 +11,13 @@ import playformCompress from '@playform/compress';
 import { normalizePath } from 'vite';
 import { scramjetPath } from '@mercuryworkshop/scramjet';
 
+function check() {
+    try {
+      return execSync('git log -1 --format=%cd').toString().trim();
+    } catch {
+      return new Date().toISOString();
+    }
+  }
 export default defineConfig({
   output: 'static',
   adapter: node({ mode: 'middleware' }),
@@ -31,8 +38,7 @@ export default defineConfig({
   vite: {
     define: {
       VERSION: JSON.stringify(version),
-      LAST_UPDATED: JSON.stringify(execSync('git log -1 --format=%cd').toString().trim() ||
-      'Failed to fetch.'),
+      LAST_UPDATED: JSON.stringify(check()),
     },
     plugins: [
       {
@@ -62,7 +68,7 @@ export default defineConfig({
             dest: 'assets/packaged/scram',
             overwrite: false,
             rename: (name) => `${name.replace('scramjet.', '')}.js`,
-          }
+          },
         ],
       }),
     ],

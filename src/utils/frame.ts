@@ -37,7 +37,9 @@ export async function launch2(link: string) {
     '/wsp/';
   const backend = await Settings.get('backend');
   if ((await connection.getTransport()) !== '/assets/packaged/ep/index.mjs') {
-    await connection.setTransport('/assets/packaged/ep/index.mjs', [{ wisp: wispurl }]);
+    await connection.setTransport('/assets/packaged/ep/index.mjs', [
+      { wisp: wispurl },
+    ]);
   }
   console.log('Transport set to Epoxy');
   launch.classList.remove('hidden');

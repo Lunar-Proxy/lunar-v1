@@ -17,7 +17,7 @@ interface CloakDetails {
 
 let cloak: CloakDetails[] = [];
 
- if (await Settings.get('PreventClosing')) {
+if (await Settings.get('PreventClosing')) {
   window.addEventListener('beforeunload', function (event) {
     event.preventDefault();
     return (event.returnValue = '');
