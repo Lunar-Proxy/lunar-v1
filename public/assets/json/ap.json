@@ -48,4 +48,10 @@
     "link": "https://www.espn.com",
     "error": false
   }
+  {
+    "name": "e621",
+    "image": "/assets/images/icons/e621.png",
+    "link": "https://www.espn.com",
+    "error": false
+  }
 ]
