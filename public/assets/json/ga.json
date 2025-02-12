@@ -197,4 +197,10 @@
     "link": "https://webglmath.github.io/parking-fury/",
     "error": false
   }
+  {
+    "name": "Paper.io",
+    "image": "/assets/images/icons/ppio.jpeg",
+    "link": "https://paper-io.com/",
+    "error": false
+  }
 ]
