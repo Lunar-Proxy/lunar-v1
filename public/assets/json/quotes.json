@@ -5,10 +5,6 @@
       "text": "Hi, Exploit-kid here! Welcome to the Lunar Proxy."
     },
     {
-      "type": "info",
-      "text": "Join our discord 4 links, giveaways & more: <a href='https://www.discord.gg/qtSUbYMJgF' target='_blank'>https://discord.gg/qtSUbYMJgF</a>"
-    },
-    {
       "type": "warning",
       "text": "Tab cloaking is highly recommended for maximum stealth."
     },
@@ -59,10 +55,6 @@
     {
       "type": "info",
       "text": "Keep it lowkey and enjoy the freedom."
-    },
-    {
-      "type": "joke",
-      "text": "Why did the student bring a web proxy to school? Because they wanted to bypass doing the homework, not just the restrictions!"
     }
   ]
 }

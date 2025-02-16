@@ -1,5 +1,5 @@
 const DBNAME = 'SettingsDB';
-const LunarSettings = 'Lunar-Settings';
+const LunarSettings = 'Settings';
 let db: IDBDatabase | undefined;
 let dbReady: Promise<void>;
 
@@ -8,11 +8,11 @@ interface Setting {
   [key: string]: any;
 }
 
-const Settings = (function () {
+const Settings = (() => {
   dbReady = new Promise((resolve, reject) => {
     const request: IDBOpenDBRequest = window.indexedDB.open(DBNAME, 1);
 
-    request.onupgradeneeded = function () {
+    request.onupgradeneeded = () => {
       const dbInstance = request.result;
       if (!dbInstance.objectStoreNames.contains(LunarSettings)) {
         dbInstance.createObjectStore(LunarSettings, {
@@ -22,27 +22,33 @@ const Settings = (function () {
       }
     };
 
-    request.onsuccess = function () {
+    request.onsuccess = () => {
       db = request.result;
       resolve();
     };
 
-    request.onerror = function () {
+    request.onerror = () => {
       reject(request.error);
     };
   });
   const defaultSettings: Setting[] = [
-    { cloak: 'off' },
-    { backend: 'sj' },
-    { engine: 'https://duckduckgo.com/?q=' },
+    { cloak: false },
+    { backend: 'uv' },
+    { engine: 'https://www.google.com/search?q=' },
     { transport: 'ep' },
     { PreventClosing: false },
+    {
+      plugins: {
+        adblock:
+          "<script>(function(){const s=['#sidebar-wrap','#advert','#xrail','#middle-article-advert-container','#sponsored-recommendations','#taboola-content','#inarticle_wrapper_div','#rc-row-container','#ads','.ad','.advertisement','.ad-banner','.ad-slot','script','iframe','video','aside','amp-ad','ins.adsbygoogle'],r=()=>s.forEach(e=>document.querySelectorAll(e).forEach(n=>n.remove())),k=()=>document.querySelectorAll('body *').forEach(n=>['fixed','sticky'].includes(getComputedStyle(n).position)&&n.remove()),o=()=>{if(document.body)new MutationObserver(()=>{r(),k()}).observe(document.body,{subtree:true,childList:true})};document.readyState==='loading'?document.addEventListener('DOMContentLoaded',()=>{r(),k(),o()}):(r(),k(),o());})();</script>",
+      },
+    },
   ];
 
   async function ensureDefaultSettings(): Promise<void> {
     await dbReady;
     if (!db) {
-      throw new Error("Database is not initialized.");
+      throw new Error('[Settings] Database is not initialized.');
     }
 
     const transaction = db.transaction([LunarSettings], 'readwrite');
@@ -64,8 +70,8 @@ const Settings = (function () {
 
   async function add(settingName: string, value: any): Promise<void> {
     await dbReady;
-    if (!db) throw new Error("Database not ready.");
-    
+    if (!db) throw new Error('[Settings] Database not ready.');
+
     const transaction = db.transaction([LunarSettings], 'readwrite');
     const store = transaction.objectStore(LunarSettings);
 
@@ -87,8 +93,8 @@ const Settings = (function () {
 
   async function edit(settingName: string, value: any): Promise<void> {
     await dbReady;
-    if (!db) throw new Error("Database not ready.");
-    
+    if (!db) throw new Error('[Settings] Database not ready.');
+
     const transaction = db.transaction([LunarSettings], 'readwrite');
     const store = transaction.objectStore(LunarSettings);
 
@@ -103,21 +109,21 @@ const Settings = (function () {
       existingSetting[settingName] = value;
       store.put(existingSetting);
     } else {
-      console.warn(`Setting "${settingName}" does not exist.`);
+      console.warn(`[Settings] Setting "${settingName}" does not exist.`);
     }
   }
 
   async function get(settingName: string): Promise<any> {
     await dbReady;
-    if (!db) throw new Error("Database not ready.");
-    
+    if (!db) throw new Error('[Settings] Database not ready.');
+
     return new Promise((resolve, reject) => {
-      if (!db) throw new Error("Database not ready.");
+      if (!db) throw new Error('[Settings] Database not ready.');
       const transaction = db.transaction([LunarSettings], 'readonly');
       const store = transaction.objectStore(LunarSettings);
       const cursorRequest: IDBRequest = store.openCursor();
-      
-      cursorRequest.onsuccess = function () {
+
+      cursorRequest.onsuccess = () => {
         const cursor: IDBCursorWithValue = cursorRequest.result;
         if (cursor) {
           if (cursor.value[settingName] !== undefined) {
@@ -129,9 +135,9 @@ const Settings = (function () {
           resolve(undefined);
         }
       };
-      
-      cursorRequest.onerror = function () {
-        reject(new Error('Error retrieving setting by name.'));
+
+      cursorRequest.onerror = () => {
+        reject(new Error('[Settings] Error retrieving setting by name.'));
       };
     });
   }

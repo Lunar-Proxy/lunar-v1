@@ -7,16 +7,18 @@ interface Props {
 const { id, options } = Astro.props;
 ---
 
-<div class="relative inline-block text-left">
+<div class="relative inline-block text-left w-max">
   <div>
     <button
       id={`${id}button`}
       type="button"
-      class="inline-flex justify-between w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-background text-sm font-medium text-text-HEADER focus:outline-none focus:ring-2 focus:ring-offset-2"
+      class="inline-flex items-center justify-between w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-background text-sm font-medium text-text-HEADER focus:outline-none focus:ring-2 focus:ring-offset-2"
     >
-      <span id="text">select an option</span>
+      <span id="text-${id}" class="whitespace-nowrap text-center w-full"
+        >select an option</span
+      >
       <svg
-        class="-mr-1 ml-2 h-5 w-5"
+        class="h-5 w-5"
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 20 20"
         fill="currentColor"
@@ -32,7 +34,7 @@ const { id, options } = Astro.props;
 
   <div
     id={id}
-    class="hidden absolute z-10 border-2 focus:outline-none border-solid border-black mt-2 w-full rounded-md bg-background-overlay shadow-lg"
+    class="hidden absolute left-1/2 transform -translate-x-1/2 top-full z-10 border-2 focus:outline-none border-solid border-black mt-1 min-w-max rounded-md bg-background-overlay shadow-lg dropdown"
   >
     <div
       class="py-1"
@@ -44,7 +46,7 @@ const { id, options } = Astro.props;
         options.map((option) => (
           <button
             id={option.value}
-            class="block w-full text-left px-4 py-2 text-sm text-text-SECONDARY focus:outline-none hover:bg-gray-700"
+            class="block w-full text-center px-4 py-2 text-sm text-text-SECONDARY focus:outline-none hover:bg-gray-700 whitespace-nowrap"
           >
             {option.label}
           </button>
@@ -53,5 +55,4 @@ const { id, options } = Astro.props;
     </div>
   </div>
 </div>
-
 <script src="@src/utils/s.ts"></script>

@@ -6,9 +6,11 @@ const refresh = document.getElementById('reload') as HTMLButtonElement;
 const starting = document.getElementById('starting') as HTMLDivElement;
 const frame = document.getElementById('frame') as HTMLIFrameElement;
 const ff = document.getElementById('full-screen') as HTMLButtonElement;
+const clear = document.getElementById('clear') as HTMLButtonElement;
 const cnsl = document.getElementById('console') as HTMLButtonElement;
 const star = document.getElementById('fav') as HTMLButtonElement;
 const copy = document.getElementById('link') as HTMLButtonElement;
+const input = document.getElementById('input') as HTMLInputElement;
 const scram = new ScramjetController({
   prefix: '/scram/',
   files: {
@@ -39,54 +41,73 @@ Object.entries(elements).forEach(([key, path]) => {
   if (element) {
     element.addEventListener('click', () => {
       starting.classList.add('hidden');
-      console.debug('Navigating to ' + path);
+      console.debug('[DEBUG] Navigating to ' + path);
       if (frame) frame.src = path as string;
+      if (path === './ap') {
+        input.value = 'lunar://apps';
+        copy.style.right = '40px';
+        clear.style.right = '10px';
+        clear.classList.remove('hidden');
+      } else if (path === './gm') {
+        input.value = 'lunar://games';
+
+        copy.style.right = '40px';
+        clear.style.right = '10px';
+        clear.classList.remove('hidden');
+      } else if (path) {
+        input.value = 'lunar://settings';
+
+        copy.style.right = '40px';
+        clear.style.right = '10px';
+        clear.classList.remove('hidden');
+      }
     });
   }
 });
 
 if (copy) {
   copy.addEventListener('click', async () => {
-    const FrameUrl = new URL(frame.contentWindow!.location.href);
-    const pathname = FrameUrl.pathname;
+    const frameWindow = frame.contentWindow;
+    let FrameUrl = new URL(frameWindow!.location.href);
+    let path = FrameUrl.pathname as '/gm' | '/ap' | '/s' | string;
 
-    try {
-      if (!frame || !frame.src || frame.src === 'about:blank') {
-        console.log('Cannot copy URL without a valid source.');
-        return;
+    if (!path.startsWith('/p/') && !path.startsWith('/scram/')) {
+      try {
+        const clipboardMap: Record<'/gm' | '/ap' | '/s', string> = {
+          '/gm': 'lunar://games',
+          '/ap': 'lunar://apps',
+          '/s': 'lunar://settings',
+        };
+
+        if (clipboardMap[path as '/gm' | '/ap' | '/s']) {
+          await navigator.clipboard.writeText(
+            clipboardMap[path as '/gm' | '/ap' | '/s']
+          );
+          console.log(
+            `[DEBUG] Copied: ${clipboardMap[path as '/gm' | '/ap' | '/s']}`
+          );
+        } else {
+          console.warn('[DEBUG] No matching path.');
+        }
+      } catch (err) {
+        console.error('[ERROR] Failed to copy to clipboard:', err);
       }
-    } catch (e) {
-      console.error('Error copying URL:', e);
-    }
-
-    if (!pathname.startsWith('/p/') && !pathname.startsWith('/scram/')) {
-      await navigator.clipboard.writeText(frame.contentWindow!.location.href);
-      alert('URL copied to clipboard!');
-      return;
-    }
-
-    try {
+    } else {
+      let href = frameWindow?.location.href;
       const backend = await Settings.get('backend');
-      let url;
-
-      if (backend === 'uv') {
-        url = UltraConfig.decodeUrl(
-          frame.contentWindow!.location.href.split('/p/')[1] ||
-            frame.contentWindow!.location.href
+      if (backend == 'uv') {
+        const decodedUrl = UltraConfig.decodeUrl(
+          href ? new URL(href).pathname.replace(/^\/p\//, '') : '/'
         );
+        await navigator.clipboard.writeText(decodedUrl!);
+        console.log(decodedUrl);
       } else {
-        url = scram.decodeUrl(
-          frame.contentWindow!.location.href.split('/scram/')[1] ||
-            frame.contentWindow!.location.href
+        const decodedUrl = scram.decodeUrl(
+          href ? new URL(href).pathname.replace(/^\/scram\//, '') : '/'
         );
+        await navigator.clipboard.writeText(decodedUrl);
+        console.log(decodedUrl);
       }
-
-      url = url || frame.src;
-
-      await navigator.clipboard.writeText(url);
-      alert('URL copied to clipboard!');
-    } catch (error) {
-      console.error('Error fetching backend from settings:', error);
     }
   });
 }
@@ -95,37 +116,37 @@ if (cnsl) {
   cnsl.addEventListener('click', () => {
     try {
       if (!frame || !frame.src || frame.src === 'about:blank') {
-        console.log('Cannot copy URL without a valid source.');
+        console.log('[ERROR] Cannot copy URL without a valid source.');
         return;
       }
     } catch (e) {
-      console.error('Error copying URL:', e);
+      console.error('[ERROR] Error copying URL:', e);
     }
     const eruda = frame.contentWindow?.eruda;
     if (eruda) {
       if (eruda._isInit) {
         eruda.destroy();
-        console.debug('Eruda console destroyed.');
+        console.debug('[DEBUG] Eruda console destroyed.');
         return;
       } else {
-        console.debug('Eruda console is not initialized.');
+        console.debug('[DEBUG] Eruda console is not initialized.');
       }
     } else {
-      console.debug('Eruda console not loaded yet.');
+      console.debug('[DEBUG] Eruda console not loaded yet.');
     }
 
     if (!eruda || !eruda._isInit) {
       if (frame.contentDocument) {
         var script = frame.contentDocument.createElement('script');
         script.src = 'https://cdn.jsdelivr.net/npm/eruda';
-        script.onload = function () {
+        script.onload = () => {
           frame.contentWindow?.eruda.init();
           frame.contentWindow?.eruda.show();
-          console.debug('Eruda console initialized.');
+          console.debug('[DEBUG] Eruda console initialized.');
         };
         frame.contentDocument.head.appendChild(script);
       } else {
-        throw new Error('Cannot inject script.');
+        throw new Error('[ERROR] Cannot inject script.');
       }
     }
   });
@@ -133,11 +154,7 @@ if (cnsl) {
 
 if (ff) {
   ff.addEventListener('click', () => {
-    if (frame && frame.src) {
-      frame.requestFullscreen();
-    } else {
-      console.log('Cannot go fullscreen without a valid source.');
-    }
+    frame.requestFullscreen();
   });
 }
 
@@ -163,7 +180,9 @@ if (star) {
   star.addEventListener('click', async () => {
     let originalUrl;
     if (frame && frame.src) {
-      const nickname = prompt('Enter a nickname for this favorite:');
+      let nickname = '123';
+      alert('Coming soon!');
+      // const nickname = prompt('Enter a nickname for this favorite:');
       if (nickname) {
         const favorites = JSON.parse(
           localStorage.getItem('@lunar/favorites') || '[]'
@@ -177,15 +196,33 @@ if (star) {
           const newFav = { nickname, url: originalUrl };
           favorites.push(newFav);
           localStorage.setItem('@lunar/favorites', JSON.stringify(favorites));
-          console.debug(`Favorite "${nickname}" added successfully!`);
+          console.debug(`[DEBUG] Favorite "${nickname}" added successfully!`);
         } catch (error) {
-          console.error('Error adding favorite:', error);
+          throw new Error('[ERROR] Error adding favorite:' + error);
         }
       } else {
-        alert('Favorite not saved. Nickname is required.');
+        alert('[ERROR] Favorite not saved. Nickname is required.');
       }
     } else {
-      throw new Error('Cannot favorite an invalid page');
+      throw new Error('[ERROR] Cannot favorite an invalid page');
     }
   });
 }
+
+input?.addEventListener('input', function () {
+  if (this.value.length >= 1) {
+    copy.style.right = '40px';
+    clear.style.right = '10px';
+    clear.classList.remove('hidden');
+  } else {
+    clear.classList.add('hidden');
+    copy.style.right = '10px';
+  }
+});
+
+clear?.addEventListener('click', () => {
+  input.value = '';
+  clear.classList.add('hidden');
+  copy.style.right = '10px';
+  input.focus();
+});

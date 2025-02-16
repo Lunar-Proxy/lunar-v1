@@ -24,7 +24,7 @@ if (input) {
             button.classList.add('hidden');
           }
         } catch (error) {
-          console.error('Failed to parse JSON:', error);
+          console.error('[ERROR] Failed to parse JSON:', error);
         }
       }
     });
@@ -48,20 +48,20 @@ buttons.forEach((button) => {
           );
 
           if (choice) {
-            const index = parseInt(choice) - 1;
+            const index = Number.parseInt(choice) - 1;
             if (index >= 0 && index < asset.link.length) {
               launch2(asset.link[index].url);
             } else {
-              alert('Invalid choice.');
+              alert('[ERROR] Invalid choice.');
             }
           } else {
-            alert('No choice made.');
+            alert('[ERROR] No choice made.');
           }
         } else {
           launch2(asset.link as string);
         }
       } catch (error) {
-        console.error('Failed to parse JSON:', error);
+        console.error('[ERROR] Failed to parse JSON:', error);
       }
     }
   });

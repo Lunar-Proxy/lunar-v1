@@ -3,6 +3,10 @@ module.exports = {
   content: ['./src/**/*.{astro,html,js,md,ts,vue}'],
   theme: {
     extend: {
+      fontFamily: {
+        linux: ['outfit', 'sans-serif'],
+        fit: ['Prompt', 'sans-serif'],
+      },
       colors: {
         background: {
           DEFAULT: 'var(--background)',
