@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const settingMapping: Record<string, Record<string, string>> = {
       ptype: {
         uv: 'Ultraviolet (Default)',
-        default: 'Scramjet',
+        sj: 'Scramjet',
       },
       engine: {
         'https://www.google.com/search?q=': 'Google',
