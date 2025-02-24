@@ -34,7 +34,7 @@ const Settings = (() => {
   const defaultSettings: Setting[] = [
     { cloak: false },
     { backend: 'uv' },
-    { engine: 'https://www.google.com/search?q=' },
+    { engine: 'https://duckduckgo.com/?q=' },
     { transport: 'ep' },
     { PreventClosing: false },
     {

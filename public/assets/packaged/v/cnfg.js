@@ -1,4 +1,4 @@
-let UltraConfig = {
+  UltraConfig = {
   prefix: '/p/',
   encodeUrl: (str) => {
     if (!str) return str;

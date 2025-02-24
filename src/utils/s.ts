@@ -43,8 +43,8 @@ document.addEventListener('DOMContentLoaded', () => {
         default: 'Scramjet',
       },
       engine: {
-        'https://www.google.com/search?q=': 'Google (Default)',
-        'https://duckduckgo.com/?q=': 'DuckDuckGo',
+        'https://www.google.com/search?q=': 'Google',
+        'https://duckduckgo.com/?q=': 'DuckDuckGo (Default)',
       },
     };
 
