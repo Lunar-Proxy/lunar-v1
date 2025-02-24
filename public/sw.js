@@ -8,7 +8,6 @@ importScripts(
   '/assets/packaged/v/b.js',
   '/assets/packaged/v/cnfg.js',
   '/assets/packaged/v/s.js',
-  '/assets/packaged/scram/wasm.js',
   '/assets/packaged/scram/shared.js',
   '/assets/packaged/scram/worker.js'
 );
