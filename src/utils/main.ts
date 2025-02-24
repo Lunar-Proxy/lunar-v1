@@ -23,7 +23,7 @@ const wispurl =
 const scram = new ScramjetController({
   prefix: '/scram/',
   files: {
-    wasm: '/assets/packaged/scram/wasm.wasm',
+    wasm: '/assets/packaged/scram/wasm.js',
     worker: '/assets/packaged/scram/worker.js',
     client: '/assets/packaged/scram/client.js',
     shared: '/assets/packaged/scram/shared.js',

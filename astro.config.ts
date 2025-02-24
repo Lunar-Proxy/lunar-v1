@@ -65,12 +65,6 @@ export default defineConfig({
             dest: 'assets/packaged/bm',
             overwrite: false,
           },
-          {
-            src: `${scramjetPath}/**/*.js`.replace(/\\/g, '/'),
-            dest: 'assets/packaged/scram',
-            overwrite: false,
-            rename: (name) => `${name.replace('scramjet.', '')}.js`,
-          },
         ],
       }),
     ],
