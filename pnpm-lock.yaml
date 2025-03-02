@@ -35,6 +35,9 @@ importers:
       '@mercuryworkshop/epoxy-transport':
         specifier: ^2.1.27
         version: 2.1.27
+      '@mercuryworkshop/libcurl-transport':
+        specifier: ^1.4.0
+        version: 1.4.0
       '@mercuryworkshop/scramjet':
         specifier: https://github.com/MercuryWorkshop/scramjet/releases/download/latest/mercuryworkshop-scramjet-1.0.2-dev.tgz
         version: https://github.com/MercuryWorkshop/scramjet/releases/download/latest/mercuryworkshop-scramjet-1.0.2-dev.tgz
@@ -653,6 +656,9 @@ packages:
 
   '@mercuryworkshop/epoxy-transport@2.1.27':
     resolution: {integrity: sha512-jvlJbNbqokU2YRfNYUCqSX+m4/T5Jx659Zn0/AgV2ZfB0S67FK7z9ZMstuxrZHog2AmBdOFaYUjLnI6cAboiaw==}
+
+  '@mercuryworkshop/libcurl-transport@1.4.0':
+    resolution: {integrity: sha512-Mm3cnaty3bRneKARCHtoiAEJ5vl2nI0QQzhu+L6wiKQAT9hvORYWS7BIJnB/U3EKNG/JSzPQF8D0fEN83aY/Mg==}
 
   '@mercuryworkshop/scramjet@https://github.com/MercuryWorkshop/scramjet/releases/download/latest/mercuryworkshop-scramjet-1.0.2-dev.tgz':
     resolution: {tarball: https://github.com/MercuryWorkshop/scramjet/releases/download/latest/mercuryworkshop-scramjet-1.0.2-dev.tgz}
@@ -1668,6 +1674,9 @@ packages:
   kleur@4.1.5:
     resolution: {integrity: sha512-o+NO+8WrRiQEE4/7nwRJhN1HWpVmJm511pBHUxPLtp0BUISzlBplORYSmTclCnJvQq2tKu/sgl3xVpkc7ZWuQQ==}
     engines: {node: '>=6'}
+
+  libcurl.js@0.7.0:
+    resolution: {integrity: sha512-lhwNH8GbLDy6ss3DOkEOlkV7i3TUHNmb7s8lBMzDUfN4Z5DuKEk7KBN1bqp4Riw+iZSYWgMTCzU8uoF5jYBITA==}
 
   light-my-request@6.3.0:
     resolution: {integrity: sha512-bWTAPJmeWQH5suJNYwG0f5cs0p6ho9e6f1Ppoxv5qMosY+s9Ir2+ZLvvHcgA7VTDop4zl/NCHhOVVqU+kd++Ow==}
@@ -3477,6 +3486,10 @@ snapshots:
     dependencies:
       '@mercuryworkshop/epoxy-tls': 2.1.16-1
 
+  '@mercuryworkshop/libcurl-transport@1.4.0':
+    dependencies:
+      libcurl.js: 0.7.0
+
   '@mercuryworkshop/scramjet@https://github.com/MercuryWorkshop/scramjet/releases/download/latest/mercuryworkshop-scramjet-1.0.2-dev.tgz':
     dependencies:
       '@mercuryworkshop/bare-mux': 2.1.7
@@ -4695,6 +4708,8 @@ snapshots:
   kleur@3.0.3: {}
 
   kleur@4.1.5: {}
+
+  libcurl.js@0.7.0: {}
 
   light-my-request@6.3.0:
     dependencies:

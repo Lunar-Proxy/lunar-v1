@@ -2,8 +2,7 @@ import { execSync } from 'child_process';
 import node from '@astrojs/node';
 import tailwind from '@astrojs/tailwind';
 import { baremuxPath } from '@mercuryworkshop/bare-mux/node';
-import { epoxyPath } from '@mercuryworkshop/epoxy-transport';
-import { scramjetPath } from '@mercuryworkshop/scramjet';
+import { libcurlPath } from '@mercuryworkshop/libcurl-transport';
 import { server as wisp } from '@mercuryworkshop/wisp-js/server';
 import playformCompress from '@playform/compress';
 import { defineConfig } from 'astro/config';
@@ -56,7 +55,7 @@ export default defineConfig({
       viteStaticCopy({
         targets: [
           {
-            src: normalizePath(epoxyPath + '/**/*.mjs'),
+            src: normalizePath(libcurlPath + '/**/*.mjs'),
             dest: 'assets/packaged/ep',
             overwrite: false,
           },
