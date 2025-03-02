@@ -23,7 +23,6 @@ const scram = new ScramjetController({
   flags: {
     serviceworkers: true,
     syncxhr: true,
-		scramitize: true,
   },
 });
 window.sj = scram;
