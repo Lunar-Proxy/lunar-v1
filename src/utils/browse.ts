@@ -20,8 +20,10 @@ const scram = new ScramjetController({
     shared: '/assets/sj/shared.js',
     sync: '/assets/sj/sync.js',
   },
-  defaultFlags: {
+  flags: {
     serviceworkers: true,
+    syncxhr: true,
+		scramitize: true,
   },
 });
 window.sj = scram;

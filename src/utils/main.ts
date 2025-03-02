@@ -29,7 +29,11 @@ const scram = new ScramjetController({
     shared: '/assets/packaged/scram/shared.js',
     sync: '/assets/packaged/scram/sync.js',
   },
-  defaultFlags: { serviceworkers: true },
+  flags: { 
+    serviceworkers: true,
+    syncxhr: true,
+		scramitize: true,
+   },
 });
 window.sj = scram;
 scram.init();
