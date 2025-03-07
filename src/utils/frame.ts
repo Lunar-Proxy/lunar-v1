@@ -9,7 +9,7 @@ const launch = document.getElementById('game-frame') as HTMLDivElement;
 const scram = new ScramjetController({
   prefix: '/scram/',
   files: {
-    wasm: '/assets/packaged/scram/wasm.js',
+    wasm: '/assets/packaged/scram/wasm.wasm',
     worker: '/assets/packaged/scram/worker.js',
     client: '/assets/packaged/scram/client.js',
     shared: '/assets/packaged/scram/shared.js',

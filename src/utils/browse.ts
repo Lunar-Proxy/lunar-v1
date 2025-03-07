@@ -14,11 +14,11 @@ const input = document.getElementById('input') as HTMLInputElement;
 const scram = new ScramjetController({
   prefix: '/scram/',
   files: {
-    wasm: '/assets/sj/wasm.js',
-    worker: '/assets/sj/worker.js',
-    client: '/assets/sj/client.js',
-    shared: '/assets/sj/shared.js',
-    sync: '/assets/sj/sync.js',
+    wasm: '/assets/packaged/scram/wasm.wasm',
+    worker: 'assets/packaged/scram/worker.js',
+    client: 'assets/packaged/scram/client.js',
+    shared: '/assets/packaged/scram/shared.js',
+    sync: 'assets/packaged/scram/sync.js',
   },
   flags: {
     serviceworkers: true,
