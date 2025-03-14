@@ -11,3 +11,4 @@ pnpm-debug.log*
 .idea/
 .vscode/
 eslint.config.js
+node-compile-cache/
