@@ -12,8 +12,8 @@ importers:
         specifier: ^0.9.4
         version: 0.9.4(prettier-plugin-astro@0.14.1)(prettier@3.5.1)(typescript@5.7.3)
       '@astrojs/node':
-        specifier: ^9.0.2
-        version: 9.0.2(astro@5.3.0(@types/node@22.13.10)(jiti@2.4.2)(lightningcss@1.28.2)(rollup@4.34.6)(terser@5.37.0)(tsx@4.19.2)(typescript@5.7.3)(yaml@2.6.1))
+        specifier: ^9.1.3
+        version: 9.1.3(astro@5.3.0(@types/node@22.13.10)(jiti@2.4.2)(lightningcss@1.28.2)(rollup@4.34.6)(terser@5.37.0)(tsx@4.19.2)(typescript@5.7.3)(yaml@2.6.1))
       '@astrojs/tailwind':
         specifier: ^6.0.0
         version: 6.0.0(astro@5.3.0(@types/node@22.13.10)(jiti@2.4.2)(lightningcss@1.28.2)(rollup@4.34.6)(terser@5.37.0)(tsx@4.19.2)(typescript@5.7.3)(yaml@2.6.1))(tailwindcss@3.4.17)
@@ -91,11 +91,14 @@ packages:
   '@astrojs/compiler@2.10.3':
     resolution: {integrity: sha512-bL/O7YBxsFt55YHU021oL+xz+B/9HvGNId3F9xURN16aeqDK9juHGktdkCSXz+U4nqFACq6ZFvWomOzhV+zfPw==}
 
-  '@astrojs/compiler@2.10.4':
-    resolution: {integrity: sha512-86B3QGagP99MvSNwuJGiYSBHnh8nLvm2Q1IFI15wIUJJsPeQTO3eb2uwBmrqRsXykeR/mBzH8XCgz5AAt1BJrQ==}
+  '@astrojs/compiler@2.11.0':
+    resolution: {integrity: sha512-zZOO7i+JhojO8qmlyR/URui6LyfHJY6m+L9nwyX5GiKD78YoRaZ5tzz6X0fkl+5bD3uwlDHayf6Oe8Fu36RKNg==}
 
   '@astrojs/internal-helpers@0.5.1':
     resolution: {integrity: sha512-M7rAge1n2+aOSxNvKUFa0u/KFn0W+sZy7EW91KOSERotm2Ti8qs+1K0xx3zbOxtAVrmJb5/J98eohVvvEqtNkw==}
+
+  '@astrojs/internal-helpers@0.6.1':
+    resolution: {integrity: sha512-l5Pqf6uZu31aG+3Lv8nl/3s4DbUzdlxTWDof4pEpto6GUJNhhCbelVi9dEyurOVyqaelwmS9oSyOWOENSfgo9A==}
 
   '@astrojs/language-server@2.15.4':
     resolution: {integrity: sha512-JivzASqTPR2bao9BWsSc/woPHH7OGSGc9aMxXL4U6egVTqBycB3ZHdBJPuOCVtcGLrzdWTosAqVPz1BVoxE0+A==}
@@ -112,10 +115,10 @@ packages:
   '@astrojs/markdown-remark@6.1.0':
     resolution: {integrity: sha512-emZNNSTPGgPc3V399Cazpp5+snogjaF04ocOSQn9vy3Kw/eIC4vTQjXOrWDEoSEy+AwPDZX9bQ4wd3bxhpmGgQ==}
 
-  '@astrojs/node@9.0.2':
-    resolution: {integrity: sha512-MFFYRa5yQEBegKrSUPMeKnjDMB4okTrkVRA40/mU3ADKrKY5VV3af0LS+NYkH9pFOvj/OsPbdeQVxQ0jI3f6aQ==}
+  '@astrojs/node@9.1.3':
+    resolution: {integrity: sha512-YcVxEmeZU8khNdrPYNPN3j//4tYPM+Pw6CthAJ6VE/bw65qEX7ErMRApalY2tibc3YhCeHMmsO9rXGhyW0NNyA==}
     peerDependencies:
-      astro: ^5.0.0
+      astro: ^5.3.0
 
   '@astrojs/prism@3.2.0':
     resolution: {integrity: sha512-GilTHKGCW6HMq7y3BUv9Ac7GMe/MO9gi9GW62GzKtth0SwukCu/qp2wLiGpEujhY+VVhaG9v7kv/5vFzvf4NYw==}
@@ -2959,10 +2962,12 @@ snapshots:
 
   '@astrojs/compiler@2.10.3': {}
 
-  '@astrojs/compiler@2.10.4':
+  '@astrojs/compiler@2.11.0':
     optional: true
 
   '@astrojs/internal-helpers@0.5.1': {}
+
+  '@astrojs/internal-helpers@0.6.1': {}
 
   '@astrojs/language-server@2.15.4(prettier-plugin-astro@0.14.1)(prettier@3.5.1)(typescript@5.7.3)':
     dependencies:
@@ -3015,8 +3020,9 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@astrojs/node@9.0.2(astro@5.3.0(@types/node@22.13.10)(jiti@2.4.2)(lightningcss@1.28.2)(rollup@4.34.6)(terser@5.37.0)(tsx@4.19.2)(typescript@5.7.3)(yaml@2.6.1))':
+  '@astrojs/node@9.1.3(astro@5.3.0(@types/node@22.13.10)(jiti@2.4.2)(lightningcss@1.28.2)(rollup@4.34.6)(terser@5.37.0)(tsx@4.19.2)(typescript@5.7.3)(yaml@2.6.1))':
     dependencies:
+      '@astrojs/internal-helpers': 0.6.1
       astro: 5.3.0(@types/node@22.13.10)(jiti@2.4.2)(lightningcss@1.28.2)(rollup@4.34.6)(terser@5.37.0)(tsx@4.19.2)(typescript@5.7.3)(yaml@2.6.1)
       send: 1.1.0
       server-destroy: 1.0.1
@@ -5272,7 +5278,7 @@ snapshots:
 
   prettier-plugin-astro@0.14.1:
     dependencies:
-      '@astrojs/compiler': 2.10.4
+      '@astrojs/compiler': 2.11.0
       prettier: 3.5.1
       sass-formatter: 0.7.9
     optional: true
