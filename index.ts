@@ -150,6 +150,6 @@ app.listen({ host, port }, (err, address) => {
   console.log(chalk.whiteBright(`🛠  Version: ${chalk.cyanBright(version)}`));
 
   console.log(chalk.green.bold(`\n🌍 Lunar is running at:`));
-  console.log(chalk.blueBright(`   ➡ Local:    ${chalk.underline(address)}`));
+  console.log(chalk.blueBright(`   ➡ Local:    localhost:${port}`));
   console.log(chalk.blueBright(`   ➡ Network:  http://127.0.0.1:${port}`));
 });

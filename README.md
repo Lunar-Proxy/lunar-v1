@@ -8,7 +8,6 @@ Lunar is a web proxy designed to bypass censorship and provide an exceptional us
 
 ## Features
 
-- 🚫 **No Ads**
 - 🚀 **High-Speed Performance**
 - 🪞 **Advanced Tab Cloaking**
 - 🎮 **Alot of games & apps**

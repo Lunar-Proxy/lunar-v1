@@ -10,22 +10,20 @@ import { normalizePath } from 'vite';
 import { viteStaticCopy } from 'vite-plugin-static-copy';
 import { version } from './package.json';
 
-function check() {
+const getLastUpdated = () => {
   try {
-    return execSync('git log -1 --format=%cd', { stdio: 'pipe' })
-      .toString()
-      .trim();
+    return execSync('git log -1 --format=%cd', { stdio: 'pipe' }).toString().trim();
   } catch {
     return new Date().toISOString();
   }
-}
+};
+
 export default defineConfig({
   output: 'server',
   adapter: node({ mode: 'middleware' }),
   integrations: [
     tailwind(),
     playformCompress({
-      CSS: false,
       HTML: true,
       Image: true,
       JavaScript: true,
@@ -39,9 +37,23 @@ export default defineConfig({
   vite: {
     define: {
       VERSION: JSON.stringify(version),
-      LAST_UPDATED: JSON.stringify(check()),
+      LAST_UPDATED: JSON.stringify(getLastUpdated()),
     },
     plugins: [
+      viteStaticCopy({
+        targets: [
+          {
+            src: normalizePath(`${libcurlPath}/**/*.mjs`),
+            dest: 'assets/packaged/ep',
+            overwrite: false,
+          },
+          {
+            src: normalizePath(`${baremuxPath}/**/*.js`),
+            dest: 'assets/packaged/bm',
+            overwrite: false,
+          },
+        ],
+      }),
       {
         name: 'viteserver',
         configureServer(server) {
@@ -52,20 +64,6 @@ export default defineConfig({
           });
         },
       },
-      viteStaticCopy({
-        targets: [
-          {
-            src: normalizePath(libcurlPath + '/**/*.mjs'),
-            dest: 'assets/packaged/ep',
-            overwrite: false,
-          },
-          {
-            src: normalizePath(baremuxPath + '/**/*.js'),
-            dest: 'assets/packaged/bm',
-            overwrite: false,
-          },
-        ],
-      }),
     ],
   },
 });
