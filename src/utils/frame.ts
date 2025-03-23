@@ -15,10 +15,10 @@ const scram = new ScramjetController({
     shared: '/assets/packaged/scram/shared.js',
     sync: '/assets/packaged/scram/sync.js',
   },
-  flags: { 
+  flags: {
     serviceworkers: true,
     syncxhr: true,
-   },
+  },
 });
 window.sj = scram;
 scram.init();

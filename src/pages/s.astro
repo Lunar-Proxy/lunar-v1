@@ -3,6 +3,7 @@ import '@src/main.css';
 import Dropdown from '@src/components/DropDown.astro';
 import { ShieldEllipsis, Palette, Info, Globe } from 'lucide-astro';
 ---
+
 <!doctype html>
 <html lang="en" class="h-screen">
   <head>
@@ -93,13 +94,10 @@ import { ShieldEllipsis, Palette, Info, Globe } from 'lucide-astro';
       <div
         class="flex flex-col items-center justify-center p-6 bg-background-overlay rounded-lg shadow-md"
       >
-        <h1 class="font-linux text-2xl text-text-HEADER font-bold mb-2">
-          Ads
-        </h1>
-        <p
-          class="font-fit mt-[10px] text-text-SECONDARY text-center"
-        >
-          Ads help support the site and keep it free. Please consider keeping this on.
+        <h1 class="font-linux text-2xl text-text-HEADER font-bold mb-2">Ads</h1>
+        <p class="font-fit mt-[10px] text-text-SECONDARY text-center">
+          Ads help support the site and keep it free. Please consider keeping
+          this on.
         </p>
         <p
           id="adstatus"
@@ -124,7 +122,10 @@ import { ShieldEllipsis, Palette, Info, Globe } from 'lucide-astro';
         <p class="font-fit text-text-SECONDARY text-center">
           Prevent the proxy from appearing in your search history.
         </p>
-        <p id="abstatus" class="font-fit mt-[10px] text-text-SECONDARY text-center">
+        <p
+          id="abstatus"
+          class="font-fit mt-[10px] text-text-SECONDARY text-center"
+        >
           Loading status...
         </p>
         <div class="flex space-x-4 mt-4">
@@ -141,7 +142,7 @@ import { ShieldEllipsis, Palette, Info, Globe } from 'lucide-astro';
             Open Cloak
           </button>
         </div>
-      </div>    
+      </div>
     </div>
     <div
       id="proxy"
@@ -158,14 +159,14 @@ import { ShieldEllipsis, Palette, Info, Globe } from 'lucide-astro';
           <br /><br />
           <strong>Ultraviolet</strong> - Fast, but some sites may not work.
           <br />
-          <strong>Scramjet (BETA)</strong> - Alot faster then UV, also more sites work
-          then UV.
+          <strong>Scramjet (BETA)</strong> - Alot faster then UV, also more sites
+          work then UV.
         </p>
         <br />
         <Dropdown
           id="ptype"
           options={[
-            { value: 'sj', label: 'Scramjet'},
+            { value: 'sj', label: 'Scramjet' },
             { value: 'uv', label: 'Ultraviolet (default)' },
           ]}
         />

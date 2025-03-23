@@ -126,7 +126,6 @@ Ab.addEventListener('click', async () => {
   }
 });
 
-
 adconfirm.addEventListener('click', async () => {
   let currentSetting = await Settings.get('ads');
   await Settings.edit('ads', !currentSetting);

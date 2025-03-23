@@ -12,7 +12,9 @@ import { version } from './package.json';
 
 const getLastUpdated = () => {
   try {
-    return execSync('git log -1 --format=%cd', { stdio: 'pipe' }).toString().trim();
+    return execSync('git log -1 --format=%cd', { stdio: 'pipe' })
+      .toString()
+      .trim();
   } catch {
     return new Date().toISOString();
   }
