@@ -1,25 +1,25 @@
 [
   {
     "name": "Minecraft 1.20",
-    "image": "/assets/images/icons/mc.png",
+    "image": "/assets/images/icons/mc.webp",
     "link": "https://client.eaglercraft.win/eagler-files/modded/1.8/EaglyMC/index.html",
     "error": false
   },
   {
     "name": "Wordle",
-    "image": "/assets/images/icons/word.png",
+    "image": "/assets/images/icons/word.webp",
     "link": "https://www.nytimes.com/games/wordle/index.html",
     "error": false
   },
   {
     "name": "Cookie Clicker",
-    "image": "/assets/images/icons/cc.png",
+    "image": "/assets/images/icons/cc.webp",
     "link": "https://orteil.dashnet.org/cookieclicker/",
     "error": false
   },
   {
     "name": "SmashKarts",
-    "image": "/assets/images/icons/sk.jpeg",
+    "image": "/assets/images/icons/sk.webp",
     "link": "https://smashkarts.io/",
     "error": false
   },
@@ -31,50 +31,50 @@
   },
   {
     "name": "FNF",
-    "image": "/assets/images/icons/fnf.jpg",
+    "image": "/assets/images/icons/fnf.webp",
     "link": "https://fnf.kdata1.com/2024/fnf/5201/",
     "error": false
   },
   {
     "name": "OvO",
-    "image": "/assets/images/icons/ovo.png",
+    "image": "/assets/images/icons/ovo.webp",
     "link": "https://www.coolmathgames.com/0-ovo/play",
     "error": false
   },
   {
     "name": "digdigIo",
-    "image": "/assets/images/icons/dig.png",
+    "image": "/assets/images/icons/dig.webp",
     "link": "https://digdig.io/",
     "error": false
   },
   {
     "name": "2048",
-    "image": "/assets/images/icons/2048.png",
+    "image": "/assets/images/icons/2048.webp",
     "link": "https://2048game.com/",
     "error": false
   },
   {
     "name": "Stickman Hook",
-    "image": "/assets/images/icons/sh.png",
+    "image": "/assets/images/icons/sh.webp",
     "link": "https://stickman-hook-game.github.io/file/",
     "error": false
   },
   {
     "name": "EmulatorJs",
-    "image": "/assets/images/icons/emjs.png",
+    "image": "/assets/images/icons/emjs.webp",
     "link": "https://demo.emulatorjs.org/",
     "error": false
   },
   {
     "name": "Subway Surfers",
-    "image": "/assets/images/icons/subway.png",
+    "image": "/assets/images/icons/subway.webp",
     "link": "https://ubg77.github.io/updatefaqs/subway-surfers-winter-holiday/",
     "error": false
   },
 
   {
     "name": "KourIo",
-    "image": "/assets/images/icons/kio.jpg",
+    "image": "/assets/images/icons/kio.webp",
     "link": "https://www.kour.io/",
     "error": false
   },
@@ -92,61 +92,61 @@
   },
   {
     "name": "N-gon",
-    "image": "/assets/images/icons/ngon.png",
+    "image": "/assets/images/icons/ngon.webp",
     "link": "https://landgreen.github.io/n-gon/",
     "error": false
   },
   {
     "name": "DriveMad",
-    "image": "/assets/images/icons/dm.png",
+    "image": "/assets/images/icons/dm.webp",
     "link": "https://ubg77.github.io/game131022/drive-mad/",
     "error": false
   },
   {
     "name": "FruitNinja",
-    "image": "/assets/images/icons/fn.jpg",
+    "image": "/assets/images/icons/fn.webp",
     "link": "http://huningxin.github.io/spp.js/examples/fruitNinja/",
     "error": false
   },
   {
     "name": "CraftMine",
-    "image": "/assets/images/icons/cm.jpg",
+    "image": "/assets/images/icons/cm.webp",
     "link": "https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://cdn.jsdelivr.net/gh/bobydob/JSEngine@bdd7d45deaeaa50131e1913f2f0598cf147f8c56/build/crmine/crmi.xml&container=ig",
     "error": false
   },
   {
     "name": "DriftBoss",
-    "image": "/assets/images/icons/db.png",
+    "image": "/assets/images/icons/db.webp",
     "link": "https://driftbossunblocked.github.io/",
     "error": false
   },
   {
     "name": "Merge Round Racers",
-    "image": "/assets/images/icons/mrr.avif",
+    "image": "/assets/images/icons/mrr.webp",
     "link": "https://ubg77.github.io/edit/merge-round-racers/",
     "error": false
   },
   {
     "name": "Geometry Dash",
-    "image": "/assets/images/icons/gd.png",
+    "image": "/assets/images/icons/gd.webp",
     "link": "https://assets.3kh0.net/geodash/",
     "error": false
   },
   {
     "name": "Flappy Bird",
-    "image": "/assets/images/icons/fb.jpg",
+    "image": "/assets/images/icons/fb.webp",
     "link": "https://ellisonleao.github.io/clumsy-bird/",
     "error": false
   },
   {
     "name": "Idle Dice",
-    "image": "/assets/images/icons/id.jpeg",
+    "image": "/assets/images/icons/id.webp",
     "link": "https://ubg77.github.io/game131022/idle-dice/",
     "error": false
   },
   {
     "name": "Idle Miner",
-    "image": "/assets/images/icons/im.png",
+    "image": "/assets/images/icons/im.webp",
     "link": "https://ubg77.github.io/game131022/idle-miner/",
     "error": false
   },
@@ -166,76 +166,76 @@
 
   {
     "name": "Awesome Tanks 2",
-    "image": "/assets/images/icons/at2.png",
+    "image": "/assets/images/icons/at2.webp",
     "link": "https://ubg98.github.io/AwesomeTanks2/",
     "error": false
   },
 
   {
     "name": "BasketBall Random",
-    "image": "/assets/images/icons/bbr.png",
+    "image": "/assets/images/icons/bbr.webp",
     "link": "https://tylerpalko.github.io/gamehub/basketrandom/",
     "error": false
   },
 
   {
     "name": "Basketbros",
-    "image": "/assets/images/icons/bbs.jpeg",
+    "image": "/assets/images/icons/bbs.webp",
     "link": "https://basketbros.io/",
     "error": false
   },
 
   {
     "name": "Adventure Drivers",
-    "image": "/assets/images/icons/ad.jpg",
+    "image": "/assets/images/icons/ad.webp",
     "link": "https://ubg77.github.io/game131022/adventure-drivers/",
     "error": false
   },
   {
     "name": "Parking Fury",
-    "image": "/assets/images/icons/pf.png",
+    "image": "/assets/images/icons/pf.webp",
     "link": "https://webglmath.github.io/parking-fury/",
     "error": false
   },
   {
     "name": "Roblox",
-    "image": "/assets/images/icons/rb.png",
+    "image": "/assets/images/icons/rb.webp",
     "link": "https://nowgg.lol/",
     "error": false
   },
   {
     "name": "Tiny Fishing",
-    "image": "/assets/images/icons/tf.jpeg",
+    "image": "/assets/images/icons/tf.webp",
     "link": "https://legalizenuclearbombs5.github.io/games/Tiny%20Fishing",
     "error": false
   },
   {
     "name": "Slope",
-    "image": "/assets/images/icons/slow.jpg",
+    "image": "/assets/images/icons/slow.webp",
     "link": "https://coderguytedd.github.io/Slope-Game-Test/",
     "error": false
   },
   {
     "name": "AI Minecraft",
-    "image": "/assets/images/icons/mc.png",
+    "image": "/assets/images/icons/mc.webp",
     "link": "https://oasis.decart.ai/welcome",
     "error": false
   },
   {
     "name": "Football Bros",
-    "image": "/assets/images/icons/fbb.jpeg",
+    "image": "/assets/images/icons/fbb.webp",
     "link": "https://footballbros.io/",
     "error": false
   },
   {
     "name": "OvO 2",
-    "image": "/assets/images/icons/ovo2.png",
+    "image": "/assets/images/icons/ovo2.webp",
     "link": "https://dedragames.com/games/ovo2/0.2alpha/",
     "error": false
   },
   {
     "name": "Paper.io",
-    "image": "/assets/images/icons/ppio.jpeg",
+    "image": "/assets/images/icons/ppio.webp",
     "link": "https://paperio.site/",
     "error": false
   }

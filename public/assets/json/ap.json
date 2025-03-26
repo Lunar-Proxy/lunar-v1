@@ -1,7 +1,7 @@
 [
   {
     "name": "Discord - Login",
-    "image": "/assets/images/icons/dis.png",
+    "image": "/assets/images/icons/dis.webp",
     "link": [
       { "name": "Discord", "url": "https://discord.com/login" },
       { "name": "Discord Canary", "url": "https://canary.discord.com/login" },
@@ -14,13 +14,13 @@
   },
   {
     "name": "W3schools",
-    "image": "/assets/images/icons/w3.png",
+    "image": "/assets/images/icons/w3.webp",
     "link": "https://www.w3schools.com/",
     "error": false
   },
   {
     "name": "VS Code",
-    "image": "/assets/images/icons/vs.jpeg",
+    "image": "/assets/images/icons/vs.webp",
     "link": "https://code.visualstudio.com/",
     "error": false
   },
@@ -32,13 +32,13 @@
   },
   {
     "name": "Amazon",
-    "image": "/assets/images/icons/ama.jpeg",
+    "image": "/assets/images/icons/ama.webp",
     "link": "https://www.amazon.com/",
     "error": false
   },
   {
     "name": "Spotify",
-    "image": "/assets/images/icons/spot.jpg",
+    "image": "/assets/images/icons/spot.webp",
     "link": "https://spotify.com",
     "error": false
   },
@@ -50,7 +50,7 @@
   },
   {
     "name": "github",
-    "image": "/assets/images/icons/gh.png",
+    "image": "/assets/images/icons/gh.webp",
     "link": "https://www.github.com",
     "error": false
   }
