@@ -155,7 +155,7 @@ app.register(fastifyStatic, {
 await app.register(fastifyMiddie);
 app.use(handler);
 
-app.listen({ host, port }, (err, address) => {
+app.listen({ host, port }, (err) => {
   if (err) {
     throw new Error(`❌ Failed to start Lunar V1: ${err.message}`);
   }
