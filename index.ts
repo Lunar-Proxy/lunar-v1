@@ -2,6 +2,7 @@ import Fastify from 'fastify';
 import fastifyMiddie from '@fastify/middie';
 import fastifyStatic from '@fastify/static';
 import fastifyCompress from '@fastify/compress';
+import fastifyCaching from '@fastify/caching';
 import basicAuth from '@fastify/basic-auth';
 import fs from 'node:fs';
 import { execSync } from 'child_process';
@@ -51,6 +52,11 @@ const app = Fastify({
 });
 
 await app.register(fastifyCompress, { encodings: ['deflate', 'gzip', 'br'] });
+await app.register(fastifyCaching, {
+  privacy: 'private',
+  expiresIn: 60 * 1000, // 60s
+});
+
 
 if (config.auth.protect) {
   console.log(chalk.magenta.bold('🔒 Password Protection Enabled.'));
@@ -125,12 +131,25 @@ app.setErrorHandler((error, _request, reply) => {
 await build();
 
 const commitDate = getCommitDate();
+const staticOptions = {
+  maxAge: 86400, // 1d
+  etag: true,
+  lastModified: true,
+  setHeaders: (res: any, filePath: string) => {
+    if (filePath.endsWith('.html')) {
+      res.setHeader('Cache-Control', 'public, max-age=0');
+    } else if (/\.(js|css|jpg|jpeg|png|gif|ico|svg|webp|avif)$/.test(filePath)) {
+      res.setHeader('Cache-Control', 'public, max-age=31536000, immutable'); // 1 year
+    }
+  },
+};
 
 // @ts-ignore dir may not exist
 const { handler } = await import('./dist/server/entry.mjs');
 
 app.register(fastifyStatic, {
   root: path.join(import.meta.dirname, 'dist', 'client'),
+  ...staticOptions,
 });
 
 await app.register(fastifyMiddie);
