@@ -54,7 +54,7 @@ If you’re making changes to Lunar, use the development setup to avoid rebuildi
 pnpm install && pnpm dev
 ```
 
-# Contribuating
+# Contributing
 
 If you are doing a change to Lunar, please read [this guide](CONTRIBUTING.md) before commiting.
 
