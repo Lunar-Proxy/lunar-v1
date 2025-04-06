@@ -238,5 +238,11 @@
     "image": "/assets/images/icons/ppio.webp",
     "link": "https://paperio.site/",
     "error": false
+  },
+   {
+    "name": "Super Mario 64",
+    "image": "/assets/images/icons/SuperMario64.webp",
+    "link": "https://probablykam.github.io/Mario64webgl/",
+    "error": false
   }
 ]
