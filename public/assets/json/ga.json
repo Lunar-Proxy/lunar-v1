@@ -244,5 +244,12 @@
     "image": "/assets/images/icons/SuperMario64.webp",
     "link": "https://probablykam.github.io/Mario64webgl/",
     "error": false
+  },
+    {
+    "name": "Cluster Rush Unblocked",
+    "image": "/assets/images/icons/SuperMario64.webp",
+    "link": "https://clusterrush.games/",
+    "error": false
   }
+  
 ]
