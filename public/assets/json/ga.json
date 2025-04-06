@@ -250,6 +250,11 @@
     "image": "/assets/images/icons/cluster-rush1.webp",
     "link": "https://clusterrush.games/",
     "error": false
+  },
+    {
+    "name": "1v1.lol",
+    "image": "/assets/images/icons/cluster-rush1.webp",
+    "link": "https://1v1.school/",
+    "error": false
   }
-  
 ]
