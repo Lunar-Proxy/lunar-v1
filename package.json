@@ -23,7 +23,7 @@
     "@mercuryworkshop/bare-mux": "^2.1.7",
     "@mercuryworkshop/libcurl-transport": "^1.4.0",
     "@mercuryworkshop/wisp-js": "^0.3.3",
-    "@playform/compress": "^0.1.7",
+    "@playform/compress": "^0.1.9",
     "@types/node": "^22.14.0",
     "astro": "5.6.1",
     "chalk": "^5.4.1",
