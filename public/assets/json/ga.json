@@ -238,5 +238,23 @@
     "image": "/assets/images/icons/ppio.webp",
     "link": "https://paperio.site/",
     "error": false
+  },
+   {
+    "name": "Super Mario 64",
+    "image": "/assets/images/icons/SuperMario64.webp",
+    "link": "https://probablykam.github.io/Mario64webgl/",
+    "error": false
+  },
+    {
+    "name": "Cluster Rush Unblocked",
+    "image": "/assets/images/icons/cluster-rush1.webp",
+    "link": "https://clusterrush.games/",
+    "error": false
+  },
+    {
+    "name": "1v1.lol",
+    "image": "/assets/images/icons/1v1.lol.webp",
+    "link": "https://1v1.school/",
+    "error": false
   }
 ]
