@@ -242,7 +242,7 @@
    {
     "name": "Super Mario 64",
     "image": "/assets/images/icons/SuperMario64.webp",
-    "link": "https://probablykam.github.io/Mario64webgl/",
+    "link": "https://arkshocer.github.io/sm64/",
     "error": false
   },
     {
@@ -254,7 +254,7 @@
     {
     "name": "1v1.lol",
     "image": "/assets/images/icons/1v1.lol.webp",
-    "link": "https://1v1.school/",
+    "link": "https://1v1.lol/",
     "error": false
   }
 ]
