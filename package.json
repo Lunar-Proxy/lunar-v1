@@ -28,7 +28,7 @@
     "astro": "5.6.1",
     "chalk": "^5.4.1",
     "fastify": "^5.2.1",
-    "lucide-astro": "^0.483.0",
+    "lucide-astro": "^0.487.0",
     "prettier-plugin-astro": "^0.14.1",
     "tailwindcss": "^3.4.17",
     "tsx": "^4.19.3",
