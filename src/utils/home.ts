@@ -13,13 +13,14 @@ const engine = await Settings.get('engine');
 const favicon = document.getElementById('favicon') as HTMLImageElement;
 const adChoice = await Settings.get('ads');
 
+// removing ads for now
 if (adChoice === true) {
-  const adscript = document.createElement('script');
-  adscript.src =
-    '//pl26118226.effectiveratecpm.com/c3/6c/4c/c36c4cb12d910f94c011568f390bf9d9.js';
-  adscript.type = 'text/javascript';
-  document.head.appendChild(adscript);
-  console.log('[DEBUG] Ads are loaded');
+//  const adscript = document.createElement('script');
+ // adscript.src =
+ //   '//pl26118226.effectiveratecpm.com/c3/6c/4c/c36c4cb12d910f94c011568f390bf9d9.js';
+//  adscript.type = 'text/javascript';
+//  document.head.appendChild(adscript);
+console.log('[DEBUG] Ads are loaded');
 }
 
 if (engine === 'https://duckduckgo.com/?q=') {
