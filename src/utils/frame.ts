@@ -16,8 +16,6 @@ const scram = new ScramjetController({
     sync: '/assets/packaged/scram/sync.js',
   },
   flags: {
-    serviceworkers: true,
-    syncxhr: true,
   },
 });
 window.sj = scram;
