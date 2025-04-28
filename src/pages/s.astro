@@ -23,11 +23,11 @@ import { ShieldEllipsis, Palette, Info, Globe } from 'lucide-astro';
       >
         Settings
       </h2>
-      <div class="flex-grow flex items-center">
+      <div class="grow flex items-center">
         <ul id="menu" class="flex flex-col items-center space-y-2 w-full">
           <li
             data-section="site"
-            class="font-semibold cursor-pointer w-full px-4 py-2 bg-background rounded hover:bg-gray-700 text-center"
+            class="font-semibold cursor-pointer w-full px-4 py-2 bg-background rounded-sm hover:bg-gray-700 text-center"
           >
             <div class="flex items-center">
               <Globe class="h-6 w-6 align-middle" />
@@ -36,7 +36,7 @@ import { ShieldEllipsis, Palette, Info, Globe } from 'lucide-astro';
           </li>
           <li
             data-section="proxy"
-            class="font-semibold cursor-pointer w-full px-4 py-2 bg-background rounded hover:bg-gray-700 text-center"
+            class="font-semibold cursor-pointer w-full px-4 py-2 bg-background rounded-sm hover:bg-gray-700 text-center"
           >
             <div class="flex items-center">
               <ShieldEllipsis class="h-6 w-6 inline" />
@@ -45,7 +45,7 @@ import { ShieldEllipsis, Palette, Info, Globe } from 'lucide-astro';
           </li>
           <li
             data-section="customization"
-            class="font-semibold cursor-pointer w-full px-4 py-2 bg-background rounded hover:bg-gray-700 text-center"
+            class="font-semibold cursor-pointer w-full px-4 py-2 bg-background rounded-sm hover:bg-gray-700 text-center"
           >
             <div class="flex items-center">
               <Palette class="h-6 w-6 align-middle" />
@@ -54,7 +54,7 @@ import { ShieldEllipsis, Palette, Info, Globe } from 'lucide-astro';
           </li>
           <li
             data-section="about"
-            class="font-semibold cursor-pointer w-full px-4 py-2 bg-background rounded hover:bg-gray-700 text-center"
+            class="font-semibold cursor-pointer w-full px-4 py-2 bg-background rounded-sm hover:bg-gray-700 text-center"
           >
             <div class="flex items-center">
               <Info class="h-6 w-6 align-middle" />
@@ -85,7 +85,7 @@ import { ShieldEllipsis, Palette, Info, Globe } from 'lucide-astro';
         </p>
         <button
           id="confirm"
-          class="px-4 py-2 mt-4 bg-background text-text-SECONDARY font-semibold rounded-lg shadow hover:bg-gray-700 focus:outline-none focus:ring-2"
+          class="px-4 py-2 mt-4 bg-background text-text-SECONDARY font-semibold rounded-lg shadow-sm hover:bg-gray-700 focus:outline-hidden focus:ring-2"
         >
           Toggle
         </button>
@@ -107,7 +107,7 @@ import { ShieldEllipsis, Palette, Info, Globe } from 'lucide-astro';
         </p>
         <button
           id="adconfirm"
-          class="px-4 py-2 mt-4 bg-background text-text-SECONDARY font-semibold rounded-lg shadow hover:bg-gray-700 focus:outline-none focus:ring-2"
+          class="px-4 py-2 mt-4 bg-background text-text-SECONDARY font-semibold rounded-lg shadow-sm hover:bg-gray-700 focus:outline-hidden focus:ring-2"
         >
           Toggle
         </button>
@@ -131,13 +131,13 @@ import { ShieldEllipsis, Palette, Info, Globe } from 'lucide-astro';
         <div class="flex space-x-4 mt-4">
           <button
             id="ab"
-            class="px-4 py-2 bg-background text-text-SECONDARY font-semibold rounded-lg shadow hover:bg-gray-700 focus:outline-none focus:ring-2"
+            class="px-4 py-2 bg-background text-text-SECONDARY font-semibold rounded-lg shadow-sm hover:bg-gray-700 focus:outline-hidden focus:ring-2"
           >
             Toggle
           </button>
           <button
             id="openCloak"
-            class="px-4 py-2 bg-background text-text-SECONDARY font-semibold rounded-lg shadow hover:bg-gray-700 focus:outline-none focus:ring-2"
+            class="px-4 py-2 bg-background text-text-SECONDARY font-semibold rounded-lg shadow-sm hover:bg-gray-700 focus:outline-hidden focus:ring-2"
           >
             Open Cloak
           </button>
