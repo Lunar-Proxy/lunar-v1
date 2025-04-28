@@ -1,6 +1,6 @@
 import { execSync } from 'child_process';
 import node from '@astrojs/node';
-import tailwind from '@astrojs/tailwind';
+import tailwindcss from '@tailwindcss/vite'
 import { baremuxPath } from '@mercuryworkshop/bare-mux/node';
 import { libcurlPath } from '@mercuryworkshop/libcurl-transport';
 import { server as wisp } from '@mercuryworkshop/wisp-js/server';
@@ -24,7 +24,6 @@ export default defineConfig({
   output: 'server',
   adapter: node({ mode: 'middleware' }),
   integrations: [
-    tailwind(),
     playformCompress({
       HTML: true,
       Image: true,
@@ -42,6 +41,7 @@ export default defineConfig({
       LAST_UPDATED: JSON.stringify(getLastUpdated()),
     },
     plugins: [
+      tailwindcss(),
       viteStaticCopy({
         targets: [
           {

@@ -14,7 +14,6 @@
   "dependencies": {
     "@astrojs/check": "^0.9.4",
     "@astrojs/node": "^9.2.1",
-    "@astrojs/tailwind": "^6.0.2",
     "@fastify/basic-auth": "^6.0.3",
     "@fastify/caching": "^9.0.3",
     "@fastify/compress": "^8.0.1",
@@ -24,6 +23,7 @@
     "@mercuryworkshop/libcurl-transport": "^1.4.0",
     "@mercuryworkshop/wisp-js": "^0.3.3",
     "@playform/compress": "^0.1.9",
+    "@tailwindcss/vite": "^4.1.4",
     "@types/node": "^22.14.0",
     "astro": "5.7.7",
     "chalk": "^5.4.1",
