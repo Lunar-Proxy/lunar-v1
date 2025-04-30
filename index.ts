@@ -137,12 +137,15 @@ const staticOptions = {
   lastModified: true,
   setHeaders: (res: any, filePath: string) => {
     if (filePath.endsWith('.html')) {
-      res.setHeader('Cache-Control', 'public, max-age=0');
+      res.setHeader('Cache-Control', 'public, max-age=3600');
     } else if (/\.(js|css|jpg|jpeg|png|gif|ico|svg|webp|avif)$/.test(filePath)) {
       res.setHeader('Cache-Control', 'public, max-age=31536000, immutable'); // 1 year
+    } else {
+      res.setHeader('Cache-Control', 'public, max-age=3600'); //1 hour
     }
   },
 };
+
 
 // @ts-ignore dir may not exist
 const { handler } = await import('./dist/server/entry.mjs');
@@ -169,6 +172,6 @@ app.listen({ host, port }, (err) => {
   console.log(chalk.whiteBright(`🛠  Version: ${chalk.cyanBright(version)}`));
 
   console.log(chalk.green.bold(`\n🌍 Lunar is running at:`));
-  console.log(chalk.blueBright(`   ➡ Local:    localhost:${port}`));
+  console.log(chalk.blueBright(`   ➡ Local:    http://localhost:${port}`));
   console.log(chalk.blueBright(`   ➡ Network:  http://127.0.0.1:${port}`));
 });
