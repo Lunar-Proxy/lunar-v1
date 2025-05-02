@@ -60,7 +60,7 @@ If you are doing a change to Lunar, please read [this guide](CONTRIBUTING.md) be
 
 # Support
 
-For help, Make a [GitHub Issue](https://github.com/Lunar-Proxy/lunar-v1/issues) or [join our Discord community](https://discord.gg/fuPtWjYuf8).
+For help, make a [GitHub Issue](https://github.com/Lunar-Proxy/lunar-v1/issues) or ask in [our Discord](https://discord.gg/fuPtWjYuf8).
 
 # Credits
 
