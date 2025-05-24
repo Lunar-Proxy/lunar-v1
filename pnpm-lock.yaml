@@ -60,8 +60,8 @@ importers:
         specifier: ^1.10.0
         version: 1.10.0
       lucide-astro:
-        specifier: ^0.487.0
-        version: 0.487.0(astro@5.7.13(@types/node@22.14.0)(jiti@2.4.2)(lightningcss@1.29.3)(rollup@4.40.1)(terser@5.39.0)(tsx@4.19.4)(typescript@5.8.3)(yaml@2.7.1))
+        specifier: ^0.511.0
+        version: 0.511.0(astro@5.7.13(@types/node@22.14.0)(jiti@2.4.2)(lightningcss@1.29.3)(rollup@4.40.1)(terser@5.39.0)(tsx@4.19.4)(typescript@5.8.3)(yaml@2.7.1))
       prettier-plugin-astro:
         specifier: ^0.14.1
         version: 0.14.1
@@ -1841,8 +1841,8 @@ packages:
   lru_map@0.3.3:
     resolution: {integrity: sha512-Pn9cox5CsMYngeDbmChANltQl+5pi6XmTrraMSzhPmMBbmgcxmqWry0U3PGapCU1yB4/LqCcom7qhHZiF/jGfQ==}
 
-  lucide-astro@0.487.0:
-    resolution: {integrity: sha512-t+UEDa34DrPTgvNmXTMNNGr7jGtnHSzr6wAHoqEwnf/jR4zJOuJx80TR9MKAPHGlZ1R0ihetODJI1l8gE6MrJA==}
+  lucide-astro@0.511.0:
+    resolution: {integrity: sha512-Apf3qFMiHmZM/9qVmQ7Tm6svhCvOtyLxnZ9ES3JIcfsPhgkrLTAytTAfYIg81m1sr4vPBg2i9F3DCUN5Hz68VQ==}
     peerDependencies:
       astro: '>=2.7.1'
 
@@ -4806,7 +4806,7 @@ snapshots:
 
   lru_map@0.3.3: {}
 
-  lucide-astro@0.487.0(astro@5.7.13(@types/node@22.14.0)(jiti@2.4.2)(lightningcss@1.29.3)(rollup@4.40.1)(terser@5.39.0)(tsx@4.19.4)(typescript@5.8.3)(yaml@2.7.1)):
+  lucide-astro@0.511.0(astro@5.7.13(@types/node@22.14.0)(jiti@2.4.2)(lightningcss@1.29.3)(rollup@4.40.1)(terser@5.39.0)(tsx@4.19.4)(typescript@5.8.3)(yaml@2.7.1)):
     dependencies:
       astro: 5.7.13(@types/node@22.14.0)(jiti@2.4.2)(lightningcss@1.29.3)(rollup@4.40.1)(terser@5.39.0)(tsx@4.19.4)(typescript@5.8.3)(yaml@2.7.1)
 
