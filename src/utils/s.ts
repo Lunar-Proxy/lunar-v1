@@ -10,27 +10,45 @@ const abStatus = document.getElementById('abstatus') as HTMLSpanElement;
 const Ab = document.getElementById('ab') as HTMLButtonElement;
 const openCloak = document.getElementById('openCloak') as HTMLButtonElement;
 const adStatus = document.getElementById('adstatus') as HTMLSpanElement;
+
+type SettingType = 'backend' | 'engine' | 'PreventClosing' | 'cloak' | 'ads';
+
+const settingMapping: Record<string, Record<string, string>> = {
+  ptype: {
+    uv: 'Ultraviolet (Default)',
+    sj: 'Scramjet',
+    default: 'Ultraviolet (Default)',
+  },
+  engine: {
+    'https://www.google.com/search?q=': 'Google',
+    'https://duckduckgo.com/?q=': 'DuckDuckGo (Default)',
+    default: 'DuckDuckGo (Default)',
+  },
+};
+
 function switchSection(event: MouseEvent) {
   const target = event.currentTarget as HTMLLIElement;
   const sectionId = target.getAttribute('data-section');
+  if (!sectionId) return;
 
-  menuItems.forEach((item) => item.classList.remove('bg-gray-700'));
-  sections.forEach((section) => section.classList.add('hidden'));
+  menuItems.forEach(item => item.classList.remove('bg-gray-700'));
+  sections.forEach(section => section.classList.add('hidden'));
 
   target.classList.add('bg-gray-700');
-  const activeSection = document.getElementById(sectionId!);
+
+  const activeSection = document.getElementById(sectionId);
   if (activeSection) activeSection.classList.remove('hidden');
 }
 
-menuItems.forEach((item) => item.addEventListener('click', switchSection));
+menuItems.forEach(item => item.addEventListener('click', switchSection));
 
 document.addEventListener('DOMContentLoaded', () => {
-  const dropdownButtons = document.querySelectorAll('[id$="button"]');
+  const dropdownButtons = document.querySelectorAll<HTMLElement>('[id$="button"]');
 
   dropdownButtons.forEach(async (button) => {
     const text = button.querySelector('span');
     const dropdownId = button.id.replace('button', '');
-    const dropdown = document.getElementById(dropdownId) as HTMLElement;
+    const dropdown = document.getElementById(dropdownId) as HTMLElement | null;
 
     if (!dropdown) {
       console.error(`[ERROR] Dropdown not found for button: ${button.id}`);
@@ -38,45 +56,32 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     let currentSetting = '';
-    const settingMapping: Record<string, Record<string, string>> = {
-      ptype: {
-        uv: 'Ultraviolet (Default)',
-        sj: 'Scramjet',
-      },
-      engine: {
-        'https://www.google.com/search?q=': 'Google',
-        'https://duckduckgo.com/?q=': 'DuckDuckGo (Default)',
-      },
-    };
-
     if (dropdown.id === 'ptype') {
-      currentSetting = await Settings.get('backend');
-      currentSetting =
-        settingMapping.ptype[currentSetting] || settingMapping.ptype.default;
+      const backend = await Settings.get('backend');
+      currentSetting = settingMapping.ptype[backend] ?? settingMapping.ptype.default;
     } else if (dropdown.id === 'engine') {
-      currentSetting = await Settings.get('engine');
-      currentSetting =
-        settingMapping.engine[currentSetting] || 'Unknown Engine';
+      const engine = await Settings.get('engine');
+      currentSetting = settingMapping.engine[engine] ?? settingMapping.engine.default;
     }
 
-    if (text && currentSetting) {
+    if (text) {
       text.textContent = currentSetting;
     }
-    button.addEventListener('click', (event) => {
+
+    button.addEventListener('click', (event: MouseEvent) => {
       event.stopPropagation();
-      document.querySelectorAll('.dropdown').forEach((el) => {
+      document.querySelectorAll<HTMLElement>('.dropdown').forEach(el => {
         if (el !== dropdown) el.classList.add('hidden');
       });
-
       dropdown.classList.toggle('hidden');
       console.log('[DEBUG] Dropdown toggled');
     });
-    const options = dropdown.querySelectorAll('button');
-    options.forEach((option) => {
-      option.addEventListener('click', async (event) => {
-        const selectedOption =
-          (event.currentTarget as HTMLElement)?.textContent || '';
-        console.log('[DEBUG] Selected option:', selectedOption);
+
+    const options = dropdown.querySelectorAll<HTMLButtonElement>('button');
+    options.forEach(option => {
+      option.addEventListener('click', async () => {
+        const selected = option.textContent ?? '';
+        console.log('[DEBUG] Selected option:', selected);
 
         if (dropdown.id === 'ptype') {
           await Settings.edit('backend', option.id);
@@ -84,21 +89,19 @@ document.addEventListener('DOMContentLoaded', () => {
           await Settings.edit('engine', option.id);
         }
 
-        text!.textContent = selectedOption;
+        if (text) text.textContent = selected;
         dropdown.classList.add('hidden');
       });
     });
   });
 
-  document.addEventListener('click', (event) => {
-    dropdownButtons.forEach((button) => {
+  document.addEventListener('click', (event: MouseEvent) => {
+    dropdownButtons.forEach(button => {
       const dropdownId = button.id.replace('button', '');
-      const dropdown = document.getElementById(dropdownId) as HTMLElement;
+      const dropdown = document.getElementById(dropdownId);
       if (dropdown && !dropdown.classList.contains('hidden')) {
-        const isClickInside =
-          button.contains(event.target as Node) ||
-          dropdown.contains(event.target as Node);
-        if (!isClickInside) {
+        const isInside = button.contains(event.target as Node) || dropdown.contains(event.target as Node);
+        if (!isInside) {
           dropdown.classList.add('hidden');
         }
       }
@@ -107,44 +110,36 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 Confirm.addEventListener('click', async () => {
-  let currentSetting = await Settings.get('PreventClosing');
-  await Settings.edit('PreventClosing', !currentSetting);
-  console.log('[DEBUG] toggled to', !currentSetting);
-  conStatus.textContent = `Currently: ${currentSetting ? 'Off' : 'On'}`;
+  const current = await Settings.get('PreventClosing');
+  await Settings.edit('PreventClosing', !current);
+  console.log('[DEBUG] toggled to', !current);
+  conStatus.textContent = `Currently: ${current ? 'Off' : 'On'}`;
   top?.location.reload();
 });
 
 Ab.addEventListener('click', async () => {
-  let currentSetting = await Settings.get('cloak');
-  await Settings.edit('cloak', !currentSetting);
-  console.log('[DEBUG] toggled to', !currentSetting);
-  abStatus.textContent = `Currently: ${currentSetting ? 'Off' : 'On'}`;
-  if (top) {
-    return;
-  } else {
-    location.reload();
-  }
+  const current = await Settings.get('cloak');
+  await Settings.edit('cloak', !current);
+  console.log('[DEBUG] toggled to', !current);
+  abStatus.textContent = `Currently: ${current ? 'Off' : 'On'}`;
+  if (!top) location.reload();
 });
 
 adconfirm.addEventListener('click', async () => {
-  let currentSetting = await Settings.get('ads');
-  await Settings.edit('ads', !currentSetting);
-  console.log('[DEBUG] toggled to', !currentSetting);
-  adStatus.textContent = `Currently: ${currentSetting ? 'Off' : 'On'}`;
-  if (top) {
-    return;
-  } else {
-    location.reload();
-  }
+  const current = await Settings.get('ads');
+  await Settings.edit('ads', !current);
+  console.log('[DEBUG] toggled to', !current);
+  adStatus.textContent = `Currently: ${current ? 'Off' : 'On'}`;
+  if (!top) location.reload();
 });
 
 document.addEventListener('DOMContentLoaded', async () => {
-  const currentAd = await Settings.get('ads');
-  const currentConfirm = await Settings.get('PreventClosing');
-  const currentAb = await Settings.get('cloak');
-  adStatus.textContent = `Currently: ${currentAd ? 'On' : 'Off'}`;
-  conStatus.textContent = `Currently: ${currentConfirm ? 'On' : 'Off'}`;
-  abStatus.textContent = `Currently:  ${currentAb ? 'Off' : 'On'}`;
+  const ad = await Settings.get('ads');
+  const confirm = await Settings.get('PreventClosing');
+  const cloak = await Settings.get('cloak');
+  adStatus.textContent = `Currently: ${ad ? 'On' : 'Off'}`;
+  conStatus.textContent = `Currently: ${confirm ? 'On' : 'Off'}`;
+  abStatus.textContent = `Currently: ${cloak ? 'Off' : 'On'}`;
 });
 
 openCloak.addEventListener('click', () => {

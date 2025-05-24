@@ -9,13 +9,15 @@ import { execSync } from 'child_process';
 import chalk from 'chalk';
 import { createServer } from 'node:http';
 import { Socket } from 'node:net';
-import { server as wisp } from '@mercuryworkshop/wisp-js/server';
+import { server as wisp, logging } from '@mercuryworkshop/wisp-js/server';
 import path from 'node:path';
 import { version } from './package.json';
 import config from './config';
 
 const port: number = config.port;
 const host: string = '0.0.0.0';
+
+logging.set_level(logging.ERROR);
 
 function getCommitDate(): string {
   try {
@@ -50,7 +52,6 @@ const app = Fastify({
       wisp.routeRequest(req, socket, head);
     }),
 });
-
 await app.register(fastifyCompress, { encodings: ['deflate', 'gzip', 'br'] });
 await app.register(fastifyCaching, {
   privacy: 'private',
