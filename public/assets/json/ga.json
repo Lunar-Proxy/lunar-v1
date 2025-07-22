@@ -1,11 +1,5 @@
 [
   {
-    "name": "Minecraft 1.20",
-    "image": "/assets/images/icons/mc.webp",
-    "link": "https://client.eaglercraft.win/eagler-files/modded/1.8/EaglyMC/index.html",
-    "error": false
-  },
-  {
     "name": "Wordle",
     "image": "/assets/images/icons/word.webp",
     "link": "https://www.nytimes.com/games/wordle/index.html",
