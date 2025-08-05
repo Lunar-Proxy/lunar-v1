@@ -21,11 +21,11 @@
   {
     "name": "VS Code",
     "image": "/assets/images/icons/vs.webp",
-    "link": "https://code.visualstudio.com/",
+    "link": "https://vscode.dev/",
     "error": false
   },
   {
-    "name": "Youtube",
+    "name": "YouTube",
     "image": "/assets/images/icons/yt.webp",
     "link": "https://youtube.com",
     "error": false
