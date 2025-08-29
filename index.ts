@@ -11,6 +11,7 @@ import { createServer } from 'node:http';
 import { Socket } from 'node:net';
 import { server as wisp, logging } from '@mercuryworkshop/wisp-js/server';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { version } from './package.json';
 import config from './config';
 
@@ -57,7 +58,6 @@ await app.register(fastifyCaching, {
   privacy: 'private',
   expiresIn: 60 * 1000, // 60s
 });
-
 
 if (config.auth.protect) {
   console.log(chalk.magenta.bold('🔒 Password Protection Enabled.'));
@@ -125,7 +125,9 @@ app.setErrorHandler((error, _request, reply) => {
 </html>
       `);
   } else {
-    reply.send(error);
+    reply.status(error.statusCode ?? 500).send({
+      message: error.message,
+    });
   }
 });
 
@@ -138,28 +140,30 @@ const staticOptions = {
   lastModified: true,
   redirect: false,
   setHeaders(res: any, filePath: string) {
-  if (filePath.endsWith('.html') || filePath.endsWith('.astro')) {
-    res.setHeader('Cache-Control', 'public, max-age=604800'); // 7 day
-  } else if (/\.(js|css|jpg|jpeg|png|gif|ico|svg|webp|avif)$/.test(filePath)) {
-    res.setHeader('Cache-Control', 'public, max-age=31536000, immutable'); // 1 year
-  } else if (/\.(json|xml|txt)$/.test(filePath)) {
-    res.setHeader('Cache-Control', 'public, max-age=604800'); // 7 days
-  } else {
-    res.setHeader('Cache-Control', 'public, max-age=604800'); // 7 day
-  }
+    if (filePath.endsWith('.html') || filePath.endsWith('.astro')) {
+      res.setHeader('Cache-Control', 'public, max-age=604800'); // 7 day
+    } else if (/\.(js|css|jpg|jpeg|png|gif|ico|svg|webp|avif)$/.test(filePath)) {
+      res.setHeader('Cache-Control', 'public, max-age=31536000, immutable'); // 1 year
+    } else if (/\.(json|xml|txt)$/.test(filePath)) {
+      res.setHeader('Cache-Control', 'public, max-age=604800'); // 7 days
+    } else {
+      res.setHeader('Cache-Control', 'public, max-age=604800'); // 7 day
+    }
 
-  res.setHeader('X-Content-Type-Options', 'nosniff');
-  res.setHeader('X-Frame-Options', 'SAMEORIGIN');
-  res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
-  res.setHeader('X-XSS-Protection', '1; mode=block');
-}
-
+    res.setHeader('X-Content-Type-Options', 'nosniff');
+    res.setHeader('X-Frame-Options', 'SAMEORIGIN');
+    res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
+    res.setHeader('X-XSS-Protection', '1; mode=block');
+  },
+};
 
 // @ts-ignore dir may not exist
 const { handler } = await import('./dist/server/entry.mjs');
 
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
 app.register(fastifyStatic, {
-  root: path.join(import.meta.dirname, 'dist', 'client'),
+  root: path.join(__dirname, 'dist', 'client'),
   ...staticOptions,
 });
 
