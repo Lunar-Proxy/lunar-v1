@@ -55,7 +55,7 @@ export default defineConfig({
             overwrite: false,
           },
         ],
-      }),
+      }) as any,
       {
         name: 'viteserver',
         configureServer(server) {
