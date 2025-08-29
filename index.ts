@@ -133,19 +133,26 @@ await build();
 
 const commitDate = getCommitDate();
 const staticOptions = {
-  maxAge: 86400, // 1d
+  maxAge: 31536000000,
   etag: true,
   lastModified: true,
-  setHeaders: (res: any, filePath: string) => {
-    if (filePath.endsWith('.html')) {
-      res.setHeader('Cache-Control', 'public, max-age=3600');
-    } else if (/\.(js|css|jpg|jpeg|png|gif|ico|svg|webp|avif)$/.test(filePath)) {
-      res.setHeader('Cache-Control', 'public, max-age=31536000, immutable'); // 1 year
-    } else {
-      res.setHeader('Cache-Control', 'public, max-age=3600'); //1 hour
-    }
-  },
-};
+  redirect: false,
+  setHeaders(res: any, filePath: string) {
+  if (filePath.endsWith('.html') || filePath.endsWith('.astro')) {
+    res.setHeader('Cache-Control', 'public, max-age=604800'); // 7 day
+  } else if (/\.(js|css|jpg|jpeg|png|gif|ico|svg|webp|avif)$/.test(filePath)) {
+    res.setHeader('Cache-Control', 'public, max-age=31536000, immutable'); // 1 year
+  } else if (/\.(json|xml|txt)$/.test(filePath)) {
+    res.setHeader('Cache-Control', 'public, max-age=604800'); // 7 days
+  } else {
+    res.setHeader('Cache-Control', 'public, max-age=604800'); // 7 day
+  }
+
+  res.setHeader('X-Content-Type-Options', 'nosniff');
+  res.setHeader('X-Frame-Options', 'SAMEORIGIN');
+  res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
+  res.setHeader('X-XSS-Protection', '1; mode=block');
+}
 
 
 // @ts-ignore dir may not exist
