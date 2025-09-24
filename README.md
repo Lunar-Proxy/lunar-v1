@@ -24,12 +24,12 @@ Lunar is designed to bypass censorship and provide the best user-experience.
     </a>
 </div>
 
-## Deployment via Terminal
+### Deployment via Terminal
 
 > [!NOTE]
 > Before deploying, install [git](https://git-scm.com/downloads) and [node.js](https://nodejs.org/en/download/prebuilt-installer). Then, install pnpm with `npm install -g pnpm`.
 
-### Production
+#### Production
 
 1. Clone the Lunar repository:
 
@@ -43,7 +43,7 @@ Lunar is designed to bypass censorship and provide the best user-experience.
    pnpm i && pnpm start
    ```
 
-### Development
+#### Development
 
 If you’re making changes to Lunar, use the development setup to avoid rebuilding repeatedly:
 
@@ -51,15 +51,15 @@ If you’re making changes to Lunar, use the development setup to avoid rebuildi
 pnpm install && pnpm dev
 ```
 
-# Contributing
+## Contributing
 
 If you would like to make a change to Lunar, please read [the contributing guide](CONTRIBUTING.md) before committing.
 
-# Support
+## Support
 
 If you need help, please make a [GitHub Issue](https://github.com/Lunar-Proxy/lunar-v1/issues) or ask in [our Discord](https://discord.gg/fuPtWjYuf8).
 
-# Credits
+## Credits
 
 Thanks to everybody who has contributed to Lunar! ❤️
 
