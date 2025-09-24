@@ -1,19 +1,19 @@
-# Lunar
+![Lunar](./lunar.svg)
+# Lunar is one of the fastest web-proxies.
+Lunar is designed to bypass censorship and provide the best user-experience.
 
 [![Join our Discord](https://skillicons.dev/icons?i=discord)](https://discord.gg/fuPtWjYuf8) [![View on GitHub](https://skillicons.dev/icons?i=github)](https://github.com/Lunar-proxy/Lunar-v1)
-
-## What is Lunar?
-
-Lunar is a web proxy designed to bypass censorship and provide an exceptional user experience.
 
 ## Features
 
 - 🚀 **High-Speed Performance**
 - 🪞 **Advanced Tab Cloaking**
-- 🎮 **Alot of games & apps**
-- ℹ️ **URL Paths (lunar://home, lunar://games, ect.)**
+- 🎮 **Tons of Popular Games & Apps**
 
 ## Deployment Options
+
+> [!NOTE]
+> Lunar cannot be deployed to Netlify, Vercel, GitHub Pages, or any other static hosting platform.
 
 <div>
     <a href="https://render.com/deploy?repo=https://github.com/lunar-proxy/lunar-v1">
@@ -24,13 +24,10 @@ Lunar is a web proxy designed to bypass censorship and provide an exceptional us
     </a>
 </div>
 
-> [!NOTE]
-> Lunar cannot be deployed to Netlify, Vercel, GitHub Pages, or any static hosting platform.
-
 ## Deployment via Terminal
 
 > [!NOTE]
-> Before deploying, install [git](https://git-scm.com/downloads), [node.js](https://nodejs.org/en/download/prebuilt-installer) and pnpm by running in terminal `npm install -g pnpm` (Before installing pnpm install nodejs).
+> Before deploying, install [git](https://git-scm.com/downloads) and [node.js](https://nodejs.org/en/download/prebuilt-installer). Then, install pnpm with `npm install -g pnpm`.
 
 ### Production
 
@@ -56,15 +53,15 @@ pnpm install && pnpm dev
 
 # Contributing
 
-If you are doing a change to Lunar, please read [this guide](CONTRIBUTING.md) before commiting.
+If you would like to make a change to Lunar, please read [the contributing guide](CONTRIBUTING.md) before committing.
 
 # Support
 
-For help, make a [GitHub Issue](https://github.com/Lunar-Proxy/lunar-v1/issues) or ask in [our Discord](https://discord.gg/fuPtWjYuf8).
+If you need help, please make a [GitHub Issue](https://github.com/Lunar-Proxy/lunar-v1/issues) or ask in [our Discord](https://discord.gg/fuPtWjYuf8).
 
 # Credits
 
-Thanks to everyone below who contribuated to Lunar ❤️
+Thanks to everybody who has contributed to Lunar! ❤️
 
 <a href="https://github.com/lunar-proxy/lunar-v1/graphs/contributors">
 <img src="https://contrib.rocks/image?repo=lunar-proxy/lunar-v1"/>
