@@ -1,3 +1,6 @@
+# NOTICE
+Lunar v1 is being deprecated by Lunar v2, please switch [here](https://github.com/Lunar-Proxy/lunar-v2)
+
 ![Lunar](./lunar.svg)
 # Lunar is one of the fastest web-proxies.
 Lunar is designed to bypass censorship and provide the best user-experience.
