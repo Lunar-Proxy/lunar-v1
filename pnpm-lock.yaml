@@ -66,8 +66,8 @@ importers:
         specifier: ^0.14.1
         version: 0.14.1
       tailwindcss:
-        specifier: ^4.1.4
-        version: 4.1.4
+        specifier: ^4.1.18
+        version: 4.1.18
       tsx:
         specifier: ^4.19.4
         version: 4.19.4
@@ -2015,6 +2015,7 @@ packages:
 
   lucide-astro@0.511.0:
     resolution: {integrity: sha512-Apf3qFMiHmZM/9qVmQ7Tm6svhCvOtyLxnZ9ES3JIcfsPhgkrLTAytTAfYIg81m1sr4vPBg2i9F3DCUN5Hz68VQ==}
+    deprecated: 'Deprecated: Use `@lucide/astro`'
     peerDependencies:
       astro: '>=2.7.1'
 
@@ -2678,6 +2679,9 @@ packages:
     resolution: {integrity: sha512-OoohrmuUlBs8B8o6MB2Aevn+pRIH9zDALSR+6hhqVfa6fRwG/Qw9VUMSMW9VNg2CFc/MTIfabtdOVl9ODIJjpw==}
     engines: {node: '>=14.0.0'}
     hasBin: true
+
+  tailwindcss@4.1.18:
+    resolution: {integrity: sha512-4+Z+0yiYyEtUVCScyfHCxOYP06L5Ne+JiHhY2IjR2KWMIWhJOYZKLSGZaP5HkZ8+bY0cxfzwDE5uOmzFXyIwxw==}
 
   tailwindcss@4.1.4:
     resolution: {integrity: sha512-1ZIUqtPITFbv/DxRmDr5/agPqJwF69d24m9qmM1939TJehgY539CtzeZRjbLt5G6fSy/7YqqYsfvoTEw9xUI2A==}
@@ -6036,6 +6040,8 @@ snapshots:
       css-what: 6.1.0
       csso: 5.0.5
       picocolors: 1.1.1
+
+  tailwindcss@4.1.18: {}
 
   tailwindcss@4.1.4: {}
 
